@@ -1,0 +1,260 @@
+# Vectors and Vector Operations
+
+### Transposition
+
+Transposition is an operation in which we replace the *i*th element of a column vector as the *i*th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. Notationally, we use a superscripted prime or a superscripted [intercalate symbol](https://unicode-table.com/en/22BA/#:~:text=%E2%8A%BA%20%2D%20Intercalate%3A%20U%2B22BA%20intcal%20%2D%20Unicode%20Character%20Table) (looks like a "T") to denote a vector's transpose. For example,
+
+$$
+\mathbf{a}^{\prime} = \mathbf{a}^{\intercal} = \begin{bmatrix}
+5 & 4 & 7 & 2
+\end{bmatrix}
+$$
+
+
+
+The general form of a column vector with *n* elements is:
+
+$$
+\mathbf{x} = \begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n
+\end{bmatrix}
+$$
+
+In statistical or psychometric appplications, this is typically how we think of and structure data collected on a particular attribute for many cases. For example, **x** might represent test scores for $n=100$ students. This vector would contain 100 elements, each corresponding to a student's test score. In this case, $x_1$ would be the test score for the first student recorded in the vector, $x_2$ would be the test score for the second student recorded in the vector, etc.  
+
+<br />
+
+
+## Vector Equality
+
+Vectors may be equal to other vectors if they satisfy three conditions:
+
+1. Same number of elements;
+2. Corresponding elements from each vector must be equal; and
+3. Both vectors must be row-vectors or both must be column-vectors
+
+<br />
+
+
+### Exercises
+
+Indicate whether the vectors are equal or not equal.
+
+7. $\begin{bmatrix} 5 \\ 6 \end{bmatrix} \overset{?}{=} \begin{bmatrix} 6 \\ 5 \end{bmatrix}$
+
+8. $\begin{bmatrix} 9 \\ 0 \\ 1 \end{bmatrix} \overset{?}{=} \begin{bmatrix} 9 \\ 0 \\ 1 \end{bmatrix}$
+
+9. $\begin{bmatrix} 55 \\ 66 \\ 48 \end{bmatrix} \overset{?}{=} \begin{bmatrix} 55 & 66 & 48 \end{bmatrix}$
+
+
+<br />
+
+
+## Vector Operations
+
+Some arithmetic operations (addition, subtraction, and multiplication) can be performed with vectors. However, how these operations are carried out depends on whether one is working with all vectors or with a vector and a scalar. We will illustrate some of the common vector operations in this section.
+
+<br />
+
+
+### Vector Addition and Subtraction
+
+Vectors can be added together if they:
+
+1.	Have the same number of elements; and
+2.	Are both row vectors or both column vectors.
+
+To add two column vectors (or two row vectors) together, each of length *n*, we sum the corresponding elements in the vectors. For example, consider the column vectors **a** and **b**, where,
+
+$$
+\mathbf{a} = \begin{bmatrix}5 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 3\end{bmatrix}
+$$
+
+We can compute the sum of these vectors as:
+
+$$
+\begin{split}
+\mathbf{a} + \mathbf{b}  &= \begin{bmatrix}5 \\ 2\end{bmatrix} + \begin{bmatrix}1 \\ 3\end{bmatrix} \\[1ex]
+&= \begin{bmatrix}5 + 1 \\ 2 + 3\end{bmatrix} \\[1ex]
+&= \begin{bmatrix}6 \\ 5\end{bmatrix}
+\end{split}
+$$
+
+In general, 
+
+$$
+\begin{split}
+\mathbf{a} + \mathbf{b}  &= \begin{bmatrix}a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n\end{bmatrix} + \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[1ex]
+&= \begin{bmatrix}a_1 + b_1 \\ a_2 + b_2 \\ a_3 + b_3 \\ \vdots \\ a_n + b_n\end{bmatrix}
+\end{split}
+$$
+
+In vector addition, since each corresponding element is added, vector addition satisfies both the commutative and associative properties. That is,
+
+$$
+\mathbf{a} + \mathbf{b} = \mathbf{b} + \mathbf{a}
+$$
+and
+
+$$
+\begin{split}
+\mathbf{a} + (\mathbf{b} + \mathbf{c}) &= (\mathbf{a} + \mathbf{b}) + \mathbf{c} \\[1ex]
+&= \mathbf{a} + \mathbf{b} + \mathbf{c}
+\end{split}
+$$
+
+Convince yourself these two properties are satisfied using the following vectors.
+
+$$
+\mathbf{a} = \begin{bmatrix}5 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 3\end{bmatrix} \qquad \mathbf{c} = \begin{bmatrix}2 \\ 0\end{bmatrix}
+$$
+
+These same conditions and properties also apply for vector subtraction. For example,
+
+$$
+\begin{split}
+\mathbf{a} - \mathbf{b}  &= \begin{bmatrix}5 \\ 2\end{bmatrix} - \begin{bmatrix}1 \\ 3\end{bmatrix} \\[1ex]
+&= \begin{bmatrix}5 - 1 \\ 2 - 3\end{bmatrix} \\[1ex]
+&= \begin{bmatrix}4 \\ -1\end{bmatrix}
+\end{split}
+$$
+
+<br />
+
+
+### Multiplication of Vectors by a Scalar
+
+When a vector is multiplied by a scalar, each element of the vector is multiplied by the value of the scalar. Consider the following vector **a** and scalar $\lambda$,
+
+$$
+\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \qquad \lambda=3
+$$
+
+Multiplying  **a** by $\lambda$ gives:
+
+$$
+\begin{split}
+\lambda\mathbf{a} &= 3\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[1ex]
+&= \begin{bmatrix}3 \times 2 \\ 3 \times 3 \\ 3 \times 0 \\ 3 \times -1\end{bmatrix} \\[1ex]
+&= \begin{bmatrix}6 \\ 9 \\ 0 \\ -3\end{bmatrix}
+\end{split}
+$$
+
+This same method applies to row vectors. Scalars may be fractions, negative numbers, or unknowns. For example, if the scalar $\gamma$ is an unknown scalar, then
+
+$$
+\gamma\mathbf{a} = \begin{bmatrix}2\gamma \\ 3\gamma \\ 0 \\ -1\gamma\end{bmatrix}
+$$
+
+<br />
+
+
+### Division by a Scalar
+
+Technically, division is undefined for vectors. However, if we are dividing by a scalar, we can multiply the vector by the scalar's reciprocal. For example, using our previously defined vector **a** and scalar $\lambda$,
+
+$$
+\mathbf{a} \div \lambda \quad \mathrm{does~not~exist}
+$$
+
+But, we can multiply by the reprical of $\lambda$, namely $\dfrac{1}{3}$.
+
+$$
+\begin{split}
+\lambda\mathbf{a} &= \frac{1}{3}\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[1ex]
+&= \begin{bmatrix} \frac{2}{3} \\ 1 \\ 0 \\ -\frac{1}{3}\end{bmatrix}
+\end{split}
+$$
+
+### Exercises
+
+Students' scores on a midterm and final ranged from 32 to 98 out of a possible 100 points on both exams. The scores for six students are shown below for the midterm (**x**) and final (**y**).
+
+$$
+\mathbf{x} = \begin{bmatrix}56 \\ 64 \\ 32 \\ 88 \\ 90 \\ 79\end{bmatrix} \qquad \mathbf{y} = \begin{bmatrix}50 \\ 69 \\ 51 \\ 98 \\ 87 \\ 70\end{bmatrix}
+$$
+
+
+10. Determine the total score for each student by finding $\mathbf{z} = \mathbf{x} + \mathbf{y}$.
+
+11. Determine the mean score for each student by finding $\frac{1}{2} \mathbf{z}$.
+
+12. If the students took three exams, and the scores for the same six students were presented in vector **w**, how would you write the algebraic expression (using vector notation) to obtain the students' mean scores ?  
+
+13. If the mean score on the final was 60, write the algebraic expression (using vector notation) to find the six students' mean deviation scores.
+
+14. Carry out the calculation and report the students' mean deviation scores in a vector.
+
+<br />
+
+
+### Multiplication of Vectors
+
+There are two types of vector multiplication, the *inner product* and the *outer product*. The inner product yields a scalar value while the outer product yields a rectangular array of values.
+
+To find the inner product (i.e., scalar product, dot product), we multiply corresponding elements of each vector and add the products together. Consider the vectors,
+
+
+$$
+\mathbf{a} = \begin{bmatrix}5 \\ 4 \\ 7 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix}
+$$
+
+The inner product, or $\mathbf{a} \bullet \mathbf{b}$, is:
+
+$$
+\begin{split}
+\mathbf{a} \bullet \mathbf{b} &= 5(1) + 4(0) + 7(-1) + 2(2) \\[1ex]
+&= 2
+\end{split}
+$$
+
+Technically, the inner product is the product of a row vector and column vector. In our example this is:
+
+$$
+\begin{split}
+\mathbf{a} \bullet \mathbf{b} &= \mathbf{a}^{\prime}\mathbf{b} \\[1ex]
+&= \begin{bmatrix}5 & 4 & 7 & 2\end{bmatrix} \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix}
+\end{split}
+$$
+
+In general, the inner product of two vectors, **a** and **b**, each having *n* elements is:
+
+$$
+\begin{split}
+\mathbf{a} \bullet \mathbf{b} &= \mathbf{a}^{\prime}\mathbf{b} \\[1ex]
+&= \begin{bmatrix}a_1 & a_2 & a_3 & \dots & a_n\end{bmatrix} \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[1ex]
+&= a_1(b_1) + a_2(b_2) + a_3(b_3) + \ldots + a_n(b_n) \\[1ex]
+&= \sum_{i=1}^n a_ib_i
+\end{split}
+$$
+
+Some caveats:
+
+- The inner product $\mathbf{a}\bullet\mathbf{b}$ is always the product of $\mathbf{a}^{\prime}\mathbf{b}$. (The row vector is always first in the product;  $\mathbf{a}\mathbf{b}^{\prime} \neq \mathbf{a}^{\prime}\mathbf{b}$.)
+- It is not possible to find the inner product of more than two vectors. 
+
+<br />
+
+
+### Exercises
+
+Consider the following vectors:
+
+$$
+\mathbf{a} = \begin{bmatrix}1 \\ 2 \\ 4 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}2 \\ 1 \\ -1\end{bmatrix} \qquad \mathbf{c} = \begin{bmatrix}5 \\ 2 \\ 3 \end{bmatrix} \qquad \mathbf{d} = \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \qquad \mathbf{e} = \begin{bmatrix}1 \\ 3 \\ 2 \end{bmatrix}
+$$
+
+15. Find $\mathbf{a}\bullet\mathbf{b}$.
+
+16. Find $\mathbf{c}\bullet\mathbf{c}$.
+
+17. Find $\mathbf{d}^{\prime}\mathbf{e}$ and $\mathbf{e}^{\prime}\mathbf{d}$
+
+<br />
+
+
+## Special Vectors
+
+
+
+

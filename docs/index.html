@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Matrix Algebra for Educational Scientists" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="Matrix algebra content for QME students" />
+<meta name="github-repo" content="zief0002/matrix-algebra" />
+
+<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
+
+<meta name="date" content="2021-03-30" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="Matrix algebra content for QME students">
+
+<title>Matrix Algebra for Educational Scientists</title>
+
+<script src="libs/header-attrs/header-attrs.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation/tabsets.js"></script>
+
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+
+
+
+<link rel="stylesheet" href="style/style.css" type="text/css" />
+<link rel="stylesheet" href="style/table-styles.css" type="text/css" />
+<link rel="stylesheet" href="style/syntax.css" type="text/css" />
+<link rel="stylesheet" href="style/navbar.css" type="text/css" />
+<link rel="stylesheet" href="style/notes.css" type="text/css" />
+<link rel="stylesheet" href="style/buttons.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#foreword">Foreword</a></li>
+<li><a href="introduction.html#introduction">Introduction</a></li>
+<li><a href="data-structures.html#data-structures">Data Structures</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="header">
+<h1 class="title">Matrix Algebra for Educational Scientists</h1>
+<h4 class="author"><em>Michael Rodriguez &amp; Andrew Zieffler</em></h4>
+<h4 class="date"><em>2021-03-30</em></h4>
+</div>
+<div id="foreword" class="section level1">
+<h1>Foreword</h1>
+<p>Spring 2021.</p>
+<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPsy 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
+<p><br /></p>
+<p>Andrew Zieffler &amp; Michael Rodriguez</p>
+<p><a href="mailto:zief0002@umn.edu" class="email">zief0002@umn.edu</a></p>
+<p><br /> <br /></p>
+<div id="colophon" class="section level2">
+<h2>Colophon</h2>
+<p>Artwork by <a href="https://twitter.com/allison_horst">@allison_horst</a></p>
+<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
+<p>The book is typeset using <a href="https://fonts.google.com/specimen/EB+Gara">EB Garamond</a> for the body font, <a href="https://fonts.google.com/specimen/Raleway">Raleway</a> for the headings and <a href="https://fonts.google.com/specimen/Sue+Ellen+Francisco">Sue Ellen Francisco</a> for the title. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
+<p><br /><br /></p>
+</div>
+<div id="acknowledgments" class="section level2">
+<h2>Acknowledgments</h2>
+<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copyeditors.</p>
+<p><br /><br /></p>
+
+</div>
+</div>
+<p style="text-align: center;">
+<a href="introduction.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

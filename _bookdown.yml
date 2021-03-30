@@ -1,0 +1,15 @@
+book_filename: "matrix-algebra"
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
+rmd_files: [
+    "index.Rmd",
+    #"foreword.Rmd",
+    "01-introduction.Rmd",
+    "02-data-structures.Rmd",
+    "99-references.Rmd"
+    #"acknowledgments.Rmd",
+    ]
+clean: [packages.bib, bookdown.bbl]
+output_dir: "docs"
