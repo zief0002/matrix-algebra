@@ -1,0 +1,12 @@
+foreword
+colophon
+acknowledgments
+introduction
+prerequisites
+data-structures
+scalars
+vectors
+matrices
+tensors
+a-word-about-notation
+exercises

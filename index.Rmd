@@ -18,6 +18,8 @@ description: "Matrix algebra content for QME students"
 library(knitr)
 library(kableExtra)
 library(patchwork)
+library(tidyr)
+library(tidyverse)
 
 
 opts_knit$set(

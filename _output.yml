@@ -10,5 +10,4 @@ bookdown::html_book:
           'style/notes.css', 'style/buttons.css']
     includes:
       in_header: matrix-algebra-extras.html
-
     

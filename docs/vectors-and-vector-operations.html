@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Vectors and Vector Operations | Matrix Algebra for Educational Scientists" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="Matrix algebra content for QME students" />
+<meta name="github-repo" content="zief0002/matrix-algebra" />
+
+<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
+
+<meta name="date" content="2021-04-06" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="Matrix algebra content for QME students">
+
+<title>Vectors and Vector Operations | Matrix Algebra for Educational Scientists</title>
+
+<script src="libs/header-attrs/header-attrs.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation/tabsets.js"></script>
+
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+
+
+
+<link rel="stylesheet" href="style/style.css" type="text/css" />
+<link rel="stylesheet" href="style/table-styles.css" type="text/css" />
+<link rel="stylesheet" href="style/syntax.css" type="text/css" />
+<link rel="stylesheet" href="style/navbar.css" type="text/css" />
+<link rel="stylesheet" href="style/notes.css" type="text/css" />
+<link rel="stylesheet" href="style/buttons.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#foreword">Foreword</a></li>
+<li><a href="introduction.html#introduction">Introduction</a></li>
+<li><a href="data-structures.html#data-structures">Data Structures</a></li>
+<li><a href="vectors-and-vector-operations.html#vectors-and-vector-operations">Vectors and Vector Operations</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="vectors-and-vector-operations" class="section level1">
+<h1>Vectors and Vector Operations</h1>
+<p>In this chapter you will learn how to operate on vectors. You will also be introduced to some of the vocabulary that we use to describe vector operations.</p>
+<p><br /></p>
+<div id="vectors-1" class="section level2">
+<h2>Vectors</h2>
+<p>Recall that a <em>vector</em> is a specifically ordered one-dimensional array of values written as a row or column, and that vectors are typically described in terms of the number of elements they have. Here, for example, <strong>a</strong> is a two-element column vector:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+5 \\ 4 \\ 7 \\ 2
+\end{bmatrix}
+\]</span></p>
+<p>In statistical or psychometric applications, vectors are how we typically represent and structure data collected on a particular attribute. For example, <strong>a</strong> might represent test scores for <span class="math inline">\(n=4\)</span> students. Each element in this vector would correspond to a student’s test score. In this case, <span class="math inline">\(a_1=5\)</span> would be the test score for the first student recorded in the vector, <span class="math inline">\(a_2=4\)</span> would be the test score for the second student recorded in the vector, etc.</p>
+<p><br /></p>
+<div id="transposition" class="section level3">
+<h3>Transposition</h3>
+<p>One important vector operation is <em>transposition</em>. Transposition is an operation in which we replace the <em>i</em>th element of a column vector as the <em>i</em>th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. Notationally, we use a superscripted prime or a superscripted <a href="https://unicode-table.com/en/22BA/#:~:text=%E2%8A%BA%20%2D%20Intercalate%3A%20U%2B22BA%20intcal%20%2D%20Unicode%20Character%20Table">intercalate symbol</a> (looks like a “T”) to denote a vector’s transpose. For example, transposing vector <strong>a</strong>, whcih we defined earlier:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+5 \\ 4 \\ 7 \\ 2
+\end{bmatrix} \qquad \mathbf{a}^{\prime} = \mathbf{a}^{\intercal} = \begin{bmatrix}
+5 &amp; 4 &amp; 7 &amp; 2
+\end{bmatrix}
+\]</span></p>
+<div class="fyi">
+<p>Throughout the remainder of the book, row vectors will be denoted using a transpose. So, for example, <strong>a</strong> will indicate a column vector, and <span class="math inline">\(\mathbf{a}^{\intercal}\)</span> will indicate a row vector.</p>
+</div>
+<p><br /></p>
+</div>
+</div>
+<div id="general-form-of-a-vector" class="section level2">
+<h2>General Form of a Vector</h2>
+<p>Now that we have introduced transposition, we can formalize the general notation for both column and row vectors. The general form of a column vector with <em>n</em> elements is:</p>
+<p><span class="math display">\[
+\mathbf{x} = \begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n
+\end{bmatrix}
+\]</span></p>
+<p>While, the general form of a row vector with <em>n</em> elements is:</p>
+<p><span class="math display">\[
+\mathbf{x}^{\intercal} = \begin{bmatrix}
+x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
+\end{bmatrix}
+\]</span></p>
+<p>Vectors can also be thought of as a special case of a matrix in one of the dimensions is equal to 1. For example <strong>x</strong> could be considered a <span class="math inline">\(n \times 1\)</span> matrix, and <span class="math inline">\(\mathbf{x}^{\intercal}\)</span> could be considered a <span class="math inline">\(1 \times n\)</span> matrix.</p>
+<p><br /></p>
+</div>
+<div id="vector-equality" class="section level2">
+<h2>Vector Equality</h2>
+<p>Two vectors are said to be equal if they satisfy two conditions:</p>
+<ol style="list-style-type: decimal">
+<li>Both vectors have the same dimensions (i.e., they have the same number of elements and both are row or column vectors);</li>
+<li>Corresponding elements from each vector must be equal.</li>
+</ol>
+<p>Consider the following vectors:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+5 \\ 4 \\ 7 \\ 2
+\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}
+5 \\ 4 \\ 2 \\ 7
+\end{bmatrix} \qquad \mathbf{c}^{\intercal} = \begin{bmatrix}
+5 &amp; 4 &amp; 7 &amp; 2
+\end{bmatrix}
+\]</span></p>
+<p>Within this set of vectors,</p>
+<ul>
+<li><span class="math inline">\(\mathbf{a} \neq \matbf{b}\)</span>, since not all of the corresponding elements are equal.</li>
+<li><span class="math inline">\(\mathbf{a} \neq \mathbf{c}^{\intercal}\)</span>, since <strong>a</strong>’s dimensions are <span class="math inline">\(4 \times 1\)</span> (column vector) and <span class="math inline">\(\mathbf{c}^{\intercal}\)</span>’s dimenstions are <span class="math inline">\(1 \times 4\)</span> (row vector).</li>
+<li><span class="math inline">\(\mathbf{a} = \mathbf{c}\)</span> since both vectors <strong>a</strong> and <strong>c</strong> have the same dimensions (<span class="math inline">\(4 \times 1\)</span>) and all corresponding elements are equal.</li>
+</ul>
+<p><br /></p>
+</div>
+<div id="vector-operations" class="section level2">
+<h2>Vector Operations</h2>
+<p>Some arithmetic operations (addition, subtraction, and multiplication) can be performed with vectors. However, how these operations are carried out depends on whether the arithmetic operations are being performed on two vectors or between a vector and a scalar. We will illustrate some of the common vector operations in this section.</p>
+<p><br /></p>
+<div id="vector-addition-and-subtraction" class="section level3">
+<h3>Vector Addition and Subtraction</h3>
+<p>Vectors can be added together if they:</p>
+<ol style="list-style-type: decimal">
+<li>Have the same dimensions (i.e., they have the same number of elements and are both row or column vectors).</li>
+</ol>
+<p>To add two vectors, each of length <em>n</em>, together, we sum the corresponding elements in the vectors. For example, consider the column vectors <strong>a</strong> and <strong>b</strong>, where,</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}5 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 3\end{bmatrix}
+\]</span></p>
+<p>Since both vectors have dimensions <span class="math inline">\(2 \times 1\)</span>, we can compute the sum of these vectors as:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} + \mathbf{b}  &amp;= \begin{bmatrix}5 \\ 2\end{bmatrix} + \begin{bmatrix}1 \\ 3\end{bmatrix} \\[1ex]
+&amp;= \begin{bmatrix}5 + 1 \\ 2 + 3\end{bmatrix} \\[1ex]
+&amp;= \begin{bmatrix}6 \\ 5\end{bmatrix}
+\end{split}
+\]</span></p>
+<p>Note that the resulting vector has the same dimensions as the vectors we summed together, namely <span class="math inline">\(2 \times 1\)</span>.</p>
+<p>In general,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} + \mathbf{b}  &amp;= \begin{bmatrix}a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n\end{bmatrix} + \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[1ex]
+&amp;= \begin{bmatrix}a_1 + b_1 \\ a_2 + b_2 \\ a_3 + b_3 \\ \vdots \\ a_n + b_n\end{bmatrix}
+\end{split}
+\]</span></p>
+<p>In vector addition, since each corresponding element is added, vector addition satisfies both the commutative and associative properties. That is,</p>
+<p><span class="math display">\[
+\mathbf{a} + \mathbf{b} = \mathbf{b} + \mathbf{a}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} + (\mathbf{b} + \mathbf{c}) &amp;= (\mathbf{a} + \mathbf{b}) + \mathbf{c} \\[1ex]
+&amp;= \mathbf{a} + \mathbf{b} + \mathbf{c}
+\end{split}
+\]</span></p>
+<p>Convince yourself these two properties are satisfied using the following vectors.</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}5 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 3\end{bmatrix} \qquad \mathbf{c} = \begin{bmatrix}2 \\ 0\end{bmatrix}
+\]</span></p>
+<p>These same conditions and properties also apply for vector subtraction. For example,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} - \mathbf{b}  &amp;= \begin{bmatrix}5 \\ 2\end{bmatrix} - \begin{bmatrix}1 \\ 3\end{bmatrix} \\[1ex]
+&amp;= \begin{bmatrix}5 - 1 \\ 2 - 3\end{bmatrix} \\[1ex]
+&amp;= \begin{bmatrix}4 \\ -1\end{bmatrix}
+\end{split}
+\]</span></p>
+<p><br /></p>
+</div>
+<div id="multiplication-of-vectors-by-a-scalar" class="section level3">
+<h3>Multiplication of Vectors by a Scalar</h3>
+<p>When a vector is multiplied by a scalar, each element of the vector is multiplied by the value of the scalar. Consider the following vector <strong>a</strong> and scalar <span class="math inline">\(\lambda\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \qquad \lambda=3
+\]</span></p>
+<p>Multiplying <strong>a</strong> by <span class="math inline">\(\lambda\)</span> gives:</p>
+<p><span class="math display">\[
+\begin{split}
+\lambda\mathbf{a} &amp;= 3\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[1ex]
+&amp;= \begin{bmatrix}3 \times 2 \\ 3 \times 3 \\ 3 \times 0 \\ 3 \times -1\end{bmatrix} \\[1ex]
+&amp;= \begin{bmatrix}6 \\ 9 \\ 0 \\ -3\end{bmatrix}
+\end{split}
+\]</span></p>
+<p>This same method applies to row vectors. Scalars may be fractions, negative numbers, or unknowns. For example, if the scalar <span class="math inline">\(\gamma\)</span> is an unknown scalar, then</p>
+<p><span class="math display">\[
+\gamma\mathbf{a} = \begin{bmatrix}2\gamma \\ 3\gamma \\ 0 \\ -1\gamma\end{bmatrix}
+\]</span></p>
+<p><br /></p>
+</div>
+<div id="division-by-a-scalar" class="section level3">
+<h3>Division by a Scalar</h3>
+<p>Technically, division is undefined for vectors. However, if we are dividing by a scalar, we can multiply the vector by the scalar’s reciprocal. For example, using our previously defined vector <strong>a</strong> and scalar <span class="math inline">\(\lambda\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{a} \div \lambda \quad \mathrm{does~not~exist}
+\]</span></p>
+<p>But, we can multiply by the reciprocal of <span class="math inline">\(\lambda\)</span>, namely <span class="math inline">\(\dfrac{1}{\lambda}\)</span>. For example, using the values from our previous example:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \quad &amp;\mathrm{and} \quad \lambda = 3 \\[1ex]
+\frac{1}{\lambda}\mathbf{a} &amp;= \frac{1}{3}\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[1ex]
+&amp;= \begin{bmatrix} \frac{2}{3} \\ 1 \\ 0 \\ -\frac{1}{3}\end{bmatrix}
+\end{split}
+\]</span></p>
+<p><br /></p>
+</div>
+<div id="multiplication-of-vectors-inner-product" class="section level3">
+<h3>Multiplication of Vectors: Inner Product</h3>
+<p>There are two types of vector multiplication, the <em>inner product</em> and the <em>outer product</em>. The inner product yields a scalar value while the outer product yields a rectangular array of values. In this section we will introduce the inner product, and the outer product will be introduced in the section on matrix multiplication.</p>
+<p>For two column vectors, <strong>a</strong> and <strong>b</strong> each having <em>n</em> elements, the inner product (i.e., scalar product, dot product) is defined as:</p>
+<p><span class="math display">\[
+\mathbf{a} \bullet \mathbf{b} = \sum_{i=1}^n a_ib_i
+\]</span></p>
+<p>In other words, the inner product is calculated by multiplying together the corresponding elements of each vector, and summing those products. Consider the vectors,</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}5 \\ 4 \\ 7 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix}
+\]</span></p>
+<p>The inner product, or <span class="math inline">\(\mathbf{a} \bullet \mathbf{b}\)</span>, is calculated as:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} \bullet \mathbf{b} &amp;= 5(1) + 4(0) + 7(-1) + 2(2) \\[1ex]
+&amp;= 2
+\end{split}
+\]</span>
+Remember that the inner product is a scalar.</p>
+<!-- Technically, the inner product is the product of a row vector and column vector. In our example this is: -->
+<!-- $$ -->
+<!-- \mathbf{a} \bullet \mathbf{b} = \mathbf{a}^{\prime}\mathbf{b} -->
+<!-- $$ -->
+<!-- The product of a row vector and a column vector is defined as: -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \mathbf{a}^{\prime}\mathbf{b} &= \begin{bmatrix}a_1 & a_2 & a_3 & \dots & a_n\end{bmatrix} \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[2ex] -->
+<!-- &= a_1(b_1) + a_2(b_2) + a_3(b_3) + \ldots + a_n(b_n) \\[2ex] -->
+<!-- &= \sum_{i=1}^n a_ib_i -->
+<!-- \end{split} -->
+<!-- $$ -->
+<!-- For example, consider our previous example: -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \mathbf{a} \bullet \mathbf{b} &= \mathbf{a}^{\prime}\mathbf{b} \\[1ex] -->
+<!-- &= \begin{bmatrix}5 & 4 & 7 & 2\end{bmatrix} \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix} \\[1ex] -->
+<!-- &= 5(1) + 4(0) + 7(-1) + 2(2) \\[1ex] -->
+<!-- &= 2 -->
+<!-- \end{split} -->
+<!-- $$ -->
+<!-- Some caveats: -->
+<!-- - The inner product $\mathbf{a}\bullet\mathbf{b}$ is always the product of $\mathbf{a}^{\prime}\mathbf{b}$. (The row vector is always first in the product;  $\mathbf{a}\mathbf{b}^{\prime} \neq \mathbf{a}^{\prime}\mathbf{b}$.) -->
+<!-- - It is not possible to find the inner product of more than two vectors.  -->
+<p><br /></p>
+</div>
+</div>
+<div id="special-vectors" class="section level2">
+<h2>Special Vectors</h2>
+<p>There are several vectors that are special in that they have unique properties.</p>
+<p><br /></p>
+<div id="null-vector" class="section level3">
+<h3>Null Vector</h3>
+<p>One special vector is the <em>null vector</em>. A null vector is a vector in which every elements is 0. For example, the following vector <strong>0</strong> is a null vector:</p>
+<p><span class="math display">\[
+\mathbf{0} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
+\]</span></p>
+<p>Consider finding the inner product between a vector <strong>a</strong> and a null vector <strong>0</strong>:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} \bullet \mathbf{0} &amp;= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}\\[1ex]
+&amp;= 2(0) + 1(0) + -1(0) \\[1ex]
+&amp;= 0
+\end{split}
+\]</span></p>
+<p>The inner product is 0. In general, the inner product between an <em>n</em>-element column vector, <strong>a</strong>, and an <em>n</em>-element column null vector, <strong>0</strong>, is:</p>
+<p><span class="math display">\[
+\mathbf{a} \bullet \mathbf{0} = 0
+\]</span></p>
+<p><br /></p>
+</div>
+<div id="ones-vector" class="section level3">
+<h3>Ones Vector</h3>
+<p>Another special vector is referred to as a <em>ones vector</em>. A ones vector is a vector in which every elements is 1. For example, the following vector <strong>1</strong> is a ones vector:</p>
+<p><span class="math display">\[
+\mathbf{1} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+\]</span></p>
+<p>Consider finding the inner product between the following two vectors:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} \bullet \mathbf{1} &amp;= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\\[1ex]
+&amp;= 2(1) + 1(1) + -1(1) \\[1ex]
+&amp;= 2
+\end{split}
+\]</span></p>
+<p>Notice that the inner product here is simply the sum of the elements in the non-ones vector, namely <span class="math inline">\(2 + 1 + -1\)</span>. In general, the inner product between an <em>n</em>-element column vector, <strong>a</strong>, and an <em>n</em>-element column ones vector, <strong>1</strong>, is:</p>
+<p><span class="math display">\[
+\mathbf{a} \bullet \mathbf{1} = \sum_{i=1}^n a_i
+\]</span></p>
+<p>Because of this property, ones vectors are also sometimes referred to as <em>sum vectors</em>.</p>
+<p><br /></p>
+</div>
+<div id="unit-vector" class="section level3">
+<h3>Unit Vector</h3>
+<p>Consider the <em>n</em>-element column vector <strong>u</strong>:</p>
+<p><span class="math display">\[
+\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \\ u_3 \\ \vdots \\ u_n \end{bmatrix}
+\]</span></p>
+<p><strong>u</strong> is a unit vector if <span class="math inline">\(\sqrt{u_1^2 + u_2^2 + u_3^2 + \ldots + u_n^2}=1\)</span>. For example, each of the following vectors are unit vectors:</p>
+<p><span class="math display">\[
+\mathbf{u}_1 = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix} \qquad \mathbf{u}_2 = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0 \end{bmatrix} \qquad \mathbf{u}_3 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
+\]</span></p>
+<p><br /></p>
+</div>
+<div id="elementary-vectors" class="section level3">
+<h3>Elementary Vectors</h3>
+<p>An <em>elementary vector</em> is a vector that has one element that us equal to one and the remainder of its elements equal to 0. For example, each of the 3-element column vectors below are elementary vectors.</p>
+<p><span class="math display">\[
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} \qquad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix} \qquad \mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+\]</span></p>
+<p>For an <em>n</em>-dimensional vector there are always <em>n</em> elementary vectors.</p>
+<p>Consider finding the inner product between the following two vectors:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} \bullet \mathbf{e}_1 &amp;= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}\\[1ex]
+&amp;= 2(1) + 1(0) + -1(0) \\[1ex]
+&amp;= 2
+\end{split}
+\]</span></p>
+<p>Notice that the inner product here is simply the same as the first element in <strong>a</strong>. In general, the inner product between an <em>n</em>-element column vector, <strong>a</strong>, and an <em>n</em>-element elementary vector, <span class="math inline">\(\mathbf{e}_i\)</span> with element <span class="math inline">\(i=1\)</span>, is:</p>
+<p><span class="math display">\[
+\mathbf{a} \bullet \mathbf{e}_i = a_i
+\]</span></p>
+<p><br /></p>
+</div>
+<div id="exercises-1" class="section level3 exercises">
+<h3>Exercises</h3>
+<p>Indicate whether the vectors are equal or not equal.</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\begin{bmatrix} 5 \\ 6 \end{bmatrix} \overset{?}{=} \begin{bmatrix} 6 \\ 5 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_01&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_01" style="display:none; margin: -40px 0 40px 40px;">
+Not equal
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li><span class="math inline">\(\begin{bmatrix} 55 \\ 66 \\ 48 \end{bmatrix} \overset{?}{=} \begin{bmatrix} 55 &amp; 66 &amp; 48 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_02&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_02" style="display:none; margin: -40px 0 40px 40px;">
+Not equal
+</div>
+<p>Assume <strong>a</strong> and <strong>b</strong> are equal. Find the values for <span class="math inline">\(a_1\)</span>, <span class="math inline">\(a_3\)</span>, and <span class="math inline">\(b_2\)</span>.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbf{a} = \begin{bmatrix} a_1 \\ 0 \\ a_3 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix} 9 \\ b_2 \\ 1 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_03&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
+<span class="math inline">\(a_1=9\)</span>, <span class="math inline">\(a_3=1\)</span>, and <span class="math inline">\(b_2=0\)</span>
+</div>
+<p>Students’ scores on two exams ranged from 32 to 98 out of a possible 100 points on both exams. The scores for six students are shown below for Exam 1 (<strong>x</strong>) and Exam 2 (<strong>y</strong>).</p>
+<p><span class="math display">\[
+\mathbf{x} = \begin{bmatrix}56 \\ 64 \\ 32 \\ 88 \\ 90 \\ 79\end{bmatrix} \qquad \mathbf{y} = \begin{bmatrix}50 \\ 69 \\ 51 \\ 98 \\ 87 \\ 70\end{bmatrix}
+\]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Determine the total score for each student by finding <span class="math inline">\(\mathbf{z} = \mathbf{x} + \mathbf{y}\)</span>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_04&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
+<span class="math inline">\(\mathbf{z} = \begin{bmatrix}56 + 50 \\ 64 + 69 \\ 32 + 51 \\ 88 + 98 \\ 90 + 87 \\ 79 + 70\end{bmatrix} = \begin{bmatrix}106 \\ 133 \\ 83 \\ 186 \\ 177 \\ 149\end{bmatrix}\)</span>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>Determine the mean score for each student by finding <span class="math inline">\(\frac{1}{2} \mathbf{z}\)</span>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_05&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
+<span class="math inline">\(\frac{1}{2}\mathbf{z} = \frac{1}{2}\begin{bmatrix}106 \\ 133 \\ 83 \\ 186 \\ 177 \\ 149\end{bmatrix}= \begin{bmatrix}53.0 \\ 66.5 \\ 41.5 \\ 93.0 \\ 88.5 \\ 74.5\end{bmatrix}\)</span>
+</div>
+<ol start="6" style="list-style-type: decimal">
+<li>If the students took a third exam, and the scores for the same six students were presented in vector <strong>w</strong>, how would you write the algebraic expression (using vector notation) to obtain the students’ mean scores ?</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_06&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
+<span class="math inline">\(\frac{1}{3}(\mathbf{x} + \mathbf{y} + \mathbf{w})\)</span>
+</div>
+<ol start="7" style="list-style-type: decimal">
+<li>If the mean score on Exam 3 was 60, write the algebraic expression (using vector notation) to find the six students’ mean deviation scores on Exam 3.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_07&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
+<span class="math inline">\(\mathbf{w} - \begin{bmatrix}60 \\ 60 \\ 60 \\ 60 \\ 60 \\ 60\end{bmatrix}\)</span>
+</div>
+<p>Consider the following vectors:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}1 \\ 2 \\ 4 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}2 \\ 1 \\ -1\end{bmatrix} \qquad \mathbf{c} = \begin{bmatrix}5 \\ 2 \\ 3 \end{bmatrix} \qquad \mathbf{d} = \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \qquad \mathbf{e} = \begin{bmatrix}1 \\ 3 \\ 2 \end{bmatrix}
+\]</span></p>
+<ol start="8" style="list-style-type: decimal">
+<li>Find <span class="math inline">\(\mathbf{a}\bullet\mathbf{b}\)</span>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_08&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_08" style="display:none; margin: -40px 0 40px 40px;">
+<span class="math inline">\(1(2) + 2(1) + 4(-1) = 0\)</span>
+</div>
+<ol start="9" style="list-style-type: decimal">
+<li>Find <span class="math inline">\(\mathbf{c}\bullet\mathbf{c}\)</span>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_09&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_09" style="display:none; margin: -40px 0 40px 40px;">
+<span class="math inline">\(5(5) + 2(2) + 3(3) = 38\)</span>
+</div>
+<!-- 10. Find $\mathbf{d}^{\intercal}\mathbf{e}$ and $\mathbf{e}^{\prime}\mathbf{d}$ -->
+<!-- <button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_10');">Show/Hide Solution</button> -->
+<!-- <div id="solution_10" style="display:none; margin: -40px 0 40px 40px;">$5(5) + 2(2) + 3(3) = 38$</div> -->
+</div>
+<p><br /></p>
+
+</div>
+</div>
+<p style="text-align: center;">
+<a href="data-structures.html"><button class="btn btn-default">Previous</button></a>
+<a href="references.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

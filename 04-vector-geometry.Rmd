@@ -1,0 +1,26 @@
+# Vector Geometry
+
+```{r create_graph_paper, echo=FALSE, fig.width = 6, fig.height=8}
+x = data.frame(x = -15:15) 
+y = data.frame(y = -20:20)
+fake_graph = tidyr::crossing(x, y)
+
+graph_paper = ggplot(data = fake_graph, aes(x = x, y = y)) +
+  geom_point(alpha = 0) +
+  theme_light() +
+  scale_x_continuous(breaks = -15:15, expand = c(0, 0)) +
+  scale_y_continuous(breaks = -20:20, expand = c(0, 0)) +
+  geom_segment(
+    x = 0, xend = 0, y = 20, yend = -20, size = 1.5, arrow = arrow(length = unit(0.02, "npc"), end = "both", type = "closed")
+    ) +
+  geom_segment(
+    x = -15, xend = 15, y = 0, yend = 0, size = 1.5, arrow = arrow(length = unit(0.02, "npc"), end = "both", type = "closed")
+    ) +
+  theme(
+    panel.grid = element_line(color = "#60CDE4"),
+    panel.grid.minor = element_blank()
+  )
+```
+
+
+We describe our methods in this chapter.
