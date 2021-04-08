@@ -1,9 +1,4 @@
----
-output:
-  word_document: default
-  html_document: default
----
-# Data Structures {#data-structures}
+# Data Structures {#datastructures}
 
 In this chapter you will be introduced to four common data structures that form the building blocks of matrix algebra: scalars, vectors, matrices, and tensors. You will also be introduced to some of the vocabulary that we use to describe these structures. In future chapters, we will examine these structures in more detail and learn how to mathematically manipulate and operate on these structures.  
 

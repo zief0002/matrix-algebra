@@ -1,4 +1,4 @@
-# Introduction
+# Introduction {#intro}
 
 Having a basic understanding of the vocabulary, notation, and ideas of matrix algebra, is important for all educational scientists who use quantitative methods in their work. The statistical and psychometric models underlying many quantitative methodologies employed in educational research rely on matrix algebra. Subsequently, educational scientists use the language and notation of matrix algebra to communicate in the scientific literature. Moreover, matrix algebra forms the bedrock of statistical computation. Having fundamental knowledge of matrix algebra can often help an educational scientist troubleshoot problems that arise in their own work, and devise solutions for those issues. 
 

@@ -7,3 +7,7 @@ fig:fig06
 fig:fig07
 fig:fig08
 fig:fig09
+fig:fig04-01
+fig:fig04-02
+fig:fig04-03
+fig:fig04-04

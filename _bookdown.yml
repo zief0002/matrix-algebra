@@ -9,7 +9,7 @@ rmd_files: [
     "01-introduction.Rmd",
     "02-data-structures.Rmd",
     "03-vectors.Rmd",
-    #"04-vector-geometry.Rmd",
+    "04-vector-operations.Rmd",
     "99-references.Rmd"
     #"acknowledgments.Rmd",
     ]

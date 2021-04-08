@@ -1,4 +1,4 @@
-# Vectors
+# Vectors {#vec}
 
 In this chapter you will learn more about the vector data structure. You will be introduced to some of the vocabulary that we use to describe vectors. You will also be introduced to the geometry of vectors. It is important to recognize that although the illustration of vector geometry is restricted to 2-dimensional space, all of these ideas can be extended to *n*-dimensions.
 
@@ -153,8 +153,6 @@ The length of a vector (also referred to as the vector's *magnitude* or *norm*) 
 triangle_data = data.frame(x = c(0, 2, 2), y = c(0, 0, 3))
 
 graph_paper +
-  #geom_segment(x = 0, xend = 2, y = 0, yend = 0, color = "#FF2D21", linetype = "dashed") +
-  #geom_segment(x = 0, xend = 0, y = 0, yend = 3, color = "#FF2D21", linetype = "dashed") +
   geom_polygon(data = triangle_data, aes(x = x, y = y), fill = "#FF2D21", alpha = 0.2) +
   geom_segment(x = 0, xend = 2, y = 0, yend = 3, color = "#FF2D21",
     arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
@@ -192,11 +190,6 @@ $$
 \lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2 + a_3^2 + \ldots + a_n^2}
 $$
 
-<!-- Since the sum under the square root is equivalent to  computing the inner product of **a** with itself, the length of an *n*-dimensional vector **a**  can be found by computing the square root of the inner product between **a** and itself: -->
-
-<!-- $$ -->
-<!-- \lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{\mathbf{a} \bullet \mathbf{a}} -->
-<!-- $$ -->
 
 <br />
 
