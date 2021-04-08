@@ -1,0 +1,257 @@
+# Vector Operations
+
+Some arithmetic operations (addition, subtraction, and multiplication) can be performed with vectors. However, how these operations are carried out depends on whether the arithmetic operations are being performed on two vectors or between a vector and a scalar. We will illustrate some of the common vector operations in this section.
+
+<br />
+
+
+### Vector Addition and Subtraction
+
+Vectors can be added together if they:
+
+1.	Have the same dimensions (i.e., they have the same number of elements and are both row or column vectors).
+
+To add two vectors, each of length *n*, together, we sum the corresponding elements in the vectors. For example, consider the column vectors **a** and **b**, where,
+
+$$
+\mathbf{a} = \begin{bmatrix}5 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 3\end{bmatrix}
+$$
+
+Since both vectors have dimensions $2 \times 1$, we can compute the sum of these vectors as:
+
+$$
+\begin{split}
+\mathbf{a} + \mathbf{b}  &= \begin{bmatrix}5 \\ 2\end{bmatrix} + \begin{bmatrix}1 \\ 3\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}5 + 1 \\ 2 + 3\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}6 \\ 5\end{bmatrix}
+\end{split}
+$$
+
+Note that the resulting vector has the same dimensions as the vectors we summed together, namely $2 \times 1$.
+
+In general, 
+
+$$
+\begin{split}
+\mathbf{a} + \mathbf{b}  &= \begin{bmatrix}a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n\end{bmatrix} + \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}a_1 + b_1 \\ a_2 + b_2 \\ a_3 + b_3 \\ \vdots \\ a_n + b_n\end{bmatrix}
+\end{split}
+$$
+
+In vector addition, since each corresponding element is added, vector addition satisfies both the commutative and associative properties. That is,
+
+$$
+\mathbf{a} + \mathbf{b} = \mathbf{b} + \mathbf{a}
+$$
+
+and
+
+$$
+\begin{split}
+\mathbf{a} + (\mathbf{b} + \mathbf{c}) &= (\mathbf{a} + \mathbf{b}) + \mathbf{c} \\[2ex]
+&= \mathbf{a} + \mathbf{b} + \mathbf{c}
+\end{split}
+$$
+
+Convince yourself these two properties are satisfied using the following vectors.
+
+$$
+\mathbf{a} = \begin{bmatrix}5 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 3\end{bmatrix} \qquad \mathbf{c} = \begin{bmatrix}2 \\ 0\end{bmatrix}
+$$
+
+These same conditions and properties also apply for vector subtraction. For example,
+
+$$
+\begin{split}
+\mathbf{a} - \mathbf{b}  &= \begin{bmatrix}5 \\ 2\end{bmatrix} - \begin{bmatrix}1 \\ 3\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}5 - 1 \\ 2 - 3\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}4 \\ -1\end{bmatrix}
+\end{split}
+$$
+
+<br />
+
+
+### Multiplication of Vectors by a Scalar
+
+When a vector is multiplied by a scalar, each element of the vector is multiplied by the value of the scalar. Consider the following vector **a** and scalar $\lambda$,
+
+$$
+\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \qquad \lambda=3
+$$
+
+Multiplying  **a** by $\lambda$ gives:
+
+$$
+\begin{split}
+\lambda\mathbf{a} &= 3\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}3 \times 2 \\ 3 \times 3 \\ 3 \times 0 \\ 3 \times -1\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}6 \\ 9 \\ 0 \\ -3\end{bmatrix}
+\end{split}
+$$
+
+This same method applies to row vectors. Scalars may be fractions, negative numbers, or unknowns. For example, if the scalar $\gamma$ is an unknown scalar, then
+
+$$
+\gamma\mathbf{a} = \begin{bmatrix}2\gamma \\ 3\gamma \\ 0 \\ -1\gamma\end{bmatrix}
+$$
+
+<br />
+
+
+### Division by a Scalar
+
+Technically, division is undefined for vectors. However, if we are dividing by a scalar, we can multiply the vector by the scalar's reciprocal. For example, using our previously defined vector **a** and scalar $\lambda$,
+
+$$
+\mathbf{a} \div \lambda \quad \mathrm{does~not~exist}
+$$
+
+But, we can multiply by the reciprocal of $\lambda$, namely $\dfrac{1}{\lambda}$. For example, using the values from our previous example:
+
+$$
+\begin{split}
+\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \quad &\mathrm{and} \quad \lambda = 3 \\[2ex]
+\frac{1}{\lambda}\mathbf{a} &= \frac{1}{3}\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[2ex]
+&= \begin{bmatrix} \frac{2}{3} \\ 1 \\ 0 \\ -\frac{1}{3}\end{bmatrix}
+\end{split}
+$$
+
+
+
+<br />
+
+
+### Multiplication of Vectors: Inner Product
+
+There are two types of vector multiplication, the *inner product* and the *outer product*. The inner product yields a scalar value while the outer product yields a rectangular array of values. In this section we will introduce the inner product, and the outer product will be introduced in the section on matrix multiplication. 
+
+For two column vectors, **a** and **b** each having *n* elements, the inner product (i.e., scalar product, dot product) is defined as:
+
+$$
+\mathbf{a} \bullet \mathbf{b} = \sum_{i=1}^n a_ib_i
+$$
+
+
+In other words, the inner product is calculated by multiplying together the corresponding elements of each vector, and summing those products. Consider the vectors,
+
+
+$$
+\mathbf{a} = \begin{bmatrix}5 \\ 4 \\ 7 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix}
+$$
+
+The inner product, or $\mathbf{a} \bullet \mathbf{b}$, is calculated as:
+
+$$
+\begin{split}
+\mathbf{a} \bullet \mathbf{b} &= 5(1) + 4(0) + 7(-1) + 2(2) \\[2ex]
+&= 2
+\end{split}
+$$
+Remember that the inner product is a scalar. 
+
+<br />
+
+### Re-Visiting the Special Vectors
+
+
+
+
+Consider finding the inner product between a vector **a** and a null vector **0**:
+
+$$
+\begin{split}
+\mathbf{a} \bullet \mathbf{0} &= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}\\[2ex]
+&= 2(0) + 1(0) + -1(0) \\[2ex]
+&= 0
+\end{split}
+$$
+
+The inner product is 0. In general, the inner product between an *n*-element column vector, **a**, and an *n*-element column null vector, **0**, is:
+
+$$
+\mathbf{a} \bullet \mathbf{0} = 0
+$$
+
+#### Ones Vector
+
+Consider finding the inner product between the following two vectors:
+
+$$
+\begin{split}
+\mathbf{a} \bullet \mathbf{1} &= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\\[2ex]
+&= 2(1) + 1(1) + -1(1) \\[2ex]
+&= 2
+\end{split}
+$$
+
+Notice that the inner product here is simply the sum of the elements in the non-ones vector, namely $2 + 1 + -1$. In general, the inner product between an *n*-element column vector, **a**, and an *n*-element column ones vector, **1**, is:
+
+$$
+\mathbf{a} \bullet \mathbf{1} = \sum_{i=1}^n a_i
+$$
+
+Because of this property, ones vectors are also sometimes referred to as *sum vectors*.
+
+<br />
+
+
+#### Elementary Vectors
+
+Consider finding the inner product between the following two vectors:
+
+$$
+\begin{split}
+\mathbf{a} \bullet \mathbf{e}_1 &= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}\\[2ex]
+&= 2(1) + 1(0) + -1(0) \\[2ex]
+&= 2
+\end{split}
+$$
+
+Notice that the inner product here is simply the same as the first element in **a**. In general, the inner product between an *n*-element column vector, **a**, and an *n*-element elementary vector, $\mathbf{e}_i$ with element $i=1$, is:
+
+$$
+\mathbf{a} \bullet \mathbf{e}_i = a_i
+$$
+
+
+<!-- Technically, the inner product is the product of a row vector and column vector. In our example this is: -->
+
+<!-- $$ -->
+<!-- \mathbf{a} \bullet \mathbf{b} = \mathbf{a}^{\prime}\mathbf{b} -->
+<!-- $$ -->
+
+<!-- The product of a row vector and a column vector is defined as: -->
+
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \mathbf{a}^{\prime}\mathbf{b} &= \begin{bmatrix}a_1 & a_2 & a_3 & \dots & a_n\end{bmatrix} \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[2ex] -->
+<!-- &= a_1(b_1) + a_2(b_2) + a_3(b_3) + \ldots + a_n(b_n) \\[2ex] -->
+<!-- &= \sum_{i=1}^n a_ib_i -->
+<!-- \end{split} -->
+<!-- $$ -->
+
+
+
+<!-- For example, consider our previous example: -->
+
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \mathbf{a} \bullet \mathbf{b} &= \mathbf{a}^{\prime}\mathbf{b} \\[2ex] -->
+<!-- &= \begin{bmatrix}5 & 4 & 7 & 2\end{bmatrix} \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix} \\[2ex] -->
+<!-- &= 5(1) + 4(0) + 7(-1) + 2(2) \\[2ex] -->
+<!-- &= 2 -->
+<!-- \end{split} -->
+<!-- $$ -->
+
+
+
+<!-- Some caveats: -->
+
+<!-- - The inner product $\mathbf{a}\bullet\mathbf{b}$ is always the product of $\mathbf{a}^{\prime}\mathbf{b}$. (The row vector is always first in the product;  $\mathbf{a}\mathbf{b}^{\prime} \neq \mathbf{a}^{\prime}\mathbf{b}$.) -->
+<!-- - It is not possible to find the inner product of more than two vectors.  -->
+
+<br />
+
+
+

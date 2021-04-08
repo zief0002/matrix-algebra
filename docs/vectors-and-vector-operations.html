@@ -14,7 +14,7 @@
 
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
-<meta name="date" content="2021-04-06" />
+<meta name="date" content="2021-04-08" />
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -58,6 +58,75 @@ MathJax.Hub.Config({
 </script>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <link rel="stylesheet" href="style/style.css" type="text/css" />
@@ -97,6 +166,7 @@ img {
 <li><a href="introduction.html#introduction">Introduction</a></li>
 <li><a href="data-structures.html#data-structures">Data Structures</a></li>
 <li><a href="vectors-and-vector-operations.html#vectors-and-vector-operations">Vectors and Vector Operations</a></li>
+<li><a href="the-geometry-of-vectors.html#the-geometry-of-vectors">The Geometry of Vectors</a></li>
 <li><a href="references.html#references">References</a></li>
 </ul>
 </div>
@@ -170,8 +240,8 @@ x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
 \]</span></p>
 <p>Within this set of vectors,</p>
 <ul>
-<li><span class="math inline">\(\mathbf{a} \neq \matbf{b}\)</span>, since not all of the corresponding elements are equal.</li>
-<li><span class="math inline">\(\mathbf{a} \neq \mathbf{c}^{\intercal}\)</span>, since <strong>a</strong>’s dimensions are <span class="math inline">\(4 \times 1\)</span> (column vector) and <span class="math inline">\(\mathbf{c}^{\intercal}\)</span>’s dimenstions are <span class="math inline">\(1 \times 4\)</span> (row vector).</li>
+<li><span class="math inline">\(\mathbf{a} \neq \mathbf{b}\)</span>, since not all of the corresponding elements are equal.</li>
+<li><span class="math inline">\(\mathbf{a} \neq \mathbf{c}^{\intercal}\)</span>, since <strong>a</strong>’s dimensions are <span class="math inline">\(4 \times 1\)</span> (column vector) and <span class="math inline">\(\mathbf{c}^{\intercal}\)</span>’s dimensions are <span class="math inline">\(1 \times 4\)</span> (row vector).</li>
 <li><span class="math inline">\(\mathbf{a} = \mathbf{c}\)</span> since both vectors <strong>a</strong> and <strong>c</strong> have the same dimensions (<span class="math inline">\(4 \times 1\)</span>) and all corresponding elements are equal.</li>
 </ul>
 <p><br /></p>
@@ -193,8 +263,8 @@ x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
 <p>Since both vectors have dimensions <span class="math inline">\(2 \times 1\)</span>, we can compute the sum of these vectors as:</p>
 <p><span class="math display">\[
 \begin{split}
-\mathbf{a} + \mathbf{b}  &amp;= \begin{bmatrix}5 \\ 2\end{bmatrix} + \begin{bmatrix}1 \\ 3\end{bmatrix} \\[1ex]
-&amp;= \begin{bmatrix}5 + 1 \\ 2 + 3\end{bmatrix} \\[1ex]
+\mathbf{a} + \mathbf{b}  &amp;= \begin{bmatrix}5 \\ 2\end{bmatrix} + \begin{bmatrix}1 \\ 3\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}5 + 1 \\ 2 + 3\end{bmatrix} \\[2ex]
 &amp;= \begin{bmatrix}6 \\ 5\end{bmatrix}
 \end{split}
 \]</span></p>
@@ -202,7 +272,7 @@ x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
 <p>In general,</p>
 <p><span class="math display">\[
 \begin{split}
-\mathbf{a} + \mathbf{b}  &amp;= \begin{bmatrix}a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n\end{bmatrix} + \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[1ex]
+\mathbf{a} + \mathbf{b}  &amp;= \begin{bmatrix}a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n\end{bmatrix} + \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[2ex]
 &amp;= \begin{bmatrix}a_1 + b_1 \\ a_2 + b_2 \\ a_3 + b_3 \\ \vdots \\ a_n + b_n\end{bmatrix}
 \end{split}
 \]</span></p>
@@ -213,7 +283,7 @@ x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
 <p>and</p>
 <p><span class="math display">\[
 \begin{split}
-\mathbf{a} + (\mathbf{b} + \mathbf{c}) &amp;= (\mathbf{a} + \mathbf{b}) + \mathbf{c} \\[1ex]
+\mathbf{a} + (\mathbf{b} + \mathbf{c}) &amp;= (\mathbf{a} + \mathbf{b}) + \mathbf{c} \\[2ex]
 &amp;= \mathbf{a} + \mathbf{b} + \mathbf{c}
 \end{split}
 \]</span></p>
@@ -224,8 +294,8 @@ x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
 <p>These same conditions and properties also apply for vector subtraction. For example,</p>
 <p><span class="math display">\[
 \begin{split}
-\mathbf{a} - \mathbf{b}  &amp;= \begin{bmatrix}5 \\ 2\end{bmatrix} - \begin{bmatrix}1 \\ 3\end{bmatrix} \\[1ex]
-&amp;= \begin{bmatrix}5 - 1 \\ 2 - 3\end{bmatrix} \\[1ex]
+\mathbf{a} - \mathbf{b}  &amp;= \begin{bmatrix}5 \\ 2\end{bmatrix} - \begin{bmatrix}1 \\ 3\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}5 - 1 \\ 2 - 3\end{bmatrix} \\[2ex]
 &amp;= \begin{bmatrix}4 \\ -1\end{bmatrix}
 \end{split}
 \]</span></p>
@@ -240,8 +310,8 @@ x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
 <p>Multiplying <strong>a</strong> by <span class="math inline">\(\lambda\)</span> gives:</p>
 <p><span class="math display">\[
 \begin{split}
-\lambda\mathbf{a} &amp;= 3\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[1ex]
-&amp;= \begin{bmatrix}3 \times 2 \\ 3 \times 3 \\ 3 \times 0 \\ 3 \times -1\end{bmatrix} \\[1ex]
+\lambda\mathbf{a} &amp;= 3\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}3 \times 2 \\ 3 \times 3 \\ 3 \times 0 \\ 3 \times -1\end{bmatrix} \\[2ex]
 &amp;= \begin{bmatrix}6 \\ 9 \\ 0 \\ -3\end{bmatrix}
 \end{split}
 \]</span></p>
@@ -260,8 +330,8 @@ x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
 <p>But, we can multiply by the reciprocal of <span class="math inline">\(\lambda\)</span>, namely <span class="math inline">\(\dfrac{1}{\lambda}\)</span>. For example, using the values from our previous example:</p>
 <p><span class="math display">\[
 \begin{split}
-\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \quad &amp;\mathrm{and} \quad \lambda = 3 \\[1ex]
-\frac{1}{\lambda}\mathbf{a} &amp;= \frac{1}{3}\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[1ex]
+\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \quad &amp;\mathrm{and} \quad \lambda = 3 \\[2ex]
+\frac{1}{\lambda}\mathbf{a} &amp;= \frac{1}{3}\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[2ex]
 &amp;= \begin{bmatrix} \frac{2}{3} \\ 1 \\ 0 \\ -\frac{1}{3}\end{bmatrix}
 \end{split}
 \]</span></p>
@@ -281,7 +351,7 @@ x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
 <p>The inner product, or <span class="math inline">\(\mathbf{a} \bullet \mathbf{b}\)</span>, is calculated as:</p>
 <p><span class="math display">\[
 \begin{split}
-\mathbf{a} \bullet \mathbf{b} &amp;= 5(1) + 4(0) + 7(-1) + 2(2) \\[1ex]
+\mathbf{a} \bullet \mathbf{b} &amp;= 5(1) + 4(0) + 7(-1) + 2(2) \\[2ex]
 &amp;= 2
 \end{split}
 \]</span>
@@ -301,9 +371,9 @@ Remember that the inner product is a scalar.</p>
 <!-- For example, consider our previous example: -->
 <!-- $$ -->
 <!-- \begin{split} -->
-<!-- \mathbf{a} \bullet \mathbf{b} &= \mathbf{a}^{\prime}\mathbf{b} \\[1ex] -->
-<!-- &= \begin{bmatrix}5 & 4 & 7 & 2\end{bmatrix} \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix} \\[1ex] -->
-<!-- &= 5(1) + 4(0) + 7(-1) + 2(2) \\[1ex] -->
+<!-- \mathbf{a} \bullet \mathbf{b} &= \mathbf{a}^{\prime}\mathbf{b} \\[2ex] -->
+<!-- &= \begin{bmatrix}5 & 4 & 7 & 2\end{bmatrix} \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix} \\[2ex] -->
+<!-- &= 5(1) + 4(0) + 7(-1) + 2(2) \\[2ex] -->
 <!-- &= 2 -->
 <!-- \end{split} -->
 <!-- $$ -->
@@ -326,8 +396,8 @@ Remember that the inner product is a scalar.</p>
 <p>Consider finding the inner product between a vector <strong>a</strong> and a null vector <strong>0</strong>:</p>
 <p><span class="math display">\[
 \begin{split}
-\mathbf{a} \bullet \mathbf{0} &amp;= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}\\[1ex]
-&amp;= 2(0) + 1(0) + -1(0) \\[1ex]
+\mathbf{a} \bullet \mathbf{0} &amp;= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}\\[2ex]
+&amp;= 2(0) + 1(0) + -1(0) \\[2ex]
 &amp;= 0
 \end{split}
 \]</span></p>
@@ -346,8 +416,8 @@ Remember that the inner product is a scalar.</p>
 <p>Consider finding the inner product between the following two vectors:</p>
 <p><span class="math display">\[
 \begin{split}
-\mathbf{a} \bullet \mathbf{1} &amp;= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\\[1ex]
-&amp;= 2(1) + 1(1) + -1(1) \\[1ex]
+\mathbf{a} \bullet \mathbf{1} &amp;= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\\[2ex]
+&amp;= 2(1) + 1(1) + -1(1) \\[2ex]
 &amp;= 2
 \end{split}
 \]</span></p>
@@ -376,12 +446,12 @@ Remember that the inner product is a scalar.</p>
 <p><span class="math display">\[
 \mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} \qquad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix} \qquad \mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
 \]</span></p>
-<p>For an <em>n</em>-dimensional vector there are always <em>n</em> elementary vectors.</p>
+<p>For an <em>n</em>-dimensional vector there are always <em>n</em> elementary vectors. Moreover, every elementary vector is also a unit vector.</p>
 <p>Consider finding the inner product between the following two vectors:</p>
 <p><span class="math display">\[
 \begin{split}
-\mathbf{a} \bullet \mathbf{e}_1 &amp;= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}\\[1ex]
-&amp;= 2(1) + 1(0) + -1(0) \\[1ex]
+\mathbf{a} \bullet \mathbf{e}_1 &amp;= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}\\[2ex]
+&amp;= 2(1) + 1(0) + -1(0) \\[2ex]
 &amp;= 2
 \end{split}
 \]</span></p>
@@ -494,7 +564,7 @@ Show/Hide Solution
 </div>
 <p style="text-align: center;">
 <a href="data-structures.html"><button class="btn btn-default">Previous</button></a>
-<a href="references.html"><button class="btn btn-default">Next</button></a>
+<a href="the-geometry-of-vectors.html"><button class="btn btn-default">Next</button></a>
 </p>
 </div>
 </div>

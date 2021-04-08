@@ -1,0 +1,649 @@
+# Vectors
+
+In this chapter you will learn more about the vector data structure. You will be introduced to some of the vocabulary that we use to describe vectors. You will also be introduced to the geometry of vectors. It is important to recognize that although the illustration of vector geometry is restricted to 2-dimensional space, all of these ideas can be extended to *n*-dimensions.
+
+```{r create_graph_paper, echo=FALSE}
+x = data.frame(x = -15:15) 
+y = data.frame(y = -15:15)
+fake_graph = tidyr::crossing(x, y)
+
+graph_paper = ggplot(data = fake_graph, aes(x = x, y = y)) +
+  geom_point(alpha = 0) +
+  theme_light() +
+  scale_x_continuous(name ="", breaks = -15:15, labels = NULL, expand = c(0, 0)) +
+  scale_y_continuous(name = "", breaks = -15:15, labels = NULL, expand = c(0, 0)) +
+  geom_segment(
+    x = 0, xend = 0, y = 15, yend = -15, arrow = arrow(length = unit(0.02, "npc"), end = "both", type = "closed")
+    ) +
+  geom_segment(
+    x = -15, xend = 15, y = 0, yend = 0, arrow = arrow(length = unit(0.02, "npc"), end = "both", type = "closed")
+    ) +
+  theme(
+    panel.grid = element_line(color = "#60CDE4"),
+    panel.grid.minor = element_blank()
+  )
+```
+
+<br />
+
+
+## What is a Vector?
+
+A *vector* is a specifically ordered one-dimensional array of values written as a row or column. Vectors are typically described by the number of elements they have. Here, for example, **a** is a four-element column vector:
+
+$$
+\mathbf{a} = \begin{bmatrix}
+5 \\ 4 \\ 7 \\ 2
+\end{bmatrix}
+$$
+
+We might also say that **a** is a column vector in 4-dimensions.
+
+In statistical or psychometric applications, vectors are how we typically represent and structure data collected on a particular attribute. For example, **a** might represent test scores for $n=4$ students. Each element in this vector would correspond to a student's test score. In this case, $a_1=5$ would be the test score for the first student recorded in the vector, $a_2=4$ would be the test score for the second student recorded in the vector, etc.  
+
+<br />
+
+
+### Transposition
+
+One important vector operation is *transposition*. Transposition is an operation in which we replace the *i*th element of a column vector as the *i*th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. Notationally, we use a superscripted prime or a superscripted [intercalate symbol](https://unicode-table.com/en/22BA/#:~:text=%E2%8A%BA%20%2D%20Intercalate%3A%20U%2B22BA%20intcal%20%2D%20Unicode%20Character%20Table) (looks like a "T") to denote a vector's transpose. For example, transposing vector **a**, whcih we defined earlier:
+
+$$
+\mathbf{a} = \begin{bmatrix}
+5 \\ 4 \\ 7 \\ 2
+\end{bmatrix} \qquad \mathbf{a}^{\prime} = \mathbf{a}^{\intercal} = \begin{bmatrix}
+5 & 4 & 7 & 2
+\end{bmatrix}
+$$
+
+:::fyi
+Throughout the remainder of the book, row vectors will be denoted using a transpose. So, for example, **a** will indicate a column vector, and $\mathbf{a}^{\intercal}$ will indicate a row vector.
+:::
+
+<br />
+
+
+## General Form of a Vector
+
+Now that we have introduced transposition, we can formalize the general notation for both column and row vectors. The general form of a column vector with *n* elements is:
+
+$$
+\mathbf{x} = \begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n
+\end{bmatrix}
+$$
+
+
+While, the general form of a row vector with *n* elements is:
+
+$$
+\mathbf{x}^{\intercal} = \begin{bmatrix}
+x_1 & x_2 & x_3 & \ldots & x_n
+\end{bmatrix}
+$$
+
+Vectors can also be thought of as a special case of a matrix in one of the dimensions is equal to 1. For example **x** could be considered a $n \times 1$ matrix, and $\mathbf{x}^{\intercal}$ could be considered a $1 \times n$ matrix.
+
+
+<br />
+
+
+## The Geometry of Vectors
+
+A vector can be represented geometrically by using a coordinate system where each element in the vector corresponds to a distance along one of the reference axes defining the coordinate system. Consider the column vector **a**:
+
+$$
+\mathbf{a} = \begin{bmatrix}
+2 \\ 3
+\end{bmatrix}
+$$
+
+This vector has a distance of 2 on the first reference axis (R1) and a distance of 3 on the second reference axis (R2). 
+
+```{r fig01, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap="Plot showing vector **a** (in red) in the R1--R2 dimensional space."}
+graph_paper +
+  geom_segment(x = 0, xend = 2, y = 0, yend = 3, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  annotate("text", x = 13.5, y = -0.5, label = "R1", size = 4) +
+  annotate("text", x = 0.65, y = 13.5, label = "R2", size = 4) +
+  annotate("text", x = 2.25, y = 3.25, label = "(2, 3)", size = 4, hjust = 0, vjust = 0, color = "#FF2D21")
+```
+
+In Figure \@ref(fig:fig01) the reference coordinate system (R1--R2) define a two-dimensional space. Vector **a** had two elements and thus resides in a two-dimensional space. In general, an *n*-dimensional vector resides in an *n*-dimensional space. 
+
+The reference axes always intersect at the origin of the space (i.e., the reference point $(0, 0)$). Here the reference axes are at right angles to one another, although this is not a requirement. When the reference axes are at right angles to each other, the reference system is referred to as an *orthogonal coordinate system*.
+
+<br />
+
+
+## Vector Properties
+
+Geometrically, a vector is displayed as a line segment with an arrowhead at one end of the segment. The end of the vector with the arrowhead is called the *head* or *terminus*, and the other end of the vector is called the *tail* or *origin*. The head of the vector indicates the direction of the vector. 
+
+All vectors have a direction. They also have a length. These two properties completely define a vector within a given reference system. Note that location of the vector in the reference system is not a property of the vector. For example, the red vector and the blue vector below are identical---they have the same direction and length!
+
+```{r fig02, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap="Plot showing two identical vectors (in red and blue) in the R1--R2 dimensional space. They are identical because they have the same length and direction. Location in the reference system is a convenience, not a property of the vector."}
+graph_paper +
+  # Red vector
+  geom_segment(x = 0, xend = 2, y = 0, yend = 3, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  # Blue vector
+  geom_segment(x = 5, xend = 7, y = -7, yend = -4, color = "#1A5C71",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  annotate("text", x = 13.5, y = -0.5, label = "R1", size = 4) +
+  annotate("text", x = 0.65, y = 13.5, label = "R2", size = 4)
+```
+
+:::protip
+Location is a convenience in that we can re-locate any vector within the reference system to make it easier to work with.
+:::
+
+<br />
+
+
+### Vector Length
+
+The length of a vector (also referred to as the vector's *magnitude* or *norm*) is the distance from the vector's tip to tail. In an orthogonal reference system, if we locate the tail of the vector at the origin, multiple right triangles with the vector as hypotenuse can be formed with the reference axes. The [Pythagorean Theorem](https://en.wikipedia.org/wiki/Pythagorean_theorem) can then be applied to determine the length of a vector.
+
+```{r fig03, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap="Plot showing vector **a** (in red) in the R1--R2 dimensional space. This vector is the hypotenuse of a right triangle with legs of length 2 and 3."}
+
+triangle_data = data.frame(x = c(0, 2, 2), y = c(0, 0, 3))
+
+graph_paper +
+  #geom_segment(x = 0, xend = 2, y = 0, yend = 0, color = "#FF2D21", linetype = "dashed") +
+  #geom_segment(x = 0, xend = 0, y = 0, yend = 3, color = "#FF2D21", linetype = "dashed") +
+  geom_polygon(data = triangle_data, aes(x = x, y = y), fill = "#FF2D21", alpha = 0.2) +
+  geom_segment(x = 0, xend = 2, y = 0, yend = 3, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  ggbrace::geom_brace(xstart = 0, xend = 2, ystart = 0, yend = -0.5, color = "#48556C", rotate = 180) +
+  ggbrace::geom_brace(xstart = 2, xend = 2.5, ystart = 0, yend = 3, color = "#48556C", rotate = 90) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.25, label = "R1", size = 4) +
+  annotate("text", x = 0.25, y = 4.5, label = "R2", size = 4) +
+  annotate("text", x = 1, y = -1.25, label = "2", size = 3, vjust = 0, color = "#48556C") +
+  annotate("text", x = 2.75, y = 1.5, label = "3", size = 3, hjust = 0, color = "#48556C") +
+  annotate("text", x = 0.65, y = 1.85, label = "sqrt(13)", size = 3, color = "#48556C", parse = TRUE, angle = 56.3) 
+```
+
+In Figure \@ref(fig:fig03), vector **a** is the hypotenuse of a right triangle with legs of length 2 and 3. We can use the Pythagorean Theorem to find the length of the vector:
+
+$$
+\begin{split}
+C^2 &= A^2 + B^2 \\[2ex]
+&= 2^2 + 3 ^2 \\[2ex]
+&= 13 \\[2ex]
+C &= \sqrt{13}
+\end{split}
+$$
+
+Note that the sum of the squared elements is equal to the square of the length of the vector, and to determine the length of **a** (denoted as $\lvert\lvert \mathbf{a} \rvert\rvert$), we take the square root of that sum. For our two-dimensional vector, this is
+
+$$
+\lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2}
+$$
+
+We can generalize this to finding the length of a vector **a** with *n*-dimensions:
+
+$$
+\lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2 + a_3^2 + \ldots + a_n^2}
+$$
+
+<!-- Since the sum under the square root is equivalent to  computing the inner product of **a** with itself, the length of an *n*-dimensional vector **a**  can be found by computing the square root of the inner product between **a** and itself: -->
+
+<!-- $$ -->
+<!-- \lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{\mathbf{a} \bullet \mathbf{a}} -->
+<!-- $$ -->
+
+<br />
+
+
+### Vector Direction
+
+A vector's direction is often expressed as the measure of the angle between the horizontal reference axis and the vector.^[While it is common to express the direction as the measure of the angle between the horizontal reference axis, it could also be expressed as the measure of the angle between the vector and any of the reference axes. In more than two-dimensions, the direction would need to include multiple angles to specify the direction; you would need $n-1$ angles to specify an *n*-dimensional vector.] Figure \@ref(fig:fig04) shows this angle (denoted $\theta$) for vector **a**.
+
+```{r fig04, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap="Plot showing vector **a** (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\\theta$) between the horizontal reference axis and the vector."}
+graph_paper +
+  geom_curve(x = 1.25, y = 0, xend = 0.8, yend = 1.2, curvature = 0.3, color = "#48556C") +
+  geom_segment(x = 0, xend = 2, y = 0, yend = 3, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  annotate("text", x = 13.5, y = -0.5, label = "R1", size = 4) +
+  annotate("text", x = 0.65, y = 13.5, label = "R2", size = 4) +
+  annotate("text", x = 1.5, y = 0.9, label = "theta", size = 5, color = "#48556C", parse = TRUE) 
+```
+
+To determine this angle, we need to use a [trigonometric function](https://en.wikipedia.org/wiki/Trigonometric_functions). For example, here we can use the fact that the cosine of an angle $\theta$ is defined as the length of the side of the right triangle which is adjacent to $\theta$ divided by the length of the hypotenuse of the triangle.^[You could also use the definition for sine or tangent to compute $\theta$.]
+
+$$
+\cos (\theta) = \frac{\lvert\lvert\mathrm{Adjacent~Side}\rvert\rvert}{\lvert\lvert\mathrm{Hypotenuse}\rvert\rvert}
+$$
+
+
+In our example,
+
+$$
+\cos (\theta) = \frac{2}{\sqrt{13}}
+$$
+
+To find $\theta$, we need to calculate the arc-cosine of $\frac{2}{\sqrt{13}}$. We can compute the arc-cosine in R using the `acos()` function. This function will compute the value of $\theta$ in radians. We can also convert this to degrees by multiplying by $\frac{180}{\pi}$ (where $\pi$ is the mathematical constant approximated as 3.14).
+
+```{r}
+# Find theta using arccosine (radians)
+acos(2 / sqrt(13))
+
+# Find theta using arccosine (degrees)
+acos(2 / sqrt(13)) * 180 / pi
+```
+
+We always measure the angle counter-clockwise to the reference axis. So if we measure the direction associated with the vector $\begin{bmatrix}-2 \\ -2\end{bmatrix}$, the direction is more than $\pi$ radians (or $180^\circ$).
+
+```{r fig05, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap="Plot showing vector (-2, -2) (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\\theta$) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis."}
+graph_paper +
+  geom_curve(x = 0.5, y = 0, xend = -1, yend = -1, curvature = 1.5, color = "#48556C") +
+  geom_segment(x = 0, y = 0, xend = -2, yend = -2, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.25, label = "R1", size = 4) +
+  annotate("text", x = 0.25, y = 4.5, label = "R2", size = 4) +
+  annotate("text", x = -1.5, y = 0.9, label = "theta", size = 4, color = "#48556C", parse = TRUE) 
+```
+
+There are several ways to compute this angle. Remember that when we use the trigonometric functions, we are computing the angle in the right triangle formed by the vector and the reference axes (see Figure \@ref(fig:fig06)). 
+
+
+
+```{r fig06, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap="Plot showing vector (-2, -2) (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\\theta$) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis. Here we have split this angle up into two parts; $\\alpha$ can be computed using a trigonometric function, and $\\beta = \\pi$ radians."}
+
+triangle_data = data.frame(
+  x = c(0, -2, -2),
+  y = c(0, 0, -2)
+)
+
+graph_paper +
+  geom_polygon(data = triangle_data, aes(x = x, y = y), fill = "#FF2D21", alpha = 0.2) +
+  geom_curve(x = -1, y = 0, xend = -1, yend = -1, curvature = .3, color = "#48556C") +
+  geom_curve(x = 1.3, y = 0, xend = -1.3, yend = 0, curvature = 1.2, color = "#48556C") +
+  geom_segment(x = 0, y = 0, xend = -2, yend = -2, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.25, label = "R1", size = 4) +
+  annotate("text", x = 0.25, y = 4.5, label = "R2", size = 4) +
+  annotate("text", x = -1.5, y = -.7, label = "alpha", size = 4, color = "#48556C", parse = TRUE) +
+  annotate("text", x = 1, y = 1.8, label = "beta==pi", size = 4, color = "#48556C", parse = TRUE)
+```
+
+
+To find $\theta$ we need to find $\alpha$ using trigonometric functions and then add it to $\beta$. For example,
+
+$$
+\begin{split}
+\tan (\alpha) &= \frac{\lvert\lvert\mathrm{Opposite~Side}\rvert\rvert}{\lvert\lvert\mathrm{Adjacent~Side}\rvert\rvert} \\[2ex]
+&= \frac{2}{2} \\[2ex]
+&= 1
+\end{split}
+$$
+
+Computing the arc-tangent with the `atan()` function we find that $\alpha=0.785$ radians. Adding this to the $\beta$ value which is $\pi$ radians, we get the vector's direction of 3.927 radians (or $225^\circ$).
+
+```{r}
+# Compute alpha (in radians)
+atan(1)
+
+# Compute theta = alpha + beta (in radians)
+atan(1) + pi
+
+# Compute theta = alpha + beta (in degrees)
+(atan(1) + pi) * 180 / pi
+```
+
+<br />
+
+
+## Vector Equality
+
+Two vectors are said to be equal if they satisfy two conditions:
+
+1. Both vectors have the same dimensions (i.e., they have the same number of elements and both are row or column vectors);
+2. Corresponding elements from each vector must be equal.
+
+Consider the following vectors:
+
+$$
+\mathbf{a} = \begin{bmatrix}
+5 \\ 4 \\ 7 \\ 2
+\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}
+5 \\ 4 \\ 2 \\ 7
+\end{bmatrix} \qquad \mathbf{c}^{\intercal} = \begin{bmatrix}
+5 & 4 & 7 & 2
+\end{bmatrix}
+$$
+
+Within this set of vectors,
+
+- $\mathbf{a} \neq \mathbf{b}$, since not all of the corresponding elements are equal.
+- $\mathbf{a} \neq \mathbf{c}^{\intercal}$, since **a**'s dimensions are $4 \times 1$ (column vector) and $\mathbf{c}^{\intercal}$'s dimensions are $1 \times 4$ (row vector).
+- $\mathbf{a} = \mathbf{c}$ since both vectors **a** and **c** have the same dimensions ($4 \times 1$) and all corresponding elements are equal.
+
+Geometrically, two vectors are equal if they have the same length and direction. (Remember, location in the reference coordinate system is not a property of the vectors, so two equal vectors might be in different locations.)
+
+
+<br />
+
+
+
+## Special Vectors
+
+There are several vectors that are special in that they have unique properties. 
+
+
+<br />
+
+
+### Zero Vector
+
+One special vector is the *zero vector*. A zero vector (denoted **0**) is a vector in which every element is 0. For example, the following vector is a zero vector:
+
+$$
+\mathbf{0} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
+$$
+
+The length of a zero vector is 0. (Convince yourself of this!) Furthermore, since geometrically the head and tail of a zero vector coincide (are at the same location in the reference coordinate system) they have an undefinable direction.
+
+
+
+<br />
+
+### Ones Vector
+
+Another special vector is referred to as a *ones vector*. A ones vector is a vector in which every elements is 1. For example, the following vector **1** is a ones vector:
+
+$$
+\mathbf{1} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+$$
+
+
+The length of a ones vector is $\sqrt{n}$. (Convince yourself of this!) The direction of a ones vector is $45^\circ$ or 0.785 radians since the each element in the vector is equal. For example, locating the tail of a 2-dimensional ones vector at the origin, it would lie on the $R1=R2$ line. Figure \@ref(fig:fig07) shows a 2-dimensional ones vector with its tail located at the origin.
+
+```{r fig07, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap="Plot showing the ones vector (in red) in the R1--R2 dimensional space. The $R1=R2$ line is also displayed. "}
+graph_paper +
+  geom_abline(intercept = 0, slope = 1, color = "#cdcdcd") +
+  geom_segment(x = 0, y = 0, xend = 1, yend = 1, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.25, label = "R1", size = 4) +
+  annotate("text", x = 0.25, y = 4.5, label = "R2", size = 4) +
+  annotate("text", x = 4, y = 4.1, label = "R1 = R2", size = 4, angle = 45, vjust = 0)
+```
+
+<br />
+
+
+### Unit Vector
+
+Consider the *n*-element column vector **u**:
+
+$$
+\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \\ u_3 \\ \vdots \\ u_n \end{bmatrix}
+$$
+
+**u** is a unit vector if the length of the vector is 1. For example, each of the following vectors are unit vectors:
+
+
+$$
+\mathbf{u}_1 = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix} \qquad \mathbf{u}_2 = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0 \end{bmatrix} \qquad \mathbf{u}_3 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
+$$
+
+Although the length of a unit vector must be 1, the direction is not specified. Thus there are an infinite number of unit vectors. Figure \@ref(fig:fig08) shows several unit vectors with their tail located at the origin.
+
+```{r fig08, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap="Plot showing several unit vectors in the R1--R2 dimensional space. All vector tails have been located at the origin."}
+graph_paper +
+  geom_segment(x = 0, y = 0, xend = (1/sqrt(2)), yend = (1/sqrt(2)), color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = 1, yend = 0, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = (-1/sqrt(2)), yend = (1/sqrt(2)), color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = (1/sqrt(3)), yend = (-sqrt(4/3)/sqrt(3)), color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = (-1/sqrt(5)), yend = (-sqrt(16/5)/sqrt(5)), color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.25, label = "R1", size = 4) +
+  annotate("text", x = 0.25, y = 4.5, label = "R2", size = 4)
+```
+
+<br />
+
+
+### Elementary Vectors
+
+An *elementary vector* is a vector that has one element that is equal to one and the remainder of its elements equal to 0. For example, each of the 3-element column vectors below are elementary vectors.
+
+$$
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} \qquad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix} \qquad \mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+$$
+
+For an *n*-dimensional vector there are always *n* elementary vectors. Moreover, every elementary vector is also a unit vector. Geometrically, each elementary vector lies on one of the reference axes. Figure \@ref(fig:fig09) shows the two elementary vectors (with their tail located at the origin) in our 2-dimensional reference coordinate system.
+
+```{r fig09, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap="Plot showing the two elementary vectors in the R1--R2 dimensional space. All vector tails have been located at the origin."}
+graph_paper +
+  geom_segment(x = 0, y = 0, xend = 0, yend = 1, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = 1, yend = 0, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.25, label = "R1", size = 4) +
+  annotate("text", x = 0.25, y = 4.5, label = "R2", size = 4)
+```
+
+
+
+<br />
+
+:::exercises
+### Exercises
+
+**Create a 2-dimensional orthogonal reference system. Add the following vectors to that system.**
+
+1. $\mathbf{x} = \begin{bmatrix}2 \\ -1 \end{bmatrix}$
+
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_01');">Show/Hide Solution</button>
+<div id="solution_01" style="display:none; margin: -40px 0 40px 40px;">
+```{r echo=FALSE, out.width="60%"}
+graph_paper +
+  geom_segment(x = 0, y = 0, xend = 2, yend = -1, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.5, label = "R1", size = 4) +
+  annotate("text", x = 0.65, y = 4.5, label = "R2", size = 4)
+```
+</div>
+
+
+2. $\mathbf{y} = \begin{bmatrix}-3 \\ 2 \end{bmatrix}$
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_02');">Show/Hide Solution</button>
+<div id="solution_02" style="display:none; margin: -40px 0 40px 40px;">
+```{r echo=FALSE, out.width="60%"}
+graph_paper +
+  geom_segment(x = 0, y = 0, xend = -3, yend = 2, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.5, label = "R1", size = 4) +
+  annotate("text", x = 0.65, y = 4.5, label = "R2", size = 4)
+```
+</div>
+
+3. A unit-vector **z** in which all the elements are equal.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_03');">Show/Hide Solution</button>
+<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
+
+$$
+\mathbf{z} = \begin{bmatrix}\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}\end{bmatrix}
+$$
+
+```{r echo=FALSE, out.width="60%"}
+graph_paper +
+  geom_segment(x = 0, y = 0, xend = (1/sqrt(2)), yend = (1/sqrt(2)), color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.5, label = "R1", size = 4) +
+  annotate("text", x = 0.65, y = 4.5, label = "R2", size = 4)
+```
+</div>
+
+4. All elementary vectors.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_04');">Show/Hide Solution</button>
+<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
+
+$$
+\mathbf{e}_1 = \begin{bmatrix} 0 \\ 1\end{bmatrix} \quad \mathbf{e}_2 = \begin{bmatrix} 1 \\ 0\end{bmatrix}
+$$
+
+```{r echo=FALSE, out.width="60%"}
+graph_paper +
+  geom_segment(x = 0, y = 0, xend = 0, yend = 1, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = 1, yend = 0, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.5, label = "R1", size = 4) +
+  annotate("text", x = 0.65, y = 4.5, label = "R2", size = 4)
+```
+</div>
+
+**Compute the following:**
+
+5. $\lvert\lvert\mathbf{x}\rvert\rvert$
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_05');">Show/Hide Solution</button>
+<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">C
+$$
+\begin{split}
+\lvert\lvert\mathbf{x}\rvert\rvert &= \sqrt{(2)^2 + (-1)^2} \\[2ex]
+&= \sqrt{5}
+\end{split}
+$$
+</div>
+
+6. $\lvert\lvert\mathbf{y}\rvert\rvert$
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_06');">Show/Hide Solution</button>
+<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">C
+$$
+\begin{split}
+\lvert\lvert\mathbf{y}\rvert\rvert &= \sqrt{(-3)^2 + (2)^2} \\[2ex]
+&= \sqrt{13}
+\end{split}
+$$
+</div>
+
+7. $\lvert\lvert\mathbf{z}\rvert\rvert$
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_07');">Show/Hide Solution</button>
+<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">C
+$$
+\begin{split}
+\lvert\lvert\mathbf{z}\rvert\rvert &= \sqrt{\bigg(\frac{1}{\sqrt{2}}\bigg)^2 + \bigg(\frac{1}{\sqrt{2}}\bigg)^2} \\[2ex]
+&= \sqrt{\frac{1}{2} + \frac{1}{2}} \\[2ex]
+&= \sqrt{1} \\[2ex]
+&= 1
+\end{split}
+$$
+Remember, a unit-vector has a length of 1.
+
+</div>
+
+
+8. The direction based on the angle (in radians) from the horizontal reference axis for **x**.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_08');">Show/Hide Solution</button>
+<div id="solution_08" style="display:none; margin: -40px 0 40px 40px;">C
+$$
+\begin{split}
+\theta &= 2\pi - \arccos(\frac{2}{\sqrt{5}}) \\[2ex]
+&= 5.8195 \mathrm{~radians}
+\end{split}
+$$
+
+</div>
+
+
+9. The direction based on the angle (in degrees) from the horizontal reference axis for **y**.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_09');">Show/Hide Solution</button>
+<div id="solution_09" style="display:none; margin: -40px 0 40px 40px;">C
+$$
+\begin{split}
+\theta &= \bigg(\frac{\pi}{2} + \arctan(\frac{3}{2})\bigg) \times \frac{180}{\pi} \\[2ex]
+&= 146.31 \mathrm{~degrees}
+\end{split}
+$$
+
+</div>
+
+
+10. The direction based on the angle (in radians) from the horizontal reference axis for **z**.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_10');">Show/Hide Solution</button>
+<div id="solution_10" style="display:none; margin: -40px 0 40px 40px;">C
+$$
+\begin{split}
+\theta &= \arctan\bigg(\frac{\frac{1}{\sqrt{2}}}{\frac{1}{\sqrt{2}}}\bigg) \\[2ex]
+&= \arctan(1) \\[2ex]
+&= 0.786 \mathrm{~radians}
+\end{split}
+$$
+
+</div>
+
+**Indicate whether the vectors are equal or not equal.**
+
+11. $\begin{bmatrix} 5 \\ 6 \end{bmatrix} \overset{?}{=} \begin{bmatrix} 6 \\ 5 \end{bmatrix}$
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_11');">Show/Hide Solution</button>
+<div id="solution_11" style="display:none; margin: -40px 0 40px 40px;">Not equal</div>
+
+12. $\begin{bmatrix} 55 \\ 66 \\ 48 \end{bmatrix} \overset{?}{=} \begin{bmatrix} 55 & 66 & 48 \end{bmatrix}$
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_12');">Show/Hide Solution</button>
+<div id="solution_12" style="display:none; margin: -40px 0 40px 40px;">Not equal</div>
+
+**Assume a and b are equal. Find the values for $a_1$, $a_3$, and $b_2$.**
+
+13. $\mathbf{a} = \begin{bmatrix} a_1 \\ 0 \\ a_3 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix} 9 \\ b_2 \\ 1 \end{bmatrix}$
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_13');">Show/Hide Solution</button>
+<div id="solution_13" style="display:none; margin: -40px 0 40px 40px;">$a_1=9$, $a_3=1$, and $b_2=0$</div>
+
+:::
+
+<br />
+
+
+
+
+
+

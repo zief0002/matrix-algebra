@@ -85,8 +85,8 @@ $$
 
 Within this set of vectors,
 
-- $\mathbf{a} \neq \matbf{b}$, since not all of the corresponding elements are equal.
-- $\mathbf{a} \neq \mathbf{c}^{\intercal}$, since **a**'s dimensions are $4 \times 1$ (column vector) and $\mathbf{c}^{\intercal}$'s dimenstions are $1 \times 4$ (row vector).
+- $\mathbf{a} \neq \mathbf{b}$, since not all of the corresponding elements are equal.
+- $\mathbf{a} \neq \mathbf{c}^{\intercal}$, since **a**'s dimensions are $4 \times 1$ (column vector) and $\mathbf{c}^{\intercal}$'s dimensions are $1 \times 4$ (row vector).
 - $\mathbf{a} = \mathbf{c}$ since both vectors **a** and **c** have the same dimensions ($4 \times 1$) and all corresponding elements are equal.
 
 
@@ -116,8 +116,8 @@ Since both vectors have dimensions $2 \times 1$, we can compute the sum of these
 
 $$
 \begin{split}
-\mathbf{a} + \mathbf{b}  &= \begin{bmatrix}5 \\ 2\end{bmatrix} + \begin{bmatrix}1 \\ 3\end{bmatrix} \\[1ex]
-&= \begin{bmatrix}5 + 1 \\ 2 + 3\end{bmatrix} \\[1ex]
+\mathbf{a} + \mathbf{b}  &= \begin{bmatrix}5 \\ 2\end{bmatrix} + \begin{bmatrix}1 \\ 3\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}5 + 1 \\ 2 + 3\end{bmatrix} \\[2ex]
 &= \begin{bmatrix}6 \\ 5\end{bmatrix}
 \end{split}
 $$
@@ -128,7 +128,7 @@ In general,
 
 $$
 \begin{split}
-\mathbf{a} + \mathbf{b}  &= \begin{bmatrix}a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n\end{bmatrix} + \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[1ex]
+\mathbf{a} + \mathbf{b}  &= \begin{bmatrix}a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n\end{bmatrix} + \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[2ex]
 &= \begin{bmatrix}a_1 + b_1 \\ a_2 + b_2 \\ a_3 + b_3 \\ \vdots \\ a_n + b_n\end{bmatrix}
 \end{split}
 $$
@@ -143,7 +143,7 @@ and
 
 $$
 \begin{split}
-\mathbf{a} + (\mathbf{b} + \mathbf{c}) &= (\mathbf{a} + \mathbf{b}) + \mathbf{c} \\[1ex]
+\mathbf{a} + (\mathbf{b} + \mathbf{c}) &= (\mathbf{a} + \mathbf{b}) + \mathbf{c} \\[2ex]
 &= \mathbf{a} + \mathbf{b} + \mathbf{c}
 \end{split}
 $$
@@ -158,8 +158,8 @@ These same conditions and properties also apply for vector subtraction. For exam
 
 $$
 \begin{split}
-\mathbf{a} - \mathbf{b}  &= \begin{bmatrix}5 \\ 2\end{bmatrix} - \begin{bmatrix}1 \\ 3\end{bmatrix} \\[1ex]
-&= \begin{bmatrix}5 - 1 \\ 2 - 3\end{bmatrix} \\[1ex]
+\mathbf{a} - \mathbf{b}  &= \begin{bmatrix}5 \\ 2\end{bmatrix} - \begin{bmatrix}1 \\ 3\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}5 - 1 \\ 2 - 3\end{bmatrix} \\[2ex]
 &= \begin{bmatrix}4 \\ -1\end{bmatrix}
 \end{split}
 $$
@@ -179,8 +179,8 @@ Multiplying  **a** by $\lambda$ gives:
 
 $$
 \begin{split}
-\lambda\mathbf{a} &= 3\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[1ex]
-&= \begin{bmatrix}3 \times 2 \\ 3 \times 3 \\ 3 \times 0 \\ 3 \times -1\end{bmatrix} \\[1ex]
+\lambda\mathbf{a} &= 3\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}3 \times 2 \\ 3 \times 3 \\ 3 \times 0 \\ 3 \times -1\end{bmatrix} \\[2ex]
 &= \begin{bmatrix}6 \\ 9 \\ 0 \\ -3\end{bmatrix}
 \end{split}
 $$
@@ -206,8 +206,8 @@ But, we can multiply by the reciprocal of $\lambda$, namely $\dfrac{1}{\lambda}$
 
 $$
 \begin{split}
-\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \quad &\mathrm{and} \quad \lambda = 3 \\[1ex]
-\frac{1}{\lambda}\mathbf{a} &= \frac{1}{3}\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[1ex]
+\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \quad &\mathrm{and} \quad \lambda = 3 \\[2ex]
+\frac{1}{\lambda}\mathbf{a} &= \frac{1}{3}\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[2ex]
 &= \begin{bmatrix} \frac{2}{3} \\ 1 \\ 0 \\ -\frac{1}{3}\end{bmatrix}
 \end{split}
 $$
@@ -239,7 +239,7 @@ The inner product, or $\mathbf{a} \bullet \mathbf{b}$, is calculated as:
 
 $$
 \begin{split}
-\mathbf{a} \bullet \mathbf{b} &= 5(1) + 4(0) + 7(-1) + 2(2) \\[1ex]
+\mathbf{a} \bullet \mathbf{b} &= 5(1) + 4(0) + 7(-1) + 2(2) \\[2ex]
 &= 2
 \end{split}
 $$
@@ -268,9 +268,9 @@ Remember that the inner product is a scalar.
 
 <!-- $$ -->
 <!-- \begin{split} -->
-<!-- \mathbf{a} \bullet \mathbf{b} &= \mathbf{a}^{\prime}\mathbf{b} \\[1ex] -->
-<!-- &= \begin{bmatrix}5 & 4 & 7 & 2\end{bmatrix} \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix} \\[1ex] -->
-<!-- &= 5(1) + 4(0) + 7(-1) + 2(2) \\[1ex] -->
+<!-- \mathbf{a} \bullet \mathbf{b} &= \mathbf{a}^{\prime}\mathbf{b} \\[2ex] -->
+<!-- &= \begin{bmatrix}5 & 4 & 7 & 2\end{bmatrix} \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix} \\[2ex] -->
+<!-- &= 5(1) + 4(0) + 7(-1) + 2(2) \\[2ex] -->
 <!-- &= 2 -->
 <!-- \end{split} -->
 <!-- $$ -->
@@ -305,8 +305,8 @@ Consider finding the inner product between a vector **a** and a null vector **0*
 
 $$
 \begin{split}
-\mathbf{a} \bullet \mathbf{0} &= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}\\[1ex]
-&= 2(0) + 1(0) + -1(0) \\[1ex]
+\mathbf{a} \bullet \mathbf{0} &= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}\\[2ex]
+&= 2(0) + 1(0) + -1(0) \\[2ex]
 &= 0
 \end{split}
 $$
@@ -331,8 +331,8 @@ Consider finding the inner product between the following two vectors:
 
 $$
 \begin{split}
-\mathbf{a} \bullet \mathbf{1} &= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\\[1ex]
-&= 2(1) + 1(1) + -1(1) \\[1ex]
+\mathbf{a} \bullet \mathbf{1} &= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}\\[2ex]
+&= 2(1) + 1(1) + -1(1) \\[2ex]
 &= 2
 \end{split}
 $$
@@ -375,14 +375,14 @@ $$
 \mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} \qquad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix} \qquad \mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
 $$
 
-For an *n*-dimensional vector there are always *n* elementary vectors. 
+For an *n*-dimensional vector there are always *n* elementary vectors. Moreover, every elementary vector is also a unit vector.
 
 Consider finding the inner product between the following two vectors:
 
 $$
 \begin{split}
-\mathbf{a} \bullet \mathbf{e}_1 &= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}\\[1ex]
-&= 2(1) + 1(0) + -1(0) \\[1ex]
+\mathbf{a} \bullet \mathbf{e}_1 &= \begin{bmatrix} 2 \\ 1 \\ -1 \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}\\[2ex]
+&= 2(1) + 1(0) + -1(0) \\[2ex]
 &= 2
 \end{split}
 $$

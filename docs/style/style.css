@@ -66,6 +66,11 @@ blockquote {
   background-color: #efefef;
 }
 
+img {
+  margin-top: 20px;
+}
+
+
 blockquote p {
   color: #353535;
   margin: 8px 0 24px 0;

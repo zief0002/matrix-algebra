@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="The Geometry of Vectors | Matrix Algebra for Educational Scientists" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="Matrix algebra content for QME students" />
+<meta name="github-repo" content="zief0002/matrix-algebra" />
+
+<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
+
+<meta name="date" content="2021-04-08" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="Matrix algebra content for QME students">
+
+<title>The Geometry of Vectors | Matrix Algebra for Educational Scientists</title>
+
+<script src="libs/header-attrs/header-attrs.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation/tabsets.js"></script>
+
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link rel="stylesheet" href="style/style.css" type="text/css" />
+<link rel="stylesheet" href="style/table-styles.css" type="text/css" />
+<link rel="stylesheet" href="style/syntax.css" type="text/css" />
+<link rel="stylesheet" href="style/navbar.css" type="text/css" />
+<link rel="stylesheet" href="style/notes.css" type="text/css" />
+<link rel="stylesheet" href="style/buttons.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#foreword">Foreword</a></li>
+<li><a href="introduction.html#introduction">Introduction</a></li>
+<li><a href="data-structures.html#data-structures">Data Structures</a></li>
+<li><a href="vectors-and-vector-operations.html#vectors-and-vector-operations">Vectors and Vector Operations</a></li>
+<li><a href="the-geometry-of-vectors.html#the-geometry-of-vectors">The Geometry of Vectors</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="the-geometry-of-vectors" class="section level1">
+<h1>The Geometry of Vectors</h1>
+<p>In this chapter you will be introduced to the geometry of vectors and vector operations. It is important to recognize that although the illustration of these ideas is restricted to 2-dimensional space, all of these ideas can be extended to <em>n</em>-dimensions.</p>
+<p><br /></p>
+<div id="vectors-2" class="section level2">
+<h2>Vectors</h2>
+<p>A vector can be represented geometrically by using a coordinate system where each element in the vector corresponds to a distance along one of the reference axes defining the coordinate system. Consider the column vector <strong>a</strong>:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+2 \\ 3
+\end{bmatrix}
+\]</span></p>
+<p>This vector has a distance of 2 on the first reference axis (R1) and a distance of 3 on the second reference axis (R2).</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-1"></span>
+<img src="matrix-algebra_files/figure-html/unnamed-chunk-1-1.png" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space." width="60%" />
+<p class="caption">
+Figure 1: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensional space.
+</p>
+</div>
+<p>Here the reference coordinate system (R1–R2) define a two-dimensional space. Vector <strong>a</strong> had two elements and thus resides in a two-dimensional space. In general, an <em>n</em>-dimensional vector resides in an <em>n</em>-dimensional space.</p>
+<p>The reference axes always intersect at the origin of the space (i.e., the reference point <span class="math inline">\((0, 0)\)</span>). Here the reference axes are at right angles to one another, although this is not a requirement. When the reference axes are at right angles to each other, the reference system is referred to as an <em>orthogonal coordinate system</em>.</p>
+<p><br /></p>
+</div>
+<div id="vector-properties" class="section level2">
+<h2>Vector Properties</h2>
+<p>Geometrically, a vector is displayed as a line segment with an arrowhead at one end of the segment. The end of the vector with the arrowhead is called the <em>head</em> or <em>terminus</em>, and the other end of the vector is called the <em>tail</em> or <em>origin</em>. The head of the vector indicates the direction of the vector.</p>
+<p>All vectors have a direction. They also have a length. These two properties completely define a vector within a given reference system. Note that location of the vector in the reference system is not a property of the vector. For example, the red vector and the blue vector below are identical—they have the same direction and length!</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-2"></span>
+<img src="matrix-algebra_files/figure-html/unnamed-chunk-2-1.png" alt="Plot showing two identical vectors (in red and blue) in the R1--R2 dimensional space. They are identical because they have the same length and direction. Location in the reference system is a convenience, not a property of the vector." width="60%" />
+<p class="caption">
+Figure 2: Plot showing two identical vectors (in red and blue) in the R1–R2 dimensional space. They are identical because they have the same length and direction. Location in the reference system is a convenience, not a property of the vector.
+</p>
+</div>
+<p>Location is a convenience in that we can re-locate any vector within the reference system to make it easier to work with.</p>
+<p><br /></p>
+<div id="vector-length" class="section level3">
+<h3>Vector Length</h3>
+<p>The length of a vector (also referred to as the vector’s <em>norm</em>) is the distance from the vector’s tip to tail. In an orthogonal reference system, if we locate the tail of the vector at the origin, multiple right triangles with the vector as hypotenuse can be formed with the reference axes. The <a href="https://en.wikipedia.org/wiki/Pythagorean_theorem">Pythagorean Theorem</a> can then be applied to determine the length of a vector.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig03"></span>
+<img src="matrix-algebra_files/figure-html/fig03-1.png" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space. This vector is the hypotenuse of a right triangle with legs of length 2 and 3." width="80%" />
+<p class="caption">
+Figure 3: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensional space. This vector is the hypotenuse of a right triangle with legs of length 2 and 3.
+</p>
+</div>
+<p>In our example, vector <strong>a</strong> is the hypotenuse of a right triangle with legs of length 2 and 3. We can use the Pythagorean Theorem to find the length of the vector:</p>
+<p><span class="math display">\[
+\begin{split}
+C^2 &amp;= A^2 + B^2 \\[2ex]
+&amp;= 2^2 + 3 ^2 \\[2ex]
+&amp;= 13 \\[2ex]
+C &amp;= \sqrt{13}
+\end{split}
+\]</span></p>
+<p>Note that the sum of the squared elements is equal to the square of the length of the vector. Then to get the length of <strong>a</strong> (denoted as <span class="math inline">\(\lvert\lvert \mathbf{a} \rvert\rvert\)</span>), we take the square root of that sum. For our two-dimensional vector, this is</p>
+<p><span class="math display">\[
+\lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2}
+\]</span>
+We can generalize this to finding the length of a vector <strong>a</strong> with <em>n</em>-dimensions:</p>
+<p><span class="math display">\[
+\lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2 + a_3^2 + \ldots + a_n^2}
+\]</span></p>
+<p>Since the sum under the square root is equivalent to computing the inner product of <strong>a</strong> with itself, the length of an <em>n</em>-dimensional vector <strong>a</strong> can be found by computing the square root of the inner product between <strong>a</strong> and itself:</p>
+<p><span class="math display">\[
+\lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{\mathbf{a} \bullet \mathbf{a}}
+\]</span></p>
+<p><br /></p>
+</div>
+<div id="vector-direction" class="section level3">
+<h3>Vector Direction</h3>
+<p>A vector’s direction is often expressed as the measure of the angle between the horizontal reference axis and the vector.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Figure 4 shows this angle (denoted <span class="math inline">\(\theta\)</span>) for vector <strong>a</strong>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig04"></span>
+<img src="matrix-algebra_files/figure-html/fig04-1.png" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the horizontal reference axis and the vector." width="80%" />
+<p class="caption">
+Figure 4: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensional space. The direction of this vector is the measure of the angle (<span class="math inline">\(\theta\)</span>) between the horizontal reference axis and the vector.
+</p>
+</div>
+<p>To determine this angle, we need to use a <a href="https://en.wikipedia.org/wiki/Trigonometric_functions">trigonometric function</a>. For example, here we can use the fact that the cosine of an angle <span class="math inline">\(\theta\)</span> is defined as the length of the side of the right triangle which is adjacent to <span class="math inline">\(\theta\)</span> divided by the length of the hypotenuse of the triangle.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p><span class="math display">\[
+\cos (\theta) = \frac{\lvert\lvert\mathrm{Adjacent~Side}\rvert\rvert}{\lvert\lvert\mathrm{Hypotenuse}\rvert\rvert}
+\]</span></p>
+<p>In our example,</p>
+<p><span class="math display">\[
+\cos (\theta) = \frac{2}{\sqrt{13}}
+\]</span></p>
+<p>To find <span class="math inline">\(\theta\)</span>, we need to calculate the arc-cosine of <span class="math inline">\(\frac{2}{\sqrt{13}}\)</span>. We can compute the arc-cosine in R using the <code>acos()</code> function. This function will compute the value of <span class="math inline">\(\theta\)</span> in radians. We can also convert this to degrees by multiplying by <span class="math inline">\(\frac{180}{\pi}\)</span> (where <span class="math inline">\(\pi\)</span> is the mathematical constant approximated as 3.14).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="the-geometry-of-vectors.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find theta using arccosine (radians)</span></span>
+<span id="cb1-2"><a href="the-geometry-of-vectors.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">13</span>))</span></code></pre></div>
+<pre><code>[1] 0.9827937</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="the-geometry-of-vectors.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find theta using arccosine (degrees)</span></span>
+<span id="cb3-2"><a href="the-geometry-of-vectors.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">13</span>)) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code></pre></div>
+<pre><code>[1] 56.30993</code></pre>
+<p>We always measure the angle counter-clockwise to the reference axis. So if we measure the direction associated with the vector <span class="math inline">\(\begin{bmatrix}-2 \\ -2\end{bmatrix}\)</span>, the direction is more than <span class="math inline">\(\pi\)</span> radians (or <span class="math inline">\(180^\circ\)</span>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig20"></span>
+<img src="matrix-algebra_files/figure-html/fig20-1.png" alt="Plot showing vector (-2, -2) (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis." width="80%" />
+<p class="caption">
+Figure 5: Plot showing vector (-2, -2) (in red) in the R1–R2 dimensional space. The direction of this vector is the measure of the angle (<span class="math inline">\(\theta\)</span>) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis.
+</p>
+</div>
+<p>There are several ways to compute this angle. Remember that when we use the trignometric functions, we are computing the angle in the right triangle formed by the vector and the reference axes (see Figure <a href="the-geometry-of-vectors.html#fig:fig21">6</a>).</p>
+<div class="figure" style="text-align: center"><span id="fig:fig21"></span>
+<img src="matrix-algebra_files/figure-html/fig21-1.png" alt="Plot showing vector (-2, -2) (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis. Here we have split this angle up into two parts; $\alpha$ can be computed using a trigonometric function, and $\beta = \pi$ radians." width="80%" />
+<p class="caption">
+Figure 6: Plot showing vector (-2, -2) (in red) in the R1–R2 dimensional space. The direction of this vector is the measure of the angle (<span class="math inline">\(\theta\)</span>) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis. Here we have split this angle up into two parts; <span class="math inline">\(\alpha\)</span> can be computed using a trigonometric function, and <span class="math inline">\(\beta = \pi\)</span> radians.
+</p>
+</div>
+<p>To find <span class="math inline">\(\theta\)</span> we need to find <span class="math inline">\(\alpha\)</span> using trigonometric functions and then add it to <span class="math inline">\(\beta\)</span>. For example,</p>
+<p><span class="math display">\[
+\begin{split}
+\tan (\alpha) &amp;= \frac{\lvert\lvert\mathrm{Opposite~Side}\rvert\rvert}{\lvert\lvert\mathrm{Adjacent~Side}\rvert\rvert} \\[2ex]
+&amp;= \frac{2}{2} \\[2ex]
+&amp;= 1
+\end{split}
+\]</span></p>
+<p>Computing the arc-tangent with the <code>atan()</code> function we find that <span class="math inline">\(\alpha=0.785\)</span> radians. Adding this to the <span class="math inline">\(\beta\)</span> value which is <span class="math inline">\(\pi\)</span> radians, we get the vector’s direction of 3.927 radians (or <span class="math inline">\(225^\circ\)</span>).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="the-geometry-of-vectors.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute alpha (in radians)</span></span>
+<span id="cb5-2"><a href="the-geometry-of-vectors.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">atan</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>[1] 0.7853982</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="the-geometry-of-vectors.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta = alpha + beta (in radians)</span></span>
+<span id="cb7-2"><a href="the-geometry-of-vectors.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">atan</span>(<span class="dv">1</span>) <span class="sc">+</span> pi</span></code></pre></div>
+<pre><code>[1] 3.926991</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="the-geometry-of-vectors.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta = alpha + beta (in degrees)</span></span>
+<span id="cb9-2"><a href="the-geometry-of-vectors.html#cb9-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">atan</span>(<span class="dv">1</span>) <span class="sc">+</span> pi) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code></pre></div>
+<pre><code>[1] 225</code></pre>
+<p><br /></p>
+</div>
+</div>
+<div id="adding-vectors" class="section level2">
+<h2>Adding Vectors</h2>
+<p>Geometrically, adding two vectors, say <strong>a</strong> and <strong>b</strong>, is equivalent to drawing vector <strong>b</strong> so that its tail is placed at the head of vector <strong>a</strong>. Then the sum is the new vector that originates at vector <strong>a</strong>’s tail and terminates at vector <strong>b</strong>’s head. Figure <a href="the-geometry-of-vectors.html#fig:fig06">7</a> geometrically shows the sum of the following vectors:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+2 \\ 3
+\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}
+-4 \\ 1
+\end{bmatrix} \qquad \mathbf{a}+\mathbf{b} = \begin{bmatrix}
+-2 \\ 4
+\end{bmatrix}
+\]</span></p>
+<div class="figure" style="text-align: center"><span id="fig:fig06"></span>
+<img src="matrix-algebra_files/figure-html/fig06-1.png" alt="Plot showing the sum of vector **a** (in red) and vector **b** (in blue) in the R1--R2 dimensional space. For convenience we have located the tail of vector **a** at the origin. The vector that corresponds to the sum of **a** and **b** is shown in purple." width="60%" />
+<p class="caption">
+Figure 7: Plot showing the sum of vector <strong>a</strong> (in red) and vector <strong>b</strong> (in blue) in the R1–R2 dimensional space. For convenience we have located the tail of vector <strong>a</strong> at the origin. The vector that corresponds to the sum of <strong>a</strong> and <strong>b</strong> is shown in purple.
+</p>
+</div>
+<p>To subtract vector <strong>b</strong> from vector <strong>a</strong>, we re-write this as vector addition:</p>
+<p><span class="math display">\[
+\mathbf{a} - \mathbf{b} = \mathbf{a} + (-1)\mathbf{b}
+\]</span></p>
+<p>Thus, we can invert the signs on all of the elements of <strong>b</strong> and add this to <strong>a</strong>.</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+2 \\ 3
+\end{bmatrix} + \begin{bmatrix}
+4 \\ -1
+\end{bmatrix} = \begin{bmatrix}
+6 \\ 2
+\end{bmatrix}
+\]</span></p>
+<p>This is geometrically shown in Figure <a href="the-geometry-of-vectors.html#fig:fig07">8</a>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig07"></span>
+<img src="matrix-algebra_files/figure-html/fig07-1.png" alt="Plot showing the sum of vector **a** (in red) and the inverted vector **b** (in blue) in the R1--R2 dimensional space. For convenience we have located the tail of vector **a** at the origin. The vector that corresponds to the difference of **a** and **b** is shown in purple." width="60%" />
+<p class="caption">
+Figure 8: Plot showing the sum of vector <strong>a</strong> (in red) and the inverted vector <strong>b</strong> (in blue) in the R1–R2 dimensional space. For convenience we have located the tail of vector <strong>a</strong> at the origin. The vector that corresponds to the difference of <strong>a</strong> and <strong>b</strong> is shown in purple.
+</p>
+</div>
+<p><br /></p>
+</div>
+<div id="scalar-multiplication" class="section level2">
+<h2>Scalar Multiplication</h2>
+<p>Consider the product <span class="math inline">\(\lambda \mathbf{a}\)</span> where,</p>
+<p><span class="math display">\[
+\lambda = 2 \quad \mathrm{and} \quad \mathbf{a} = \begin{bmatrix}
+2 \\ 3
+\end{bmatrix}
+\]</span></p>
+<p>The product is</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+4 \\ 6
+\end{bmatrix}
+\]</span></p>
+<p>To show what happens geometrically when we multiply a vector by a scalar, let’s examine a plot of the original vector and the product.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig08"></span>
+<img src="matrix-algebra_files/figure-html/fig08-1.png" alt="LEFT: Plot showing vector **a** in the R1--R2 dimensional space. RIGHT: Plot showing vector 2(**a**) in the R1--R2 dimensional space. For convenience we have located the tail of both vectors at the origin." width="90%" />
+<p class="caption">
+Figure 9: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensional space. RIGHT: Plot showing vector 2(<strong>a</strong>) in the R1–R2 dimensional space. For convenience we have located the tail of both vectors at the origin.
+</p>
+</div>
+<p>Multiplying vector <strong>a</strong> by 2 doubled its length. However the direction of the new vector is the same as the original. In general, multiplying a vector by a positive scalar changes the length of a vector but not the direction. If it is multiplied by a negative scalar, not only does the length of the resulting vector change, but its direction is <span class="math inline">\(180^\circ\)</span> from the original. For example, Figure <a href="the-geometry-of-vectors.html#fig:fig09">10</a> shows vector <strong>a</strong> and the vector <span class="math inline">\(\lambda \mathbf{a}\)</span> where <span class="math inline">\(\lambda = -0.5\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig09"></span>
+<img src="matrix-algebra_files/figure-html/fig09-1.png" alt="LEFT: Plot showing vector **a** in the R1--R2 dimensional space. RIGHT: Plot showing vector -0.5(**a**) in the R1--R2 dimensional space. For convenience we have located the tail of both vectors at the origin." width="90%" />
+<p class="caption">
+Figure 10: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensional space. RIGHT: Plot showing vector -0.5(<strong>a</strong>) in the R1–R2 dimensional space. For convenience we have located the tail of both vectors at the origin.
+</p>
+</div>
+<p>The product vector is half the length of the original and is pointed in the complete opposite direction.</p>
+<p><br /></p>
+<div id="exercises-2" class="section level3 exercises">
+<h3>Exercises</h3>
+<p><strong>Create a 2-dimensional orthogonal reference system. Add the following vectors to that system.</strong></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbf{x} = \begin{bmatrix}2 \\ -1 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_01&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_01" style="display:none; margin: -40px 0 40px 40px;">
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-5-1.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbf{y} = \begin{bmatrix}-3 \\ 2 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_02&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_02" style="display:none; margin: -40px 0 40px 40px;">
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-6-1.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>A unit-vector <strong>z</strong> in which all the elements are equal.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_03&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\mathbf{z} = \begin{bmatrix}\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}\end{bmatrix}
+\]</span></p>
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-7-1.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>All elementary vectors.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_04&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\mathbf{e}_1 = \begin{bmatrix} 0 \\ 1\end{bmatrix} \quad \mathbf{e}_2 = \begin{bmatrix} 1 \\ 0\end{bmatrix}
+\]</span></p>
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-8-1.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<p><strong>Compute the following:</strong></p>
+<ol start="5" style="list-style-type: decimal">
+<li><span class="math inline">\(\lvert\lvert\mathbf{x}\rvert\rvert\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_05&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
+<p>C
+<span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{x}\rvert\rvert &amp;= \sqrt{(2)^2 + (-1)^2} \\[2ex]
+&amp;= \sqrt{5}
+\end{split}
+\]</span></p>
+</div>
+<ol start="6" style="list-style-type: decimal">
+<li><span class="math inline">\(\lvert\lvert\mathbf{y}\rvert\rvert\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_06&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
+<p>C
+<span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{y}\rvert\rvert &amp;= \sqrt{(-3)^2 + (2)^2} \\[2ex]
+&amp;= \sqrt{13}
+\end{split}
+\]</span></p>
+</div>
+<ol start="7" style="list-style-type: decimal">
+<li><span class="math inline">\(\lvert\lvert\mathbf{z}\rvert\rvert\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_07&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
+<p>C
+<span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{z}\rvert\rvert &amp;= \sqrt{\bigg(\frac{1}{\sqrt{2}}\bigg)^2 + \bigg(\frac{1}{\sqrt{2}}\bigg)^2} \\[2ex]
+&amp;= \sqrt{\frac{1}{2} + \frac{1}{2}} \\[2ex]
+&amp;= \sqrt{1} \\[2ex]
+&amp;= 1
+\end{split}
+\]</span>
+Remember, a unit-vector has a length of 1.</p>
+</div>
+<ol start="8" style="list-style-type: decimal">
+<li>The direction based on the angle (in radians) from the horizontal reference axis for <strong>x</strong>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_08&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_08" style="display:none; margin: -40px 0 40px 40px;">
+<p>C
+<span class="math display">\[
+\begin{split}
+\theta &amp;= 2\pi - \arccos(\frac{2}{\sqrt{5}}) \\[2ex]
+&amp;= 5.8195 \mathrm{~radians}
+\end{split}
+\]</span></p>
+</div>
+<ol start="9" style="list-style-type: decimal">
+<li>The direction based on the angle (in degrees) from the horizontal reference axis for <strong>y</strong>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_09&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_09" style="display:none; margin: -40px 0 40px 40px;">
+<p>C
+<span class="math display">\[
+\begin{split}
+\theta &amp;= \bigg(\frac{\pi}{2} + \arctan(\frac{3}{2})\bigg) \times \frac{180}{\pi} \\[2ex]
+&amp;= 146.31 \mathrm{~degrees}
+\end{split}
+\]</span></p>
+</div>
+<ol start="10" style="list-style-type: decimal">
+<li>The direction based on the angle (in radians) from the horizontal reference axis for <strong>z</strong>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_10&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_10" style="display:none; margin: -40px 0 40px 40px;">
+<p>C
+<span class="math display">\[
+\begin{split}
+\theta &amp;= \arctan\bigg(\frac{\frac{1}{\sqrt{2}}}{\frac{1}{\sqrt{2}}}\bigg) \\[2ex]
+&amp;= \arctan(1) \\[2ex]
+&amp;= 0.786 \mathrm{~radians}
+\end{split}
+\]</span></p>
+</div>
+<p><strong>Create a 2-dimensional orthogonal reference system. Using the previously defined vectors, show the following vector operations on that system.</strong></p>
+<ol start="11" style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbf{x}+\mathbf{y}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_11&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_11" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\begin{split}
+\mathbf{x} + \mathbf{y} &amp;= \begin{bmatrix} 2 \\ -1\end{bmatrix} + \begin{bmatrix} -3 \\ 2\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix} -1 \\ 1\end{bmatrix}
+\end{split}
+\]</span></p>
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-9-1.png" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<ol start="12" style="list-style-type: decimal">
+<li><span class="math inline">\(3\mathbf{z}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_12&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_12" style="display:none; margin: -40px 0 40px 40px;">
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-10-1.png" width="90%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<p><br /></p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>While it is common to express the direction as the measure of the angle between the horizontal reference axis, it could also be expressed as the measure of the angle between the vector and any of the reference axes. In more than two-dimensions, the direction would need to include multiple angles to specify the direction; you would need <span class="math inline">\(n-1\)</span> angles to specify an <em>n</em>-dimensional vector.<a href="the-geometry-of-vectors.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>You could also use the definition for sine or tangent to compute <span class="math inline">\(\theta\)</span>.<a href="the-geometry-of-vectors.html#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+<p style="text-align: center;">
+<a href="vectors-and-vector-operations.html"><button class="btn btn-default">Previous</button></a>
+<a href="references.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

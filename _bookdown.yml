@@ -8,7 +8,8 @@ rmd_files: [
     #"foreword.Rmd",
     "01-introduction.Rmd",
     "02-data-structures.Rmd",
-    "03-vector-and-vector-operations.Rmd",
+    "03-vectors.Rmd",
+    #"04-vector-geometry.Rmd",
     "99-references.Rmd"
     #"acknowledgments.Rmd",
     ]
