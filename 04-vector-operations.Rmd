@@ -291,25 +291,23 @@ The product vector is half the length of the original and is pointed in the comp
 <br />
 
 
-## Vector--Vector Multiplication: Inner Product
+## Vector--Vector Multiplication: Dot Product
 
-There are two types of vector multiplication, the *inner product* and the *outer product*. The inner product yields a scalar value while the outer product yields a rectangular array of values (i.e., a matrix). In this section we will introduce the inner product, and the outer product will be introduced in the chapter on matrix operations. 
-
-For two column vectors, **a** and **b** each having *n* elements, the inner product (i.e., scalar product, dot product) is defined as:
+For two column vectors, **a** and **b** each having *n* elements, the dot product (i.e., scalar product) is defined as:
 
 $$
 \mathbf{a} \bullet \mathbf{b} = \sum_{i=1}^n a_ib_i
 $$
 
 
-In other words, the inner product is calculated by multiplying together the corresponding elements of each vector, and summing those products. Consider the vectors,
+In other words, the dot product is calculated by multiplying together the corresponding elements of each vector, and summing those products. Consider the vectors,
 
 
 $$
 \mathbf{a} = \begin{bmatrix}5 \\ 4 \\ 7 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix}
 $$
 
-The inner product, or $\mathbf{a} \bullet \mathbf{b}$, is calculated as:
+The dot product, or $\mathbf{a} \bullet \mathbf{b}$, is calculated as:
 
 $$
 \begin{split}
@@ -318,7 +316,7 @@ $$
 \end{split}
 $$
 
-Remember that the inner product is a scalar. 
+Remember that the result of a dot product is a scalar. 
 
 <br />
 
@@ -331,7 +329,7 @@ $$
 \lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2 + a_3^2 + \ldots + a_n^2}
 $$
 
-The sum under the square root is equivalent to  computing the inner product of **a** with itself (i.e., $\mathbf{a} \bullet \mathbf{a}$). Therefore, the length of an *n*-dimensional vector **a** can be found by computing the square root of the inner product between **a** and itself:
+The sum under the square root is equivalent to  computing the dot product of **a** with itself (i.e., $\mathbf{a} \bullet \mathbf{a}$). Therefore, the length of an *n*-dimensional vector **a** can be found by computing the square root of the dot product between **a** and itself:
 
 $$
 \lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{\mathbf{a} \bullet \mathbf{a}}
@@ -340,11 +338,11 @@ $$
 <br />
 
 
-### Inner Products Using the Special Vectors
+### Dot Products Using the Special Vectors
 
-In the [previous chapter](#vec) we introduced several special vectors, including zero vectors, ones vectors, and elementary vectors. It is useful to explore what happens when one of these special vectors is used to calculate an inner product.
+In the [previous chapter](#vec) we introduced several special vectors, including zero vectors, ones vectors, and elementary vectors. It is useful to explore what happens when one of these special vectors is used to calculate an dot product.
 
-Consider finding the inner product between an *n*-dimensional vector **a** and an *n*-dimensional zero vector **0**:
+Consider finding the dot product between an *n*-dimensional vector **a** and an *n*-dimensional zero vector **0**:
 
 $$
 \begin{split}
@@ -354,7 +352,7 @@ $$
 \end{split}
 $$
 
-The inner product is 0. Now, consider finding the inner product between an *n*-dimensional vector **a** and an *n*-dimensional ones vector **1**:
+The dot product is 0. Now, consider finding the dot product between an *n*-dimensional vector **a** and an *n*-dimensional ones vector **1**:
 
 $$
 \begin{split}
@@ -364,9 +362,9 @@ $$
 \end{split}
 $$
 
-Notice that the inner product here is simply the sum of the elements in **a**. Because of this property, ones vectors are also sometimes referred to as *sum vectors*.
+Notice that the dot product here is simply the sum of the elements in **a**. Because of this property, ones vectors are also sometimes referred to as *sum vectors*.
 
-Next, consider finding the inner product between an *n*-dimensional vector **a** and an *n*-dimensional elementary vector, say $\mathbf{e}_1$ in which the first element is 1 and the rest are 0:
+Next, consider finding the dot product between an *n*-dimensional vector **a** and an *n*-dimensional elementary vector, say $\mathbf{e}_1$ in which the first element is 1 and the rest are 0:
 
 $$
 \begin{split}
@@ -377,14 +375,14 @@ $$
 $$
 
 
-Notice that the inner product here is simply the same as the first element in **a**. In general, the inner product between an *n*-element column vector, **a**, and an *n*-element elementary vector, $\mathbf{e}_i$ with element $i=1$, is:
+Notice that the dot product here is simply the same as the first element in **a**. In general, the dot product between an *n*-element column vector, **a**, and an *n*-element elementary vector, $\mathbf{e}_i$ with element $i=1$, is:
 
 $$
 \mathbf{a} \bullet \mathbf{e}_i = a_i
 $$
 
 
-<!-- Technically, the inner product is the product of a row vector and column vector. In our example this is: -->
+<!-- Technically, the dot product is the product of a row vector and column vector. In our example this is: -->
 
 <!-- $$ -->
 <!-- \mathbf{a} \bullet \mathbf{b} = \mathbf{a}^{\prime}\mathbf{b} -->
@@ -417,8 +415,63 @@ $$
 
 <!-- Some caveats: -->
 
-<!-- - The inner product $\mathbf{a}\bullet\mathbf{b}$ is always the product of $\mathbf{a}^{\prime}\mathbf{b}$. (The row vector is always first in the product;  $\mathbf{a}\mathbf{b}^{\prime} \neq \mathbf{a}^{\prime}\mathbf{b}$.) -->
-<!-- - It is not possible to find the inner product of more than two vectors.  -->
+<!-- - The dot product $\mathbf{a}\bullet\mathbf{b}$ is always the product of $\mathbf{a}^{\prime}\mathbf{b}$. (The row vector is always first in the product;  $\mathbf{a}\mathbf{b}^{\prime} \neq \mathbf{a}^{\prime}\mathbf{b}$.) -->
+<!-- - It is not possible to find the dot product of more than two vectors.  -->
+
+<br />
+
+## Vector Operations Using R
+
+We can also carry out these vector operations using R. Below we show how to carry out the operations of vector addition and vector subtraction.
+
+```{r}
+# Create vectors
+a = matrix(data = c(5, 2), ncol = 1)
+a
+
+b = matrix(data = c(1, 3), ncol = 1)
+b
+
+# Vector addition
+a + b
+
+# Vector subtraction
+a - b
+```
+
+Multiplication of a vector by a scalar is carried out using the `*` operator. This operator carries out element-wise multiplication; in this case it multiplies each element in the vector by the given scalar. 
+
+```{r}
+# Create vectors
+a = matrix(data = c(2, 3, 0, -1), ncol = 1)
+a
+
+# Multiplication by 3
+3 * a
+
+# Division by 3 (this multiplies each element by the reciprical)
+a / 3
+```
+
+Lastly, although there is no dot product operator, we can mimic this function by using the elemement-wise multiplication operator to find the product of the corresponding elements of two vectors, and then use the `sum()` function to add those products together.
+
+```{r}
+# Create vectors
+a = matrix(data = c(5, 4, 7, 2), ncol = 1)
+a
+
+b = matrix(data = c(1, 0, -1, 2), ncol = 1)
+b
+
+# Element-wise multiplication
+a * b
+
+# Compute dot product
+sum(a * b)
+
+# Compute length of a using dot product
+sqrt(sum(a * a))
+```
 
 <br />
 

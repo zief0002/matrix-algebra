@@ -14,7 +14,7 @@
 
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
-<meta name="date" content="2021-04-08" />
+<meta name="date" content="2021-04-28" />
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -167,6 +167,8 @@ img {
 <li><a href="datastructures.html#datastructures">Data Structures</a></li>
 <li><a href="vec.html#vec">Vectors</a></li>
 <li><a href="vecop.html#vecop">Vector Operations</a></li>
+<li><a href="vector-geometry-angles-projection-and-decomposition.html#vector-geometry-angles-projection-and-decomposition">Vector Geometry: Angles, Projection, and Decomposition</a></li>
+<li><a href="statistical-appplication-of-vectors.html#statistical-appplication-of-vectors">Statistical Appplication of Vectors</a></li>
 <li><a href="references.html#references">References</a></li>
 </ul>
 </div>
@@ -188,10 +190,30 @@ img {
 \]</span></p>
 <p>We might also say that <strong>a</strong> is a column vector in 4-dimensions.</p>
 <p>In statistical or psychometric applications, vectors are how we typically represent and structure data collected on a particular attribute. For example, <strong>a</strong> might represent test scores for <span class="math inline">\(n=4\)</span> students. Each element in this vector would correspond to a student’s test score. In this case, <span class="math inline">\(a_1=5\)</span> would be the test score for the first student recorded in the vector, <span class="math inline">\(a_2=4\)</span> would be the test score for the second student recorded in the vector, etc.</p>
+<p>Computationally, we can also work with vectors using R. We use the <code>matrix()</code> function to create a column or row vector in R. We include the elements of the vector in a <code>c()</code> function and provide this to the <code>data=</code> argument. We also include either the argument <code>ncol=1</code> (column vector) or <code>nrow=1</code> (row vector). Below we create vector <strong>a</strong>. We can also use the <code>length()</code> function to count the number of elements in a vector.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="vec.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create column vector a</span></span>
+<span id="cb1-2"><a href="vec.html#cb1-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="vec.html#cb1-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    5
+[2,]    4
+[3,]    7
+[4,]    2</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="vec.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create row vector b</span></span>
+<span id="cb3-2"><a href="vec.html#cb3-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">1</span>)</span>
+<span id="cb3-3"><a href="vec.html#cb3-3" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    0    0</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="vec.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count number of elements in a</span></span>
+<span id="cb5-2"><a href="vec.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(a)</span></code></pre></div>
+<pre><code>[1] 4</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="vec.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count number of elements in b</span></span>
+<span id="cb7-2"><a href="vec.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(b)</span></code></pre></div>
+<pre><code>[1] 3</code></pre>
 <p><br /></p>
 <div id="transposition" class="section level3">
 <h3>Transposition</h3>
-<p>One important vector operation is <em>transposition</em>. Transposition is an operation in which we replace the <em>i</em>th element of a column vector as the <em>i</em>th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. Notationally, we use a superscripted prime or a superscripted <a href="https://unicode-table.com/en/22BA/#:~:text=%E2%8A%BA%20%2D%20Intercalate%3A%20U%2B22BA%20intcal%20%2D%20Unicode%20Character%20Table">intercalate symbol</a> (looks like a “T”) to denote a vector’s transpose. For example, transposing vector <strong>a</strong>, whcih we defined earlier:</p>
+<p>One important vector operation is <em>transposition</em>. Transposition is an operation in which we replace the <em>i</em>th element of a column vector as the <em>i</em>th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. Notationally, we use a superscripted prime or a superscripted <a href="https://unicode-table.com/en/22BA/#:~:text=%E2%8A%BA%20%2D%20Intercalate%3A%20U%2B22BA%20intcal%20%2D%20Unicode%20Character%20Table">intercalate symbol</a> (looks like a “T”) to denote a vector’s transpose. For example, transposing vector <strong>a</strong>, which we defined earlier:</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}
 5 \\ 4 \\ 7 \\ 2
@@ -199,6 +221,17 @@ img {
 5 &amp; 4 &amp; 7 &amp; 2
 \end{bmatrix}
 \]</span></p>
+<p>In R, the <code>t()</code> function will compute the transpose of a vector. Here we use <code>t()</code> to compute the transpose of the earlier defined vectors <strong>a</strong> and <strong>b</strong>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="vec.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose of a</span></span>
+<span id="cb9-2"><a href="vec.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(a)</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    5    4    7    2</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="vec.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose of b</span></span>
+<span id="cb11-2"><a href="vec.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(b)</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    1
+[2,]    0
+[3,]    0</code></pre>
 <div class="fyi">
 <p>Throughout the remainder of the book, row vectors will be denoted using a transpose. So, for example, <strong>a</strong> will indicate a column vector, and <span class="math inline">\(\mathbf{a}^{\intercal}\)</span> will indicate a row vector.</p>
 </div>
@@ -270,7 +303,7 @@ Figure 3: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensi
 C^2 &amp;= A^2 + B^2 \\[2ex]
 &amp;= 2^2 + 3 ^2 \\[2ex]
 &amp;= 13 \\[2ex]
-C &amp;= \sqrt{13}
+C &amp;= \sqrt{13} \approx 3.61
 \end{split}
 \]</span></p>
 <p>Note that the sum of the squared elements is equal to the square of the length of the vector, and to determine the length of <strong>a</strong> (denoted as <span class="math inline">\(\lvert\lvert \mathbf{a} \rvert\rvert\)</span>), we take the square root of that sum. For our two-dimensional vector, this is</p>
@@ -280,7 +313,17 @@ C &amp;= \sqrt{13}
 <p>We can generalize this to finding the length of a vector <strong>a</strong> with <em>n</em>-dimensions:</p>
 <p><span class="math display">\[
 \lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2 + a_3^2 + \ldots + a_n^2}
-\]</span></p>
+\]</span>
+Computationally, to compute the length of a vector, we chain together several computations that (1) square the elements of in the vector, (2) sum those squares together, and (3) compute the square root of this sum. Below we create a 2-element column vector <strong>a</strong> and compute its length.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="vec.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector a</span></span>
+<span id="cb13-2"><a href="vec.html#cb13-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb13-3"><a href="vec.html#cb13-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    2
+[2,]    3</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="vec.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of vector a</span></span>
+<span id="cb15-2"><a href="vec.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(a <span class="sc">^</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>[1] 3.605551</code></pre>
 <p><br /></p>
 </div>
 <div id="vector-direction" class="section level3">
@@ -301,11 +344,11 @@ Figure 4: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensi
 \cos (\theta) = \frac{2}{\sqrt{13}}
 \]</span></p>
 <p>To find <span class="math inline">\(\theta\)</span>, we need to calculate the arc-cosine of <span class="math inline">\(\frac{2}{\sqrt{13}}\)</span>. We can compute the arc-cosine in R using the <code>acos()</code> function. This function will compute the value of <span class="math inline">\(\theta\)</span> in radians. We can also convert this to degrees by multiplying by <span class="math inline">\(\frac{180}{\pi}\)</span> (where <span class="math inline">\(\pi\)</span> is the mathematical constant approximated as 3.14).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="vec.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find theta using arccosine (radians)</span></span>
-<span id="cb1-2"><a href="vec.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">13</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="vec.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find theta using arccosine (radians)</span></span>
+<span id="cb17-2"><a href="vec.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">13</span>))</span></code></pre></div>
 <pre><code>[1] 0.9827937</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="vec.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find theta using arccosine (degrees)</span></span>
-<span id="cb3-2"><a href="vec.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">13</span>)) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="vec.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find theta using arccosine (degrees)</span></span>
+<span id="cb19-2"><a href="vec.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">13</span>)) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code></pre></div>
 <pre><code>[1] 56.30993</code></pre>
 <p>We always measure the angle counter-clockwise to the reference axis. So if we measure the direction associated with the vector <span class="math inline">\(\begin{bmatrix}-2 \\ -2\end{bmatrix}\)</span>, the direction is more than <span class="math inline">\(\pi\)</span> radians (or <span class="math inline">\(180^\circ\)</span>).</p>
 <div class="figure" style="text-align: center"><span id="fig:fig05"></span>
@@ -330,14 +373,14 @@ Figure 6: Plot showing vector (-2, -2) (in red) in the R1–R2 dimensional space
 \end{split}
 \]</span></p>
 <p>Computing the arc-tangent with the <code>atan()</code> function we find that <span class="math inline">\(\alpha=0.785\)</span> radians. Adding this to the <span class="math inline">\(\beta\)</span> value which is <span class="math inline">\(\pi\)</span> radians, we get the vector’s direction of 3.927 radians (or <span class="math inline">\(225^\circ\)</span>).</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="vec.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute alpha (in radians)</span></span>
-<span id="cb5-2"><a href="vec.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">atan</span>(<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="vec.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute alpha (in radians)</span></span>
+<span id="cb21-2"><a href="vec.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">atan</span>(<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>[1] 0.7853982</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="vec.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta = alpha + beta (in radians)</span></span>
-<span id="cb7-2"><a href="vec.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">atan</span>(<span class="dv">1</span>) <span class="sc">+</span> pi</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="vec.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta = alpha + beta (in radians)</span></span>
+<span id="cb23-2"><a href="vec.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">atan</span>(<span class="dv">1</span>) <span class="sc">+</span> pi</span></code></pre></div>
 <pre><code>[1] 3.926991</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="vec.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta = alpha + beta (in degrees)</span></span>
-<span id="cb9-2"><a href="vec.html#cb9-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">atan</span>(<span class="dv">1</span>) <span class="sc">+</span> pi) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="vec.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta = alpha + beta (in degrees)</span></span>
+<span id="cb25-2"><a href="vec.html#cb25-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">atan</span>(<span class="dv">1</span>) <span class="sc">+</span> pi) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code></pre></div>
 <pre><code>[1] 225</code></pre>
 <p><br /></p>
 </div>
@@ -440,7 +483,7 @@ Figure 9: Plot showing the two elementary vectors in the R1–R2 dimensional spa
 Show/Hide Solution
 </button>
 <div id="solution_01" style="display:none; margin: -40px 0 40px 40px;">
-<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-3-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-6-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li><span class="math inline">\(\mathbf{y} = \begin{bmatrix}-3 \\ 2 \end{bmatrix}\)</span></li>
@@ -449,7 +492,7 @@ Show/Hide Solution
 Show/Hide Solution
 </button>
 <div id="solution_02" style="display:none; margin: -40px 0 40px 40px;">
-<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-7-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <ol start="3" style="list-style-type: decimal">
 <li>A unit-vector <strong>z</strong> in which all the elements are equal.</li>
@@ -461,7 +504,7 @@ Show/Hide Solution
 <p><span class="math display">\[
 \mathbf{z} = \begin{bmatrix}\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}\end{bmatrix}
 \]</span></p>
-<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-5-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-8-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li>All elementary vectors.</li>
@@ -473,7 +516,7 @@ Show/Hide Solution
 <p><span class="math display">\[
 \mathbf{e}_1 = \begin{bmatrix} 0 \\ 1\end{bmatrix} \quad \mathbf{e}_2 = \begin{bmatrix} 1 \\ 0\end{bmatrix}
 \]</span></p>
-<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-6-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-9-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <p><strong>Compute the following:</strong></p>
 <ol start="5" style="list-style-type: decimal">

@@ -14,7 +14,7 @@
 
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
-<meta name="date" content="2021-04-08" />
+<meta name="date" content="2021-04-28" />
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -167,6 +167,8 @@ img {
 <li><a href="datastructures.html#datastructures">Data Structures</a></li>
 <li><a href="vec.html#vec">Vectors</a></li>
 <li><a href="vecop.html#vecop">Vector Operations</a></li>
+<li><a href="vector-geometry-angles-projection-and-decomposition.html#vector-geometry-angles-projection-and-decomposition">Vector Geometry: Angles, Projection, and Decomposition</a></li>
+<li><a href="statistical-appplication-of-vectors.html#statistical-appplication-of-vectors">Statistical Appplication of Vectors</a></li>
 <li><a href="references.html#references">References</a></li>
 </ul>
 </div>
@@ -347,25 +349,24 @@ Figure 13: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimension
 <p><br /></p>
 </div>
 </div>
-<div id="vectorvector-multiplication-inner-product" class="section level2">
-<h2>Vector–Vector Multiplication: Inner Product</h2>
-<p>There are two types of vector multiplication, the <em>inner product</em> and the <em>outer product</em>. The inner product yields a scalar value while the outer product yields a rectangular array of values (i.e., a matrix). In this section we will introduce the inner product, and the outer product will be introduced in the chapter on matrix operations.</p>
-<p>For two column vectors, <strong>a</strong> and <strong>b</strong> each having <em>n</em> elements, the inner product (i.e., scalar product, dot product) is defined as:</p>
+<div id="vectorvector-multiplication-dot-product" class="section level2">
+<h2>Vector–Vector Multiplication: Dot Product</h2>
+<p>For two column vectors, <strong>a</strong> and <strong>b</strong> each having <em>n</em> elements, the dot product (i.e., scalar product) is defined as:</p>
 <p><span class="math display">\[
 \mathbf{a} \bullet \mathbf{b} = \sum_{i=1}^n a_ib_i
 \]</span></p>
-<p>In other words, the inner product is calculated by multiplying together the corresponding elements of each vector, and summing those products. Consider the vectors,</p>
+<p>In other words, the dot product is calculated by multiplying together the corresponding elements of each vector, and summing those products. Consider the vectors,</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}5 \\ 4 \\ 7 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix}
 \]</span></p>
-<p>The inner product, or <span class="math inline">\(\mathbf{a} \bullet \mathbf{b}\)</span>, is calculated as:</p>
+<p>The dot product, or <span class="math inline">\(\mathbf{a} \bullet \mathbf{b}\)</span>, is calculated as:</p>
 <p><span class="math display">\[
 \begin{split}
 \mathbf{a} \bullet \mathbf{b} &amp;= 5(1) + 4(0) + 7(-1) + 2(2) \\[2ex]
 &amp;= 2
 \end{split}
 \]</span></p>
-<p>Remember that the inner product is a scalar.</p>
+<p>Remember that the result of a dot product is a scalar.</p>
 <p><br /></p>
 <div id="re-visiting-vector-length" class="section level3">
 <h3>Re-visiting Vector Length</h3>
@@ -373,16 +374,16 @@ Figure 13: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimension
 <p><span class="math display">\[
 \lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2 + a_3^2 + \ldots + a_n^2}
 \]</span></p>
-<p>The sum under the square root is equivalent to computing the inner product of <strong>a</strong> with itself (i.e., <span class="math inline">\(\mathbf{a} \bullet \mathbf{a}\)</span>). Therefore, the length of an <em>n</em>-dimensional vector <strong>a</strong> can be found by computing the square root of the inner product between <strong>a</strong> and itself:</p>
+<p>The sum under the square root is equivalent to computing the dot product of <strong>a</strong> with itself (i.e., <span class="math inline">\(\mathbf{a} \bullet \mathbf{a}\)</span>). Therefore, the length of an <em>n</em>-dimensional vector <strong>a</strong> can be found by computing the square root of the dot product between <strong>a</strong> and itself:</p>
 <p><span class="math display">\[
 \lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{\mathbf{a} \bullet \mathbf{a}}
 \]</span></p>
 <p><br /></p>
 </div>
-<div id="inner-products-using-the-special-vectors" class="section level3">
-<h3>Inner Products Using the Special Vectors</h3>
-<p>In the <a href="vec.html#vec">previous chapter</a> we introduced several special vectors, including zero vectors, ones vectors, and elementary vectors. It is useful to explore what happens when one of these special vectors is used to calculate an inner product.</p>
-<p>Consider finding the inner product between an <em>n</em>-dimensional vector <strong>a</strong> and an <em>n</em>-dimensional zero vector <strong>0</strong>:</p>
+<div id="dot-products-using-the-special-vectors" class="section level3">
+<h3>Dot Products Using the Special Vectors</h3>
+<p>In the <a href="vec.html#vec">previous chapter</a> we introduced several special vectors, including zero vectors, ones vectors, and elementary vectors. It is useful to explore what happens when one of these special vectors is used to calculate an dot product.</p>
+<p>Consider finding the dot product between an <em>n</em>-dimensional vector <strong>a</strong> and an <em>n</em>-dimensional zero vector <strong>0</strong>:</p>
 <p><span class="math display">\[
 \begin{split}
 \mathbf{a} \bullet \mathbf{0} &amp;= \begin{bmatrix} a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n \end{bmatrix} \bullet \begin{bmatrix} 0 \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}\\[2ex]
@@ -390,7 +391,7 @@ Figure 13: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimension
 &amp;= 0
 \end{split}
 \]</span></p>
-<p>The inner product is 0. Now, consider finding the inner product between an <em>n</em>-dimensional vector <strong>a</strong> and an <em>n</em>-dimensional ones vector <strong>1</strong>:</p>
+<p>The dot product is 0. Now, consider finding the dot product between an <em>n</em>-dimensional vector <strong>a</strong> and an <em>n</em>-dimensional ones vector <strong>1</strong>:</p>
 <p><span class="math display">\[
 \begin{split}
 \mathbf{a} \bullet \mathbf{1} &amp;= \begin{bmatrix} a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}\\[2ex]
@@ -398,8 +399,8 @@ Figure 13: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimension
 &amp;= \sum_{i=1}^n a_i
 \end{split}
 \]</span></p>
-<p>Notice that the inner product here is simply the sum of the elements in <strong>a</strong>. Because of this property, ones vectors are also sometimes referred to as <em>sum vectors</em>.</p>
-<p>Next, consider finding the inner product between an <em>n</em>-dimensional vector <strong>a</strong> and an <em>n</em>-dimensional elementary vector, say <span class="math inline">\(\mathbf{e}_1\)</span> in which the first element is 1 and the rest are 0:</p>
+<p>Notice that the dot product here is simply the sum of the elements in <strong>a</strong>. Because of this property, ones vectors are also sometimes referred to as <em>sum vectors</em>.</p>
+<p>Next, consider finding the dot product between an <em>n</em>-dimensional vector <strong>a</strong> and an <em>n</em>-dimensional elementary vector, say <span class="math inline">\(\mathbf{e}_1\)</span> in which the first element is 1 and the rest are 0:</p>
 <p><span class="math display">\[
 \begin{split}
 \mathbf{a} \bullet \mathbf{e}_1 &amp;= \begin{bmatrix} a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}\\[2ex]
@@ -407,11 +408,11 @@ Figure 13: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimension
 &amp;= a_1
 \end{split}
 \]</span></p>
-<p>Notice that the inner product here is simply the same as the first element in <strong>a</strong>. In general, the inner product between an <em>n</em>-element column vector, <strong>a</strong>, and an <em>n</em>-element elementary vector, <span class="math inline">\(\mathbf{e}_i\)</span> with element <span class="math inline">\(i=1\)</span>, is:</p>
+<p>Notice that the dot product here is simply the same as the first element in <strong>a</strong>. In general, the dot product between an <em>n</em>-element column vector, <strong>a</strong>, and an <em>n</em>-element elementary vector, <span class="math inline">\(\mathbf{e}_i\)</span> with element <span class="math inline">\(i=1\)</span>, is:</p>
 <p><span class="math display">\[
 \mathbf{a} \bullet \mathbf{e}_i = a_i
 \]</span></p>
-<!-- Technically, the inner product is the product of a row vector and column vector. In our example this is: -->
+<!-- Technically, the dot product is the product of a row vector and column vector. In our example this is: -->
 <!-- $$ -->
 <!-- \mathbf{a} \bullet \mathbf{b} = \mathbf{a}^{\prime}\mathbf{b} -->
 <!-- $$ -->
@@ -433,10 +434,88 @@ Figure 13: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimension
 <!-- \end{split} -->
 <!-- $$ -->
 <!-- Some caveats: -->
-<!-- - The inner product $\mathbf{a}\bullet\mathbf{b}$ is always the product of $\mathbf{a}^{\prime}\mathbf{b}$. (The row vector is always first in the product;  $\mathbf{a}\mathbf{b}^{\prime} \neq \mathbf{a}^{\prime}\mathbf{b}$.) -->
-<!-- - It is not possible to find the inner product of more than two vectors.  -->
+<!-- - The dot product $\mathbf{a}\bullet\mathbf{b}$ is always the product of $\mathbf{a}^{\prime}\mathbf{b}$. (The row vector is always first in the product;  $\mathbf{a}\mathbf{b}^{\prime} \neq \mathbf{a}^{\prime}\mathbf{b}$.) -->
+<!-- - It is not possible to find the dot product of more than two vectors.  -->
 <p><br /></p>
 </div>
+</div>
+<div id="vector-operations-using-r" class="section level2">
+<h2>Vector Operations Using R</h2>
+<p>We can also carry out these vector operations using R. Below we show how to carry out the operations of vector addition and vector subtraction.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="vecop.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors</span></span>
+<span id="cb27-2"><a href="vecop.html#cb27-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb27-3"><a href="vecop.html#cb27-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    5
+[2,]    2</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="vecop.html#cb29-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb29-2"><a href="vecop.html#cb29-2" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    1
+[2,]    3</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="vecop.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector addition</span></span>
+<span id="cb31-2"><a href="vecop.html#cb31-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> b</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    6
+[2,]    5</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="vecop.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector subtraction</span></span>
+<span id="cb33-2"><a href="vecop.html#cb33-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">-</span> b</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    4
+[2,]   -1</code></pre>
+<p>Multiplication of a vector by a scalar is carried out using the <code>*</code> operator. This operator carries out element-wise multiplication; in this case it multiplies each element in the vector by the given scalar.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="vecop.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors</span></span>
+<span id="cb35-2"><a href="vecop.html#cb35-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb35-3"><a href="vecop.html#cb35-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    2
+[2,]    3
+[3,]    0
+[4,]   -1</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="vecop.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiplication by 3</span></span>
+<span id="cb37-2"><a href="vecop.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> a</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    6
+[2,]    9
+[3,]    0
+[4,]   -3</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="vecop.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Division by 3 (this multiplies each element by the reciprical)</span></span>
+<span id="cb39-2"><a href="vecop.html#cb39-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">/</span> <span class="dv">3</span></span></code></pre></div>
+<pre><code>           [,1]
+[1,]  0.6666667
+[2,]  1.0000000
+[3,]  0.0000000
+[4,] -0.3333333</code></pre>
+<p>Lastly, although there is no dot product operator, we can mimic this function by using the elemement-wise multiplication operator to find the product of the corresponding elements of two vectors, and then use the <code>sum()</code> function to add those products together.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="vecop.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors</span></span>
+<span id="cb41-2"><a href="vecop.html#cb41-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb41-3"><a href="vecop.html#cb41-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    5
+[2,]    4
+[3,]    7
+[4,]    2</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="vecop.html#cb43-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb43-2"><a href="vecop.html#cb43-2" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    1
+[2,]    0
+[3,]   -1
+[4,]    2</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="vecop.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Element-wise multiplication</span></span>
+<span id="cb45-2"><a href="vecop.html#cb45-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">*</span> b</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    5
+[2,]    0
+[3,]   -7
+[4,]    4</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="vecop.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute dot product</span></span>
+<span id="cb47-2"><a href="vecop.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(a <span class="sc">*</span> b)</span></code></pre></div>
+<pre><code>[1] 2</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="vecop.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of a using dot product</span></span>
+<span id="cb49-2"><a href="vecop.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(a <span class="sc">*</span> a))</span></code></pre></div>
+<pre><code>[1] 9.69536</code></pre>
+<p><br /></p>
 <div id="exercises-2" class="section level3 exercises">
 <h3>Exercises</h3>
 <p><strong>Consider the following vectors:</strong></p>
@@ -482,7 +561,7 @@ Show/Hide Solution
 &amp;= \begin{bmatrix} -1 \\ 1\end{bmatrix}
 \end{split}
 \]</span></p>
-<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-8-1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-14-1.png" width="60%" style="display: block; margin: auto;" /></p>
 </div>
 <ol start="4" style="list-style-type: decimal">
 <li><span class="math inline">\(3\mathbf{z}\)</span> where <strong>z</strong> is a unit vector in which all the elements are equal.</li>
@@ -491,7 +570,7 @@ Show/Hide Solution
 Show/Hide Solution
 </button>
 <div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
-<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="matrix-algebra_files/figure-html/unnamed-chunk-15-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <p><strong>Students’ scores on two exams ranged from 32 to 98 out of a possible 100 points on both exams. The scores for six students are shown below for Exam 1 (x) and Exam 2 (y).</strong></p>
 <p><span class="math display">\[
@@ -548,7 +627,7 @@ Show/Hide Solution
 </div>
 <p style="text-align: center;">
 <a href="vec.html"><button class="btn btn-default">Previous</button></a>
-<a href="references.html"><button class="btn btn-default">Next</button></a>
+<a href="vector-geometry-angles-projection-and-decomposition.html"><button class="btn btn-default">Next</button></a>
 </p>
 </div>
 </div>

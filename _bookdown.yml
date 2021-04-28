@@ -10,6 +10,8 @@ rmd_files: [
     "02-data-structures.Rmd",
     "03-vectors.Rmd",
     "04-vector-operations.Rmd",
+    "05-projection.Rmd",
+    "06-statistical-application-01.Rmd",
     "99-references.Rmd"
     #"acknowledgments.Rmd",
     ]

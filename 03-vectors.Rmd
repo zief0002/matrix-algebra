@@ -41,12 +41,32 @@ We might also say that **a** is a column vector in 4-dimensions.
 
 In statistical or psychometric applications, vectors are how we typically represent and structure data collected on a particular attribute. For example, **a** might represent test scores for $n=4$ students. Each element in this vector would correspond to a student's test score. In this case, $a_1=5$ would be the test score for the first student recorded in the vector, $a_2=4$ would be the test score for the second student recorded in the vector, etc.  
 
+
+Computationally, we can also work with vectors using R. We use the `matrix()` function to create a column or row vector in R. We include the elements of the vector in a `c()` function and provide this to the `data=` argument. We also include either the argument `ncol=1` (column vector) or `nrow=1` (row vector). Below we create vector **a**. We can also use the `length()` function to count the number of elements in a vector.
+
+
+```{r}
+# Create column vector a
+a = matrix(data = c(5, 4, 7, 2), ncol = 1)
+a
+
+# Create row vector b
+b = matrix(data = c(1, 0, 0), nrow = 1)
+b
+
+# Count number of elements in a
+length(a)
+
+# Count number of elements in b
+length(b)
+```
+
 <br />
 
 
 ### Transposition
 
-One important vector operation is *transposition*. Transposition is an operation in which we replace the *i*th element of a column vector as the *i*th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. Notationally, we use a superscripted prime or a superscripted [intercalate symbol](https://unicode-table.com/en/22BA/#:~:text=%E2%8A%BA%20%2D%20Intercalate%3A%20U%2B22BA%20intcal%20%2D%20Unicode%20Character%20Table) (looks like a "T") to denote a vector's transpose. For example, transposing vector **a**, whcih we defined earlier:
+One important vector operation is *transposition*. Transposition is an operation in which we replace the *i*th element of a column vector as the *i*th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. Notationally, we use a superscripted prime or a superscripted [intercalate symbol](https://unicode-table.com/en/22BA/#:~:text=%E2%8A%BA%20%2D%20Intercalate%3A%20U%2B22BA%20intcal%20%2D%20Unicode%20Character%20Table) (looks like a "T") to denote a vector's transpose. For example, transposing vector **a**, which we defined earlier:
 
 $$
 \mathbf{a} = \begin{bmatrix}
@@ -55,6 +75,17 @@ $$
 5 & 4 & 7 & 2
 \end{bmatrix}
 $$
+
+In R, the `t()` function will compute the transpose of a vector. Here we use `t()` to compute the transpose of the earlier defined vectors **a** and **b**.
+
+```{r}
+# Transpose of a
+t(a)
+
+# Transpose of b
+t(b)
+```
+
 
 :::fyi
 Throughout the remainder of the book, row vectors will be denoted using a transpose. So, for example, **a** will indicate a column vector, and $\mathbf{a}^{\intercal}$ will indicate a row vector.
@@ -174,7 +205,7 @@ $$
 C^2 &= A^2 + B^2 \\[2ex]
 &= 2^2 + 3 ^2 \\[2ex]
 &= 13 \\[2ex]
-C &= \sqrt{13}
+C &= \sqrt{13} \approx 3.61
 \end{split}
 $$
 
@@ -189,6 +220,17 @@ We can generalize this to finding the length of a vector **a** with *n*-dimensio
 $$
 \lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2 + a_3^2 + \ldots + a_n^2}
 $$
+Computationally, to compute the length of a vector, we chain together several computations that (1) square the elements of in the vector, (2) sum those squares together, and (3) compute the square root of this sum. Below we create a 2-element column vector **a** and compute its length.
+
+
+```{r}
+# Create vector a
+a = matrix(data = c(2, 3), ncol = 1)
+a
+
+# Compute length of vector a
+sqrt(sum(a ^ 2))
+```
 
 
 <br />
