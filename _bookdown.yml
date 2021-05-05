@@ -5,13 +5,14 @@ language:
 delete_merged_file: true
 rmd_files: [
     "index.Rmd",
-    #"foreword.Rmd",
     "01-introduction.Rmd",
     "02-data-structures.Rmd",
     "03-vectors.Rmd",
     "04-vector-operations.Rmd",
     "05-projection.Rmd",
     "06-statistical-application-01.Rmd",
+    "07-matrices.Rmd",
+    "08-matrix-operations.Rmd",
     "99-references.Rmd"
     #"acknowledgments.Rmd",
     ]

@@ -11,7 +11,7 @@ $$
 \end{bmatrix}
 $$
 
-In psychometric and statistical applications, the data we work with typically have this type of rectangular arrangement. For example, the data in \@ref(tab:tab01), which includes measures of 5 variables for 100 students, is arranged into the familiar case-by-variable rectangular 'data matrix'.^[In computation, a *matrix* is a very particular type of data structure in which every column has the same type of data (e.g., every column is numeric, or every column is a character variable). A *data frame* is a more generalized computational structure that accommodates multiple types of columns. In some computational languages this structure is referred to as a data matrix.]
+In psychometric and statistical applications, the data we work with typically have this type of rectangular arrangement. For example, the data in \@ref(tab:tab01), which includes measures of 5 variables for 100 students, is arranged into the familiar case-by-variable rectangular 'data matrix'.^[In computation, a *matrix* is a very particular type of data structure in which every column has the same type of data (e.g., every column is numeric, or every column is a character variable). A *data frame* is a more generalized computational structure that accommodates multiple types of columns (variables).]
 
 ```{r tab01, echo=FALSE}
 d = data.frame(
@@ -88,10 +88,9 @@ Since **M** has two columns, this matrix represents a 2-dimensional structure (i
 knitr::include_graphics("figs/fig-07-01.png")
 ```
 
-Because most matrices have much higher dimensions, we typically do not visualize them geometrically. For additional detail on the geometry of matrices, see YouTube content creator 3Blue1Brown's excellent playlist, [Essence of Linear Algebra](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab).
+Because most matrices have much higher dimensions, we typically do not visualize them geometrically. 
 
 <br />
-
 
 ### Matrices in R
 
@@ -206,149 +205,240 @@ t(A)
 <br />
 
 
-:::exercises
-### Exercises
+## Square Matrices
 
-**Consider the following matrices:**
-
-$$
-\mathbf{A} = \begin{bmatrix}5 & 6 & 4& 5 & 9 \\21 & 23 & 24 & 22 & 20 \end{bmatrix} \qquad \mathbf{b}^\intercal = \begin{bmatrix}0 & 1 & 0 & 0 \end{bmatrix} \qquad \mathbf{Y} = \begin{bmatrix}2 & 3 & 1 \\5 & 6 & 8\\9 & 4 & 7 \end{bmatrix}
-$$
-
-1. Use notation to describe the dimensions of **A**.
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_01');">Show/Hide Solution</button>
-<div id="solution_01" style="display:none; margin: -40px 0 40px 40px;">
-$$
-\underset{2\times5}{\mathbf{A}}
-$$
-</div>
-
-2. Use notation to describe the dimensions of **b**.
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_02');">Show/Hide Solution</button>
-<div id="solution_02" style="display:none; margin: -40px 0 40px 40px;">
-$$
-\underset{4\times1}{\mathbf{b}}
-$$
-</div>
-
-3. Use notation to describe the dimensions of **Y**.
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_03');">Show/Hide Solution</button>
-<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
-$$
-\underset{3\times3}{\mathbf{Y}}
-$$
-</div>
-
-
-**The matrix X contains data from four students' of four different course exams.**
+When the number of rows and columns are equal ($n=k$), the matrix is referred to as a *square matrix*. For example, **X** and **Y** are both square matrices.
 
 $$
-\mathbf{X} = \begin{bmatrix}32 & 54 & 56 & 21 \\42 & 23 & 52 & 35 \\ 16 & 41 & 54 & 56 \\ 58 & 52 & 31 & 24 \end{bmatrix}
-$$
-
-4. Which student obtained a 35 and on which test? Report the row and column using subscript notation.
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_04');">Show/Hide Solution</button>
-<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
-$$
-X_{2,4}=35
-$$
-
-The 2nd student received a 35 on the 4th exam.
-
-</div>
-
-
-5. Using subscript notation, indicate the 4th student's score on the 1st exam.
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_05');">Show/Hide Solution</button>
-<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
-$$
-X_{4,1}=58
-$$
-</div>
-
-
-6. Does ${(\mathbf{X}^{\intercal})}^\intercal = \mathbf{X}$?
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_06');">Show/Hide Solution</button>
-<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
-Yes.
-
-The transpose of **X** is:
-
-$$
-\mathbf{X}^\intercal = \begin{bmatrix}32 & 42 & 16 & 58 \\54 & 23 & 41 & 52 \\ 56 & 52 & 54 & 31 \\ 21 & 35 & 56 & 24 \end{bmatrix}
-$$
-Taking the transpose of $\mathbf{X}^\intercal$ returns **X**.
-
-$$
-(\mathbf{X}^\intercal)^\intercal  = \begin{bmatrix}32 & 54 & 56 & 21 \\42 & 23 & 52 & 35 \\ 16 & 41 & 54 & 56 \\ 58 & 52 & 31 & 24 \end{bmatrix} = \mathbf{X}
+\underset{2\times 2}{\mathbf{X}} = \begin{bmatrix}
+4 & 1 \\ 
+0 & 3
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+0 & 1 & 0 \\ 
+1 & 3 & -8\\
+10 & 4 & -2
+\end{bmatrix}
 $$
 
 
-</div>
 
-7. Show computationally that ${(\mathbf{X}^{\intercal})}^\intercal = \mathbf{X}$.
+### Major Diagonal
 
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_07');">Show/Hide Solution</button>
-<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
+In a square matrix, the *major* (or *principle*) diagonal includes the elements that lie along the diagonal from the upper-left element to the lower-right element. For example, the major diagonal in **Y** (highlighted in red) includes the elements $0$, $3$, and $-2$. Elements not in the major diagonal are referred to as *off-diagonal elements*.
+
+$$
+\underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+\color{red}0 & 1 & 0 \\ 
+1 & \color{red}3 & -8\\
+10 & 4 & \color{red}{-2}
+\end{bmatrix}
+$$
+
+One interesting and useful property of a square matrix is that if we compute its transpose, the major diagonal is the same as in the original matrix.
+
+$$
+\underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+\color{red}0 & 1 & 0 \\ 
+1 & \color{red}3 & -8\\
+10 & 4 & \color{red}{-2}
+\end{bmatrix} \qquad
+\underset{3\times 3}{\mathbf{Y}^\intercal} = \begin{bmatrix}
+\color{red}0 & 1 & 10 \\ 
+1 & \color{red}3 & 4\\
+0 & -8 & \color{red}{-2}
+\end{bmatrix}
+$$
+
+
+#### Find the Major Diagonal Using R
+
+We can use the `diag()` function to return the elements on the main diagonal in a square matrix.
+
+```{r}
+# Create Y
+Y = matrix(
+  data = c(0, 1, 10, 1, 3, 4, 0, -8, -2),
+  nrow = 3
+  )
+
+# Display Y
+Y
+
+# Find diagonal elements
+diag(Y)
+```
+
+`r emo::ji("construction")` CAUTION: The `diag()` function also works on non-square matrices. However, it returns the elements on the diagonal starting with the element in the first row and column.
+
 ```{r}
 # Create X
 X = matrix(
-  data = c(32, 54, 56, 21, 42, 23, 52, 35, 16, 41, 54, 56, 58, 52, 31, 24),
-  byrow = TRUE,
-  ncol = 4
+  data = c(0, 1, 1, 3, 4, 0),
+  nrow = 3
   )
 
-# Transpose of the transpose of X
-t(t(X))
+# Display X
+X
 
-# Check equality
-t(t(X)) == X
+# Find 'diagonal' elements
+diag(X)
 ```
 
 
+<br />
 
-</div>
 
-8. List the diagonal elements of **X**. (These are the elements where the row and column dimension are equal.)
+### Matrix Trace
 
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_08');">Show/Hide Solution</button>
-<div id="solution_08" style="display:none; margin: -40px 0 40px 40px;">
+The *trace* of a square matrix is the sum of its diagonal elements. For example, consider the matrix **Y**:  
+
 $$
-\begin{split}
-X_{1,1}=32 \\[1em]
-X_{2,2}=23 \\[1em]
-X_{3,3}=54 \\[1em]
-X_{4,4}=24
-\end{split}
-$$
-
-</div>
-
-9. List the diagonal elements of $\mathbf{X}^\intercal$. (These are the elements where the row and column dimension are equal.)
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_09');">Show/Hide Solution</button>
-<div id="solution_09" style="display:none; margin: -40px 0 40px 40px;">
-$$
-\begin{split}
-X^\intercal_{1,1}=32 \\[1em]
-X^\intercal_{2,2}=23 \\[1em]
-X^\intercal_{3,3}=54 \\[1em]
-X^\intercal_{4,4}=24
-\end{split}
+\underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+\color{red}0 & 1 & 0 \\ 
+1 & \color{red}3 & -8\\
+10 & 4 & \color{red}{-2}
+\end{bmatrix}
 $$
 
-</div>
+The trace of **Y** is $0 + 3 + -2 = 1$.
 
-:::
+<br />
 
+#### Computing the Trace in R
 
+To compute the trace we use the `sum()` and `diag()` functions.
+
+```{r}
+# Compute trace of Y
+sum(diag(Y))
+```
+
+You can also use the `tr()` function from the **psych** library to compute the trace.
+
+```{r message=FALSE}
+library(psych)
+tr(Y)
+```
 
 
 <br />
+
+## Symmetric Matrices
+
+If $\mathbf{A} = \mathbf{A}^{\intercal}$, the matrix **A** is considered *symmetric*. For example, the following matrix **R** is symmetric:
+
+$$
+\underset{3\times 3}{\mathbf{R}} = \begin{bmatrix}
+1.00 & 0.32 & 0.69\\
+0.32 & 1.00 & 0.85 \\
+0.69 & 0.85 & 1.00
+\end{bmatrix} =
+\underset{3\times 3}{\mathbf{R}^\intercal} = \begin{bmatrix}
+1.00 & 0.32 & 0.69\\
+0.32 & 1.00 & 0.85 \\
+0.69 & 0.85 & 1.00
+\end{bmatrix}
+$$
+
+In general, a matrix **A** is symmetric if,
+
+$$
+\mathbf{A}_{ij} = \mathbf{A}_{ji}
+$$
+
+
+If matrix **A** is symmetric, it necessitates that:
+
+- $\mathbf{A}$ and $\mathbf{A}^{\intercal}$ have the same dimensions. This also implies that the matrix must be a  square matrix.
+- All of the corresponding elements in $\mathbf{A}$ and $\mathbf{A}^{\intercal}$ are equal.
+
+In statistical practice, variance--covariance matrices and correlation matrices are symmetric. Computationally, we can examine whether a matrix is symmetric by checking whether the logical statement equating a matrix and its transpose evaluates as `TRUE` for all elements.
+
+```{r}
+# Create matrix R
+R = matrix(
+  data = c(1.00, 0.32, 0.69, 0.32, 1.00, 0.85, 0.69, 0.85, 1.00),
+  nrow = 3
+)
+
+# Display R
+R
+
+# Test for symmetry
+R == t(R)
+```
+
+If this logical statement evaluates as `TRUE` for all the elements the matrix is symmetric. If the logical expression returns an *non-conformable array* error, or evaluates as `FALSE` for any of the elements, then it is not symmetric.
+
+<br />
+
+## Diagonal Matrices
+
+A diagonal matrix is a square matrix in which all the off-diagonal elements are zero. Two examples of diagonal matrices are as follows:
+
+$$
+\underset{2\times 2}{\mathbf{D}_1} = \begin{bmatrix}
+5 & 0 \\
+0 & -1
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{D}_2} = \begin{bmatrix}
+3 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & 3
+\end{bmatrix}
+$$
+
+In general, **D** is a diagonal matrix if $D_{ij}=0$ for all $i\neq j$.
+
+<br />
+
+## Scalar Matrices
+
+A diagonal matrix in which all the diagonal elements have the same value is called a scalar matrix. The following two matrices are scalar matrices:
+
+$$
+\underset{2\times 2}{\mathbf{S}_1} = \begin{bmatrix}
+-3 & 0 \\
+0 & -3
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{S}_2} = \begin{bmatrix}
+10 & 0 & 0 \\
+0 & 10 & 0 \\
+0 & 0 & 10
+\end{bmatrix}
+$$
+
+Note that scalar matrices are symmetric. In general **S** is a scalar matrix if 
+
+$$
+\mathbf{S}_{ij}=\begin{cases}k \quad \mathrm{when} \quad i=j \\0 \quad \mathrm{when} \quad i\neq j\end{cases}
+$$
+
+<br />
+
+### Identity Matrix
+
+A special scalar matrix, the identity matrix, is one in which all the diagonal elements are the value of one (1).  
+
+$$
+\underset{2\times 2}{\mathbf{I}_1} = \begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{I}_2} = \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+$$
+
+Note that all identity matrices are symmetric. The `diag()` function can be used to create an identity matrix. We give this function an argument which provides the number of rows and columns.
+
+```{r}
+# Create a 3x3 identity matrix
+I = diag(3)
+
+# Display I
+I
+```
+
+<br />
+
 

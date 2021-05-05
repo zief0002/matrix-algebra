@@ -21,3 +21,5 @@ fig:model-triangle
 fig:unnamed-chunk-25
 fig:unnamed-chunk-28
 fig:fig06-04
+tab:tab01
+fig:fig-07-01
