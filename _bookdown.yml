@@ -13,6 +13,7 @@ rmd_files: [
     "06-statistical-application-01.Rmd",
     "07-matrices.Rmd",
     "08-matrix-operations.Rmd",
+    "09-special-matrices.Rmd",
     "99-references.Rmd"
     #"acknowledgments.Rmd",
     ]

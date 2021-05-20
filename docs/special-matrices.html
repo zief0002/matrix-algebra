@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Special Matrices | Matrix Algebra for Educational Scientists" />
+<meta property="og:type" content="book" />
+
+
+<meta property="og:description" content="Matrix algebra content for QME students" />
+<meta name="github-repo" content="zief0002/matrix-algebra" />
+
+<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
+
+<meta name="date" content="2021-05-20" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="Matrix algebra content for QME students">
+
+<title>Special Matrices | Matrix Algebra for Educational Scientists</title>
+
+<script src="libs/header-attrs/header-attrs.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation/tabsets.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  { color: #cccccc; background-color: #303030; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffcfaf; } /* Alert */
+code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #dca3a3; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #f0dfaf; } /* ControlFlow */
+code span.ch { color: #dca3a3; } /* Char */
+code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code span.co { color: #7f9f7f; } /* Comment */
+code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code span.do { color: #7f9f7f; } /* Documentation */
+code span.dt { color: #dfdfbf; } /* DataType */
+code span.dv { color: #dcdccc; } /* DecVal */
+code span.er { color: #c3bf9f; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #c0bed1; } /* Float */
+code span.fu { color: #efef8f; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+code span.kw { color: #f0dfaf; } /* Keyword */
+code span.op { color: #f0efd0; } /* Operator */
+code span.ot { color: #efef8f; } /* Other */
+code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
+code span.sc { color: #dca3a3; } /* SpecialChar */
+code span.ss { color: #cc9393; } /* SpecialString */
+code span.st { color: #cc9393; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #cc9393; } /* VerbatimString */
+code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link rel="stylesheet" href="style/style.css" type="text/css" />
+<link rel="stylesheet" href="style/table-styles.css" type="text/css" />
+<link rel="stylesheet" href="style/syntax.css" type="text/css" />
+<link rel="stylesheet" href="style/navbar.css" type="text/css" />
+<link rel="stylesheet" href="style/notes.css" type="text/css" />
+<link rel="stylesheet" href="style/buttons.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#foreword">Foreword</a></li>
+<li><a href="intro.html#intro">Introduction</a></li>
+<li><a href="datastructures.html#datastructures">Data Structures</a></li>
+<li class="part"><span><b>Vectors and Vector Operations</b></span></li>
+<li><a href="vec.html#vec">Vectors</a></li>
+<li><a href="vecop.html#vecop">Vector Operations</a></li>
+<li><a href="vector-geometry-angles-projection-and-decomposition.html#vector-geometry-angles-projection-and-decomposition">Vector Geometry: Angles, Projection, and Decomposition</a></li>
+<li><a href="statistical-appplication-of-vectors.html#statistical-appplication-of-vectors">Statistical Appplication of Vectors</a></li>
+<li class="part"><span><b>Matrices and Matrix Operations</b></span></li>
+<li><a href="matrices-1.html#matrices-1">Matrices</a></li>
+<li><a href="matrix-operations.html#matrix-operations">Matrix Operations</a></li>
+<li><a href="special-matrices.html#special-matrices">Special Matrices</a></li>
+<li><a href="references.html#references">References</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="special-matrices" class="section level1">
+<h1>Special Matrices</h1>
+<p>In this chapter, you will learn about several special matrices encountered in statistical and psychometric applications. Many of these matrices occur quite frequently in matrix applications. Others have properties that make them incredibly useful for computation.</p>
+<p><br /></p>
+<div id="matrix-transpose" class="section level2">
+<h2>Matrix Transpose</h2>
+<p>Transposition is an operation that can also be carried out on matrices. Just as when we transpose a vector, we transpose a matrix by taking each column in turn and making it a row. In other words, we interchange each column and row, so the first column becomes the first row, the second column becomes the second row, etc. For example,</p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}
+112 &amp; 86 &amp; 0 \\ 134 &amp; 94 &amp; 0
+\end{bmatrix} \qquad 
+\mathbf{A}^\intercal = \begin{bmatrix}
+112 &amp; 134 \\86 &amp; 94 \\ 0 &amp; 0
+\end{bmatrix}
+\]</span></p>
+<p>Formally, if <strong>A</strong> is an <span class="math inline">\(n \times k\)</span> matrix with elements <span class="math inline">\(a_{ij}\)</span>, then the transpose of <strong>A</strong>, denoted <span class="math inline">\(\mathbf{A}^\intercal\)</span> is a <span class="math inline">\(k \times n\)</span> matrix where element <span class="math inline">\(a^\intercal_{ij}=a_{ji}\)</span>. Some properties of the matrix transpose are:</p>
+<ul>
+<li><span class="math inline">\((\mathbf{A}^{\intercal}) ^{^{\intercal}} = \mathbf{A}\)</span></li>
+<li><span class="math inline">\((\lambda\mathbf{A})^{^{\intercal}} = \lambda \mathbf{A}^{\intercal}\)</span> where <span class="math inline">\(\lambda\)</span> is a scalar</li>
+<li><span class="math inline">\((\mathbf{A} + \mathbf{B})^{^{\intercal}} = \mathbf{A}^{\intercal} + \mathbf{B}^{\intercal}\)</span> (This property extends to more than two matrices; <span class="math inline">\((\mathbf{A} + \mathbf{B} + \mathbf{C})^{^{\intercal}} = \mathbf{A}^{\intercal} + \mathbf{B}^{\intercal} + \mathbf{C}^{\intercal}\)</span>.)</li>
+<li><span class="math inline">\((\mathbf{A}\mathbf{B})^{^{\intercal}} = \mathbf{B}^{\intercal} \mathbf{A}^{\intercal}\)</span> (This property also extends to more than two matrices; <span class="math inline">\((\mathbf{A}\mathbf{B}\mathbf{C})^{^{\intercal}} = \mathbf{C}^{\intercal}\mathbf{B}^{\intercal} \mathbf{A}^{\intercal}\)</span>.)</li>
+</ul>
+<p>Computationally, the <code>t()</code> function will produce the transpose of a matrix in R.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="special-matrices.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb141-2"><a href="special-matrices.html#cb141-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb141-3"><a href="special-matrices.html#cb141-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">112</span>, <span class="dv">134</span>, <span class="dv">86</span>, <span class="dv">94</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb141-4"><a href="special-matrices.html#cb141-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb141-5"><a href="special-matrices.html#cb141-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb141-6"><a href="special-matrices.html#cb141-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-7"><a href="special-matrices.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display A</span></span>
+<span id="cb141-8"><a href="special-matrices.html#cb141-8" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]  112   86    0
+[2,]  134   94    0</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="special-matrices.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute transpose</span></span>
+<span id="cb143-2"><a href="special-matrices.html#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(A)</span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]  112  134
+[2,]   86   94
+[3,]    0    0</code></pre>
+<p><br /></p>
+</div>
+<div id="square-matrices" class="section level2">
+<h2>Square Matrices</h2>
+<p>When the number of rows and columns in a matrix are equal, the matrix is referred to as a <em>square matrix</em>. For example, <strong>X</strong> and <strong>Y</strong> are both square matrices.</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\mathbf{X}} = \begin{bmatrix}
+4 &amp; 1 \\ 
+0 &amp; 3
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+0 &amp; 1 &amp; 0 \\ 
+1 &amp; 3 &amp; -8\\
+10 &amp; 4 &amp; -2
+\end{bmatrix}
+\]</span></p>
+<div id="main-diagonal" class="section level3">
+<h3>Main Diagonal</h3>
+<p>In a square matrix, the <em>main diagonal</em> (a.k.a., <em>major diagonal</em> or <em>principal diagonal</em>) includes the elements that lie along the diagonal from the upper-left element to the lower-right element. For example, the main diagonal in <strong>Y</strong> (highlighted in red) includes the elements <span class="math inline">\(0\)</span>, <span class="math inline">\(3\)</span>, and <span class="math inline">\(-2\)</span>. Elements not in the main diagonal are referred to as <em>off-diagonal elements</em>.</p>
+<p><span class="math display">\[
+\underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+\color{red}{0} &amp; 1 &amp; 0 \\ 
+1 &amp; \color{red}{3} &amp; -8\\
+10 &amp; 4 &amp; \color{red}{-2}
+\end{bmatrix}
+\]</span></p>
+<p>One interesting and useful property of a square matrix is that if we compute its transpose, the main diagonal is the same as in the original matrix.</p>
+<p><span class="math display">\[
+\underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+\color{red}0 &amp; 1 &amp; 0 \\ 
+1 &amp; \color{red}3 &amp; -8\\
+10 &amp; 4 &amp; \color{red}{-2}
+\end{bmatrix} \qquad
+\underset{3\times 3}{\mathbf{Y}^\intercal} = \begin{bmatrix}
+\color{red}0 &amp; 1 &amp; 10 \\ 
+1 &amp; \color{red}3 &amp; 4\\
+0 &amp; -8 &amp; \color{red}{-2}
+\end{bmatrix}
+\]</span></p>
+<p>We can use the <code>diag()</code> function to return the elements on the main diagonal in a square matrix.</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="special-matrices.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Y</span></span>
+<span id="cb145-2"><a href="special-matrices.html#cb145-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb145-3"><a href="special-matrices.html#cb145-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">8</span>, <span class="sc">-</span><span class="dv">2</span>),</span>
+<span id="cb145-4"><a href="special-matrices.html#cb145-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span></span>
+<span id="cb145-5"><a href="special-matrices.html#cb145-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb145-6"><a href="special-matrices.html#cb145-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-7"><a href="special-matrices.html#cb145-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display Y</span></span>
+<span id="cb145-8"><a href="special-matrices.html#cb145-8" aria-hidden="true" tabindex="-1"></a>Y</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    0    1    0
+[2,]    1    3   -8
+[3,]   10    4   -2</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="special-matrices.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find diagonal elements</span></span>
+<span id="cb147-2"><a href="special-matrices.html#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(Y)</span></code></pre></div>
+<pre><code>[1]  0  3 -2</code></pre>
+<p>🚧 CAUTION: The <code>diag()</code> function also works on non-square matrices. However, it returns the elements on the diagonal starting with the element in the first row and column.</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="special-matrices.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X</span></span>
+<span id="cb149-2"><a href="special-matrices.html#cb149-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb149-3"><a href="special-matrices.html#cb149-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span>),</span>
+<span id="cb149-4"><a href="special-matrices.html#cb149-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span></span>
+<span id="cb149-5"><a href="special-matrices.html#cb149-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb149-6"><a href="special-matrices.html#cb149-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-7"><a href="special-matrices.html#cb149-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display X</span></span>
+<span id="cb149-8"><a href="special-matrices.html#cb149-8" aria-hidden="true" tabindex="-1"></a>X</span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    0    3
+[2,]    1    4
+[3,]    1    0</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="special-matrices.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find &#39;diagonal&#39; elements</span></span>
+<span id="cb151-2"><a href="special-matrices.html#cb151-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(X)</span></code></pre></div>
+<pre><code>[1] 0 4</code></pre>
+<p>This is because non-square matrices also have a main diagonal. The main diagonal in a non-square matrix includes the elements <span class="math inline">\(a_{11}, a_{22}, \ldots, a_{mm}\)</span> where <em>m</em> is the minimum of the row and column values.</p>
+<p><br /></p>
+</div>
+</div>
+<div id="diagonal-matrices" class="section level2">
+<h2>Diagonal Matrices</h2>
+<p>A diagonal matrix is a square matrix in which all the off-diagonal elements are zero. Two examples of diagonal matrices are as follows:</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\mathbf{D}_1} = \begin{bmatrix}
+5 &amp; 0 \\
+0 &amp; -1
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{D}_2} = \begin{bmatrix}
+3 &amp; 0 &amp; 0 \\
+0 &amp; 3 &amp; 0 \\
+0 &amp; 0 &amp; 3
+\end{bmatrix}
+\]</span></p>
+<p>In general, <strong>D</strong> is a diagonal matrix if element <span class="math inline">\(d_{ij}=0\)</span> for all <span class="math inline">\(i\neq j\)</span>.</p>
+<p><br /></p>
+</div>
+<div id="scalar-matrices" class="section level2">
+<h2>Scalar Matrices</h2>
+<p>A diagonal matrix in which all the diagonal elements have the same value is called a scalar matrix. The following two matrices are scalar matrices:</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\mathbf{S}_1} = \begin{bmatrix}
+-3 &amp; 0 \\
+0 &amp; -3
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{S}_2} = \begin{bmatrix}
+10 &amp; 0 &amp; 0 \\
+0 &amp; 10 &amp; 0 \\
+0 &amp; 0 &amp; 10
+\end{bmatrix}
+\]</span></p>
+<p>The null matrix is also a scalar matrix. In general <strong>S</strong> is a scalar matrix if element</p>
+<p><span class="math display">\[
+s_{ij}=\begin{cases}k \quad \mathrm{when} \quad i=j \\0 \quad \mathrm{when} \quad i\neq j\end{cases}
+\]</span></p>
+<p><br /></p>
+<div id="identity-matrices" class="section level3">
+<h3>Identity Matrices</h3>
+<p>A special scalar matrix, the identity matrix, is one in which all the diagonal elements are the value of one (1).</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\mathbf{I}} = \begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{I}} = \begin{bmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span></p>
+<p>The identity matrix has the following property:</p>
+<ul>
+<li>For any matrix <strong>A</strong>, <span class="math inline">\(\mathbf{AI} = \mathbf{IA} = \mathbf{A}\)</span></li>
+</ul>
+<p>The <code>diag()</code> function can be used to create an identity matrix. We give this function an argument which provides the number of rows and columns.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="special-matrices.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 3x3 identity matrix</span></span>
+<span id="cb153-2"><a href="special-matrices.html#cb153-2" aria-hidden="true" tabindex="-1"></a>I <span class="ot">=</span> <span class="fu">diag</span>(<span class="dv">3</span>)</span>
+<span id="cb153-3"><a href="special-matrices.html#cb153-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-4"><a href="special-matrices.html#cb153-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display I</span></span>
+<span id="cb153-5"><a href="special-matrices.html#cb153-5" aria-hidden="true" tabindex="-1"></a>I</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    0    0
+[2,]    0    1    0
+[3,]    0    0    1</code></pre>
+<p><br /></p>
+</div>
+</div>
+<div id="symmetric-matrices" class="section level2">
+<h2>Symmetric Matrices</h2>
+<p>If <span class="math inline">\(\mathbf{A} = \mathbf{A}^{\intercal}\)</span>, the matrix <strong>A</strong> is considered <em>symmetric</em>. For example, the following matrix <strong>R</strong> is symmetric:</p>
+<p><span class="math display">\[
+\underset{3\times 3}{\mathbf{R}} = \begin{bmatrix}
+1.00 &amp; 0.32 &amp; 0.69\\
+0.32 &amp; 1.00 &amp; 0.85 \\
+0.69 &amp; 0.85 &amp; 1.00
+\end{bmatrix} =
+\underset{3\times 3}{\mathbf{R}^\intercal} = \begin{bmatrix}
+1.00 &amp; 0.32 &amp; 0.69\\
+0.32 &amp; 1.00 &amp; 0.85 \\
+0.69 &amp; 0.85 &amp; 1.00
+\end{bmatrix}
+\]</span></p>
+<p>In general, a matrix <strong>A</strong> is symmetric if,</p>
+<p><span class="math display">\[
+\mathbf{A}_{ij} = \mathbf{A}_{ji}
+\]</span></p>
+<p>If matrix <strong>A</strong> is symmetric, it necessitates that:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{A}^{\intercal}\)</span> have the same dimensions. This also implies that the matrix must be a square matrix.</li>
+<li>All of the corresponding elements in <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{A}^{\intercal}\)</span> are equal.</li>
+</ul>
+<p>All scalar matrices, including the identity matrix, are symmetric.</p>
+<p>In statistical practice, variance–covariance matrices and correlation matrices are symmetric. Computationally, we can examine whether a matrix is symmetric by checking whether the logical statement equating a matrix and its transpose evaluates as <code>TRUE</code> for all elements. For example, consider the correlation matrix <strong>R</strong>:</p>
+<p><span class="math display">\[
+\mathbf{R}=\begin{bmatrix}1.00 &amp; 0.32 &amp; 0.69\\ 0.32 &amp; 1.00 &amp; 0.85\\ 0.69 &amp; 0.85 &amp; 1.00\end{bmatrix}
+\]</span></p>
+<p>To check its symmetry, we can use the following syntax.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="special-matrices.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create matrix R</span></span>
+<span id="cb155-2"><a href="special-matrices.html#cb155-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb155-3"><a href="special-matrices.html#cb155-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="fl">1.00</span>, <span class="fl">0.32</span>, <span class="fl">0.69</span>, <span class="fl">0.32</span>, <span class="fl">1.00</span>, <span class="fl">0.85</span>, <span class="fl">0.69</span>, <span class="fl">0.85</span>, <span class="fl">1.00</span>),</span>
+<span id="cb155-4"><a href="special-matrices.html#cb155-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span></span>
+<span id="cb155-5"><a href="special-matrices.html#cb155-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb155-6"><a href="special-matrices.html#cb155-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb155-7"><a href="special-matrices.html#cb155-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display R</span></span>
+<span id="cb155-8"><a href="special-matrices.html#cb155-8" aria-hidden="true" tabindex="-1"></a>R</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,] 1.00 0.32 0.69
+[2,] 0.32 1.00 0.85
+[3,] 0.69 0.85 1.00</code></pre>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="special-matrices.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test for symmetry</span></span>
+<span id="cb157-2"><a href="special-matrices.html#cb157-2" aria-hidden="true" tabindex="-1"></a>R <span class="sc">==</span> <span class="fu">t</span>(R)</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,] TRUE TRUE TRUE
+[2,] TRUE TRUE TRUE
+[3,] TRUE TRUE TRUE</code></pre>
+<p>If the logical statement of equality evaluates as <code>TRUE</code> for all the elements, the matrix is symmetric. If the logical expression returns an <em>non-conformable array</em> error, or evaluates as <code>FALSE</code> for any of the elements, then it is not symmetric.</p>
+<p><br /></p>
+<div id="skew-symmetric-matrices" class="section level3">
+<h3>Skew Symmetric Matrices</h3>
+<p>A matrix <strong>A</strong> is said to be <em>skew symmetric</em> if <span class="math inline">\(\mathbf{A} = -\mathbf{A}^{\intercal}\)</span>.For example, the following matrix <strong>S</strong> is skew symmetric:</p>
+<p><span class="math display">\[
+\underset{3\times 3}{\mathbf{S}} = \begin{bmatrix}
+0 &amp; 2 &amp; -3\\
+-2 &amp; 0 &amp; 1 \\
+3 &amp; -1 &amp; 0
+\end{bmatrix}
+\]</span></p>
+<p>In general, a matrix <strong>A</strong> is skew symmetric if, <span class="math inline">\(\mathbf{a}_{ij} = -\mathbf{a}_{ji}\)</span>. Note that if a matrix is skew symmetric, all of its diagonal elements must be zero.</p>
+<p><br /></p>
+</div>
+</div>
+<div id="triangular-matrices" class="section level2">
+<h2>Triangular Matrices</h2>
+<p>A matrix is a triangular matrix if all of the elements above or below the main diagonal are zero. These are referred to as <em>upper triangular matrices</em> and <em>lower triangular matrices</em>, respectively. A matrix <strong>A</strong> is a lower triangular matrix if elements <span class="math inline">\(a_{ij}=0\)</span> for <span class="math inline">\(j&gt;i\)</span> (all the elements above the main diagonal are zero). For example the matrix <strong>L</strong> is lower triangular:</p>
+<p><span class="math display">\[
+\underset{4\times 4}{\mathbf{L}} = \begin{bmatrix}
+6 &amp; \color{red}{0} &amp; \color{red}{0} &amp; \color{red}{0}\\
+-1 &amp; 5 &amp; \color{red}{0} &amp; \color{red}{0} \\
+0 &amp; 1 &amp; 2 &amp; \color{red}{0} \\
+3 &amp; -2 &amp; 5 &amp; 7
+\end{bmatrix}
+\]</span></p>
+<p>A matrix <strong>A</strong> is an upper triangular matrix if elements <span class="math inline">\(a_{ij}=0\)</span> for <span class="math inline">\(i&gt;j\)</span> (all the elements below the main diagonal are zero). For example the matrix <strong>U</strong> is lower triangular:</p>
+<p><span class="math display">\[
+\underset{4\times 4}{\mathbf{U}} = \begin{bmatrix}
+3 &amp; -2 &amp; 5 &amp; 7\\
+\color{red}{0} &amp; 1 &amp; 2 &amp; 0 \\
+\color{red}{0} &amp; \color{red}{0} &amp; -1 &amp; 5 &amp; \\
+\color{red}{0} &amp; \color{red}{0} &amp; \color{red}{0} &amp; 6\\
+\end{bmatrix}
+\]</span></p>
+<p><br /></p>
+<div id="exercises-5" class="section level3 exercises">
+<h3>Exercises</h3>
+<p><strong>Consider the following matrices:</strong></p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}1 &amp; 5 &amp; -1 \\ 3 &amp; 2 &amp; -1 \\ 0 &amp; 1 &amp; 5 \end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}3 &amp; 1 &amp; 6 \\ 2 &amp; 0 &amp; 1 \\ -7 &amp; -1 &amp; 2 \end{bmatrix}
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>Verify that <span class="math inline">\((\mathbf{A}+\mathbf{B})^\intercal = \mathbf{A}^\intercal + \mathbf{B}^\intercal\)</span>?</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_01&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_01" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\begin{split}
+(\mathbf{A}+\mathbf{B})^\intercal &amp;= \begin{bmatrix}4 &amp; 6 &amp; 5\\5 &amp; 2 &amp; 0\\ -7 &amp; 0 &amp; 7 \end{bmatrix}^\intercal = \begin{bmatrix}4 &amp; 5 &amp; -7\\6 &amp; 2 &amp; 0\\5 &amp; 0&amp; 7 \end{bmatrix} \\[3em]
+\mathbf{A}^\intercal + \mathbf{B}^\intercal &amp;= \begin{bmatrix}1 &amp; 3 &amp; 0\\5 &amp; 2 &amp; 1\\-1 &amp; -1 &amp; 5 \end{bmatrix} + \begin{bmatrix}3 &amp; 2 &amp; -7\\1 &amp; 0 &amp; -1\\6 &amp; 1 &amp; 2 \end{bmatrix} = \begin{bmatrix}4 &amp; 5 &amp; -7\\6 &amp; 2 &amp; 0\\5 &amp; 0&amp; 7 \end{bmatrix}
+\end{split}
+\]</span></p>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>Verify that <span class="math inline">\((\mathbf{A}\mathbf{B})^\intercal = \mathbf{B}^\intercal \mathbf{A}^\intercal\)</span>?.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_02&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_02" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\begin{split}
+(\mathbf{A}\mathbf{B})^\intercal &amp;= \begin{bmatrix}20 &amp; 2 &amp; 9\\20 &amp; 4 &amp; 18\\-33 &amp; -5 &amp; 11 \end{bmatrix}^\intercal = \begin{bmatrix}20 &amp; 20 &amp; -33\\ 2 &amp; 4&amp; -5\\9 &amp; 18 &amp; 11 \end{bmatrix} \\[3em]
+\mathbf{B}^\intercal \mathbf{A}^\intercal &amp;= \begin{bmatrix}3 &amp; 2 &amp; -7\\1 &amp; 0 &amp; -1\\6 &amp; 1 &amp; 2 \end{bmatrix}\begin{bmatrix}1 &amp; 3 &amp; 0\\5 &amp; 2 &amp; 1\\-1 &amp; -1 &amp; 5 \end{bmatrix} = \begin{bmatrix}20 &amp; 20 &amp; -33\\ 2 &amp; 4&amp; -5\\9 &amp; 18 &amp; 11 \end{bmatrix}
+\end{split}
+\]</span></p>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>List the diagonal elements of <span class="math inline">\(\mathbf{A}^\intercal\)</span>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_03&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\begin{split}
+B^\intercal_{1,1}=1 \\[1em]
+B^\intercal_{2,2}=2 \\[1em]
+B^\intercal_{3,3}=5 \\[1em]
+\end{split}
+\]</span></p>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>Create an identity matrix of order 4.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_04&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\underset{4\times4}{\mathbf{I}} = \begin{bmatrix}1 &amp; 0 &amp; 0&amp; 0\\0 &amp; 1 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; 0 &amp; 1\end{bmatrix}
+\]</span></p>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>Explain why the transpose of an upper triangular matrix will be a lower triangular matrix.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_05&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
+<p>An upper triangular matrix, <strong>U</strong>, has elements <span class="math inline">\(u_{ij}=0\)</span> for <span class="math inline">\(i&gt;j\)</span> (all the elements below the main diagonal are zero). Taking the transpose of <strong>U</strong>, element <span class="math inline">\(u_{ij}\)</span> becomes <span class="math inline">\(u^\intercal_{ji}\)</span>. This means that in <span class="math inline">\(\mathbf{U}^\intercal\)</span> the zero elements all be where <span class="math inline">\(j&gt;i\)</span>.</p>
+</div>
+<p><strong>Consider the following:</strong></p>
+<p><span class="math display">\[
+\mathbf{X} = \begin{bmatrix} 10 &amp; 4 &amp; 6\\4 &amp; 10 &amp; 8\\6 &amp; 8 &amp; 9 \end{bmatrix} \qquad \mathbf{Y} = \begin{bmatrix}0 &amp; 1 &amp; 2\\-1 &amp; 0 &amp; 4\\-2 &amp; -4 &amp; 0 \end{bmatrix}
+\]</span></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Use R to show that <strong>X</strong> is symmetric.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_06&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="special-matrices.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X</span></span>
+<span id="cb159-2"><a href="special-matrices.html#cb159-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb159-3"><a href="special-matrices.html#cb159-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>),</span>
+<span id="cb159-4"><a href="special-matrices.html#cb159-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb159-5"><a href="special-matrices.html#cb159-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb159-6"><a href="special-matrices.html#cb159-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb159-7"><a href="special-matrices.html#cb159-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-8"><a href="special-matrices.html#cb159-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Check symmetry</span></span>
+<span id="cb159-9"><a href="special-matrices.html#cb159-9" aria-hidden="true" tabindex="-1"></a>X <span class="sc">==</span> <span class="fu">t</span>(X)</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,] TRUE TRUE TRUE
+[2,] TRUE TRUE TRUE
+[3,] TRUE TRUE TRUE</code></pre>
+</div>
+<ol start="7" style="list-style-type: decimal">
+<li>Use R to show that <strong>Y</strong> is skew symmetric.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_07&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="special-matrices.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X</span></span>
+<span id="cb161-2"><a href="special-matrices.html#cb161-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb161-3"><a href="special-matrices.html#cb161-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">0</span>),</span>
+<span id="cb161-4"><a href="special-matrices.html#cb161-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb161-5"><a href="special-matrices.html#cb161-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb161-6"><a href="special-matrices.html#cb161-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb161-7"><a href="special-matrices.html#cb161-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb161-8"><a href="special-matrices.html#cb161-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Check symmetry</span></span>
+<span id="cb161-9"><a href="special-matrices.html#cb161-9" aria-hidden="true" tabindex="-1"></a>Y <span class="sc">==</span> <span class="sc">-</span><span class="fu">t</span>(Y)</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,] TRUE TRUE TRUE
+[2,] TRUE TRUE TRUE
+[3,] TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+<p><br /></p>
+
+</div>
+</div>
+<p style="text-align: center;">
+<a href="matrix-operations.html"><button class="btn btn-default">Previous</button></a>
+<a href="references.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

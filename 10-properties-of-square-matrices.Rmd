@@ -1,0 +1,30 @@
+# Properties of Square Matrices
+
+### Matrix Trace
+
+The *trace* of a square matrix is the sum of its diagonal elements. For example, consider the matrix **Y**:  
+
+$$
+\underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+\color{red}0 & 1 & 0 \\ 
+1 & \color{red}3 & -8\\
+10 & 4 & \color{red}{-2}
+\end{bmatrix}
+$$
+
+The trace of **Y** is $0 + 3 + -2 = 1$. To compute the trace using R, we use the `sum()` and `diag()` functions.
+
+```{r}
+# Compute trace of Y
+sum(diag(Y))
+```
+
+You can also use the `tr()` function from the **psych** library to compute the trace.
+
+```{r message=FALSE}
+library(psych)
+tr(Y)
+```
+
+
+<br />

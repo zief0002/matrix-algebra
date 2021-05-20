@@ -1,3 +1,5 @@
+# (PART\*) Vectors and Vector Operations {-}
+
 # Vectors {#vec}
 
 In this chapter you will learn more about the vector data structure. You will be introduced to some of the vocabulary that we use to describe vectors. You will also be introduced to the geometry of vectors. It is important to recognize that although the illustration of vector geometry is restricted to 2-dimensional space, all of these ideas can be extended to *n*-dimensions.
@@ -336,6 +338,8 @@ atan(1) + pi
 # Compute theta = alpha + beta (in degrees)
 (atan(1) + pi) * 180 / pi
 ```
+
+Beyond two dimensions, direction in more complicated, involving more than one angle. For example, reporting the direction of a vector in three dimensions requires two angles. One common method is to give (1) the angle between the first reference axis (e.g., *x*-axis) and the projection of the vector onto the plane defined by the first and second reference axes (e.g., the *xy*-plane), and (2) the angle between the vector and the third reference axis (e.g., the *z*-axis). Suffice it to say that we need additional angles to fully define the direction of a vector in higher dimensions. 
 
 <br />
 

@@ -14,7 +14,7 @@
 
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
-<meta name="date" content="2021-05-05" />
+<meta name="date" content="2021-05-14" />
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
@@ -65,6 +65,7 @@ MathJax.Hub.Config({
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -167,6 +168,7 @@ img {
 <li><a href="index.html#foreword">Foreword</a></li>
 <li><a href="matrices.html#matrices">Matrices</a></li>
 <li><a href="matrix-operations.html#matrix-operations">Matrix Operations</a></li>
+<li><a href="special-matrices.html#special-matrices">Special Matrices</a></li>
 <li><a href="references.html#references">References</a></li>
 </ul>
 </div>
@@ -410,38 +412,6 @@ Figure 1: Matrix <strong>M</strong> (yellow) in the 2-dimensional coordinate sys
 <li><span class="math inline">\(\mathbf{A} = \mathbf{C}\)</span> since both matrices have the same dimensions and all corresponding elements are equal.</li>
 </ul>
 <p><br /></p>
-</div>
-<div id="transposition" class="section level2">
-<h2>Transposition</h2>
-<p>Transposition is an operation that can also be carried out on matrices. Just as when we transpose a vector, we transpose a matrix by taking each column in turn and making it a row. In other words, we interchange each column and row, so the first column becomes the first row, the second column becomes the second row, etc.</p>
-<p>similar to vectors, ne important vector operation is <em>transposition</em>. Transposition is an operation in which we replace the <em>i</em>th element of a column vector as the <em>i</em>th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. For example,</p>
-<p><span class="math display">\[
-\mathbf{A} = \begin{bmatrix}
-112 &amp; 86 &amp; 0 \\ 134 &amp; 94 &amp; 0
-\end{bmatrix} \qquad 
-\mathbf{A}^\intercal = \begin{bmatrix}
-112 &amp; 134 \\86 &amp; 94 \\ 0 &amp; 0
-\end{bmatrix}
-\]</span></p>
-<p>The <code>t()</code> function will produce the transpose of a matrix.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="matrices.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
-<span id="cb9-2"><a href="matrices.html#cb9-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb9-3"><a href="matrices.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">112</span>, <span class="dv">134</span>, <span class="dv">86</span>, <span class="dv">94</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
-<span id="cb9-4"><a href="matrices.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
-<span id="cb9-5"><a href="matrices.html#cb9-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-6"><a href="matrices.html#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="matrices.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display A</span></span>
-<span id="cb9-8"><a href="matrices.html#cb9-8" aria-hidden="true" tabindex="-1"></a>A</span></code></pre></div>
-<pre><code>     [,1] [,2] [,3]
-[1,]  112   86    0
-[2,]  134   94    0</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="matrices.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute transpose</span></span>
-<span id="cb11-2"><a href="matrices.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(A)</span></code></pre></div>
-<pre><code>     [,1] [,2]
-[1,]  112  134
-[2,]   86   94
-[3,]    0    0</code></pre>
-<p><br /></p>
 <div id="exercises" class="section level3 exercises">
 <h3>Exercises</h3>
 <p><strong>Consider the following matrices:</strong></p>
@@ -506,84 +476,6 @@ Show/Hide Solution
 <div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
 <p><span class="math display">\[
 X_{4,1}=58
-\]</span></p>
-</div>
-<ol start="6" style="list-style-type: decimal">
-<li>Does <span class="math inline">\({(\mathbf{X}^{\intercal})}^\intercal = \mathbf{X}\)</span>?</li>
-</ol>
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_06&#39;);">
-Show/Hide Solution
-</button>
-<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
-<p>Yes.</p>
-<p>The transpose of <strong>X</strong> is:</p>
-<p><span class="math display">\[
-\mathbf{X}^\intercal = \begin{bmatrix}32 &amp; 42 &amp; 16 &amp; 58 \\54 &amp; 23 &amp; 41 &amp; 52 \\ 56 &amp; 52 &amp; 54 &amp; 31 \\ 21 &amp; 35 &amp; 56 &amp; 24 \end{bmatrix}
-\]</span>
-Taking the transpose of <span class="math inline">\(\mathbf{X}^\intercal\)</span> returns <strong>X</strong>.</p>
-<p><span class="math display">\[
-(\mathbf{X}^\intercal)^\intercal  = \begin{bmatrix}32 &amp; 54 &amp; 56 &amp; 21 \\42 &amp; 23 &amp; 52 &amp; 35 \\ 16 &amp; 41 &amp; 54 &amp; 56 \\ 58 &amp; 52 &amp; 31 &amp; 24 \end{bmatrix} = \mathbf{X}
-\]</span></p>
-</div>
-<ol start="7" style="list-style-type: decimal">
-<li>Show computationally that <span class="math inline">\({(\mathbf{X}^{\intercal})}^\intercal = \mathbf{X}\)</span>.</li>
-</ol>
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_07&#39;);">
-Show/Hide Solution
-</button>
-<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="matrices.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X</span></span>
-<span id="cb13-2"><a href="matrices.html#cb13-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb13-3"><a href="matrices.html#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">54</span>, <span class="dv">56</span>, <span class="dv">21</span>, <span class="dv">42</span>, <span class="dv">23</span>, <span class="dv">52</span>, <span class="dv">35</span>, <span class="dv">16</span>, <span class="dv">41</span>, <span class="dv">54</span>, <span class="dv">56</span>, <span class="dv">58</span>, <span class="dv">52</span>, <span class="dv">31</span>, <span class="dv">24</span>),</span>
-<span id="cb13-4"><a href="matrices.html#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb13-5"><a href="matrices.html#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">4</span></span>
-<span id="cb13-6"><a href="matrices.html#cb13-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-7"><a href="matrices.html#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="matrices.html#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose of the transpose of X</span></span>
-<span id="cb13-9"><a href="matrices.html#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">t</span>(X))</span></code></pre></div>
-<pre><code>     [,1] [,2] [,3] [,4]
-[1,]   32   54   56   21
-[2,]   42   23   52   35
-[3,]   16   41   54   56
-[4,]   58   52   31   24</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="matrices.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check equality</span></span>
-<span id="cb15-2"><a href="matrices.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">t</span>(X)) <span class="sc">==</span> X</span></code></pre></div>
-<pre><code>     [,1] [,2] [,3] [,4]
-[1,] TRUE TRUE TRUE TRUE
-[2,] TRUE TRUE TRUE TRUE
-[3,] TRUE TRUE TRUE TRUE
-[4,] TRUE TRUE TRUE TRUE</code></pre>
-</div>
-<ol start="8" style="list-style-type: decimal">
-<li>List the diagonal elements of <strong>X</strong>. (These are the elements where the row and column dimension are equal.)</li>
-</ol>
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_08&#39;);">
-Show/Hide Solution
-</button>
-<div id="solution_08" style="display:none; margin: -40px 0 40px 40px;">
-<p><span class="math display">\[
-\begin{split}
-X_{1,1}=32 \\[1em]
-X_{2,2}=23 \\[1em]
-X_{3,3}=54 \\[1em]
-X_{4,4}=24
-\end{split}
-\]</span></p>
-</div>
-<ol start="9" style="list-style-type: decimal">
-<li>List the diagonal elements of <span class="math inline">\(\mathbf{X}^\intercal\)</span>. (These are the elements where the row and column dimension are equal.)</li>
-</ol>
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_09&#39;);">
-Show/Hide Solution
-</button>
-<div id="solution_09" style="display:none; margin: -40px 0 40px 40px;">
-<p><span class="math display">\[
-\begin{split}
-X^\intercal_{1,1}=32 \\[1em]
-X^\intercal_{2,2}=23 \\[1em]
-X^\intercal_{3,3}=54 \\[1em]
-X^\intercal_{4,4}=24
-\end{split}
 \]</span></p>
 </div>
 </div>

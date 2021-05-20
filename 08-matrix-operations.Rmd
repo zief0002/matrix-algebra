@@ -224,11 +224,7 @@ B = matrix(data = c(5, -2, 4, -1), byrow = TRUE, nrow = 2)
 A %*% B
 ```
 
-<br />
-
-### Properties of Matrix Multiplication
-
-Matrix multiplication is rarely commutative, that is, it is rare that $\mathbf{AB}=\mathbf{BA}$. In our previous example, $\mathbf{AB}\neq\mathbf{BA}$.
+In contrast to scalar multiplication, matrix multiplication is rarely commutative, that is, it is rare that $\mathbf{AB}=\mathbf{BA}$. In our previous example, $\mathbf{AB}\neq\mathbf{BA}$.
 
 ```{r}
 # Matrix multiplication
@@ -239,6 +235,11 @@ The resulting product is not the same as computing **AB**. The order of the mult
 
 - **A** is *postmultiplied* by **B**; or
 - **B** is *premultiplied* by **A**.
+
+
+<br />
+
+#### Conformability
 
 We can also multiply matrices that are not of equal dimensions, as long as they are *conformable*.  To be conformable, the number of columns in the premultiplied (first) matrix must equal the number of rows in the postmultiplied (second) matrix. For example, matrices **A** and **B** (below) are conformable since the number of columns in **A** is equal to the number of rows in **B**, namely 4.
 
@@ -288,6 +289,57 @@ B %*% A
 
 <br />
 
+### Properties of Matrix Multiplication
+
+Although matrix multiplication is rarely commutative, it does have the following properties:
+
+- $\mathbf{A}(\mathbf{BC})=(\mathbf{AB})\mathbf{C})$ (Associative Property)
+- $\mathbf{A}(\mathbf{B}+\mathbf{C})=\mathbf{AB} +\mathbf{AC})$ (Left Distributive Property)
+- $(\mathbf{B}+\mathbf{C})\mathbf{A}=\mathbf{BA} +\mathbf{CA})$ (Right Distributive Property)
+
+so long as the matrices being considered are conformable. 
+
+Aside from commutativity, there are also some other properties that matrix multiplication lack. For example, in scalar arithmetic, if $ab = 0$, then either *a* or *b* must be zero. In matrix multiplication, however, this is not always the case. To illustrate, consider the following three matrices:
+
+$$
+\mathbf{A} = \begin{bmatrix}-2 & 4 \\-2 & 4 \end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}0 & 0 \\0 & 0 \end{bmatrix} \qquad \mathbf{C} = \begin{bmatrix}4 & 4 \\2 & 2 \end{bmatrix} 
+$$
+
+Matrix **B**, in which every element is zero is called the *null matrix*. (A null matrix is a matrix in which every element is zero.) If we postmultiply matrix **A** by the null matrix **B**, we get:
+
+$$
+\begin{split}
+\mathbf{A}\mathbf{B} &= \begin{bmatrix}-2 & 4 \\-2 & 4 \end{bmatrix} \begin{bmatrix}0 & 0 \\0 & 0 \end{bmatrix} \\[2em]
+&= \begin{bmatrix}0 & 0 \\0 & 0 \end{bmatrix}
+\end{split}
+$$
+
+The result of postmultiplying a matrix (so long as it is conformable) by the null matrix is a null matrix. This is also true when we premultiply by a null matrix.  Now consider postmultiplying matrix **A** by matrix **C**:
+
+$$
+\begin{split}
+\mathbf{A}\mathbf{C} &= \begin{bmatrix}-2 & 4 \\-2 & 4 \end{bmatrix} \begin{bmatrix}4 & 4 \\2 & 2 \end{bmatrix} \\[2em]
+&= \begin{bmatrix}0 & 0 \\0 & 0 \end{bmatrix}
+\end{split}
+$$
+
+We again obtain a null matrix. However, neither **A** nor **C** was a null matrix. (In fact, none of the elements of **A** or **C** were zero).
+
+
+Relatedly, in scalar arithmetic, if $ab = 0$, then $ba = 0$. This property does not hold in matrix multiplication. For example, we just saw that $\mathbf{A}\mathbf{C}=\mathbf{0}$. But, if we postmultiply **C** by **A**:
+
+$$
+\begin{split}
+\mathbf{C}\mathbf{A} &=  \begin{bmatrix}4 & 4 \\2 & 2 \end{bmatrix}\begin{bmatrix}-2 & 4 \\-2 & 4 \end{bmatrix} \\[2em]
+&= \begin{bmatrix}-16 & 16 \\-8 & 8 \end{bmatrix}
+\end{split}
+$$
+
+That is, although $\mathbf{A}\mathbf{C}=\mathbf{0}$, $\mathbf{C}\mathbf{A}\neq\mathbf{0}$. Changing the order of the matrix multiplication changes the resulting product.
+
+Drawing from this example we see that since $\mathbf{AB}=\mathbf{0}$ and $\mathbf{AC}=\mathbf{0}$, this means that $\mathbf{AB}=\mathbf{AC}$. However, $\mathbf{B}\neq\mathbf{C}$. This implies that "cancellation" is not a valid property of matrix multiplication.
+
+<br />
 
 ### Revisiting Dot Products
 
@@ -319,23 +371,6 @@ t(a) %*% b
 sum(a * b)
 ```
 
-<br />
-
-### Statistics Example: Weights
-
-One example of matrix multiplication in statistical practice is when we want to weight a set of observed data. For example, we may have a set of exam scores for students and want to form a weighted final percentage based on the first and second exams being worth 10% of the course, the third exam being worth 30% of the course, and the fourth exam being worth 50% of the course. We can represent the students' exam scores in a matrix **X**, with each exam being represented in a column, and the weights in a column vector **w**:
-
-$$
-\mathbf{X} = \begin{bmatrix}32 & 54 & 56 & 21 \\42 & 23 & 52 & 35 \\ 16 & 41 & 54 & 56 \\ 58 & 52 & 31 & 24 \end{bmatrix} \qquad \mathbf{w} = \begin{bmatrix} 0.10 \\ 0.10 \\ 0.30 \\ 0.50 \end{bmatrix}
-$$
-A vector containing the weighted score for each student can be computed by postmultiplying **X** by **w**:
-
-$$
-\begin{split}
-\underset{4\times1}{\mathbf{c}} &= \underset{4\times4}{\mathbf{X}} ~ \underset{4\times1}{\mathbf{w}} \\[2em]
-&= \begin{bmatrix} 35.9 \\ 39.6 \\49.9 \\ 32.3 \end{bmatrix}
-\end{split}
-$$
 
 <br />
 
@@ -401,178 +436,85 @@ $$
 **Consider the following matrices:**
 
 $$
-\mathbf{A} = \begin{bmatrix}0 & 6 \\5 & 1 \end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}0 & 5 \\2 & \frac{1}{2} \end{bmatrix} \qquad \mathbf{C} = \begin{bmatrix}6 & 2 & 1 \\5 & 3 & 1\\8 & 4 & 1 \end{bmatrix} \qquad \mathbf{D} = \begin{bmatrix}1 & 4 & 6 \\1 & 2 & 5\\1 & 3 & 2 \end{bmatrix}
+\mathbf{A} = \begin{bmatrix}0 & 6 \\5 & 1 \end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}0 & 5 \\2 & \frac{1}{2} \end{bmatrix} \qquad \mathbf{C} = \begin{bmatrix}6 & 2 & 1 \\5 & 3 & 1\\8 & 4 & 1 \end{bmatrix} \qquad \mathbf{D} = \begin{bmatrix}0& 1 & 4 & 6 \\1 & 2 & 5 & -2\\1 & 3 & 2 & 8 \end{bmatrix}
 $$
 
-5. Find **AB**.
+5. Is **AB** conformable?
 
 <button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_05');">Show/Hide Solution</button>
 <div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
 
+Yes. Since **A** has two columns and **B** has the same number of rows, **AB** is conformable.
+
 $$
-\begin{split}
-\mathbf{AB} &= \begin{bmatrix}0 & 6 \\5 & 1 \end{bmatrix}\begin{bmatrix}0 & 5 \\2 & \frac{1}{2} \end{bmatrix}\\[1em]
-&=\begin{bmatrix}0(0) + 6(2) & 0(5)+6(\frac{1}{2}) \\5(0)+1(2) & 5(5)+1(\frac{1}{2}) \end{bmatrix} \\[1em]
-&= \begin{bmatrix}12 & 3 \\2 & 25.5 \end{bmatrix}
-\end{split}
+\underset{2\times\color{red}{2}}{\mathbf{A}}~\underset{{\color{red}{2}} \times2}{\mathbf{B}}
 $$
 
 </div>
 
-6. Find **BC**.
+6. Is **BC** conformable?
 
 <button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_06');">Show/Hide Solution</button>
 <div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
 
-Matrix **B** and matrix **C** are non-conformable, so they cannot be multiplied. The number of columns in **B** (2) is not equal to the number of rows in **C** (3).
+No. Since **B** has two columns and **C** has three rows, **BC** is not conformable.
+
+$$
+\underset{2\times\color{red}{2}}{\mathbf{B}}~\underset{{\color{red}{3}} \times3}{\mathbf{C}}
+$$
 
 </div>
 
 
 
-7. Find **CD**.
+7. Is the product where we premultiply **D** by **C** conformable?
 
 <button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_07');">Show/Hide Solution</button>
 <div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
 
+Yes. Since **C** has three columns and **D** has the same number of rows, **CD** is conformable.
+
 $$
-\begin{split}
-\mathbf{CD} &= \begin{bmatrix}6 & 2 & 1 \\5 & 3 & 1\\8 & 4 & 1 \end{bmatrix} \begin{bmatrix}1 & 4 & 6 \\1 & 2 & 5\\1 & 3 & 2 \end{bmatrix} \\[1em]
-&=  \begin{bmatrix}
-6(1) + 2(1) + 1(1) & 6(4) + 2(2) + 1(3) & 6(6) + 2(5) + 1(2) \\
-5(1) + 3(1) + 1(1) & 5(4) + 3(2) + 1(3) & 5(6) + 3(5) + 1(2) \\
-8(1) + 4(1) + 1(1) & 8(4) + 4(2) + 1(3) & 8(6) + 4(5) + 1(2) 
-\end{bmatrix}\\[1em]
-&= \begin{bmatrix}
-9 & 31 & 48 \\
-9 & 29 & 47 \\
-13 & 43 & 70
-\end{bmatrix}
-\end{split}
+\underset{3\times\color{red}{3}}{\mathbf{C}}~\underset{{\color{red}{3}} \times4}{\mathbf{D}}
 $$
 
 </div>
 
-**Use R to help understand some of the properties of matrix multiplication.**
+**Statistics Example: Weights**
 
-
-
-8. Postmultiply the matrix **A** by matrix **B**; given below. In scalar arithmetic, if $ab = 0$, then either *a* or *b* must be zero. Is this property true for matrix multiplication?
+8. Consider the scores for five students on four course exams (each out of 100 points) shown in matrix **X**. The final percentage in the course is based on the following weighting: the first and second exams are worth 10% of the course, the third exam is worth 30% of the course, and the fourth exam is worth 50% of the course. These weights are presented in the column vector **w**. Use R to find the final percentage for each student by postmultiplying the score matrix by the weight vector.
 
 $$
-\mathbf{A} = \begin{bmatrix}-2 & 4 \\-2 & 4 \end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}4 & 4 \\2 & 2 \end{bmatrix} 
+\mathbf{X} = \begin{bmatrix}32 & 54 & 56 & 21 \\42 & 23 & 52 & 35 \\ 16 & 41 & 54 & 56 \\ 58 & 52 & 31 & 24 \\ 41 & 50 & 42 & 40 \end{bmatrix} \qquad \mathbf{w} = \begin{bmatrix} 0.10 \\ 0.10 \\ 0.30 \\ 0.50 \end{bmatrix}
 $$
 
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_08');">Show/Hide Solution</button>
-<div id="solution_08" style="display:none; margin: -40px 0 40px 40px;">
-
-```{r}
-# Create matrices
-A = matrix(data = c(-2, 4, -2, 4), byrow = TRUE, ncol = 2)
-B = matrix(data = c(4, 4, 2, 2), byrow = TRUE, ncol = 2)
-
-# Postmultiply A by B
-A %*% B
-```
-
-The result of the matrix multiplication is a matrix where every element is 0. However, none of the elements of **E** or **F** were 0. So this property is not true for matrix multiplication. *Note.* When all of a matrix's elements are zero, we refer to that matrix as a *null matrix*.
-
-</div>
-
-9. Postmultiply matrix **B** by matrix **A**; given in the previous problem. In scalar arithmetic, if $ab = 0$, then $ba = 0$. Is this property true for matrix multiplication? 
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_09');">Show/Hide Solution</button>
-<div id="solution_09" style="display:none; margin: -40px 0 40px 40px;">
-
-```{r}
-# Postmultiply B by A
-B %*% A
-```
-
-The result of the matrix multiplication is not a null matrix. But, we saw in the previous problem that **AB** was a null matrix. So this property is not true for matrix multiplication.
-
-</div>
-
-10. Postmultiply matrix **A** by matrix **B** and postmultiplying **A** by **C**; given below. In scalar arithmetic, as long as $a\neq 0$, when $ab = ac$, then $b = c$. Is this property true for matrix multiplication?
-
-$$
-\mathbf{A} = \begin{bmatrix}2 & 2 \\2 & 2 \end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}2 & 4 \\4 & 2 \end{bmatrix} \qquad \mathbf{C} = \begin{bmatrix}4 & 2 \\2 & 4 \end{bmatrix}
-$$
 
 
 <button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_10');">Show/Hide Solution</button>
 <div id="solution_10" style="display:none; margin: -40px 0 40px 40px;">
 
 ```{r}
-# Create matrices
-A = matrix(data = c(2, 2, 2, 2), byrow = TRUE, ncol = 2)
-B = matrix(data = c(2, 4, 4, 2), byrow = TRUE, ncol = 2)
-C = matrix(data = c(4, 2, 2, 4), byrow = TRUE, ncol = 2)
+# Create X
+X = matrix(
+  data = c(32, 54, 56, 21,
+           42, 23, 52, 35,
+           16, 41, 54, 56,
+           58, 52, 31, 24,
+           41, 50, 42, 40),
+  byrow = TRUE, 
+  ncol = 4
+)
 
-# Postmultiply A by B
-A %*% B
+# Create w
+w = matrix(data = c(0.10, 0.10, 0.30, 0.50), ncol = 1)
 
-# Postmultiply B by A
-B %*% A
+# Compute Xw
+X %*% w
 ```
 
-The result of both matrix multiplications is the same. However, matrix **B** is not equal to matrix **C**. So this property is not true for matrix multiplication.
 
 </div>
 
-11. In scalar arithmetic, the associative property implies that  $(ab)c = a(bc)$. Is this property true for matrix multiplication (as long as the matrices are conformable)? Show using the matrices **A**, **B**, and **C** from Question 10.
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_11');">Show/Hide Solution</button>
-<div id="solution_11" style="display:none; margin: -40px 0 40px 40px;">
-
-```{r}
-# (AB)C
-(A %*% B) %*% C
-
-# A(BC)
-A %*% (B %*% C)
-```
-
-The result of both matrix multiplications is the same. So this property seems to be true for matrix multiplication, so long as the matrices are conformable.
-
-</div>
-
-12. One property of matrix multiplication is that $(\mathbf{ABC})^\intercal=\mathbf{C}^\intercal\mathbf{B}^\intercal\mathbf{A}^\intercal$. Show this is true using the matrices **A**, **B**, and **C** from the Question 10.
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_12');">Show/Hide Solution</button>
-<div id="solution_12" style="display:none; margin: -40px 0 40px 40px;">
-
-```{r}
-# (ABC)^T
-t(A %*% B %*% C)
-
-# C^T B^T A^T
-t(C) %*% t(B) %*% t(A)
-```
-
-The result of both matrix multiplications is the same.
-
-</div>
-
-13. One property of matrix multiplication is that $\lambda(\mathbf{AB})=(\lambda\mathbf{A})\mathbf{B}=\mathbf{A}(\lambda\mathbf{B})$ when $\lambda$ is a scalar. Show this is true using the matrices **A**, **B** from Question 10, and $\lambda = 3$.
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_13');">Show/Hide Solution</button>
-<div id="solution_13" style="display:none; margin: -40px 0 40px 40px;">
-
-```{r}
-# lambda(AB)
-3*(A %*% B)
-
-# (lambda A)B
-(3 * A) %*% B
-
-# A(lambda B)
-A %*% (3 * B)
-```
-
-The result of all three matrix multiplications is the same.
-
-</div>
 
 :::
 

@@ -1,3 +1,6 @@
+# (PART\*) Matrices and Matrix Operations {-}
+
+
 # Matrices
 
 A matrix is a rectangular array of elements arranged in rows and columns. We typically denote matrices using a bold-faced, upper-case letter. For example, consider the matrix **B** which has 3 rows and 2 columns:
@@ -171,39 +174,7 @@ Within this set of matrices,
 <br />
 
 
-## Transposition
 
-Transposition is an operation that can also be carried out on matrices. Just as when we transpose a vector, we transpose a matrix by taking each column in turn and making it a row. In other words, we interchange each column and row, so the first column becomes the first row, the second column becomes the second row, etc.
-
-
-similar to vectors, ne important vector operation is *transposition*. Transposition is an operation in which we replace the *i*th element of a column vector as the *i*th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. For example,
-
-$$
-\mathbf{A} = \begin{bmatrix}
-112 & 86 & 0 \\ 134 & 94 & 0
-\end{bmatrix} \qquad 
-\mathbf{A}^\intercal = \begin{bmatrix}
-112 & 134 \\86 & 94 \\ 0 & 0
-\end{bmatrix}
-$$
-
-The `t()` function will produce the transpose of a matrix.
-
-```{r}
-# Create A
-A = matrix(
-  data = c(112, 134, 86, 94, 0, 0),
-  nrow = 2
-)
-
-# Display A
-A
-
-# Compute transpose
-t(A)
-```
-
-<br />
 
 
 :::exercises
@@ -269,80 +240,6 @@ The 2nd student received a 35 on the 4th exam.
 $$
 X_{4,1}=58
 $$
-</div>
-
-
-6. Does ${(\mathbf{X}^{\intercal})}^\intercal = \mathbf{X}$?
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_06');">Show/Hide Solution</button>
-<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
-Yes.
-
-The transpose of **X** is:
-
-$$
-\mathbf{X}^\intercal = \begin{bmatrix}32 & 42 & 16 & 58 \\54 & 23 & 41 & 52 \\ 56 & 52 & 54 & 31 \\ 21 & 35 & 56 & 24 \end{bmatrix}
-$$
-Taking the transpose of $\mathbf{X}^\intercal$ returns **X**.
-
-$$
-(\mathbf{X}^\intercal)^\intercal  = \begin{bmatrix}32 & 54 & 56 & 21 \\42 & 23 & 52 & 35 \\ 16 & 41 & 54 & 56 \\ 58 & 52 & 31 & 24 \end{bmatrix} = \mathbf{X}
-$$
-
-
-</div>
-
-7. Show computationally that ${(\mathbf{X}^{\intercal})}^\intercal = \mathbf{X}$.
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_07');">Show/Hide Solution</button>
-<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
-```{r}
-# Create X
-X = matrix(
-  data = c(32, 54, 56, 21, 42, 23, 52, 35, 16, 41, 54, 56, 58, 52, 31, 24),
-  byrow = TRUE,
-  ncol = 4
-  )
-
-# Transpose of the transpose of X
-t(t(X))
-
-# Check equality
-t(t(X)) == X
-```
-
-
-
-</div>
-
-8. List the diagonal elements of **X**. (These are the elements where the row and column dimension are equal.)
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_08');">Show/Hide Solution</button>
-<div id="solution_08" style="display:none; margin: -40px 0 40px 40px;">
-$$
-\begin{split}
-X_{1,1}=32 \\[1em]
-X_{2,2}=23 \\[1em]
-X_{3,3}=54 \\[1em]
-X_{4,4}=24
-\end{split}
-$$
-
-</div>
-
-9. List the diagonal elements of $\mathbf{X}^\intercal$. (These are the elements where the row and column dimension are equal.)
-
-<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_09');">Show/Hide Solution</button>
-<div id="solution_09" style="display:none; margin: -40px 0 40px 40px;">
-$$
-\begin{split}
-X^\intercal_{1,1}=32 \\[1em]
-X^\intercal_{2,2}=23 \\[1em]
-X^\intercal_{3,3}=54 \\[1em]
-X^\intercal_{4,4}=24
-\end{split}
-$$
-
 </div>
 
 :::
