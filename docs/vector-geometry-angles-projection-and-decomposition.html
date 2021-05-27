@@ -2,48 +2,55 @@
 <html lang="" xml:lang="">
 <head>
 
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Vector Geometry: Angles, Projection, and Decomposition | Matrix Algebra for Educational Scientists" />
-<meta property="og:type" content="book" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Vector Geometry: Angles, Projection, and Decomposition | Matrix Algebra for Educational Scientists</title>
+  <meta name="description" content="Matrix algebra content for QME students" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
+  <meta property="og:title" content="Chapter 5 Vector Geometry: Angles, Projection, and Decomposition | Matrix Algebra for Educational Scientists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Matrix algebra content for QME students" />
+  <meta name="github-repo" content="zief0002/matrix-algebra" />
 
-<meta property="og:description" content="Matrix algebra content for QME students" />
-<meta name="github-repo" content="zief0002/matrix-algebra" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Vector Geometry: Angles, Projection, and Decomposition | Matrix Algebra for Educational Scientists" />
+  
+  <meta name="twitter:description" content="Matrix algebra content for QME students" />
+  
 
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
-<meta name="date" content="2021-05-20" />
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+<meta name="date" content="2021-05-27" />
 
-<meta name="description" content="Matrix algebra content for QME students">
-
-<title>Vector Geometry: Angles, Projection, and Decomposition | Matrix Algebra for Educational Scientists</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="vecop.html"/>
+<link rel="next" href="statistical-appplication-of-vectors.html"/>
 <script src="libs/header-attrs/header-attrs.js"></script>
 <script src="libs/jquery/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="libs/navigation/tabsets.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
 
@@ -60,14 +67,14 @@ MathJax.Hub.Config({
 </script>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+
+
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
@@ -88,108 +95,216 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { color: #cccccc; background-color: #303030; }
+  {  background-color: #f8f8f8; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ffcfaf; } /* Alert */
-code span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bn { color: #dca3a3; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #f0dfaf; } /* ControlFlow */
-code span.ch { color: #dca3a3; } /* Char */
-code span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
-code span.co { color: #7f9f7f; } /* Comment */
-code span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
-code span.do { color: #7f9f7f; } /* Documentation */
-code span.dt { color: #dfdfbf; } /* DataType */
-code span.dv { color: #dcdccc; } /* DecVal */
-code span.er { color: #c3bf9f; } /* Error */
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
-code span.fl { color: #c0bed1; } /* Float */
-code span.fu { color: #efef8f; } /* Function */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
 code span.im { } /* Import */
-code span.in { color: #7f9f7f; font-weight: bold; } /* Information */
-code span.kw { color: #f0dfaf; } /* Keyword */
-code span.op { color: #f0efd0; } /* Operator */
-code span.ot { color: #efef8f; } /* Other */
-code span.pp { color: #ffcfaf; font-weight: bold; } /* Preprocessor */
-code span.sc { color: #dca3a3; } /* SpecialChar */
-code span.ss { color: #cc9393; } /* SpecialString */
-code span.st { color: #cc9393; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #cc9393; } /* VerbatimString */
-code span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-
-<link rel="stylesheet" href="style/style.css" type="text/css" />
+<link rel="stylesheet" href="style/style-gitbook.css" type="text/css" />
 <link rel="stylesheet" href="style/table-styles.css" type="text/css" />
 <link rel="stylesheet" href="style/syntax.css" type="text/css" />
-<link rel="stylesheet" href="style/navbar.css" type="text/css" />
 <link rel="stylesheet" href="style/notes.css" type="text/css" />
+<link rel="stylesheet" href="style/toc.css" type="text/css" />
 <link rel="stylesheet" href="style/buttons.css" type="text/css" />
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-</style>
 </head>
 
 <body>
 
-<div class="container-fluid main-container">
 
 
-<div class="row">
-<div class="col-sm-12">
-<div id="TOC">
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Foreword</a>
 <ul>
-<li><a href="index.html#foreword">Foreword</a></li>
-<li><a href="intro.html#intro">Introduction</a></li>
-<li><a href="datastructures.html#datastructures">Data Structures</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#colophon"><i class="fa fa-check"></i>Colophon</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#prerequisites"><i class="fa fa-check"></i><b>1.1</b> Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datastructures.html"><a href="datastructures.html"><i class="fa fa-check"></i><b>2</b> Data Structures</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datastructures.html"><a href="datastructures.html#scalars"><i class="fa fa-check"></i><b>2.1</b> Scalars</a></li>
+<li class="chapter" data-level="2.2" data-path="datastructures.html"><a href="datastructures.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
+<li class="chapter" data-level="2.3" data-path="datastructures.html"><a href="datastructures.html#matrices"><i class="fa fa-check"></i><b>2.3</b> Matrices</a></li>
+<li class="chapter" data-level="2.4" data-path="datastructures.html"><a href="datastructures.html#tensors"><i class="fa fa-check"></i><b>2.4</b> Tensors</a></li>
+<li class="chapter" data-level="2.5" data-path="datastructures.html"><a href="datastructures.html#a-word-about-notation"><i class="fa fa-check"></i><b>2.5</b> A Word about Notation</a></li>
+<li class="chapter" data-level="2.6" data-path="datastructures.html"><a href="datastructures.html#exercises"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
 <li class="part"><span><b>Vectors and Vector Operations</b></span></li>
-<li><a href="vec.html#vec">Vectors</a></li>
-<li><a href="vecop.html#vecop">Vector Operations</a></li>
-<li><a href="vector-geometry-angles-projection-and-decomposition.html#vector-geometry-angles-projection-and-decomposition">Vector Geometry: Angles, Projection, and Decomposition</a></li>
-<li><a href="statistical-appplication-of-vectors.html#statistical-appplication-of-vectors">Statistical Appplication of Vectors</a></li>
+<li class="chapter" data-level="3" data-path="vec.html"><a href="vec.html"><i class="fa fa-check"></i><b>3</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="vec.html"><a href="vec.html#what-is-a-vector"><i class="fa fa-check"></i><b>3.1</b> What is a Vector?</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="vec.html"><a href="vec.html#transposition"><i class="fa fa-check"></i><b>3.1.1</b> Transposition</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="vec.html"><a href="vec.html#general-form-of-a-vector"><i class="fa fa-check"></i><b>3.2</b> General Form of a Vector</a></li>
+<li class="chapter" data-level="3.3" data-path="vec.html"><a href="vec.html#the-geometry-of-vectors"><i class="fa fa-check"></i><b>3.3</b> The Geometry of Vectors</a></li>
+<li class="chapter" data-level="3.4" data-path="vec.html"><a href="vec.html#vector-properties"><i class="fa fa-check"></i><b>3.4</b> Vector Properties</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="vec.html"><a href="vec.html#vector-length"><i class="fa fa-check"></i><b>3.4.1</b> Vector Length</a></li>
+<li class="chapter" data-level="3.4.2" data-path="vec.html"><a href="vec.html#vector-direction"><i class="fa fa-check"></i><b>3.4.2</b> Vector Direction</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="vec.html"><a href="vec.html#vector-equality"><i class="fa fa-check"></i><b>3.5</b> Vector Equality</a></li>
+<li class="chapter" data-level="3.6" data-path="vec.html"><a href="vec.html#special-vectors"><i class="fa fa-check"></i><b>3.6</b> Special Vectors</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="vec.html"><a href="vec.html#zero-vector"><i class="fa fa-check"></i><b>3.6.1</b> Zero Vector</a></li>
+<li class="chapter" data-level="3.6.2" data-path="vec.html"><a href="vec.html#ones-vector"><i class="fa fa-check"></i><b>3.6.2</b> Ones Vector</a></li>
+<li class="chapter" data-level="3.6.3" data-path="vec.html"><a href="vec.html#unit-vector"><i class="fa fa-check"></i><b>3.6.3</b> Unit Vector</a></li>
+<li class="chapter" data-level="3.6.4" data-path="vec.html"><a href="vec.html#elementary-vectors"><i class="fa fa-check"></i><b>3.6.4</b> Elementary Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="vec.html"><a href="vec.html#exercises-1"><i class="fa fa-check"></i><b>3.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="vecop.html"><a href="vecop.html"><i class="fa fa-check"></i><b>4</b> Vector Operations</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="vecop.html"><a href="vecop.html#vector-addition-and-subtraction"><i class="fa fa-check"></i><b>4.1</b> Vector Addition and Subtraction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="vecop.html"><a href="vecop.html#geometry-of-adding-vectors"><i class="fa fa-check"></i><b>4.1.1</b> Geometry of Adding Vectors</a></li>
+<li class="chapter" data-level="4.1.2" data-path="vecop.html"><a href="vecop.html#vector-subtraction"><i class="fa fa-check"></i><b>4.1.2</b> Vector Subtraction</a></li>
+<li class="chapter" data-level="4.1.3" data-path="vecop.html"><a href="vecop.html#properties-of-vector-addition-and-subtraction"><i class="fa fa-check"></i><b>4.1.3</b> Properties of Vector Addition and Subtraction</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="vecop.html"><a href="vecop.html#vectorscalar-multiplication"><i class="fa fa-check"></i><b>4.2</b> Vector–Scalar Multiplication</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="vecop.html"><a href="vecop.html#division-by-a-scalar"><i class="fa fa-check"></i><b>4.2.1</b> Division by a Scalar</a></li>
+<li class="chapter" data-level="4.2.2" data-path="vecop.html"><a href="vecop.html#geometry-of-vectorscalar-multiplication"><i class="fa fa-check"></i><b>4.2.2</b> Geometry of Vector–Scalar Multiplication</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="vecop.html"><a href="vecop.html#vectorvector-multiplication-dot-product"><i class="fa fa-check"></i><b>4.3</b> Vector–Vector Multiplication: Dot Product</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="vecop.html"><a href="vecop.html#re-visiting-vector-length"><i class="fa fa-check"></i><b>4.3.1</b> Re-visiting Vector Length</a></li>
+<li class="chapter" data-level="4.3.2" data-path="vecop.html"><a href="vecop.html#dot-products-using-the-special-vectors"><i class="fa fa-check"></i><b>4.3.2</b> Dot Products Using the Special Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="vecop.html"><a href="vecop.html#vector-operations-using-r"><i class="fa fa-check"></i><b>4.4</b> Vector Operations Using R</a></li>
+<li class="chapter" data-level="4.5" data-path="vecop.html"><a href="vecop.html#exercises-2"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html"><i class="fa fa-check"></i><b>5</b> Vector Geometry: Angles, Projection, and Decomposition</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html#angle-between-vectors"><i class="fa fa-check"></i><b>5.1</b> Angle Between Vectors</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html#orthogonal-vectors"><i class="fa fa-check"></i><b>5.1.1</b> Orthogonal Vectors</a></li>
+<li class="chapter" data-level="5.1.2" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html#collinear-vectors"><i class="fa fa-check"></i><b>5.1.2</b> Collinear Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html#orthogonal-projection"><i class="fa fa-check"></i><b>5.2</b> Orthogonal Projection</a></li>
+<li class="chapter" data-level="5.3" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html#orthogonal-decomposition"><i class="fa fa-check"></i><b>5.3</b> Orthogonal Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="statistical-appplication-of-vectors.html"><a href="statistical-appplication-of-vectors.html"><i class="fa fa-check"></i><b>6</b> Statistical Appplication of Vectors</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="statistical-appplication-of-vectors.html"><a href="statistical-appplication-of-vectors.html#deviation-scores-and-the-standard-deviation"><i class="fa fa-check"></i><b>6.1</b> Deviation Scores and the Standard Deviation</a></li>
+<li class="chapter" data-level="6.2" data-path="statistical-appplication-of-vectors.html"><a href="statistical-appplication-of-vectors.html#vector-correlation-and-separation"><i class="fa fa-check"></i><b>6.2</b> Vector Correlation and Separation</a></li>
+<li class="chapter" data-level="6.3" data-path="statistical-appplication-of-vectors.html"><a href="statistical-appplication-of-vectors.html#orthogonal-decomposition-and-bivariate-regression"><i class="fa fa-check"></i><b>6.3</b> Orthogonal Decomposition and Bivariate Regression</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="statistical-appplication-of-vectors.html"><a href="statistical-appplication-of-vectors.html#back-to-the-sat-and-gpa-example"><i class="fa fa-check"></i><b>6.3.1</b> Back to the SAT and GPA Example</a></li>
+</ul></li>
+</ul></li>
 <li class="part"><span><b>Matrices and Matrix Operations</b></span></li>
-<li><a href="matrices-1.html#matrices-1">Matrices</a></li>
-<li><a href="matrix-operations.html#matrix-operations">Matrix Operations</a></li>
-<li><a href="special-matrices.html#special-matrices">Special Matrices</a></li>
-<li><a href="references.html#references">References</a></li>
+<li class="chapter" data-level="7" data-path="matrices-1.html"><a href="matrices-1.html"><i class="fa fa-check"></i><b>7</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="7.0.1" data-path="matrices-1.html"><a href="matrices-1.html#dimensions-of-a-matrix"><i class="fa fa-check"></i><b>7.0.1</b> Dimensions of a Matrix</a></li>
+<li class="chapter" data-level="7.0.2" data-path="matrices-1.html"><a href="matrices-1.html#indexing-individual-elements"><i class="fa fa-check"></i><b>7.0.2</b> Indexing Individual Elements</a></li>
+<li class="chapter" data-level="7.0.3" data-path="matrices-1.html"><a href="matrices-1.html#geometry-of-matrices"><i class="fa fa-check"></i><b>7.0.3</b> Geometry of Matrices</a></li>
+<li class="chapter" data-level="7.0.4" data-path="matrices-1.html"><a href="matrices-1.html#matrices-in-r"><i class="fa fa-check"></i><b>7.0.4</b> Matrices in R</a></li>
+<li class="chapter" data-level="7.1" data-path="matrices-1.html"><a href="matrices-1.html#matrix-equality"><i class="fa fa-check"></i><b>7.1</b> Matrix Equality</a></li>
+<li class="chapter" data-level="7.2" data-path="matrices-1.html"><a href="matrices-1.html#exercises-3"><i class="fa fa-check"></i><b>7.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="matrix-operations.html"><a href="matrix-operations.html"><i class="fa fa-check"></i><b>8</b> Matrix Operations</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="matrix-operations.html"><a href="matrix-operations.html#matrix-addition-and-subtraction"><i class="fa fa-check"></i><b>8.1</b> Matrix Addition and Subtraction</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="matrix-operations.html"><a href="matrix-operations.html#properties-of-matrix-addition"><i class="fa fa-check"></i><b>8.1.1</b> Properties of Matrix Addition</a></li>
+<li class="chapter" data-level="8.1.2" data-path="matrix-operations.html"><a href="matrix-operations.html#deviation-matrix"><i class="fa fa-check"></i><b>8.1.2</b> Deviation Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="matrix-operations.html"><a href="matrix-operations.html#scalarmatrix-multiplication"><i class="fa fa-check"></i><b>8.2</b> Scalar–Matrix Multiplication</a></li>
+<li class="chapter" data-level="8.3" data-path="matrix-operations.html"><a href="matrix-operations.html#matrix-multiplication"><i class="fa fa-check"></i><b>8.3</b> Matrix Multiplication</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="matrix-operations.html"><a href="matrix-operations.html#properties-of-matrix-multiplication"><i class="fa fa-check"></i><b>8.3.1</b> Properties of Matrix Multiplication</a></li>
+<li class="chapter" data-level="8.3.2" data-path="matrix-operations.html"><a href="matrix-operations.html#revisiting-dot-products"><i class="fa fa-check"></i><b>8.3.2</b> Revisiting Dot Products</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="matrix-operations.html"><a href="matrix-operations.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="special-matrices.html"><a href="special-matrices.html"><i class="fa fa-check"></i><b>9</b> Special Matrices</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="special-matrices.html"><a href="special-matrices.html#matrix-transpose"><i class="fa fa-check"></i><b>9.1</b> Matrix Transpose</a></li>
+<li class="chapter" data-level="9.2" data-path="special-matrices.html"><a href="special-matrices.html#square-matrices"><i class="fa fa-check"></i><b>9.2</b> Square Matrices</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="special-matrices.html"><a href="special-matrices.html#main-diagonal"><i class="fa fa-check"></i><b>9.2.1</b> Main Diagonal</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="special-matrices.html"><a href="special-matrices.html#diagonal-matrices"><i class="fa fa-check"></i><b>9.3</b> Diagonal Matrices</a></li>
+<li class="chapter" data-level="9.4" data-path="special-matrices.html"><a href="special-matrices.html#scalar-matrices"><i class="fa fa-check"></i><b>9.4</b> Scalar Matrices</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="special-matrices.html"><a href="special-matrices.html#identity-matrices"><i class="fa fa-check"></i><b>9.4.1</b> Identity Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="special-matrices.html"><a href="special-matrices.html#symmetric-matrices"><i class="fa fa-check"></i><b>9.5</b> Symmetric Matrices</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="special-matrices.html"><a href="special-matrices.html#skew-symmetric-matrices"><i class="fa fa-check"></i><b>9.5.1</b> Skew Symmetric Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="special-matrices.html"><a href="special-matrices.html#triangular-matrices"><i class="fa fa-check"></i><b>9.6</b> Triangular Matrices</a></li>
+<li class="chapter" data-level="9.7" data-path="special-matrices.html"><a href="special-matrices.html#exercises-5"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Matrix Algebra for Educational Scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<link href="style/style-gitbook.css" rel="stylesheet">
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="figs/hero-image.png">
 </div>
-</div>
-</div>
-<div class="row">
-<div class="col-sm-12">
-<div id="vector-geometry-angles-projection-and-decomposition" class="section level1">
-<h1>Vector Geometry: Angles, Projection, and Decomposition</h1>
+<div id="vector-geometry-angles-projection-and-decomposition" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Vector Geometry: Angles, Projection, and Decomposition</h1>
 <p>In this chapter you will learn some about some additional ideas in the geometry of vectors. Again, while the illustration of these concepts is restricted to 2-dimensional space, all of these ideas can be extended to <em>n</em>-dimensions.</p>
 <p><br /></p>
-<div id="angle-between-vectors" class="section level2">
-<h2>Angle Between Vectors</h2>
+<div id="angle-between-vectors" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Angle Between Vectors</h2>
 <p>It can be quite useful to determine the angle between two vectors. For example, what is the angle between vector <strong>a</strong> and <strong>b</strong> where,</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}
@@ -198,11 +313,11 @@ img {
 -4 \\ 1
 \end{bmatrix}
 \]</span></p>
-<p>Figure <a href="vector-geometry-angles-projection-and-decomposition.html#fig:fig05-01">14</a> shows both vectors displayed in the same two-dimensional reference coordinate system.</p>
+<p>Figure <a href="vector-geometry-angles-projection-and-decomposition.html#fig:fig05-01">5.1</a> shows both vectors displayed in the same two-dimensional reference coordinate system.</p>
 <div class="figure" style="text-align: center"><span id="fig:fig05-01"></span>
 <img src="matrix-algebra_files/figure-html/fig05-01-1.png" alt="Plot showing two vector **a** (in red) and **b** (in blue) in the R1--R2 dimensional space. The angle between them is denoted as $\theta$. For convenience we have located the tail of both vectors at the origin." width="60%" />
 <p class="caption">
-Figure 14: Plot showing two vector <strong>a</strong> (in red) and <strong>b</strong> (in blue) in the R1–R2 dimensional space. The angle between them is denoted as <span class="math inline">\(\theta\)</span>. For convenience we have located the tail of both vectors at the origin.
+Figure 5.1: Plot showing two vector <strong>a</strong> (in red) and <strong>b</strong> (in blue) in the R1–R2 dimensional space. The angle between them is denoted as <span class="math inline">\(\theta\)</span>. For convenience we have located the tail of both vectors at the origin.
 </p>
 </div>
 <p>The angle between these vectors is denoted as <span class="math inline">\(\theta\)</span>, and can be found using the following:</p>
@@ -247,8 +362,8 @@ Figure 14: Plot showing two vector <strong>a</strong> (in red) and <strong>b</st
 That is the dot product between vectors <strong>a</strong> and <strong>b</strong> is equal to the product of their magnitudes and the cosine of the angle between them.</p>
 </div>
 <p><br /></p>
-<div id="orthogonal-vectors" class="section level3">
-<h3>Orthogonal Vectors</h3>
+<div id="orthogonal-vectors" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Orthogonal Vectors</h3>
 <p>Two vectors <strong>a</strong> and <strong>b</strong> are <em>orthogonal</em> when the angle between them is <span class="math inline">\(90^\circ\)</span>. Since the cosine of a <span class="math inline">\(90^\circ\)</span> angle is 0, if <strong>a</strong> and <strong>b</strong> are orthogonal, then</p>
 <p><span class="math display">\[
 0 = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
@@ -261,8 +376,8 @@ That is the dot product between vectors <strong>a</strong> and <strong>b</strong
 <!-- This indicates that one vector contains no information about another vector.   -->
 <p><br /></p>
 </div>
-<div id="collinear-vectors" class="section level3">
-<h3>Collinear Vectors</h3>
+<div id="collinear-vectors" class="section level3" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Collinear Vectors</h3>
 <p>Two vectors <strong>a</strong> and <strong>b</strong> are <em>collinear</em> when the angle between them is <span class="math inline">\(0^\circ\)</span>. Since the cosine of a <span class="math inline">\(0^\circ\)</span> angle is 1, if <strong>a</strong> and <strong>b</strong> are collinear, then</p>
 <p><span class="math display">\[
 1 = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
@@ -287,13 +402,13 @@ Geometrically, collinear vectors are parallel to one another (remember location 
 <p><br /></p>
 </div>
 </div>
-<div id="orthogonal-projection" class="section level2">
-<h2>Orthogonal Projection</h2>
+<div id="orthogonal-projection" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Orthogonal Projection</h2>
 <p>Orthogonal projection of vector <strong>a</strong> on vector <strong>b</strong> occurs by dropping a <em>perpendicular line</em> from the terminus of <strong>a</strong> to intersect with x2.</p>
 <div class="figure" style="text-align: center"><span id="fig:fig05-02"></span>
 <img src="figs/fig-05-02.png" alt="Orthogonal projection of vector **a** (vermillion) onto vector **b** (black). Note that the projection creates a 90-degree angle with vector **b**. The result of the projection is the vector **p** (blue)." width="60%" />
 <p class="caption">
-Figure 15: Orthogonal projection of vector <strong>a</strong> (vermillion) onto vector <strong>b</strong> (black). Note that the projection creates a 90-degree angle with vector <strong>b</strong>. The result of the projection is the vector <strong>p</strong> (blue).
+Figure 5.2: Orthogonal projection of vector <strong>a</strong> (vermillion) onto vector <strong>b</strong> (black). Note that the projection creates a 90-degree angle with vector <strong>b</strong>. The result of the projection is the vector <strong>p</strong> (blue).
 </p>
 </div>
 <!-- ```{r fig05-02, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap=""} -->
@@ -341,7 +456,7 @@ Figure 15: Orthogonal projection of vector <strong>a</strong> (vermillion) onto 
 <div class="figure" style="text-align: center"><span id="fig:fig05-03"></span>
 <img src="matrix-algebra_files/figure-html/fig05-03-1.png" alt="Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector **p** (in black)." width="60%" />
 <p class="caption">
-Figure 16: Orthogonal projection of vector <strong>a</strong> (in red) onto vector <strong>b</strong> (in blue). The result of the projection is the vector <strong>p</strong> (in black).
+Figure 5.3: Orthogonal projection of vector <strong>a</strong> (in red) onto vector <strong>b</strong> (in blue). The result of the projection is the vector <strong>p</strong> (in black).
 </p>
 </div>
 <p>We can find the magnitude of <strong>p</strong> using our formula:</p>
@@ -375,16 +490,16 @@ Figure 16: Orthogonal projection of vector <strong>a</strong> (in red) onto vect
 </div>
 <p><br /></p>
 </div>
-<div id="orthogonal-decomposition" class="section level2">
-<h2>Orthogonal Decomposition</h2>
-<p>Orthogonal projection of a vector results in a geometric decomposition of the vector into two additive components. Figure <a href="vector-geometry-angles-projection-and-decomposition.html#fig:fig05-04">17</a> illustrates the decomposition of vector <strong>a</strong> into two additive components, <span class="math inline">\(\mathbf{p}_1\)</span> and <span class="math inline">\(\mathbf{p}_2\)</span>. That is,</p>
+<div id="orthogonal-decomposition" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Orthogonal Decomposition</h2>
+<p>Orthogonal projection of a vector results in a geometric decomposition of the vector into two additive components. Figure <a href="vector-geometry-angles-projection-and-decomposition.html#fig:fig05-04">5.4</a> illustrates the decomposition of vector <strong>a</strong> into two additive components, <span class="math inline">\(\mathbf{p}_1\)</span> and <span class="math inline">\(\mathbf{p}_2\)</span>. That is,</p>
 <p><span class="math display">\[
 \mathbf{a} = \mathbf{p}_1 + \mathbf{p}_2
 \]</span></p>
 <div class="figure" style="text-align: center"><span id="fig:fig05-04"></span>
 <img src="figs/fig-05-04.png" alt="Two orthogonal projections of vector **a** (vermillion). The first orthogonal projection is from vector **a** onto vector **b** (horizontal black) and the secondorthogonal projection is from vector **a** is onto vector **o** (vertical black). The result of the projections are the vectors $\mathbf{p}_1$ (blue horizontal) and $\mathbf{p}_2$ (blue vertical)." width="60%" />
 <p class="caption">
-Figure 17: Two orthogonal projections of vector <strong>a</strong> (vermillion). The first orthogonal projection is from vector <strong>a</strong> onto vector <strong>b</strong> (horizontal black) and the secondorthogonal projection is from vector <strong>a</strong> is onto vector <strong>o</strong> (vertical black). The result of the projections are the vectors <span class="math inline">\(\mathbf{p}_1\)</span> (blue horizontal) and <span class="math inline">\(\mathbf{p}_2\)</span> (blue vertical).
+Figure 5.4: Two orthogonal projections of vector <strong>a</strong> (vermillion). The first orthogonal projection is from vector <strong>a</strong> onto vector <strong>b</strong> (horizontal black) and the secondorthogonal projection is from vector <strong>a</strong> is onto vector <strong>o</strong> (vertical black). The result of the projections are the vectors <span class="math inline">\(\mathbf{p}_1\)</span> (blue horizontal) and <span class="math inline">\(\mathbf{p}_2\)</span> (blue vertical).
 </p>
 </div>
 <p>The vector <span class="math inline">\(\mathbf{p}_1\)</span> is the same orthogonal projection from the earlier example, namely <span class="math inline">\(\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}\)</span>. The vector <span class="math inline">\(\mathbf{p}_1\)</span> is a second projection, of <strong>a</strong> onto a vector <strong>o</strong> (<span class="math inline">\(\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\)</span>). The vector <strong>o</strong> is, by definition, orthogonal to <strong>b</strong>.</p>
@@ -439,11 +554,11 @@ Figure 17: Two orthogonal projections of vector <strong>a</strong> (vermillion).
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="vector-geometry-angles-projection-and-decomposition.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check values using Pythagorean Theorem</span></span>
 <span id="cb65-2"><a href="vector-geometry-angles-projection-and-decomposition.html#cb65-2" aria-hidden="true" tabindex="-1"></a>l_a<span class="sc">^</span><span class="dv">2</span> <span class="sc">==</span> l_p<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> l_p2<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
-<p>The final system is shown in Figure <a href="vector-geometry-angles-projection-and-decomposition.html#fig:fig05-05">18</a>.</p>
+<p>The final system is shown in Figure <a href="vector-geometry-angles-projection-and-decomposition.html#fig:fig05-05">5.5</a>.</p>
 <div class="figure" style="text-align: center"><span id="fig:fig05-05"></span>
 <img src="matrix-algebra_files/figure-html/fig05-05-1.png" alt="Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector $\mathbf{p}_1$ (in black). A second projection is the vector $\mathbf{p}_2$ (in black) on to the vector **o**, which is orthogonal to **b**." width="60%" />
 <p class="caption">
-Figure 18: Orthogonal projection of vector <strong>a</strong> (in red) onto vector <strong>b</strong> (in blue). The result of the projection is the vector <span class="math inline">\(\mathbf{p}_1\)</span> (in black). A second projection is the vector <span class="math inline">\(\mathbf{p}_2\)</span> (in black) on to the vector <strong>o</strong>, which is orthogonal to <strong>b</strong>.
+Figure 5.5: Orthogonal projection of vector <strong>a</strong> (in red) onto vector <strong>b</strong> (in blue). The result of the projection is the vector <span class="math inline">\(\mathbf{p}_1\)</span> (in black). A second projection is the vector <span class="math inline">\(\mathbf{p}_2\)</span> (in black) on to the vector <strong>o</strong>, which is orthogonal to <strong>b</strong>.
 </p>
 </div>
 <p><br /></p>
@@ -456,24 +571,76 @@ Figure 18: Orthogonal projection of vector <strong>a</strong> (in red) onto vect
 <li id="fn4"><p>There are other ways to compute the length of <span class="math inline">\(\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\)</span>. For example, since <strong>o</strong> is orthogonal to <strong>b</strong>, the angle between <strong>o</strong> and <strong>a</strong> is <span class="math inline">\(\phi=90-\theta\)</span>. Then <span class="math inline">\(\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\rvert\rvert=\lvert\lvert\mathbf{a}\rvert\rvert \times \cos(\phi)\)</span>.<a href="vector-geometry-angles-projection-and-decomposition.html#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
-<p style="text-align: center;">
-<a href="vecop.html"><button class="btn btn-default">Previous</button></a>
-<a href="statistical-appplication-of-vectors.html"><button class="btn btn-default">Next</button></a>
-</p>
-</div>
-</div>
+            </section>
 
-
-</div>
-
+          </div>
+        </div>
+      </div>
+<a href="vecop.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="statistical-appplication-of-vectors.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/lunr.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
 <script>
-
-// add bootstrap table styles to pandoc tables
-$(document).ready(function () {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
 });
-
+});
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
+
 </html>

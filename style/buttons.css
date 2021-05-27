@@ -36,9 +36,6 @@
   color: #fff;
   background-color: #0B4F6C;
   border-color: #000;
-}
-
-.solution-btn {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 50px;
@@ -55,6 +52,7 @@
   border: 1px solid;
   border-radius: 4px;
 }
+
 
 .solution-btn-default:hover {
   background-color: #07364A;

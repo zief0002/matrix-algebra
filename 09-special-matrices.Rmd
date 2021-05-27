@@ -306,7 +306,7 @@ $$
 
 
 :::exercises
-### Exercises
+## Exercises
 
 **Consider the following matrices:**
 

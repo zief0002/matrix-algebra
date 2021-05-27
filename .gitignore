@@ -41,3 +41,6 @@ vignettes/*.pdf
 # Ignore the following folders
 /m-rodriguez
 /administrative
+.Rproj.user
+.Rdata
+.DS_Store

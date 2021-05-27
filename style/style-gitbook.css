@@ -1,0 +1,229 @@
+/*---------------Import Google Fonts------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap');   /*Headers*/
+@import url('https://fonts.googleapis.com/css?family=Sue+Ellen+Francisco&display=swap');      /*Title*/
+@import url('https://fonts.googleapis.com/css2?family=Karla&display=swap');                   /*Body Text*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');         /*Quotes*/
+
+
+/*---------------Set Background Page Color------------------*/
+
+.book .book-body .page-wrapper .page-inner section.normal {
+  background-color: #fff;
+}
+
+
+/*---------------Main Font------------------*/
+
+.book.font-family-1 {
+  font-family: 'Karla', sans-serif;
+}
+
+
+/*---------------Paragraph Spacing------------------*/
+
+p {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+
+/*---------------Header Font------------------*/
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lora', serif;
+  font-style: normal;
+  color: #273043; /*ff6b6b;*/
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+
+/*---------------Links------------------*/
+
+.book .book-body .page-wrapper .page-inner section.normal a {
+  color: #3f88ca;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal a:hover {
+  color: #1f5386; /* darker color when hovering */
+  text-decoration: none;
+}
+
+
+
+/*---------------Hero Image------------------*/
+
+/* next 3 rules are for setting large image at top of each page and pushing down the book content to appear beneath the image */
+
+.hero-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 390px;
+  background-color: #fff;
+}
+
+.hero-image {
+  width: 100%;
+  height: 390px;
+  object-fit: cover;
+  margin-top: 0;
+}
+
+.page-inner {
+  padding-top: 400px !important;
+}
+
+
+
+/*---------------Blockquotes------------------*/
+
+blockquote {
+  margin: 0;
+  border-left: 5px solid #f02d3a;
+  background-color: #efefef;
+}
+
+
+
+
+blockquote p {
+  color: #353535;
+  margin: 8px 0 24px 0;
+}
+
+
+/*---------------Images------------------*/
+
+
+
+img {
+  margin-top: 20px;  /*Add space above images */
+}
+
+/* Style figure captions */
+.figure .caption{
+  font-style: italic;
+  color: #273043;
+  font-size: 14px;
+  caption-side: top;
+  margin-bottom: 20px;
+}
+
+
+/*---------------Title------------------*/
+
+.title {
+    font-family: 'Sue Ellen Francisco', cursive;
+    font-size: 50px;
+    color: #273043;
+    margin: 1rem auto;
+    line-height: 1;
+}
+
+
+/*---------------Author------------------*/
+
+.author {
+    font-family: 'EB Garamond', serif;
+    font-weight: normal;
+    color: #273043;
+    margin: 40px auto 5px auto;
+    line-height: 1;
+}
+
+.author em {
+  font-style: normal;
+}
+
+
+/*---------------Date------------------*/
+
+.date {
+    font-family: 'EB Garamond', serif;
+    font-style: normal;
+    font-weight: normal;
+    color: #273043;
+    margin: 0 auto 100px auto;
+    line-height: 1;
+}
+
+.date em {
+  font-style: normal;
+}
+
+
+
+/* Style cover art */
+.cover{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+
+
+/*---------------Notes------------------*/
+
+.shownote {
+  color: #777;
+}
+
+
+.george{
+  padding-left: 50px;
+  margin-top: 20px;
+}
+
+
+/*---------------Quotations------------------*/
+
+.actualquote {
+  position: relative;
+  border-left: 0.3em solid #c62f4b;
+  background-image: url("../figs/quotes.png");
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: 5px 0;
+}
+
+.actualquote p {
+  margin: 8px 10px 24px 45px;
+  font-family: 'Roboto', serif;
+  font-size: 14px;
+}
+
+
+.chapterquote{
+  font-style: italic;
+  color: black;
+  text-align: right;
+}
+
+.chapterquote .quoteauthor {
+  font-style: normal;
+}
+
+.authorinitials {
+  float: right;
+}
+
+
+.center-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/*---------------References------------------*/
+
+#refs {
+  line-height: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+
+

@@ -494,7 +494,7 @@ graph_paper +
 <br />
 
 :::exercises
-### Exercises
+## Exercises
 
 **Create a 2-dimensional orthogonal reference system. Add the following vectors to that system.**
 

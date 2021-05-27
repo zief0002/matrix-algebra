@@ -149,7 +149,7 @@ Authors and textbooks use a wide variety of notation to represent scalars, vecto
 <br />
 
 :::exercises
-### Exercises
+## Exercises
 
 **Identify each of the following as a scalar, row vector, column vector, matrix, or tensor.**
 

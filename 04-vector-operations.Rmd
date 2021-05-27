@@ -478,7 +478,7 @@ sqrt(sum(a * a))
 
 
 :::exercises
-### Exercises
+## Exercises
 
 **Consider the following vectors:**
 

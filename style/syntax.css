@@ -1,5 +1,5 @@
 /* Style code in text*/
-p code {
+/*p code {
     white-space: inherit;
     font-size: 70%;
 }
@@ -7,17 +7,25 @@ p code {
 pre {
   word-break: normal;
   word-wrap: normal;
-}
+}*/
 
+.sourceCode pre {
+  margin: 0 !important; /* makes space above and below symmetrical*/
+}
 
 /* Style syntax */
 .sourceCode {
-  background-color: #303030;
+/*  background-color: #303030;
   border-color: #303030;
   color: #cccccc;
   padding-top: 5px;
-  padding-bottom: 5px;
+  padding-bottom: 5px;*/
+  margin-bottom: 0.85em; /* adds same amount of margin as a <p> would */
 }
+
+
+
+
 
 
 /* Style code output */

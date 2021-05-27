@@ -178,7 +178,7 @@ Within this set of matrices,
 
 
 :::exercises
-### Exercises
+## Exercises
 
 **Consider the following matrices:**
 
