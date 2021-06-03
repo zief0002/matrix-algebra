@@ -10,10 +10,12 @@ rmd_files: [
     "03-vectors.Rmd",
     "04-vector-operations.Rmd",
     "05-projection.Rmd",
-    "06-statistical-application-01.Rmd",
+    "06-statistical-application-vectors.Rmd",
     "07-matrices.Rmd",
     "08-matrix-operations.Rmd",
     "09-special-matrices.Rmd",
+    "10-properties-of-square-matrices.Rmd",
+    "11-statistical-application-matrices.Rmd",
     "99-references.Rmd"
     #"acknowledgments.Rmd",
     ]

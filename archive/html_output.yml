@@ -1,0 +1,13 @@
+bookdown::html_book:
+    highlight: zenburn
+    toc: TRUE
+    toc_depth: 1
+    number_sections: FALSE
+    split_by: chapter
+    split_bib: yes
+    citation_package: none
+    css: ['style/style.css', 'style/table-styles.css', 'style/syntax.css', 
+          'style/notes.css', 'style/buttons.css']
+    includes:
+      in_header: matrix-algebra-extras.html
+    
