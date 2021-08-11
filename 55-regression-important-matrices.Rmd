@@ -1,0 +1,211 @@
+# (PART\*) Regression Applications {-}
+
+# Important Matrices in Regression
+
+In this chapter, you will learn about important and useful matrices in regression applications. To illustrate these matrices, we will use the following toy data set to fit a regression model using SAT and Self-Esteem to predict variation in GPA.
+
+
+```{r tab-14-01, echo=FALSE}
+d = data.frame(
+  ID = 1:6,
+  SAT = c(560, 780, 620, 600, 720, 380),
+  GPA = c(3.0, 3.9, 2.9, 2.7, 3.7, 2.4),
+  Self = c(11, 10, 19, 7, 18, 13),
+  IQ = c(112, 143, 124, 129, 130, 82)
+)
+
+knitr::kable(
+  d, 
+  col.names = c("ID", "SAT", "GPA", "Self-Esteem", "IQ"),
+  caption = "Example set of education data.",
+  align = "c",
+  table.attr = "style='width:60%;'",
+  escape = FALSE
+  )  %>%
+  kable_classic()
+```
+
+
+<br />
+
+
+## Vector of Fitted Values
+
+Recall that the regression model is denoted as
+
+$$
+\mathbf{y} = \mathbf{Xb} + \mathbf{e}
+$$
+
+where **y** is the outcome vector, **X** is the design matrix, **e** is the vector of residuals, and **b** is the vector of coefficients estimated as,
+
+$$
+\mathbf{b} = (\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal\mathbf{y}
+$$
+
+We can compute the vector of fitted values using
+
+$$
+\hat{\mathbf{y}} =  \mathbf{Xb}
+$$
+
+Here **X** has dimensions $n \times k$ and **b** has dimensions $k \times 1$. In both cases $k=p+1$ where *p* is equal to the number of predictors in the model. This product gives the $n\times 1$ vector of fitted values, $\hat{\mathbf{y}}$, which is,
+
+$$
+\begin{bmatrix}\hat{y}_1 \\ \hat{y}_2 \\ \hat{y}_3 \\ \vdots \\ \hat{y}_n\end{bmatrix}
+$$
+
+
+```{r}
+# Create vector of outcomes
+y = c(3.0, 3.9, 2.9, 2.7, 3.7, 2.4)
+
+# Create design matrix
+X = matrix(
+  data = c(
+    rep(1, 6), 
+    560, 780, 620, 600, 720, 380, 
+    11, 10, 19, 7, 18, 13
+    ),
+  ncol = 3
+)
+
+# Estimate coefficients
+b = solve(t(X) %*% X) %*% t(X) %*% y
+
+# Obtain vector of fitted values
+y_hat = X %*% b
+
+# View y_hat
+y_hat
+```
+
+
+<br />
+
+## The H-Matrix (Hat Matrix)
+
+One useful matrix in regression is the *hat matrix*, or the **H**-matrix. To obtain the **H**-matrix we substitute the matrix formulation of the coefficient vector, **b**, into the equation to compute the fitted values,
+
+$$
+\begin{split}
+\mathbf{\hat{y}} &= \mathbf{Xb} \\[2ex]
+&= \mathbf{X}(\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}\mathbf{y}
+\end{split}
+$$
+
+The set of products in this expression involving the **X** terms is referred to as **H**-matrix, that is:
+
+$$
+\begin{split}
+\mathbf{\hat{y}} &= \underbrace{\mathbf{X}(\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}}_\mathbf{H}\mathbf{y} \\[2ex]
+&= \mathbf{Hy}
+\end{split}
+$$
+
+where,
+
+$$
+\mathbf{H} = \mathbf{X}(\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}
+$$
+
+Note that the **H**-matrix can be created completely from the design matrix and its transpose. 
+
+```{r}
+# Create H
+H = X %*% solve(t(X) %*% X) %*% t(X)
+
+# View H
+H
+```
+
+It also has the following properties:
+
+- **H** is a square $n \times n$ matrix
+- **H** is a symmetric matrix.
+- **H** is an idempotent matrix.
+
+Idempotency is a mathematical property that implies certain operations can be repeatedly applied to a structure without changing it. An idempotent matrix is a matrix that can be post-multiplied by itself and the result is the originasl matrix. In our example, since **H** is idempotent,
+
+$$
+\mathbf{HH} = \mathbf{H}
+$$
+
+We can verify this using R
+
+```{r}
+# Verify H is idempotent
+H %*% H
+```
+
+As shown previously, we can also use the **H**-matrix to compute the fitted values, by post-multiplying **H** by the vector of outcomes:
+
+```{r}
+# Compute fitted values
+H %*% y
+```
+
+In this computation, we can see that the fitted values can be expressed as linear combinations of the response vector **Y** using coefficients found in **H**. (This is why **H** is often referred to as the *hat matrix*.) For example, the first fitted value is computed as:
+
+$$
+\begin{split}
+\hat{y}_1 &= 0.2244(3.0) +  0.1377(3.9) +  0.0595(2.9) +  0.2738(2.7) +  0.0294(3.7) + 0.2751(2.4) \\[2ex]
+&= 2.891
+\end{split}
+$$
+
+The **H**-matrix has many uses in regression. Aside from using it to compute the vectors of fitted values and residuals, it is also used to obtain leverage measures for each of the observations. Additionally, the trace of the **H**-matrix indicates the number of parameters (including the intercept) that are being estimated in the regression model. For example, in our regression model, we are estimating three parameters: $\beta_0$, $\beta_{\mathrm{SAT}}$, and $\beta_{\mathrm{Self\mbox{-}Esteem}}$.
+
+```{r}
+# Compute trace of H
+sum(diag(H))
+```
+
+
+
+<br />
+
+## Vector of Residuals
+
+The $n\times 1$ vector of *residuals*, **e**, can be computed as,
+
+$$
+\mathbf{e} = \begin{bmatrix}\epsilon_1 \\ \epsilon_2 \\ \epsilon_3 \\ \vdots \\ \epsilon_n\end{bmatrix} = \mathbf{y} - \mathbf{\hat{y}}
+$$
+
+Doing a little substitution,
+
+$$
+\begin{split}
+\mathbf{e} &= \mathbf{y} - \mathbf{\hat{y}} \\
+&= \mathbf{y} - \mathbf{Hy} \\
+&= (\mathbf{I} - \mathbf{H}) \mathbf{y}
+\end{split}
+$$
+
+Thus the residuals can also be expressed as linear combinations of the response vector **y**. The matrix $(\mathbf{I}-\mathbf{H})$ has some of the same properties as **H**, namely, it is
+
+- Square,
+- Symmetric, and
+- Idempotent
+
+We can compute the residual vector using R
+
+```{r}
+# Create 6x6 identity matrix
+I = diag(6)
+
+# Compute the vector of residuals
+residuals = (I - H) %*% y
+
+# View vector of residuals
+residuals
+```
+
+
+
+
+
+<br />
+
+

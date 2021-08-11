@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 18 Systems of Equations | Matrix Algebra for Educational Scientists</title>
+  <meta name="description" content="Matrix algebra content for QME students" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 18 Systems of Equations | Matrix Algebra for Educational Scientists" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Matrix algebra content for QME students" />
+  <meta name="github-repo" content="zief0002/matrix-algebra" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 18 Systems of Equations | Matrix Algebra for Educational Scientists" />
+  
+  <meta name="twitter:description" content="Matrix algebra content for QME students" />
+  
+
+<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
+
+
+<meta name="date" content="2021-08-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="quadratic-form-of-a-matrix.html"/>
+<link rel="next" href="statistical-appplication-estimating-regression-coefficients.html"/>
+<script src="libs/header-attrs/header-attrs.js"></script>
+<script src="libs/jquery/jquery.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/kePrint/kePrint.js"></script>
+<link href="libs/lightable/lightable.css" rel="stylesheet" />
+
+<script type="text/javascript">
+<!--
+    function toggle_visibility(id) {
+       var e = document.getElementById(id);
+       if(e.style.display == 'block')
+          e.style.display = 'none';
+       else
+          e.style.display = 'block';
+    }
+//-->
+</script>
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style/style-gitbook.css" type="text/css" />
+<link rel="stylesheet" href="style/table-styles.css" type="text/css" />
+<link rel="stylesheet" href="style/syntax.css" type="text/css" />
+<link rel="stylesheet" href="style/notes.css" type="text/css" />
+<link rel="stylesheet" href="style/toc.css" type="text/css" />
+<link rel="stylesheet" href="style/buttons.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Foreword</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#colophon"><i class="fa fa-check"></i>Colophon</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#prerequisites"><i class="fa fa-check"></i><b>1.1</b> Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="datastructures.html"><a href="datastructures.html"><i class="fa fa-check"></i><b>2</b> Data Structures</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="datastructures.html"><a href="datastructures.html#scalars"><i class="fa fa-check"></i><b>2.1</b> Scalars</a></li>
+<li class="chapter" data-level="2.2" data-path="datastructures.html"><a href="datastructures.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
+<li class="chapter" data-level="2.3" data-path="datastructures.html"><a href="datastructures.html#matrices"><i class="fa fa-check"></i><b>2.3</b> Matrices</a></li>
+<li class="chapter" data-level="2.4" data-path="datastructures.html"><a href="datastructures.html#tensors"><i class="fa fa-check"></i><b>2.4</b> Tensors</a></li>
+<li class="chapter" data-level="2.5" data-path="datastructures.html"><a href="datastructures.html#a-word-about-notation"><i class="fa fa-check"></i><b>2.5</b> A Word about Notation</a></li>
+<li class="chapter" data-level="2.6" data-path="datastructures.html"><a href="datastructures.html#exercises"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="part"><span><b>Vectors and Vector Operations</b></span></li>
+<li class="chapter" data-level="3" data-path="vec.html"><a href="vec.html"><i class="fa fa-check"></i><b>3</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="vec.html"><a href="vec.html#what-is-a-vector"><i class="fa fa-check"></i><b>3.1</b> What is a Vector?</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="vec.html"><a href="vec.html#transposition"><i class="fa fa-check"></i><b>3.1.1</b> Transposition</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="vec.html"><a href="vec.html#general-form-of-a-vector"><i class="fa fa-check"></i><b>3.2</b> General Form of a Vector</a></li>
+<li class="chapter" data-level="3.3" data-path="vec.html"><a href="vec.html#the-geometry-of-vectors"><i class="fa fa-check"></i><b>3.3</b> The Geometry of Vectors</a></li>
+<li class="chapter" data-level="3.4" data-path="vec.html"><a href="vec.html#vector-properties"><i class="fa fa-check"></i><b>3.4</b> Vector Properties</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="vec.html"><a href="vec.html#vector-length"><i class="fa fa-check"></i><b>3.4.1</b> Vector Length</a></li>
+<li class="chapter" data-level="3.4.2" data-path="vec.html"><a href="vec.html#vector-direction"><i class="fa fa-check"></i><b>3.4.2</b> Vector Direction</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="vec.html"><a href="vec.html#vector-equality"><i class="fa fa-check"></i><b>3.5</b> Vector Equality</a></li>
+<li class="chapter" data-level="3.6" data-path="vec.html"><a href="vec.html#special-vectors"><i class="fa fa-check"></i><b>3.6</b> Special Vectors</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="vec.html"><a href="vec.html#zero-vector"><i class="fa fa-check"></i><b>3.6.1</b> Zero Vector</a></li>
+<li class="chapter" data-level="3.6.2" data-path="vec.html"><a href="vec.html#ones-vector"><i class="fa fa-check"></i><b>3.6.2</b> Ones Vector</a></li>
+<li class="chapter" data-level="3.6.3" data-path="vec.html"><a href="vec.html#unit-vector"><i class="fa fa-check"></i><b>3.6.3</b> Unit Vector</a></li>
+<li class="chapter" data-level="3.6.4" data-path="vec.html"><a href="vec.html#elementary-vectors"><i class="fa fa-check"></i><b>3.6.4</b> Elementary Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="vec.html"><a href="vec.html#exercises-1"><i class="fa fa-check"></i><b>3.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="vecop.html"><a href="vecop.html"><i class="fa fa-check"></i><b>4</b> Vector Operations</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="vecop.html"><a href="vecop.html#vector-addition-and-subtraction"><i class="fa fa-check"></i><b>4.1</b> Vector Addition and Subtraction</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="vecop.html"><a href="vecop.html#geometry-of-adding-vectors"><i class="fa fa-check"></i><b>4.1.1</b> Geometry of Adding Vectors</a></li>
+<li class="chapter" data-level="4.1.2" data-path="vecop.html"><a href="vecop.html#vector-subtraction"><i class="fa fa-check"></i><b>4.1.2</b> Vector Subtraction</a></li>
+<li class="chapter" data-level="4.1.3" data-path="vecop.html"><a href="vecop.html#properties-of-vector-addition-and-subtraction"><i class="fa fa-check"></i><b>4.1.3</b> Properties of Vector Addition and Subtraction</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="vecop.html"><a href="vecop.html#vectorscalar-multiplication"><i class="fa fa-check"></i><b>4.2</b> Vector–Scalar Multiplication</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="vecop.html"><a href="vecop.html#division-by-a-scalar"><i class="fa fa-check"></i><b>4.2.1</b> Division by a Scalar</a></li>
+<li class="chapter" data-level="4.2.2" data-path="vecop.html"><a href="vecop.html#geometry-of-vectorscalar-multiplication"><i class="fa fa-check"></i><b>4.2.2</b> Geometry of Vector–Scalar Multiplication</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="vecop.html"><a href="vecop.html#vectorvector-multiplication-dot-product"><i class="fa fa-check"></i><b>4.3</b> Vector–Vector Multiplication: Dot Product</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="vecop.html"><a href="vecop.html#re-visiting-vector-length"><i class="fa fa-check"></i><b>4.3.1</b> Re-visiting Vector Length</a></li>
+<li class="chapter" data-level="4.3.2" data-path="vecop.html"><a href="vecop.html#dot-products-using-the-special-vectors"><i class="fa fa-check"></i><b>4.3.2</b> Dot Products Using the Special Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="vecop.html"><a href="vecop.html#vector-operations-using-r"><i class="fa fa-check"></i><b>4.4</b> Vector Operations Using R</a></li>
+<li class="chapter" data-level="4.5" data-path="vecop.html"><a href="vecop.html#exercises-2"><i class="fa fa-check"></i><b>4.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html"><i class="fa fa-check"></i><b>5</b> Vector Geometry: Angles, Projection, and Decomposition</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html#angle-between-vectors"><i class="fa fa-check"></i><b>5.1</b> Angle Between Vectors</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html#orthogonal-vectors"><i class="fa fa-check"></i><b>5.1.1</b> Orthogonal Vectors</a></li>
+<li class="chapter" data-level="5.1.2" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html#collinear-vectors"><i class="fa fa-check"></i><b>5.1.2</b> Collinear Vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html#orthogonal-projection"><i class="fa fa-check"></i><b>5.2</b> Orthogonal Projection</a></li>
+<li class="chapter" data-level="5.3" data-path="vector-geometry-angles-projection-and-decomposition.html"><a href="vector-geometry-angles-projection-and-decomposition.html#orthogonal-decomposition"><i class="fa fa-check"></i><b>5.3</b> Orthogonal Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="statistical-application-vectors.html"><a href="statistical-application-vectors.html"><i class="fa fa-check"></i><b>6</b> Statistical Application: Vectors</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="statistical-application-vectors.html"><a href="statistical-application-vectors.html#deviation-scores-and-the-standard-deviation"><i class="fa fa-check"></i><b>6.1</b> Deviation Scores and the Standard Deviation</a></li>
+<li class="chapter" data-level="6.2" data-path="statistical-application-vectors.html"><a href="statistical-application-vectors.html#vector-correlation-and-separation"><i class="fa fa-check"></i><b>6.2</b> Vector Correlation and Separation</a></li>
+<li class="chapter" data-level="6.3" data-path="statistical-application-vectors.html"><a href="statistical-application-vectors.html#orthogonal-decomposition-and-bivariate-regression"><i class="fa fa-check"></i><b>6.3</b> Orthogonal Decomposition and Bivariate Regression</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="statistical-application-vectors.html"><a href="statistical-application-vectors.html#back-to-the-sat-and-gpa-example"><i class="fa fa-check"></i><b>6.3.1</b> Back to the SAT and GPA Example</a></li>
+</ul></li>
+</ul></li>
+<li class="part"><span><b>Matrices and Matrix Operations</b></span></li>
+<li class="chapter" data-level="7" data-path="matrices-1.html"><a href="matrices-1.html"><i class="fa fa-check"></i><b>7</b> Matrices</a>
+<ul>
+<li class="chapter" data-level="7.0.1" data-path="matrices-1.html"><a href="matrices-1.html#dimensions-of-a-matrix"><i class="fa fa-check"></i><b>7.0.1</b> Dimensions of a Matrix</a></li>
+<li class="chapter" data-level="7.0.2" data-path="matrices-1.html"><a href="matrices-1.html#indexing-individual-elements"><i class="fa fa-check"></i><b>7.0.2</b> Indexing Individual Elements</a></li>
+<li class="chapter" data-level="7.0.3" data-path="matrices-1.html"><a href="matrices-1.html#geometry-of-matrices"><i class="fa fa-check"></i><b>7.0.3</b> Geometry of Matrices</a></li>
+<li class="chapter" data-level="7.0.4" data-path="matrices-1.html"><a href="matrices-1.html#matrices-in-r"><i class="fa fa-check"></i><b>7.0.4</b> Matrices in R</a></li>
+<li class="chapter" data-level="7.1" data-path="matrices-1.html"><a href="matrices-1.html#matrix-equality"><i class="fa fa-check"></i><b>7.1</b> Matrix Equality</a></li>
+<li class="chapter" data-level="7.2" data-path="matrices-1.html"><a href="matrices-1.html#exercises-3"><i class="fa fa-check"></i><b>7.2</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="matrix-addition-and-subtraction.html"><a href="matrix-addition-and-subtraction.html"><i class="fa fa-check"></i><b>8</b> Matrix Addition and Subtraction</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="matrix-addition-and-subtraction.html"><a href="matrix-addition-and-subtraction.html#properties-of-matrix-addition"><i class="fa fa-check"></i><b>8.1</b> Properties of Matrix Addition</a></li>
+<li class="chapter" data-level="8.2" data-path="matrix-addition-and-subtraction.html"><a href="matrix-addition-and-subtraction.html#statistical-application-deviation-matrix"><i class="fa fa-check"></i><b>8.2</b> Statistical Application: Deviation Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html"><i class="fa fa-check"></i><b>9</b> Matrix Multiplication</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#scalarmatrix-multiplication"><i class="fa fa-check"></i><b>9.1</b> Scalar–Matrix Multiplication</a></li>
+<li class="chapter" data-level="9.2" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#matrix-multiplication-1"><i class="fa fa-check"></i><b>9.2</b> Matrix Multiplication</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#conformability"><i class="fa fa-check"></i><b>9.2.1</b> Conformability</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#properties-of-matrix-multiplication"><i class="fa fa-check"></i><b>9.3</b> Properties of Matrix Multiplication</a></li>
+<li class="chapter" data-level="9.4" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#revisiting-dot-products"><i class="fa fa-check"></i><b>9.4</b> Revisiting Dot Products</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="matrix-transposition.html"><a href="matrix-transposition.html"><i class="fa fa-check"></i><b>10</b> Matrix Transposition</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="matrix-transposition.html"><a href="matrix-transposition.html#exercises-4"><i class="fa fa-check"></i><b>10.1</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="exercises-matrix-operations.html"><a href="exercises-matrix-operations.html"><i class="fa fa-check"></i><b>11</b> Exercises: Matrix Operations</a></li>
+<li class="part"><span><b>Square Matrices and Their Properties</b></span></li>
+<li class="chapter" data-level="12" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html"><i class="fa fa-check"></i><b>12</b> Square Matrices and Friends</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#square-matrices"><i class="fa fa-check"></i><b>12.1</b> Square Matrices</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#main-diagonal"><i class="fa fa-check"></i><b>12.1.1</b> Main Diagonal</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#diagonal-matrices"><i class="fa fa-check"></i><b>12.2</b> Diagonal Matrices</a></li>
+<li class="chapter" data-level="12.3" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#scalar-matrices"><i class="fa fa-check"></i><b>12.3</b> Scalar Matrices</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#identity-matrices"><i class="fa fa-check"></i><b>12.3.1</b> Identity Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#symmetric-matrices"><i class="fa fa-check"></i><b>12.4</b> Symmetric Matrices</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#skew-symmetric-matrices"><i class="fa fa-check"></i><b>12.4.1</b> Skew Symmetric Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#triangular-matrices"><i class="fa fa-check"></i><b>12.5</b> Triangular Matrices</a></li>
+<li class="chapter" data-level="12.6" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#exercises-5"><i class="fa fa-check"></i><b>12.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html"><i class="fa fa-check"></i><b>13</b> Properties of Square Matrices</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#matrix-trace"><i class="fa fa-check"></i><b>13.1</b> Matrix Trace</a></li>
+<li class="chapter" data-level="13.2" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant"><i class="fa fa-check"></i><b>13.2</b> Determinant</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant-for-a-1-times-1-matrix."><i class="fa fa-check"></i><b>13.2.1</b> Determinant for a <span class="math inline">\(1 \times 1\)</span> matrix.</a></li>
+<li class="chapter" data-level="13.2.2" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant-for-a-2-times-2-matrix."><i class="fa fa-check"></i><b>13.2.2</b> Determinant for a <span class="math inline">\(2 \times 2\)</span> matrix.</a></li>
+<li class="chapter" data-level="13.2.3" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant-for-a-3-times-3-matrix."><i class="fa fa-check"></i><b>13.2.3</b> Determinant for a <span class="math inline">\(3 \times 3\)</span> matrix.</a></li>
+<li class="chapter" data-level="13.2.4" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#using-r-to-find-the-determinant"><i class="fa fa-check"></i><b>13.2.4</b> Using R to Find the Determinant</a></li>
+<li class="chapter" data-level="13.2.5" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#properties-of-the-determinant"><i class="fa fa-check"></i><b>13.2.5</b> Properties of the Determinant</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#matrix-inverse"><i class="fa fa-check"></i><b>13.3</b> Matrix Inverse</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#find-the-inverse-using-r"><i class="fa fa-check"></i><b>13.3.1</b> Find the Inverse using R</a></li>
+<li class="chapter" data-level="13.3.2" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#properties-of-the-inverse"><i class="fa fa-check"></i><b>13.3.2</b> Properties of the Inverse</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#exercises-6"><i class="fa fa-check"></i><b>13.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html"><i class="fa fa-check"></i><b>14</b> Eigenvalues and Eigenvectors</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html#eigenvalues"><i class="fa fa-check"></i><b>14.1</b> Eigenvalues</a></li>
+<li class="chapter" data-level="14.2" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html#eigenvectors"><i class="fa fa-check"></i><b>14.2</b> Eigenvectors</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html#finding-the-elements-of-v"><i class="fa fa-check"></i><b>14.2.1</b> Finding the Elements of v</a></li>
+<li class="chapter" data-level="14.2.2" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html#normalized-eigenvectors"><i class="fa fa-check"></i><b>14.2.2</b> Normalized Eigenvectors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html#using-r-to-find-eigenvalues-and-eigenvectors"><i class="fa fa-check"></i><b>14.3</b> Using R to Find Eigenvalues and Eigenvectors</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><i class="fa fa-check"></i><b>15</b> Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#deviation-scores"><i class="fa fa-check"></i><b>15.1</b> Deviation Scores</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#creating-the-mean-matrix"><i class="fa fa-check"></i><b>15.1.1</b> Creating the Mean Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#sscp-matrix"><i class="fa fa-check"></i><b>15.2</b> SSCP Matrix</a></li>
+<li class="chapter" data-level="15.3" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#correlation-matrix"><i class="fa fa-check"></i><b>15.3</b> Correlation Matrix</a></li>
+<li class="chapter" data-level="15.4" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#standardized-scores"><i class="fa fa-check"></i><b>15.4</b> Standardized Scores</a></li>
+</ul></li>
+<li class="part"><span><b>Matrix Transformations</b></span></li>
+<li class="chapter" data-level="16" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html"><i class="fa fa-check"></i><b>16</b> Basis Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html#an-example"><i class="fa fa-check"></i><b>16.1</b> An Example</a></li>
+<li class="chapter" data-level="16.2" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html#changing-basis-vectors"><i class="fa fa-check"></i><b>16.2</b> Changing Basis Vectors</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html#non-orthonormal-basis"><i class="fa fa-check"></i><b>16.2.1</b> Non-Orthonormal Basis</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html#converting-non-standard-coordinates-to-the-standard-basis"><i class="fa fa-check"></i><b>16.3</b> Converting Non-Standard Coordinates to the Standard Basis</a></li>
+<li class="chapter" data-level="16.4" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html#final-thoughts"><i class="fa fa-check"></i><b>16.4</b> Final Thoughts</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html"><i class="fa fa-check"></i><b>17</b> Quadratic Form of a Matrix</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html#linear-forms"><i class="fa fa-check"></i><b>17.1</b> Linear Forms</a></li>
+<li class="chapter" data-level="17.2" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html#bilinear-form"><i class="fa fa-check"></i><b>17.2</b> Bilinear Form</a></li>
+<li class="chapter" data-level="17.3" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html#quadratic-form"><i class="fa fa-check"></i><b>17.3</b> Quadratic Form</a></li>
+<li class="chapter" data-level="17.4" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html#example-quadratic-form"><i class="fa fa-check"></i><b>17.4</b> Example: Quadratic Form</a></li>
+<li class="chapter" data-level="17.5" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html#positive-definite-matrices"><i class="fa fa-check"></i><b>17.5</b> Positive Definite Matrices</a></li>
+</ul></li>
+<li class="part"><span><b>Systems of Equations</b></span></li>
+<li class="chapter" data-level="18" data-path="systems-of-equations.html"><a href="systems-of-equations.html"><i class="fa fa-check"></i><b>18</b> Systems of Equations</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="systems-of-equations.html"><a href="systems-of-equations.html#solving-systems-of-equations-with-matrix-algebra"><i class="fa fa-check"></i><b>18.1</b> Solving Systems of Equations with Matrix Algebra</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="systems-of-equations.html"><a href="systems-of-equations.html#solving-this-system-of-equations-using-r"><i class="fa fa-check"></i><b>18.1.1</b> Solving this System of Equations Using R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="systems-of-equations.html"><a href="systems-of-equations.html#linear-dependence-and-independence"><i class="fa fa-check"></i><b>18.2</b> Linear Dependence and Independence</a></li>
+<li class="chapter" data-level="18.3" data-path="systems-of-equations.html"><a href="systems-of-equations.html#singularity"><i class="fa fa-check"></i><b>18.3</b> Singularity</a></li>
+<li class="chapter" data-level="18.4" data-path="systems-of-equations.html"><a href="systems-of-equations.html#rank-of-a-matrix"><i class="fa fa-check"></i><b>18.4</b> Rank of a Matrix</a></li>
+<li class="chapter" data-level="18.5" data-path="systems-of-equations.html"><a href="systems-of-equations.html#rank-and-the-solution-of-systems-of-equations"><i class="fa fa-check"></i><b>18.5</b> Rank and the Solution of Systems of Equations</a></li>
+<li class="chapter" data-level="18.6" data-path="systems-of-equations.html"><a href="systems-of-equations.html#exercises-7"><i class="fa fa-check"></i><b>18.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="statistical-appplication-estimating-regression-coefficients.html"><a href="statistical-appplication-estimating-regression-coefficients.html"><i class="fa fa-check"></i><b>19</b> Statistical Appplication: Estimating Regression Coefficients</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="statistical-appplication-estimating-regression-coefficients.html"><a href="statistical-appplication-estimating-regression-coefficients.html#regression-model"><i class="fa fa-check"></i><b>19.1</b> Regression Model</a></li>
+<li class="chapter" data-level="19.2" data-path="statistical-appplication-estimating-regression-coefficients.html"><a href="statistical-appplication-estimating-regression-coefficients.html#estimating-the-regression-coefficients"><i class="fa fa-check"></i><b>19.2</b> Estimating the Regression Coefficients</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="statistical-appplication-estimating-regression-coefficients.html"><a href="statistical-appplication-estimating-regression-coefficients.html#example-using-data"><i class="fa fa-check"></i><b>19.2.1</b> Example Using Data</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="statistical-appplication-estimating-regression-coefficients.html"><a href="statistical-appplication-estimating-regression-coefficients.html#the-mathbfxintercalmathbfx-matrix"><i class="fa fa-check"></i><b>19.3</b> The <span class="math inline">\(\mathbf{X}^\intercal\mathbf{X}\)</span> Matrix</a></li>
+</ul></li>
+<li class="part"><span><b>Matrix Decomposition</b></span></li>
+<li class="chapter" data-level="20" data-path="introduction-to-matrix-decompostion.html"><a href="introduction-to-matrix-decompostion.html"><i class="fa fa-check"></i><b>20</b> Introduction to Matrix Decompostion</a></li>
+<li class="chapter" data-level="21" data-path="lu-decompostion.html"><a href="lu-decompostion.html"><i class="fa fa-check"></i><b>21</b> LU Decompostion</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="lu-decompostion.html"><a href="lu-decompostion.html#an-example-of-lu-decomposition"><i class="fa fa-check"></i><b>21.1</b> An Example of LU Decomposition</a></li>
+<li class="chapter" data-level="21.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#solving-systems-of-equations-with-the-lu-decomposition"><i class="fa fa-check"></i><b>21.2</b> Solving Systems of Equations with the LU Decomposition</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-1-solve-for-z"><i class="fa fa-check"></i><b>21.2.1</b> Step 1: Solve for Z</a></li>
+<li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
+<li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
+<ul>
+<li class="chapter" data-level="22.0.1" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html#estimating-regression-coefficients-using-lu-decomposition"><i class="fa fa-check"></i><b>22.0.1</b> Estimating Regression Coefficients Using LU Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="cholesky-decompostion.html"><a href="cholesky-decompostion.html"><i class="fa fa-check"></i><b>23</b> Cholesky Decompostion</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="cholesky-decompostion.html"><a href="cholesky-decompostion.html#example-of-cholesky-decomposition"><i class="fa fa-check"></i><b>23.1</b> Example of Cholesky Decomposition</a></li>
+<li class="chapter" data-level="23.2" data-path="cholesky-decompostion.html"><a href="cholesky-decompostion.html#cholesky-decomposition-using-r"><i class="fa fa-check"></i><b>23.2</b> Cholesky Decomposition using R</a></li>
+<li class="chapter" data-level="23.3" data-path="cholesky-decompostion.html"><a href="cholesky-decompostion.html#statistical-application-estimating-regression-coefficents-with-cholesky-decomposition"><i class="fa fa-check"></i><b>23.3</b> Statistical Application: Estimating Regression Coefficents with Cholesky Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="qr-decompostion.html"><a href="qr-decompostion.html"><i class="fa fa-check"></i><b>24</b> QR Decompostion</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="qr-decompostion.html"><a href="qr-decompostion.html#qr-decomposition-using-r"><i class="fa fa-check"></i><b>24.1</b> QR Decomposition using R</a></li>
+<li class="chapter" data-level="24.2" data-path="qr-decompostion.html"><a href="qr-decompostion.html#statistical-application-estimating-regression-coefficents-with-qr-decomposition"><i class="fa fa-check"></i><b>24.2</b> Statistical Application: Estimating Regression Coefficents with QR Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="spectral-decompostion.html"><a href="spectral-decompostion.html"><i class="fa fa-check"></i><b>25</b> Spectral Decompostion</a>
+<ul>
+<li class="chapter" data-level="25.0.1" data-path="spectral-decompostion.html"><a href="spectral-decompostion.html#an-example-1"><i class="fa fa-check"></i><b>25.0.1</b> An Example</a></li>
+<li class="chapter" data-level="25.1" data-path="spectral-decompostion.html"><a href="spectral-decompostion.html#solving-systems-of-equations-with-spectral-decomposition"><i class="fa fa-check"></i><b>25.1</b> Solving Systems of Equations with Spectral Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="singular-value-decompostion.html"><a href="singular-value-decompostion.html"><i class="fa fa-check"></i><b>26</b> Singular Value Decompostion</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="singular-value-decompostion.html"><a href="singular-value-decompostion.html#svd-using-r"><i class="fa fa-check"></i><b>26.1</b> SVD Using R</a></li>
+</ul></li>
+<li class="part"><span><b>Regression Applications</b></span></li>
+<li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
+<ul>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
+<ul>
+<li class="chapter" data-level="28.1" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html#sums-of-squares"><i class="fa fa-check"></i><b>28.1</b> Sums of Squares</a>
+<ul>
+<li class="chapter" data-level="28.1.1" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html#mean-centering-the-outcome"><i class="fa fa-check"></i><b>28.1.1</b> Mean Centering the Outcome</a></li>
+</ul></li>
+<li class="chapter" data-level="28.2" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html#sums-of-squares-as-functions-of-the-data"><i class="fa fa-check"></i><b>28.2</b> Sums of Squares as Functions of the Data</a>
+<ul>
+<li class="chapter" data-level="28.2.1" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html#example-using-r"><i class="fa fa-check"></i><b>28.2.1</b> Example Using R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html"><i class="fa fa-check"></i><b>29</b> Standard Errors and Variance Estimates</a>
+<ul>
+<li class="chapter" data-level="29.1" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#residual-variance-of-the-model"><i class="fa fa-check"></i><b>29.1</b> Residual Variance of the Model</a></li>
+<li class="chapter" data-level="29.2" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#coefficient-variances-and-covariances"><i class="fa fa-check"></i><b>29.2</b> Coefficient Variances and Covariances</a></li>
+<li class="chapter" data-level="29.3" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#standard-errors-for-the-coefficients"><i class="fa fa-check"></i><b>29.3</b> Standard Errors for the Coefficients</a></li>
+<li class="chapter" data-level="29.4" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#correlation-between-the-coefficients"><i class="fa fa-check"></i><b>29.4</b> Correlation Between the Coefficients</a></li>
+<li class="chapter" data-level="29.5" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#inference-model-level"><i class="fa fa-check"></i><b>29.5</b> Inference: Model-Level</a></li>
+<li class="chapter" data-level="29.6" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#inference-coefficient-level"><i class="fa fa-check"></i><b>29.6</b> Inference: Coefficient-Level</a></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="assumptions-of-the-regression-model.html"><a href="assumptions-of-the-regression-model.html"><i class="fa fa-check"></i><b>30</b> Assumptions of the Regression Model</a>
+<ul>
+<li class="chapter" data-level="30.1" data-path="assumptions-of-the-regression-model.html"><a href="assumptions-of-the-regression-model.html#regression-assumptions"><i class="fa fa-check"></i><b>30.1</b> Regression Assumptions</a></li>
+<li class="chapter" data-level="30.2" data-path="assumptions-of-the-regression-model.html"><a href="assumptions-of-the-regression-model.html#expressing-the-assumptions-uising-matrix-algebra"><i class="fa fa-check"></i><b>30.2</b> Expressing the Assumptions uising Matrix Algebra</a></li>
+<li class="chapter" data-level="30.3" data-path="assumptions-of-the-regression-model.html"><a href="assumptions-of-the-regression-model.html#variance-covariance-matrix-of-the-residuals"><i class="fa fa-check"></i><b>30.3</b> Variance-Covariance Matrix of the Residuals</a></li>
+<li class="chapter" data-level="30.4" data-path="assumptions-of-the-regression-model.html"><a href="assumptions-of-the-regression-model.html#regression-model-revisited"><i class="fa fa-check"></i><b>30.4</b> Regression Model: Revisited</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Matrix Algebra for Educational Scientists</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<link href="style/style-gitbook.css" rel="stylesheet">
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="figs/hero-image-2.png">
+</div>
+<div id="systems-of-equations" class="section level1" number="18">
+<h1><span class="header-section-number">Chapter 18</span> Systems of Equations</h1>
+<p>One thing that matrix algebra is really useful for is solving systems of equations. For example, consider the following system of two equations:</p>
+<p><span class="math display">\[
+\begin{split}
+3x + 4y &amp;= 10 \\[2ex]
+2x + 3y &amp;= 7
+\end{split}
+\]</span></p>
+<p>The set of equations is referred to as a <em>system of equations</em>, and “solving” this system of equations is akin to determining the values of <em>x</em> and <em>y</em> that satisfy all equations in the system. In an algebra class, you may have learned to solve these equations by <a href="https://www.kristakingmath.com/blog/solving-systems-of-equations-with-substitution-elimination-graphing">graphing them, using substitution, or elimination</a>. Based on these methods we would find that <span class="math inline">\(x=2\)</span> and <span class="math inline">\(y=1\)</span>. Since this system has a solution, we say the system of equations is <em>consistent</em>.</p>
+<p>If this were the only set of <em>x</em>- and <em>y</em>-values that could simultaneously solve all of the equations, then this consistent system is said to have a <em>unique solution</em>. In other systems of equations, there may be an infinite number of <em>x</em>- and <em>y</em>-values that provide solutions (referred to as a <em>dependent</em> system of equations) or no <em>x</em>- and <em>y</em>-values that offer a solution (an <em>inconsistent</em> system of equations).</p>
+<p>Graphically, a consistent system of equations with a unique solution intersect at a unique point. In our example, the two lines defined by the equations would intersect at the point <span class="math inline">\((2,1)\)</span>. If the system of equations were dependent, the two equations would form the same line. For example,</p>
+<p><span class="math display">\[
+\begin{split}
+x + y &amp;= 6 \\[2ex]
+2x + 2y &amp;= 12
+\end{split}
+\]</span></p>
+<p>In this example, every <span class="math inline">\((x,y)\)</span> value that lies on the two lines is a potential solution for the system; and there are an infinite number of these solutions. In an inconsistent system of equations, the two lines do not intersect; they are parallel.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> For example, the following system of equations is inconsistent:</p>
+<p><span class="math display">\[
+\begin{split}
+x + y &amp;= 5 \\[2ex]
+x + y &amp;= 10
+\end{split}
+\]</span></p>
+<p>These two lines are parallel (do not intersect), so there is not any values of <em>x</em> and <em>y</em> that satisfy both equations. Note that the second equation in the system has been changed disproportionately from the first; namely the left-side of the first equation was multiplied by one to obtain the left-side of the second equation and the right-side of the first equation was multiplied by two. Algebraically, inconsistent systems share this characteristic that one side of the equation has been disproportionately changed from the other side.</p>
+<p><br /></p>
+<div id="solving-systems-of-equations-with-matrix-algebra" class="section level2" number="18.1">
+<h2><span class="header-section-number">18.1</span> Solving Systems of Equations with Matrix Algebra</h2>
+<p>We can also use matrix algebra to solve systems of equations. To do this, we will re-visit the earlier system of equations:</p>
+<p><span class="math display">\[
+\begin{split}
+3x + 4y &amp;= 10 \\[2ex]
+2x + 3y &amp;= 7
+\end{split}
+\]</span></p>
+<p>We first need to write this system of equations using matrices. Because there are two equations, we can initially formulate each side of the equality as a <span class="math inline">\(2 \times 1\)</span> matrix:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+3x + 4y \\
+2x + 3y 
+\end{bmatrix} = \begin{bmatrix}
+10 \\
+7
+\end{bmatrix}
+\]</span></p>
+<p>Now, we can re-write the left-hand side of the equality as the product of two matrices:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+3 &amp; 4 \\
+2 &amp; 3
+\end{bmatrix}\begin{bmatrix}
+x \\
+y
+\end{bmatrix} = \begin{bmatrix}
+10 \\
+7
+\end{bmatrix}
+\]</span></p>
+<p>Note that the elements of the “left” (premultiplied) matrix on the left-hand side of the equality are composed of the four coefficients that make up the system of equations. The “right” (postmultiplied) matrix on the left-hand side of the equality is a column matrix composed of the unknowns in the original system of equations. The matrix on the right-hand side of the equality is a column matrix made up of the equality values in the original system of equations.</p>
+<p>Note that the matrix multiplication on the left-hand side of the equality is defined and produces the appropriately dimensioned matrix on the right-hand side of the equality.</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\begin{bmatrix}
+3 &amp; 4 \\
+2 &amp; 3
+\end{bmatrix}}\underset{2\times 1}{\begin{bmatrix}
+x \\
+y
+\end{bmatrix}} = \underset{2\times 1}{\begin{bmatrix}
+10 \\
+7
+\end{bmatrix}}
+\]</span></p>
+<p>If we use a more general notation,</p>
+<p><span class="math display">\[
+\underset{n\times n}{\mathbf{A}}~\underset{n\times 1}{\mathbf{X}} = \underset{n\times 1}{\mathbf{C}}
+\]</span></p>
+<p>where <em>n</em> is the number of equations (and unknowns) in the system, <strong>A</strong> is a matrix representing the coefficients associated with each of the unknowns in the system equations, and <strong>C</strong> is the matrix representing the scalar equality values.</p>
+<p>To solve this general equation, we premultiply both sides of the equation by <span class="math inline">\(\mathbf{A}^{-1}\)</span>.</p>
+<p><span class="math display">\[
+\mathbf{A}^{-1}\mathbf{A}\mathbf{X} = \mathbf{A}^{-1}\mathbf{C}
+\]</span></p>
+<p>This will result in</p>
+<p><span class="math display">\[
+\begin{split}
+(\mathbf{A}^{-1}\mathbf{A})\mathbf{X} &amp;= \mathbf{A}^{-1}\mathbf{C} \\[2ex]
+\mathbf{I}\mathbf{X} &amp;= \mathbf{A}^{-1}\mathbf{C} \\[2ex]
+\mathbf{X} &amp;= \mathbf{A}^{-1}\mathbf{C}
+\end{split}
+\]</span></p>
+<p>Thus, we can solve for the elements in <strong>X</strong> (<em>x</em> and <em>y</em>) by premultiplying <strong>C</strong> by the inverse of <strong>A</strong>. In our example,</p>
+<p><span class="math display">\[
+\begin{split}
+\overset{\mathbf{A}}{\begin{bmatrix}
+3 &amp; 4 \\
+2 &amp; 3
+\end{bmatrix}}\overset{\mathbf{X}}{\begin{bmatrix}
+x \\
+y
+\end{bmatrix}} &amp;= \overset{\mathbf{C}}{\begin{bmatrix}
+10 \\
+7
+\end{bmatrix}} \\[2ex]
+\overset{\mathbf{A}^{-1}}{\begin{bmatrix}
+3 &amp; -4 \\
+-2 &amp; 3
+\end{bmatrix}}\overset{\mathbf{A}}{\begin{bmatrix}
+3 &amp; 4 \\
+2 &amp; 3
+\end{bmatrix}}\overset{\mathbf{X}}{\begin{bmatrix}
+x \\
+y
+\end{bmatrix}} &amp;= \overset{\mathbf{A}^{-1}}{\begin{bmatrix}
+3 &amp; -4 \\
+-2 &amp; 3
+\end{bmatrix}}\overset{\mathbf{C}}{\begin{bmatrix}
+10 \\
+7
+\end{bmatrix}} \\[2ex]
+\overset{\mathbf{I}}{\begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{bmatrix}}\overset{\mathbf{X}}{\begin{bmatrix}
+x \\
+y
+\end{bmatrix}} &amp;= \overset{\mathbf{A}^{-1}\mathbf{C}}{\begin{bmatrix}
+2 \\
+1
+\end{bmatrix}} \\[2ex]
+\overset{\mathbf{X}}{\begin{bmatrix}
+x \\
+y
+\end{bmatrix}} &amp;= \overset{\mathbf{A}^{-1}\mathbf{C}}{\begin{bmatrix}
+2 \\
+1
+\end{bmatrix}} \\[2ex]
+\end{split}
+\]</span></p>
+<p>Because the two matrices here, <span class="math inline">\(\mathbf{X}\)</span> and <span class="math inline">\(\mathbf{A}^{-1}\mathbf{C}\)</span>, are equal, all of the elements in the same position are equal. Thus <span class="math inline">\(x=2\)</span> and <span class="math inline">\(y=1\)</span>.</p>
+<p><br /></p>
+<div id="solving-this-system-of-equations-using-r" class="section level3" number="18.1.1">
+<h3><span class="header-section-number">18.1.1</span> Solving this System of Equations Using R</h3>
+<p>We can use R to carry out this matrix algebra.</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="systems-of-equations.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb237-2"><a href="systems-of-equations.html#cb237-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb237-3"><a href="systems-of-equations.html#cb237-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>),</span>
+<span id="cb237-4"><a href="systems-of-equations.html#cb237-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb237-5"><a href="systems-of-equations.html#cb237-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb237-6"><a href="systems-of-equations.html#cb237-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-7"><a href="systems-of-equations.html#cb237-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-8"><a href="systems-of-equations.html#cb237-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create C</span></span>
+<span id="cb237-9"><a href="systems-of-equations.html#cb237-9" aria-hidden="true" tabindex="-1"></a>C <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb237-10"><a href="systems-of-equations.html#cb237-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">7</span>),</span>
+<span id="cb237-11"><a href="systems-of-equations.html#cb237-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb237-12"><a href="systems-of-equations.html#cb237-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb237-13"><a href="systems-of-equations.html#cb237-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-14"><a href="systems-of-equations.html#cb237-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb237-15"><a href="systems-of-equations.html#cb237-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for X</span></span>
+<span id="cb237-16"><a href="systems-of-equations.html#cb237-16" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A) <span class="sc">%*%</span> C</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    2
+[2,]    1</code></pre>
+<p>What happens when we try to solve for a consistent system of equations that have an infinite number of solutions? Using our example from above:</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="systems-of-equations.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb239-2"><a href="systems-of-equations.html#cb239-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb239-3"><a href="systems-of-equations.html#cb239-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb239-4"><a href="systems-of-equations.html#cb239-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb239-5"><a href="systems-of-equations.html#cb239-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb239-6"><a href="systems-of-equations.html#cb239-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-7"><a href="systems-of-equations.html#cb239-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-8"><a href="systems-of-equations.html#cb239-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create C</span></span>
+<span id="cb239-9"><a href="systems-of-equations.html#cb239-9" aria-hidden="true" tabindex="-1"></a>C <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb239-10"><a href="systems-of-equations.html#cb239-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">12</span>),</span>
+<span id="cb239-11"><a href="systems-of-equations.html#cb239-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb239-12"><a href="systems-of-equations.html#cb239-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb239-13"><a href="systems-of-equations.html#cb239-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-14"><a href="systems-of-equations.html#cb239-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb239-15"><a href="systems-of-equations.html#cb239-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for X</span></span>
+<span id="cb239-16"><a href="systems-of-equations.html#cb239-16" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A) <span class="sc">%*%</span> C</span></code></pre></div>
+<pre><code>Error in solve.default(A): Lapack routine dgesv: system is exactly singular: U[2,2] = 0</code></pre>
+<p>We cannot solve this system of equations because the inverse of <strong>A</strong> is singular (the determinant of <strong>A</strong> is zero). What happens when we try to solve for a dependent system of equations? Using our example from above:</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="systems-of-equations.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb241-2"><a href="systems-of-equations.html#cb241-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb241-3"><a href="systems-of-equations.html#cb241-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb241-4"><a href="systems-of-equations.html#cb241-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb241-5"><a href="systems-of-equations.html#cb241-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb241-6"><a href="systems-of-equations.html#cb241-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb241-7"><a href="systems-of-equations.html#cb241-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb241-8"><a href="systems-of-equations.html#cb241-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create C</span></span>
+<span id="cb241-9"><a href="systems-of-equations.html#cb241-9" aria-hidden="true" tabindex="-1"></a>C <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb241-10"><a href="systems-of-equations.html#cb241-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>),</span>
+<span id="cb241-11"><a href="systems-of-equations.html#cb241-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb241-12"><a href="systems-of-equations.html#cb241-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb241-13"><a href="systems-of-equations.html#cb241-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb241-14"><a href="systems-of-equations.html#cb241-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb241-15"><a href="systems-of-equations.html#cb241-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for X</span></span>
+<span id="cb241-16"><a href="systems-of-equations.html#cb241-16" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A) <span class="sc">%*%</span> C</span></code></pre></div>
+<pre><code>Error in solve.default(A): Lapack routine dgesv: system is exactly singular: U[2,2] = 0</code></pre>
+<p>We also cannot solve this system of equations because the inverse of <strong>A</strong> is singular (the determinant of <strong>A</strong> is zero).</p>
+<p><br /></p>
+</div>
+</div>
+<div id="linear-dependence-and-independence" class="section level2" number="18.2">
+<h2><span class="header-section-number">18.2</span> Linear Dependence and Independence</h2>
+<p>We recognize that when a redundant equation is present in a system of equations, the matrix of coefficients (<strong>A</strong>) is singular, the determinant is zero. This is one definition of a <em>linearly dependent</em> system of equations. When none of the equations in a system are redundant with any other equation within the system, the system of equations is <em>linearly independent</em>.</p>
+<p>Consider a vector <strong>z</strong> where <span class="math inline">\(\mathbf{z} = a\mathbf{x} + b\mathbf{y}\)</span>. That is, <strong>z</strong> is a linear function of the vectors <strong>x</strong> and <strong>y</strong>. (We could also say <strong>z</strong> is linearly dependent on <strong>x</strong> and <strong>y</strong>.) When we have used vector addition or vector subtraction, we were actually creating linear combinations of vectors where the scalars were all equal to <span class="math inline">\(+1\)</span> or <span class="math inline">\(–1\)</span>. For example, <span class="math inline">\(\mathbf{z} = \mathbf{x} + \mathbf{y}\)</span> is mathematically equivalent to <span class="math inline">\(\mathbf{z} = 1\mathbf{x} + 1\mathbf{y}\)</span>. In this case, the coefficients for <strong>x</strong> and <strong>y</strong> are both <span class="math inline">\(+1\)</span>; <span class="math inline">\(a=1\)</span> and <span class="math inline">\(b=1\)</span>.</p>
+<p>Formally, a set of vectors, <span class="math inline">\(\mathbf{a}_1, \mathbf{a}_2, \ldots \mathbf{a}_n\)</span>, is linearly dependent if there exists a set of scalars (not all zero) where:</p>
+<p><span class="math display">\[
+c_1\mathbf{a}_1 + c_2 \mathbf{a}_2 + \ldots + c_n\mathbf{a}_n = 0
+\]</span>
+If no set of scalars exist to satisfy this condition, the set of vectors is linearly independent. For the above condition to be true, at least one of the vectors must be redundant with another, it can be expressed as a linear combination of the others. Linear dependence implies redundancy among at least two of the vectors. For example consider the following three vectors:</p>
+<p><span class="math display">\[
+\mathbf{x} = \begin{bmatrix}4\\6\end{bmatrix} \qquad \mathbf{y}= \begin{bmatrix}2\\1\end{bmatrix} \qquad \mathbf{z}= \begin{bmatrix}6\\11\end{bmatrix}
+\]</span></p>
+<p>These three vectors can be written as:</p>
+<p><span class="math display">\[
+\begin{split}
+2\mathbf{x} - 1 \mathbf{y} -1 \mathbf{z} &amp;= 0 \\[2ex]
+2\begin{bmatrix}4\\6\end{bmatrix} - 1 \begin{bmatrix}2\\1\end{bmatrix} - 1 \begin{bmatrix}6\\11\end{bmatrix} &amp;= 0
+\end{split}
+\]</span></p>
+<p>Since we have a set of scalars <span class="math inline">\(\{2,-1,-1\}\)</span> that satisfy this equation where none of the scalars are zero, this system of equations is linearly dependent.</p>
+<p><br /></p>
+</div>
+<div id="singularity" class="section level2" number="18.3">
+<h2><span class="header-section-number">18.3</span> Singularity</h2>
+<p>Recall that in a singular matrix, the determinant if the matrix is zero. A matrix that is singular implies that one or more of the rows (or columns) is linearly dependent; there exists a set of scalars that satisfies our definition. Earlier we saw that:</p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}1 &amp; 1 \\ 2 &amp; 2\end{bmatrix}
+\]</span></p>
+<p>was singular. Namely,</p>
+<p><span class="math display">\[
+\begin{split}
+\vert\mathbf{A}\vert &amp;= 1(2) - 2(1) \\[2ex]
+&amp;= 0
+\end{split}
+\]</span>
+We can also find scalars <span class="math inline">\(c_1\)</span> and <span class="math inline">\(c_2\)</span> such that the row vectors (or column vectors) of <strong>A</strong> can be written as <span class="math inline">\(c_1\mathbf{a}_1 + c_2 \mathbf{a}_2 = 0\)</span>. Using the two row vectors:</p>
+<p><span class="math display">\[
+\begin{split}
+2\begin{bmatrix}1\\1\end{bmatrix} - 1 \begin{bmatrix}2\\2\end{bmatrix} &amp;= 0 \\[2ex]
+2\mathbf{a}_1 - 1 \mathbf{a}_2  &amp;= 0 
+\end{split}
+\]</span></p>
+<p>In general, when <strong>A</strong> is singular the rows are linearly dependent. The columns are similarly linearly dependent when <strong>A</strong> is singular.</p>
+<div class="protip">
+<p>There is a theorem in linear algebra that suggests that any <em>n</em>-element vector can be written as a linear combination of <em>n</em> linearly independent <em>n</em>-element vectors. Finding such vectors can be difficult, but we rely on this theorem in statistics.</p>
+</div>
+<p><br /></p>
+</div>
+<div id="rank-of-a-matrix" class="section level2" number="18.4">
+<h2><span class="header-section-number">18.4</span> Rank of a Matrix</h2>
+<p>The <em>column rank</em> of a matrix describes the dimensionality of the column space for that matrix, and the <em>row rank</em> describes the dimensionality of the row space for that matrix. It turns out that the column and row ranks of a matrix are the same, so we just refer to the dimensionality, or <em>rank</em> of a matrix. Because dimensionality is related to the independence of the rows/columns, the rank of a matrix is also the number of rows or columns that are linearly independent:</p>
+<p><span class="math display">\[
+\mathrm{Rank}(\mathbf{A}) = \begin{cases}\mathrm{number~of~linearly~independent~rows~of~}\mathbf{A} \\ \mathrm{number~of~linearly~independent~columns~ of~}\mathbf{A}\end{cases}
+\]</span></p>
+<p>For an <span class="math inline">\(n \times p\)</span> dimensional matrix <strong>A</strong>, the maximum possible rank is the smaller value of <em>n</em> and <em>p</em>. That is,</p>
+<p><span class="math display">\[
+0 \leq \mathrm{Rank}(\underset{n\times p}{\mathbf{A}}) \leq \min(n,p)
+\]</span></p>
+<p>The rank of a matrix would be zero only if the matrix were a null matrix. For all other matrices, the minimum possible rank would be one.</p>
+<p>When all of the row and column vectors in a matrix are linearly independent the matrix is said to be of <em>full rank</em>. That is, when the rank of <strong>A</strong> is the maximum possible rank, it is of full rank. When the rank of <strong>A</strong> is smaller than both <em>n</em> and <em>p</em>, the matrix is said to be of <em>deficient rank</em>. This implies that at least one of the row (or column) vectors is linearly dependent. It turns out only a square matrix can be of full rank—rectangular matrices will always have a rank less than either <em>n</em> or <em>p</em>.</p>
+<p>For example, consider the following matrices:</p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}3 &amp; 5 \\ 1 &amp; 2\end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}1 &amp; 3 &amp; 5 \\ 1 &amp; 2 &amp; 3 \\ 2 &amp; 5 &amp; 8\end{bmatrix}
+\]</span></p>
+<p>The rank of <strong>A</strong> is 2, since the two ro vectors (or the two column vectors) are linearly independent. Since 2 is the maximum possible rank of a <span class="math inline">\(2 \times 2\)</span> matrix, we consider <strong>A</strong> to be of full rank. Matrix <strong>B</strong>, on the other hand, is of deficient rank. This is because the rank of <strong>B</strong> is 2, which is less than the maximum possible rank of 3 for a <span class="math inline">\(3\times 3\)</span> matrix. This means that two of the three rows (or columns) of <strong>B</strong> are linearly independent. It turns out the third row of <strong>B</strong> is a linear combination of the first and second rows:</p>
+<p><span class="math display">\[
+\overset{\mathrm{Row~3}}{\begin{bmatrix}2 &amp; 5 &amp; 8\end{bmatrix}} = \overset{\mathrm{Row~1}}{\begin{bmatrix}1 &amp; 3 &amp; 5\end{bmatrix}} + \overset{\mathrm{Row~2}}{\begin{bmatrix}1 &amp; 2 &amp; 3\end{bmatrix}}
+\]</span></p>
+<p>We can compute the rank of a matrix by using the <code>rankMatrix()</code> function from the <strong>Matrix</strong> package.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="systems-of-equations.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb243-2"><a href="systems-of-equations.html#cb243-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb243-3"><a href="systems-of-equations.html#cb243-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb243-4"><a href="systems-of-equations.html#cb243-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb243-5"><a href="systems-of-equations.html#cb243-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">2</span></span>
+<span id="cb243-6"><a href="systems-of-equations.html#cb243-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb243-7"><a href="systems-of-equations.html#cb243-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb243-8"><a href="systems-of-equations.html#cb243-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute rank of A</span></span>
+<span id="cb243-9"><a href="systems-of-equations.html#cb243-9" aria-hidden="true" tabindex="-1"></a>Matrix<span class="sc">::</span><span class="fu">rankMatrix</span>(A)</span></code></pre></div>
+<pre><code>[1] 2
+attr(,&quot;method&quot;)
+[1] &quot;tolNorm2&quot;
+attr(,&quot;useGrad&quot;)
+[1] FALSE
+attr(,&quot;tol&quot;)
+[1] 4.440892e-16</code></pre>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="systems-of-equations.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create B</span></span>
+<span id="cb245-2"><a href="systems-of-equations.html#cb245-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb245-3"><a href="systems-of-equations.html#cb245-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>),</span>
+<span id="cb245-4"><a href="systems-of-equations.html#cb245-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb245-5"><a href="systems-of-equations.html#cb245-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb245-6"><a href="systems-of-equations.html#cb245-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb245-7"><a href="systems-of-equations.html#cb245-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb245-8"><a href="systems-of-equations.html#cb245-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute rank of B</span></span>
+<span id="cb245-9"><a href="systems-of-equations.html#cb245-9" aria-hidden="true" tabindex="-1"></a>Matrix<span class="sc">::</span><span class="fu">rankMatrix</span>(B)</span></code></pre></div>
+<pre><code>[1] 2
+attr(,&quot;method&quot;)
+[1] &quot;tolNorm2&quot;
+attr(,&quot;useGrad&quot;)
+[1] FALSE
+attr(,&quot;tol&quot;)
+[1] 6.661338e-16</code></pre>
+<p>The determinant of a matrix also gives us insight into whether a matrix is of full rank. Singular matrices (determinant = 0) are of deficient rank, while non-singular matrices are of full rank.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="systems-of-equations.html#cb247-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute determinant</span></span>
+<span id="cb247-2"><a href="systems-of-equations.html#cb247-2" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div>
+<pre><code>[1] 1</code></pre>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="systems-of-equations.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute determinant</span></span>
+<span id="cb249-2"><a href="systems-of-equations.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(B)</span></code></pre></div>
+<pre><code>[1] 0</code></pre>
+<p>All of this implies that if <strong>A</strong> is non-singular (<span class="math inline">\(\lvert \mathbf{A} \rvert \neq 0\)</span>), then:</p>
+<ul>
+<li><strong>A</strong> has an inverse;</li>
+<li><span class="math inline">\(\mathrm{rank}(\mathbf{A}) = n\)</span>, or <strong>A</strong> is full rank;</li>
+<li>All rows of <strong>A</strong> are linearly independent; and</li>
+<li>All columns of <strong>A</strong> are linearly independent.</li>
+</ul>
+<p><br /></p>
+</div>
+<div id="rank-and-the-solution-of-systems-of-equations" class="section level2" number="18.5">
+<h2><span class="header-section-number">18.5</span> Rank and the Solution of Systems of Equations</h2>
+<p>Remember, our goal was to use matrix algebra to solve a system of equations. In order to do this we need to evaluate the independence of the system of equations. Consider the following system of equations:</p>
+<p><span class="math display">\[
+\begin{split}
+x_1 + x_2 + x_3 &amp;= 5 \\[2ex]
+2x_1 – 1x_2 + 6x_3 &amp;= 12 \\[2ex]
+x_1 + 3x_2 + 5x_3 &amp;= 17
+\end{split}
+\]</span>
+The coefficient matrix (<span class="math inline">\(\mathbf{A}\)</span>) and the augmented coefficient matrix (<span class="math inline">\(\mathbf{A}\vert \mathbf{c}\)</span>) are:</p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}
+1 &amp; 1 &amp; 1 \\
+2 &amp; – 1 &amp; 6\\
+1 &amp; 3 &amp; 5
+\end{bmatrix} \qquad \mathbf{A}\vert \mathbf{c} = \begin{bmatrix}
+1 &amp; 1 &amp; 1 &amp; 5\\
+2 &amp; – 1 &amp; 6 &amp; 12\\
+1 &amp; 3 &amp; 5 &amp; 17
+\end{bmatrix}
+\]</span></p>
+<p>Note that the augmented coefficient matrix is simply the coefficient matrix with an appended column that include the solutions from the system of equations (the <strong>c</strong> vector from <span class="math inline">\(\mathbf{Ax}=\mathbf{c}\)</span>).</p>
+<p>A theorem in linear algebra states that a system of equations is independent (consistent) if the rank of the coefficient matrix is the same as the rank of the augmented coefficient matrix, <span class="math inline">\(\mathrm{rank}(\mathbf{A}) = \mathrm{rank}(\mathbf{A}\vert \mathbf{c})\)</span>. Examining the rank of <strong>A</strong>, we find:</p>
+<p>Computing the rank of <strong>A</strong>:</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="systems-of-equations.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb251-2"><a href="systems-of-equations.html#cb251-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb251-3"><a href="systems-of-equations.html#cb251-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>),</span>
+<span id="cb251-4"><a href="systems-of-equations.html#cb251-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb251-5"><a href="systems-of-equations.html#cb251-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb251-6"><a href="systems-of-equations.html#cb251-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb251-7"><a href="systems-of-equations.html#cb251-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb251-8"><a href="systems-of-equations.html#cb251-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A|y</span></span>
+<span id="cb251-9"><a href="systems-of-equations.html#cb251-9" aria-hidden="true" tabindex="-1"></a>A_y <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb251-10"><a href="systems-of-equations.html#cb251-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">12</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">17</span>),</span>
+<span id="cb251-11"><a href="systems-of-equations.html#cb251-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb251-12"><a href="systems-of-equations.html#cb251-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">4</span></span>
+<span id="cb251-13"><a href="systems-of-equations.html#cb251-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb251-14"><a href="systems-of-equations.html#cb251-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb251-15"><a href="systems-of-equations.html#cb251-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute rank of A</span></span>
+<span id="cb251-16"><a href="systems-of-equations.html#cb251-16" aria-hidden="true" tabindex="-1"></a>Matrix<span class="sc">::</span><span class="fu">rankMatrix</span>(A)</span></code></pre></div>
+<pre><code>[1] 3
+attr(,&quot;method&quot;)
+[1] &quot;tolNorm2&quot;
+attr(,&quot;useGrad&quot;)
+[1] FALSE
+attr(,&quot;tol&quot;)
+[1] 6.661338e-16</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="systems-of-equations.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute rank of A|y</span></span>
+<span id="cb253-2"><a href="systems-of-equations.html#cb253-2" aria-hidden="true" tabindex="-1"></a>Matrix<span class="sc">::</span><span class="fu">rankMatrix</span>(A_y)</span></code></pre></div>
+<pre><code>[1] 3
+attr(,&quot;method&quot;)
+[1] &quot;tolNorm2&quot;
+attr(,&quot;useGrad&quot;)
+[1] FALSE
+attr(,&quot;tol&quot;)
+[1] 8.881784e-16</code></pre>
+<p>The rank of <strong>A</strong> is 3, which means <strong>A</strong> is of full rank. This also implies that <strong>A</strong> is non-singular (<span class="math inline">\(\lvert \mathbf{A}\rvert \neq 0\)</span>), and that <strong>A</strong> has an inverse. Furthermore, since the rank of <span class="math inline">\(\mathbf{A}\vert \mathbf{c}\)</span> is also 3, the system of equations is consistent (linearly independent). This means that we can solve the equations using:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{x} &amp;= \mathbf{A}^{-1}\mathbf{y}\\[2ex]
+\begin{bmatrix}
+x_1 \\
+x_2\\
+x_3
+\end{bmatrix} &amp;= \begin{bmatrix}
+1 &amp; 1 &amp; 1 \\
+2 &amp; – 1 &amp; 6\\
+1 &amp; 3 &amp; 5
+\end{bmatrix}^{-1} \begin{bmatrix}
+5 \\
+12\\
+17
+\end{bmatrix} 
+\end{split}
+\]</span></p>
+<p>Computing this, we find <span class="math inline">\(x_1 = 1\)</span>, <span class="math inline">\(x_2=2\)</span>, and <span class="math inline">\(x_3=2\)</span>.</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="systems-of-equations.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create y</span></span>
+<span id="cb255-2"><a href="systems-of-equations.html#cb255-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb255-3"><a href="systems-of-equations.html#cb255-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">17</span>),</span>
+<span id="cb255-4"><a href="systems-of-equations.html#cb255-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">1</span></span>
+<span id="cb255-5"><a href="systems-of-equations.html#cb255-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb255-6"><a href="systems-of-equations.html#cb255-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-7"><a href="systems-of-equations.html#cb255-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve system of equations</span></span>
+<span id="cb255-8"><a href="systems-of-equations.html#cb255-8" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A) <span class="sc">%*%</span> y</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    1
+[2,]    2
+[3,]    2</code></pre>
+<p>Another theorem of linear algebra provides a way to evaluate whether a consistent set of equations has an infinite number of solutions. A consistent system of <em>n</em> equations in <em>n</em> unknowns has a unique solution if the rank of the coefficient matrix is equal to its order, that is <span class="math inline">\(\mathrm{rank}(\mathbf{A}) = n\)</span>.</p>
+<p>In the example, there are three equations and three unknowns and the rank of the coefficient matrix, <strong>A</strong>, is 3. The solution we have computed is unique. Another way to state this is: A consistent system of equations where <strong>A</strong> is of order <em>n</em> has a unique solution if and only if <span class="math inline">\(\mathbf{A}^{-1}\)</span> exists. This is important in applications where we have the same number of unknowns as equations.</p>
+<div class="note">
+<p>When the number of equations equals the number of unknowns, and <span class="math inline">\(\lvert \mathbf{A} \rvert \neq 0\)</span>, there is a unique solution. That is, when <strong>A</strong> is full rank, a unique solution exists for <span class="math inline">\(\mathbf{Ax} = \mathbf{y}\)</span>. This is true because:</p>
+<ol style="list-style-type: decimal">
+<li>If <span class="math inline">\(\lvert \mathbf{A} \rvert \neq 0\)</span>, then <span class="math inline">\(\mathrm{rank}(\mathbf{A}) = n\)</span>.</li>
+<li>If <span class="math inline">\(\mathrm{rank}(\mathbf{A} \vert \mathbf{c}) = \mathrm{rank}(\mathbf{A})\)</span>, the equations are consistent.</li>
+<li>If the equations are consistent and <span class="math inline">\(\mathrm{rank}(\mathbf{A}) = n\)</span>, there is a unique solution.</li>
+</ol>
+</div>
+<p>Figure <a href="systems-of-equations.html#fig:fig12-01">18.1</a> shows a flowchart that you can use to determine whether a system of equations is consistent or not, and if so, whether there is a unique solution or whether it has an infinite number of solutions.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig12-01"></span>
+<img src="figs/fig-12-01.png" alt="Flowchart to determine whether a system of equations is consistent or not, and how many solutions exist." width="90%" />
+<p class="caption">
+Figure 18.1: Flowchart to determine whether a system of equations is consistent or not, and how many solutions exist.
+</p>
+</div>
+<p><br /></p>
+</div>
+<div id="exercises-7" class="section level2 exercises" number="18.6">
+<h2><span class="header-section-number">18.6</span> Exercises</h2>
+<p><strong>Consider the following matrices:</strong></p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}1 &amp; 0 &amp; 0 \\0 &amp; 1 &amp; 0 \\0 &amp; 0 &amp; 1 \end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}1 &amp; 2 &amp; 3\\4 &amp; 5 &amp; 6\\7 &amp; 8 &amp; 9 \end{bmatrix} \qquad \mathbf{C} = \begin{bmatrix}2 &amp; 3 &amp; 8 \\15 &amp; 5 &amp; 9\\6 &amp; 9 &amp; 24 \end{bmatrix}
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>Determine which of the matrices (<strong>A</strong>, <strong>B</strong>, and <strong>C</strong>) have linearly independent rows and which have linearly dependent rows.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_01&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_01" style="display:none; margin: -40px 0 40px 40px;">
+<ul>
+<li>All rows in <strong>A</strong> are linearly independent, since it has a rank of 3.</li>
+<li>The rank of <strong>B</strong> is 2, which implies that there is a linearly dependent row. There are a number of other ways to represent this dependency. For example, <span class="math inline">\(\mathrm{Row~3} = 2(\mathrm{Row~2}) - 1(\mathrm{Row~1})\)</span>.</li>
+<li>The rank of <strong>C</strong> is also 2, which implies that there is a linearly dependent row. There are a number of other ways to represent this dependency. For example, <span class="math inline">\(\mathrm{Row~3} = 3(\mathrm{Row~2}) + 0(\mathrm{Row~1})\)</span>.</li>
+</ul>
+</div>
+<p><strong>Consider the following system of equations:</strong></p>
+<p><span class="math display">\[
+\begin{split}
+2(x_1) + x_2 &amp;= 6 \\[2ex]
+x_1 + 3(x_2) &amp;= 8
+\end{split}
+\]</span>
+2. Write out the coefficient matrix (<strong>A</strong>) and the augmented coefficient matrix (<span class="math inline">\(\mathbf{A} \vert \mathbf{c}\)</span>).</p>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_02&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_02" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}2 &amp; 1 \\ 1 &amp; 3 \end{bmatrix} \qquad \mathbf{A} \vert \mathbf{c} = \begin{bmatrix}2 &amp; 1 &amp; 6 \\ 1 &amp; 3 &amp; 8 \end{bmatrix}
+\]</span></p>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Use the ranks of <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{A} \vert \mathbf{c}\)</span> to determine whether the system of equations is consistent.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_03&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
+<p>The ranks of the two matrices are:</p>
+<ul>
+<li><span class="math inline">\(\mathrm{Rank}(\mathbf{A}) = 2\)</span></li>
+<li><span class="math inline">\(\mathrm{Rank}(\mathbf{A} \vert \mathbf{c}) = 2\)</span></li>
+</ul>
+<p>Since the rank of the coefficient matrix and the augmented coefficient matrix are equal, the system of equations is consistent.</p>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>Based on the rank of the coefficient matrix, will there be a unique solution to the system of equations?</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_04&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
+<p>Since <strong>A</strong> is of full rank, the solution will be unique.</p>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>Use R to solve the system of equations.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_05&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="systems-of-equations.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb257-2"><a href="systems-of-equations.html#cb257-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb257-3"><a href="systems-of-equations.html#cb257-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>), </span>
+<span id="cb257-4"><a href="systems-of-equations.html#cb257-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">2</span></span>
+<span id="cb257-5"><a href="systems-of-equations.html#cb257-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb257-6"><a href="systems-of-equations.html#cb257-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb257-7"><a href="systems-of-equations.html#cb257-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create y</span></span>
+<span id="cb257-8"><a href="systems-of-equations.html#cb257-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb257-9"><a href="systems-of-equations.html#cb257-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">8</span>),</span>
+<span id="cb257-10"><a href="systems-of-equations.html#cb257-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">1</span></span>
+<span id="cb257-11"><a href="systems-of-equations.html#cb257-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb257-12"><a href="systems-of-equations.html#cb257-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb257-13"><a href="systems-of-equations.html#cb257-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve system of equations</span></span>
+<span id="cb257-14"><a href="systems-of-equations.html#cb257-14" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(A) <span class="sc">%*%</span> y</span></code></pre></div>
+<pre><code>     [,1]
+[1,]    2
+[2,]    2</code></pre>
+</div>
+<p><strong>Consider the following system of equations:</strong></p>
+<p><span class="math display">\[
+\begin{split}
+25(x_1) + 5(x_2) + x_3 &amp;= 106.8 \\[2ex]
+64(x_1) + 8(x_2) + x_3 &amp;= 177.2 \\[2ex]
+89(x_1) + 13(x_2) + 2(x_3) &amp;= 284.0 \\[2ex]
+\end{split}
+\]</span>
+6. Use R to compute the determinant of the coefficient matrix. Based on the determinant, will there be a unique solution to the system of equations?</p>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility(&#39;solution_06&#39;);">
+Show/Hide Solution
+</button>
+<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="systems-of-equations.html#cb259-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb259-2"><a href="systems-of-equations.html#cb259-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb259-3"><a href="systems-of-equations.html#cb259-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">64</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">89</span>, <span class="dv">13</span>, <span class="dv">2</span>), </span>
+<span id="cb259-4"><a href="systems-of-equations.html#cb259-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb259-5"><a href="systems-of-equations.html#cb259-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb259-6"><a href="systems-of-equations.html#cb259-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb259-7"><a href="systems-of-equations.html#cb259-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb259-8"><a href="systems-of-equations.html#cb259-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute determinant</span></span>
+<span id="cb259-9"><a href="systems-of-equations.html#cb259-9" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div>
+<pre><code>[1] 0</code></pre>
+<p>Since <strong>A</strong> is singular, there is not a unique solution to the system of equations. (The rank of the coefficient matrix and the augmented coefficient matrix are both 2, so the system is consistent. And, since there is no unique solution, this means there are an infinite number of solutions.)</p>
+</div>
+</div>
+<p><br /></p>
+
+</div>
+<div class="footnotes">
+<hr />
+<ol start="9">
+<li id="fn9"><p>Another way to think about dependent systems of equations is that they are redundant.<a href="systems-of-equations.html#fnref9" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="quadratic-form-of-a-matrix.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="statistical-appplication-estimating-regression-coefficients.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/lunr.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

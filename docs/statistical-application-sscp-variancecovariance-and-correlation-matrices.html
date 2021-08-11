@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 11 Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices | Matrix Algebra for Educational Scientists</title>
+  <title>Chapter 15 Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices | Matrix Algebra for Educational Scientists" />
+  <meta property="og:title" content="Chapter 15 Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="zief0002/matrix-algebra" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices | Matrix Algebra for Educational Scientists" />
+  <meta name="twitter:title" content="Chapter 15 Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices | Matrix Algebra for Educational Scientists" />
   
   <meta name="twitter:description" content="Matrix algebra content for QME students" />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-06-03" />
+<meta name="date" content="2021-08-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="properties-of-square-matrices.html"/>
-<link rel="next" href="references.html"/>
+<link rel="prev" href="eigenvalues-and-eigenvectors.html"/>
+<link rel="next" href="basis-vectors-and-matrices.html"/>
 <script src="libs/header-attrs/header-attrs.js"></script>
 <script src="libs/jquery/jquery.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
 
@@ -131,6 +133,29 @@ code span.st { color: #4e9a06; } /* String */
 code span.va { color: #000000; } /* Variable */
 code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style/style-gitbook.css" type="text/css" />
@@ -243,67 +268,193 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="matrices-1.html"><a href="matrices-1.html#matrix-equality"><i class="fa fa-check"></i><b>7.1</b> Matrix Equality</a></li>
 <li class="chapter" data-level="7.2" data-path="matrices-1.html"><a href="matrices-1.html#exercises-3"><i class="fa fa-check"></i><b>7.2</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="matrix-operations.html"><a href="matrix-operations.html"><i class="fa fa-check"></i><b>8</b> Matrix Operations</a>
+<li class="chapter" data-level="8" data-path="matrix-addition-and-subtraction.html"><a href="matrix-addition-and-subtraction.html"><i class="fa fa-check"></i><b>8</b> Matrix Addition and Subtraction</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="matrix-operations.html"><a href="matrix-operations.html#matrix-addition-and-subtraction"><i class="fa fa-check"></i><b>8.1</b> Matrix Addition and Subtraction</a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="matrix-operations.html"><a href="matrix-operations.html#properties-of-matrix-addition"><i class="fa fa-check"></i><b>8.1.1</b> Properties of Matrix Addition</a></li>
-<li class="chapter" data-level="8.1.2" data-path="matrix-operations.html"><a href="matrix-operations.html#deviation-matrix"><i class="fa fa-check"></i><b>8.1.2</b> Deviation Matrix</a></li>
+<li class="chapter" data-level="8.1" data-path="matrix-addition-and-subtraction.html"><a href="matrix-addition-and-subtraction.html#properties-of-matrix-addition"><i class="fa fa-check"></i><b>8.1</b> Properties of Matrix Addition</a></li>
+<li class="chapter" data-level="8.2" data-path="matrix-addition-and-subtraction.html"><a href="matrix-addition-and-subtraction.html#statistical-application-deviation-matrix"><i class="fa fa-check"></i><b>8.2</b> Statistical Application: Deviation Matrix</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="matrix-operations.html"><a href="matrix-operations.html#scalarmatrix-multiplication"><i class="fa fa-check"></i><b>8.2</b> Scalar–Matrix Multiplication</a></li>
-<li class="chapter" data-level="8.3" data-path="matrix-operations.html"><a href="matrix-operations.html#matrix-multiplication"><i class="fa fa-check"></i><b>8.3</b> Matrix Multiplication</a>
+<li class="chapter" data-level="9" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html"><i class="fa fa-check"></i><b>9</b> Matrix Multiplication</a>
 <ul>
-<li class="chapter" data-level="8.3.1" data-path="matrix-operations.html"><a href="matrix-operations.html#properties-of-matrix-multiplication"><i class="fa fa-check"></i><b>8.3.1</b> Properties of Matrix Multiplication</a></li>
-<li class="chapter" data-level="8.3.2" data-path="matrix-operations.html"><a href="matrix-operations.html#revisiting-dot-products"><i class="fa fa-check"></i><b>8.3.2</b> Revisiting Dot Products</a></li>
-</ul></li>
-<li class="chapter" data-level="8.4" data-path="matrix-operations.html"><a href="matrix-operations.html#exercises-4"><i class="fa fa-check"></i><b>8.4</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="special-matrices.html"><a href="special-matrices.html"><i class="fa fa-check"></i><b>9</b> Special Matrices</a>
+<li class="chapter" data-level="9.1" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#scalarmatrix-multiplication"><i class="fa fa-check"></i><b>9.1</b> Scalar–Matrix Multiplication</a></li>
+<li class="chapter" data-level="9.2" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#matrix-multiplication-1"><i class="fa fa-check"></i><b>9.2</b> Matrix Multiplication</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="special-matrices.html"><a href="special-matrices.html#matrix-transpose"><i class="fa fa-check"></i><b>9.1</b> Matrix Transpose</a></li>
-<li class="chapter" data-level="9.2" data-path="special-matrices.html"><a href="special-matrices.html#square-matrices"><i class="fa fa-check"></i><b>9.2</b> Square Matrices</a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="special-matrices.html"><a href="special-matrices.html#main-diagonal"><i class="fa fa-check"></i><b>9.2.1</b> Main Diagonal</a></li>
+<li class="chapter" data-level="9.2.1" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#conformability"><i class="fa fa-check"></i><b>9.2.1</b> Conformability</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="special-matrices.html"><a href="special-matrices.html#diagonal-matrices"><i class="fa fa-check"></i><b>9.3</b> Diagonal Matrices</a></li>
-<li class="chapter" data-level="9.4" data-path="special-matrices.html"><a href="special-matrices.html#scalar-matrices"><i class="fa fa-check"></i><b>9.4</b> Scalar Matrices</a>
-<ul>
-<li class="chapter" data-level="9.4.1" data-path="special-matrices.html"><a href="special-matrices.html#identity-matrices"><i class="fa fa-check"></i><b>9.4.1</b> Identity Matrices</a></li>
+<li class="chapter" data-level="9.3" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#properties-of-matrix-multiplication"><i class="fa fa-check"></i><b>9.3</b> Properties of Matrix Multiplication</a></li>
+<li class="chapter" data-level="9.4" data-path="matrix-multiplication.html"><a href="matrix-multiplication.html#revisiting-dot-products"><i class="fa fa-check"></i><b>9.4</b> Revisiting Dot Products</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="special-matrices.html"><a href="special-matrices.html#symmetric-matrices"><i class="fa fa-check"></i><b>9.5</b> Symmetric Matrices</a>
+<li class="chapter" data-level="10" data-path="matrix-transposition.html"><a href="matrix-transposition.html"><i class="fa fa-check"></i><b>10</b> Matrix Transposition</a>
 <ul>
-<li class="chapter" data-level="9.5.1" data-path="special-matrices.html"><a href="special-matrices.html#skew-symmetric-matrices"><i class="fa fa-check"></i><b>9.5.1</b> Skew Symmetric Matrices</a></li>
+<li class="chapter" data-level="10.1" data-path="matrix-transposition.html"><a href="matrix-transposition.html#exercises-4"><i class="fa fa-check"></i><b>10.1</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="special-matrices.html"><a href="special-matrices.html#triangular-matrices"><i class="fa fa-check"></i><b>9.6</b> Triangular Matrices</a></li>
-<li class="chapter" data-level="9.7" data-path="special-matrices.html"><a href="special-matrices.html#exercises-5"><i class="fa fa-check"></i><b>9.7</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html"><i class="fa fa-check"></i><b>10</b> Properties of Square Matrices</a>
+<li class="chapter" data-level="11" data-path="exercises-matrix-operations.html"><a href="exercises-matrix-operations.html"><i class="fa fa-check"></i><b>11</b> Exercises: Matrix Operations</a></li>
+<li class="part"><span><b>Square Matrices and Their Properties</b></span></li>
+<li class="chapter" data-level="12" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html"><i class="fa fa-check"></i><b>12</b> Square Matrices and Friends</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#matrix-trace"><i class="fa fa-check"></i><b>10.1</b> Matrix Trace</a></li>
-<li class="chapter" data-level="10.2" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant"><i class="fa fa-check"></i><b>10.2</b> Determinant</a>
+<li class="chapter" data-level="12.1" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#square-matrices"><i class="fa fa-check"></i><b>12.1</b> Square Matrices</a>
 <ul>
-<li class="chapter" data-level="10.2.1" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant-for-a-1-times-1-matrix."><i class="fa fa-check"></i><b>10.2.1</b> Determinant for a <span class="math inline">\(1 \times 1\)</span> matrix.</a></li>
-<li class="chapter" data-level="10.2.2" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant-for-a-2-times-2-matrix."><i class="fa fa-check"></i><b>10.2.2</b> Determinant for a <span class="math inline">\(2 \times 2\)</span> matrix.</a></li>
-<li class="chapter" data-level="10.2.3" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant-for-a-3-times-3-matrix."><i class="fa fa-check"></i><b>10.2.3</b> Determinant for a <span class="math inline">\(3 \times 3\)</span> matrix.</a></li>
-<li class="chapter" data-level="10.2.4" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#using-r-to-find-the-determinant"><i class="fa fa-check"></i><b>10.2.4</b> Using R to Find the Determinant</a></li>
-<li class="chapter" data-level="10.2.5" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#properties-of-the-determinant"><i class="fa fa-check"></i><b>10.2.5</b> Properties of the Determinant</a></li>
+<li class="chapter" data-level="12.1.1" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#main-diagonal"><i class="fa fa-check"></i><b>12.1.1</b> Main Diagonal</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#matrix-inverse"><i class="fa fa-check"></i><b>10.3</b> Matrix Inverse</a>
+<li class="chapter" data-level="12.2" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#diagonal-matrices"><i class="fa fa-check"></i><b>12.2</b> Diagonal Matrices</a></li>
+<li class="chapter" data-level="12.3" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#scalar-matrices"><i class="fa fa-check"></i><b>12.3</b> Scalar Matrices</a>
 <ul>
-<li class="chapter" data-level="10.3.1" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#find-the-inverse-using-r"><i class="fa fa-check"></i><b>10.3.1</b> Find the Inverse using R</a></li>
-<li class="chapter" data-level="10.3.2" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#properties-of-the-inverse"><i class="fa fa-check"></i><b>10.3.2</b> Properties of the Inverse</a></li>
+<li class="chapter" data-level="12.3.1" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#identity-matrices"><i class="fa fa-check"></i><b>12.3.1</b> Identity Matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#exercises-6"><i class="fa fa-check"></i><b>10.4</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><i class="fa fa-check"></i><b>11</b> Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</a>
+<li class="chapter" data-level="12.4" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#symmetric-matrices"><i class="fa fa-check"></i><b>12.4</b> Symmetric Matrices</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#deviation-scores"><i class="fa fa-check"></i><b>11.1</b> Deviation Scores</a>
-<ul>
-<li class="chapter" data-level="11.1.1" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#creating-the-mean-matrix"><i class="fa fa-check"></i><b>11.1.1</b> Creating the Mean Matrix</a></li>
+<li class="chapter" data-level="12.4.1" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#skew-symmetric-matrices"><i class="fa fa-check"></i><b>12.4.1</b> Skew Symmetric Matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="11.2" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#sscp-matrix"><i class="fa fa-check"></i><b>11.2</b> SSCP Matrix</a></li>
-<li class="chapter" data-level="11.3" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#correlation-matrix"><i class="fa fa-check"></i><b>11.3</b> Correlation Matrix</a></li>
-<li class="chapter" data-level="11.4" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#standardized-scores"><i class="fa fa-check"></i><b>11.4</b> Standardized Scores</a></li>
+<li class="chapter" data-level="12.5" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#triangular-matrices"><i class="fa fa-check"></i><b>12.5</b> Triangular Matrices</a></li>
+<li class="chapter" data-level="12.6" data-path="square-matrices-and-friends.html"><a href="square-matrices-and-friends.html#exercises-5"><i class="fa fa-check"></i><b>12.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html"><i class="fa fa-check"></i><b>13</b> Properties of Square Matrices</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#matrix-trace"><i class="fa fa-check"></i><b>13.1</b> Matrix Trace</a></li>
+<li class="chapter" data-level="13.2" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant"><i class="fa fa-check"></i><b>13.2</b> Determinant</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant-for-a-1-times-1-matrix."><i class="fa fa-check"></i><b>13.2.1</b> Determinant for a <span class="math inline">\(1 \times 1\)</span> matrix.</a></li>
+<li class="chapter" data-level="13.2.2" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant-for-a-2-times-2-matrix."><i class="fa fa-check"></i><b>13.2.2</b> Determinant for a <span class="math inline">\(2 \times 2\)</span> matrix.</a></li>
+<li class="chapter" data-level="13.2.3" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#determinant-for-a-3-times-3-matrix."><i class="fa fa-check"></i><b>13.2.3</b> Determinant for a <span class="math inline">\(3 \times 3\)</span> matrix.</a></li>
+<li class="chapter" data-level="13.2.4" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#using-r-to-find-the-determinant"><i class="fa fa-check"></i><b>13.2.4</b> Using R to Find the Determinant</a></li>
+<li class="chapter" data-level="13.2.5" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#properties-of-the-determinant"><i class="fa fa-check"></i><b>13.2.5</b> Properties of the Determinant</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#matrix-inverse"><i class="fa fa-check"></i><b>13.3</b> Matrix Inverse</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#find-the-inverse-using-r"><i class="fa fa-check"></i><b>13.3.1</b> Find the Inverse using R</a></li>
+<li class="chapter" data-level="13.3.2" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#properties-of-the-inverse"><i class="fa fa-check"></i><b>13.3.2</b> Properties of the Inverse</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="properties-of-square-matrices.html"><a href="properties-of-square-matrices.html#exercises-6"><i class="fa fa-check"></i><b>13.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html"><i class="fa fa-check"></i><b>14</b> Eigenvalues and Eigenvectors</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html#eigenvalues"><i class="fa fa-check"></i><b>14.1</b> Eigenvalues</a></li>
+<li class="chapter" data-level="14.2" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html#eigenvectors"><i class="fa fa-check"></i><b>14.2</b> Eigenvectors</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html#finding-the-elements-of-v"><i class="fa fa-check"></i><b>14.2.1</b> Finding the Elements of v</a></li>
+<li class="chapter" data-level="14.2.2" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html#normalized-eigenvectors"><i class="fa fa-check"></i><b>14.2.2</b> Normalized Eigenvectors</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="eigenvalues-and-eigenvectors.html"><a href="eigenvalues-and-eigenvectors.html#using-r-to-find-eigenvalues-and-eigenvectors"><i class="fa fa-check"></i><b>14.3</b> Using R to Find Eigenvalues and Eigenvectors</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><i class="fa fa-check"></i><b>15</b> Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#deviation-scores"><i class="fa fa-check"></i><b>15.1</b> Deviation Scores</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#creating-the-mean-matrix"><i class="fa fa-check"></i><b>15.1.1</b> Creating the Mean Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#sscp-matrix"><i class="fa fa-check"></i><b>15.2</b> SSCP Matrix</a></li>
+<li class="chapter" data-level="15.3" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#correlation-matrix"><i class="fa fa-check"></i><b>15.3</b> Correlation Matrix</a></li>
+<li class="chapter" data-level="15.4" data-path="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#standardized-scores"><i class="fa fa-check"></i><b>15.4</b> Standardized Scores</a></li>
+</ul></li>
+<li class="part"><span><b>Matrix Transformations</b></span></li>
+<li class="chapter" data-level="16" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html"><i class="fa fa-check"></i><b>16</b> Basis Vectors and Matrices</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html#an-example"><i class="fa fa-check"></i><b>16.1</b> An Example</a></li>
+<li class="chapter" data-level="16.2" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html#changing-basis-vectors"><i class="fa fa-check"></i><b>16.2</b> Changing Basis Vectors</a>
+<ul>
+<li class="chapter" data-level="16.2.1" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html#non-orthonormal-basis"><i class="fa fa-check"></i><b>16.2.1</b> Non-Orthonormal Basis</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html#converting-non-standard-coordinates-to-the-standard-basis"><i class="fa fa-check"></i><b>16.3</b> Converting Non-Standard Coordinates to the Standard Basis</a></li>
+<li class="chapter" data-level="16.4" data-path="basis-vectors-and-matrices.html"><a href="basis-vectors-and-matrices.html#final-thoughts"><i class="fa fa-check"></i><b>16.4</b> Final Thoughts</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html"><i class="fa fa-check"></i><b>17</b> Quadratic Form of a Matrix</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html#linear-forms"><i class="fa fa-check"></i><b>17.1</b> Linear Forms</a></li>
+<li class="chapter" data-level="17.2" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html#bilinear-form"><i class="fa fa-check"></i><b>17.2</b> Bilinear Form</a></li>
+<li class="chapter" data-level="17.3" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html#quadratic-form"><i class="fa fa-check"></i><b>17.3</b> Quadratic Form</a></li>
+<li class="chapter" data-level="17.4" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html#example-quadratic-form"><i class="fa fa-check"></i><b>17.4</b> Example: Quadratic Form</a></li>
+<li class="chapter" data-level="17.5" data-path="quadratic-form-of-a-matrix.html"><a href="quadratic-form-of-a-matrix.html#positive-definite-matrices"><i class="fa fa-check"></i><b>17.5</b> Positive Definite Matrices</a></li>
+</ul></li>
+<li class="part"><span><b>Systems of Equations</b></span></li>
+<li class="chapter" data-level="18" data-path="systems-of-equations.html"><a href="systems-of-equations.html"><i class="fa fa-check"></i><b>18</b> Systems of Equations</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="systems-of-equations.html"><a href="systems-of-equations.html#solving-systems-of-equations-with-matrix-algebra"><i class="fa fa-check"></i><b>18.1</b> Solving Systems of Equations with Matrix Algebra</a>
+<ul>
+<li class="chapter" data-level="18.1.1" data-path="systems-of-equations.html"><a href="systems-of-equations.html#solving-this-system-of-equations-using-r"><i class="fa fa-check"></i><b>18.1.1</b> Solving this System of Equations Using R</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="systems-of-equations.html"><a href="systems-of-equations.html#linear-dependence-and-independence"><i class="fa fa-check"></i><b>18.2</b> Linear Dependence and Independence</a></li>
+<li class="chapter" data-level="18.3" data-path="systems-of-equations.html"><a href="systems-of-equations.html#singularity"><i class="fa fa-check"></i><b>18.3</b> Singularity</a></li>
+<li class="chapter" data-level="18.4" data-path="systems-of-equations.html"><a href="systems-of-equations.html#rank-of-a-matrix"><i class="fa fa-check"></i><b>18.4</b> Rank of a Matrix</a></li>
+<li class="chapter" data-level="18.5" data-path="systems-of-equations.html"><a href="systems-of-equations.html#rank-and-the-solution-of-systems-of-equations"><i class="fa fa-check"></i><b>18.5</b> Rank and the Solution of Systems of Equations</a></li>
+<li class="chapter" data-level="18.6" data-path="systems-of-equations.html"><a href="systems-of-equations.html#exercises-7"><i class="fa fa-check"></i><b>18.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="statistical-appplication-estimating-regression-coefficients.html"><a href="statistical-appplication-estimating-regression-coefficients.html"><i class="fa fa-check"></i><b>19</b> Statistical Appplication: Estimating Regression Coefficients</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="statistical-appplication-estimating-regression-coefficients.html"><a href="statistical-appplication-estimating-regression-coefficients.html#regression-model"><i class="fa fa-check"></i><b>19.1</b> Regression Model</a></li>
+<li class="chapter" data-level="19.2" data-path="statistical-appplication-estimating-regression-coefficients.html"><a href="statistical-appplication-estimating-regression-coefficients.html#estimating-the-regression-coefficients"><i class="fa fa-check"></i><b>19.2</b> Estimating the Regression Coefficients</a>
+<ul>
+<li class="chapter" data-level="19.2.1" data-path="statistical-appplication-estimating-regression-coefficients.html"><a href="statistical-appplication-estimating-regression-coefficients.html#example-using-data"><i class="fa fa-check"></i><b>19.2.1</b> Example Using Data</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="statistical-appplication-estimating-regression-coefficients.html"><a href="statistical-appplication-estimating-regression-coefficients.html#the-mathbfxintercalmathbfx-matrix"><i class="fa fa-check"></i><b>19.3</b> The <span class="math inline">\(\mathbf{X}^\intercal\mathbf{X}\)</span> Matrix</a></li>
+</ul></li>
+<li class="part"><span><b>Matrix Decomposition</b></span></li>
+<li class="chapter" data-level="20" data-path="introduction-to-matrix-decompostion.html"><a href="introduction-to-matrix-decompostion.html"><i class="fa fa-check"></i><b>20</b> Introduction to Matrix Decompostion</a></li>
+<li class="chapter" data-level="21" data-path="lu-decompostion.html"><a href="lu-decompostion.html"><i class="fa fa-check"></i><b>21</b> LU Decompostion</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="lu-decompostion.html"><a href="lu-decompostion.html#an-example-of-lu-decomposition"><i class="fa fa-check"></i><b>21.1</b> An Example of LU Decomposition</a></li>
+<li class="chapter" data-level="21.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#solving-systems-of-equations-with-the-lu-decomposition"><i class="fa fa-check"></i><b>21.2</b> Solving Systems of Equations with the LU Decomposition</a>
+<ul>
+<li class="chapter" data-level="21.2.1" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-1-solve-for-z"><i class="fa fa-check"></i><b>21.2.1</b> Step 1: Solve for Z</a></li>
+<li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
+<li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
+<ul>
+<li class="chapter" data-level="22.0.1" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html#estimating-regression-coefficients-using-lu-decomposition"><i class="fa fa-check"></i><b>22.0.1</b> Estimating Regression Coefficients Using LU Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="cholesky-decompostion.html"><a href="cholesky-decompostion.html"><i class="fa fa-check"></i><b>23</b> Cholesky Decompostion</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="cholesky-decompostion.html"><a href="cholesky-decompostion.html#example-of-cholesky-decomposition"><i class="fa fa-check"></i><b>23.1</b> Example of Cholesky Decomposition</a></li>
+<li class="chapter" data-level="23.2" data-path="cholesky-decompostion.html"><a href="cholesky-decompostion.html#cholesky-decomposition-using-r"><i class="fa fa-check"></i><b>23.2</b> Cholesky Decomposition using R</a></li>
+<li class="chapter" data-level="23.3" data-path="cholesky-decompostion.html"><a href="cholesky-decompostion.html#statistical-application-estimating-regression-coefficents-with-cholesky-decomposition"><i class="fa fa-check"></i><b>23.3</b> Statistical Application: Estimating Regression Coefficents with Cholesky Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="qr-decompostion.html"><a href="qr-decompostion.html"><i class="fa fa-check"></i><b>24</b> QR Decompostion</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="qr-decompostion.html"><a href="qr-decompostion.html#qr-decomposition-using-r"><i class="fa fa-check"></i><b>24.1</b> QR Decomposition using R</a></li>
+<li class="chapter" data-level="24.2" data-path="qr-decompostion.html"><a href="qr-decompostion.html#statistical-application-estimating-regression-coefficents-with-qr-decomposition"><i class="fa fa-check"></i><b>24.2</b> Statistical Application: Estimating Regression Coefficents with QR Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="spectral-decompostion.html"><a href="spectral-decompostion.html"><i class="fa fa-check"></i><b>25</b> Spectral Decompostion</a>
+<ul>
+<li class="chapter" data-level="25.0.1" data-path="spectral-decompostion.html"><a href="spectral-decompostion.html#an-example-1"><i class="fa fa-check"></i><b>25.0.1</b> An Example</a></li>
+<li class="chapter" data-level="25.1" data-path="spectral-decompostion.html"><a href="spectral-decompostion.html#solving-systems-of-equations-with-spectral-decomposition"><i class="fa fa-check"></i><b>25.1</b> Solving Systems of Equations with Spectral Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="26" data-path="singular-value-decompostion.html"><a href="singular-value-decompostion.html"><i class="fa fa-check"></i><b>26</b> Singular Value Decompostion</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="singular-value-decompostion.html"><a href="singular-value-decompostion.html#svd-using-r"><i class="fa fa-check"></i><b>26.1</b> SVD Using R</a></li>
+</ul></li>
+<li class="part"><span><b>Regression Applications</b></span></li>
+<li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
+<ul>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
+<ul>
+<li class="chapter" data-level="28.1" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html#sums-of-squares"><i class="fa fa-check"></i><b>28.1</b> Sums of Squares</a>
+<ul>
+<li class="chapter" data-level="28.1.1" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html#mean-centering-the-outcome"><i class="fa fa-check"></i><b>28.1.1</b> Mean Centering the Outcome</a></li>
+</ul></li>
+<li class="chapter" data-level="28.2" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html#sums-of-squares-as-functions-of-the-data"><i class="fa fa-check"></i><b>28.2</b> Sums of Squares as Functions of the Data</a>
+<ul>
+<li class="chapter" data-level="28.2.1" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html#example-using-r"><i class="fa fa-check"></i><b>28.2.1</b> Example Using R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html"><i class="fa fa-check"></i><b>29</b> Standard Errors and Variance Estimates</a>
+<ul>
+<li class="chapter" data-level="29.1" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#residual-variance-of-the-model"><i class="fa fa-check"></i><b>29.1</b> Residual Variance of the Model</a></li>
+<li class="chapter" data-level="29.2" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#coefficient-variances-and-covariances"><i class="fa fa-check"></i><b>29.2</b> Coefficient Variances and Covariances</a></li>
+<li class="chapter" data-level="29.3" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#standard-errors-for-the-coefficients"><i class="fa fa-check"></i><b>29.3</b> Standard Errors for the Coefficients</a></li>
+<li class="chapter" data-level="29.4" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#correlation-between-the-coefficients"><i class="fa fa-check"></i><b>29.4</b> Correlation Between the Coefficients</a></li>
+<li class="chapter" data-level="29.5" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#inference-model-level"><i class="fa fa-check"></i><b>29.5</b> Inference: Model-Level</a></li>
+<li class="chapter" data-level="29.6" data-path="standard-errors-and-variance-estimates.html"><a href="standard-errors-and-variance-estimates.html#inference-coefficient-level"><i class="fa fa-check"></i><b>29.6</b> Inference: Coefficient-Level</a></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="assumptions-of-the-regression-model.html"><a href="assumptions-of-the-regression-model.html"><i class="fa fa-check"></i><b>30</b> Assumptions of the Regression Model</a>
+<ul>
+<li class="chapter" data-level="30.1" data-path="assumptions-of-the-regression-model.html"><a href="assumptions-of-the-regression-model.html#regression-assumptions"><i class="fa fa-check"></i><b>30.1</b> Regression Assumptions</a></li>
+<li class="chapter" data-level="30.2" data-path="assumptions-of-the-regression-model.html"><a href="assumptions-of-the-regression-model.html#expressing-the-assumptions-uising-matrix-algebra"><i class="fa fa-check"></i><b>30.2</b> Expressing the Assumptions uising Matrix Algebra</a></li>
+<li class="chapter" data-level="30.3" data-path="assumptions-of-the-regression-model.html"><a href="assumptions-of-the-regression-model.html#variance-covariance-matrix-of-the-residuals"><i class="fa fa-check"></i><b>30.3</b> Variance-Covariance Matrix of the Residuals</a></li>
+<li class="chapter" data-level="30.4" data-path="assumptions-of-the-regression-model.html"><a href="assumptions-of-the-regression-model.html#regression-model-revisited"><i class="fa fa-check"></i><b>30.4</b> Regression Model: Revisited</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -327,12 +478,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="statistical-application-sscp-variancecovariance-and-correlation-matrices" class="section level1" number="11">
-<h1><span class="header-section-number">Chapter 11</span> Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</h1>
+<div id="statistical-application-sscp-variancecovariance-and-correlation-matrices" class="section level1" number="15">
+<h1><span class="header-section-number">Chapter 15</span> Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</h1>
 <p>In this chapter, we will provide an example of how matrix operations are used in statistics to compute a sum of squares and cross-product (SSCP) matrix. To do this we will consider the following data set:</p>
 <table style="width:60%; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;" class=" lightable-classic">
 <caption>
-<span id="tab:tab-11-01">Table 11.1: </span>Example set of education data.
+<span id="tab:tab-11-01">Table 15.1: </span>Example set of education data.
 </caption>
 <thead>
 <tr>
@@ -470,8 +621,8 @@ IQ
   \end{bmatrix}
 \]</span></p>
 <p><br /></p>
-<div id="deviation-scores" class="section level2" number="11.1">
-<h2><span class="header-section-number">11.1</span> Deviation Scores</h2>
+<div id="deviation-scores" class="section level2" number="15.1">
+<h2><span class="header-section-number">15.1</span> Deviation Scores</h2>
 <p>Since so much of statistics is dependent on the use of deviation scores, we will compute a matrix of means, where each column corresponds to the mean of the corresponding column mean of <strong>X</strong>, and subtract that from the original matrix <strong>X</strong>.</p>
 <p><span class="math display">\[
 \begin{split}
@@ -502,24 +653,24 @@ IQ
 \end{split}  
 \]</span></p>
 <p>Using R, the following commands produce the deviation matrix.</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X</span></span>
-<span id="cb199-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb199-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">560</span>, <span class="fl">3.0</span>, <span class="dv">11</span>, <span class="dv">112</span>,</span>
-<span id="cb199-4"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-4" aria-hidden="true" tabindex="-1"></a>           <span class="dv">780</span>, <span class="fl">3.9</span>, <span class="dv">10</span>, <span class="dv">143</span>,</span>
-<span id="cb199-5"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-5" aria-hidden="true" tabindex="-1"></a>           <span class="dv">620</span>, <span class="fl">2.9</span>, <span class="dv">19</span>, <span class="dv">124</span>,</span>
-<span id="cb199-6"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-6" aria-hidden="true" tabindex="-1"></a>           <span class="dv">600</span>, <span class="fl">2.7</span>,  <span class="dv">7</span>, <span class="dv">129</span>, </span>
-<span id="cb199-7"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-7" aria-hidden="true" tabindex="-1"></a>           <span class="dv">720</span>, <span class="fl">3.7</span>, <span class="dv">18</span>, <span class="dv">130</span>,</span>
-<span id="cb199-8"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-8" aria-hidden="true" tabindex="-1"></a>           <span class="dv">380</span>, <span class="fl">2.4</span>, <span class="dv">13</span>, <span class="dv">82</span>),</span>
-<span id="cb199-9"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb199-10"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">4</span></span>
-<span id="cb199-11"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb199-12"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-13"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ones column vector with six elements</span></span>
-<span id="cb199-14"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-14" aria-hidden="true" tabindex="-1"></a>ones <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>)</span>
-<span id="cb199-15"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb199-16"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute M (mean matrix)</span></span>
-<span id="cb199-17"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-17" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> ones <span class="sc">%*%</span> <span class="fu">t</span>(ones) <span class="sc">%*%</span> X <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span>
-<span id="cb199-18"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb199-18" aria-hidden="true" tabindex="-1"></a>M</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X</span></span>
+<span id="cb201-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb201-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">560</span>, <span class="fl">3.0</span>, <span class="dv">11</span>, <span class="dv">112</span>,</span>
+<span id="cb201-4"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-4" aria-hidden="true" tabindex="-1"></a>           <span class="dv">780</span>, <span class="fl">3.9</span>, <span class="dv">10</span>, <span class="dv">143</span>,</span>
+<span id="cb201-5"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-5" aria-hidden="true" tabindex="-1"></a>           <span class="dv">620</span>, <span class="fl">2.9</span>, <span class="dv">19</span>, <span class="dv">124</span>,</span>
+<span id="cb201-6"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-6" aria-hidden="true" tabindex="-1"></a>           <span class="dv">600</span>, <span class="fl">2.7</span>,  <span class="dv">7</span>, <span class="dv">129</span>, </span>
+<span id="cb201-7"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-7" aria-hidden="true" tabindex="-1"></a>           <span class="dv">720</span>, <span class="fl">3.7</span>, <span class="dv">18</span>, <span class="dv">130</span>,</span>
+<span id="cb201-8"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-8" aria-hidden="true" tabindex="-1"></a>           <span class="dv">380</span>, <span class="fl">2.4</span>, <span class="dv">13</span>, <span class="dv">82</span>),</span>
+<span id="cb201-9"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb201-10"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">4</span></span>
+<span id="cb201-11"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb201-12"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb201-13"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ones column vector with six elements</span></span>
+<span id="cb201-14"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-14" aria-hidden="true" tabindex="-1"></a>ones <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>)</span>
+<span id="cb201-15"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb201-16"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute M (mean matrix)</span></span>
+<span id="cb201-17"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-17" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> ones <span class="sc">%*%</span> <span class="fu">t</span>(ones) <span class="sc">%*%</span> X <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span>
+<span id="cb201-18"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-18" aria-hidden="true" tabindex="-1"></a>M</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]  610  3.1   13  120
 [2,]  610  3.1   13  120
@@ -527,9 +678,9 @@ IQ
 [4,]  610  3.1   13  120
 [5,]  610  3.1   13  120
 [6,]  610  3.1   13  120</code></pre>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute deviation matrix (D)</span></span>
-<span id="cb201-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">=</span> X <span class="sc">-</span> M</span>
-<span id="cb201-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb201-3" aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute deviation matrix (D)</span></span>
+<span id="cb203-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb203-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">=</span> X <span class="sc">-</span> M</span>
+<span id="cb203-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb203-3" aria-hidden="true" tabindex="-1"></a>D</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]  -50 -0.1   -2   -8
 [2,]  170  0.8   -3   23
@@ -538,10 +689,10 @@ IQ
 [5,]  110  0.6    5   10
 [6,] -230 -0.7    0  -38</code></pre>
 <p><br /></p>
-<div id="creating-the-mean-matrix" class="section level3" number="11.1.1">
-<h3><span class="header-section-number">11.1.1</span> Creating the Mean Matrix</h3>
+<div id="creating-the-mean-matrix" class="section level3" number="15.1.1">
+<h3><span class="header-section-number">15.1.1</span> Creating the Mean Matrix</h3>
 <p>Here we used matrix operations to compute the mean matrix rather than built-in R functions. Taking a ones column vector of <em>n</em> elements and post-multiplying by its transpose produces a <span class="math inline">\(n \times n\)</span> matrix where all the elements are one; in our case we get a <span class="math inline">\(6 \times 6\)</span> ones matrix.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb203-1" aria-hidden="true" tabindex="-1"></a>ones <span class="sc">%*%</span> <span class="fu">t</span>(ones)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb205-1" aria-hidden="true" tabindex="-1"></a>ones <span class="sc">%*%</span> <span class="fu">t</span>(ones)</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4] [,5] [,6]
 [1,]    1    1    1    1    1    1
 [2,]    1    1    1    1    1    1
@@ -550,7 +701,7 @@ IQ
 [5,]    1    1    1    1    1    1
 [6,]    1    1    1    1    1    1</code></pre>
 <p>This ones matrix is then post-multiplied by <strong>X</strong>. Since we are post-multiplyinga ones matrix, the resultin matrix will have the same elements in every row. Moreover these elements will be the column sums of <strong>X</strong>.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb205-1" aria-hidden="true" tabindex="-1"></a>ones <span class="sc">%*%</span> <span class="fu">t</span>(ones) <span class="sc">%*%</span> X</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb207-1" aria-hidden="true" tabindex="-1"></a>ones <span class="sc">%*%</span> <span class="fu">t</span>(ones) <span class="sc">%*%</span> X</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,] 3660 18.6   78  720
 [2,] 3660 18.6   78  720
@@ -558,11 +709,11 @@ IQ
 [4,] 3660 18.6   78  720
 [5,] 3660 18.6   78  720
 [6,] 3660 18.6   78  720</code></pre>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute column sums</span></span>
-<span id="cb207-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb207-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(X)</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute column sums</span></span>
+<span id="cb209-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb209-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(X)</span></code></pre></div>
 <pre><code>[1] 3660.0   18.6   78.0  720.0</code></pre>
 <p>Finally, since we want the means, we multiply by the scalar <span class="math inline">\(\frac{1}{n}\)</span>, where <em>n</em> is the number of rows. This gets us the mean matrix, all via matrix operations.</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb209-1" aria-hidden="true" tabindex="-1"></a>ones <span class="sc">%*%</span> <span class="fu">t</span>(ones) <span class="sc">%*%</span> X <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb211-1" aria-hidden="true" tabindex="-1"></a>ones <span class="sc">%*%</span> <span class="fu">t</span>(ones) <span class="sc">%*%</span> X <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>     [,1] [,2] [,3] [,4]
 [1,]  610  3.1   13  120
 [2,]  610  3.1   13  120
@@ -602,8 +753,8 @@ IQ
 <p><br /></p>
 </div>
 </div>
-<div id="sscp-matrix" class="section level2" number="11.2">
-<h2><span class="header-section-number">11.2</span> SSCP Matrix</h2>
+<div id="sscp-matrix" class="section level2" number="15.2">
+<h2><span class="header-section-number">15.2</span> SSCP Matrix</h2>
 <p>To obtain the sums of squares and cross products (SSCP) matrix, we can pre-multiply <strong>D</strong> by its transpose.</p>
 <p><span class="math display">\[
 \begin{split}
@@ -639,13 +790,13 @@ IQ
   \mathrm{CP}_{41} &amp; \mathrm{CP}_{42} &amp; \mathrm{CP}_{43} &amp; \mathrm{SS}_4
   \end{bmatrix}
 \]</span>
-Also note that the <strong>SSCP</strong> matrix is symmetric.</p>
+Also note that the <strong>SSCP</strong> matrix is square and symmetric.</p>
 <p>Using R:</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SSCP matrix</span></span>
-<span id="cb211-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb211-2" aria-hidden="true" tabindex="-1"></a>SSCP <span class="ot">=</span> <span class="fu">t</span>(D) <span class="sc">%*%</span> D</span>
-<span id="cb211-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb211-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb211-4"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb211-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View SSCP matrix</span></span>
-<span id="cb211-5"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb211-5" aria-hidden="true" tabindex="-1"></a>SSCP</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SSCP matrix</span></span>
+<span id="cb213-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb213-2" aria-hidden="true" tabindex="-1"></a>SSCP <span class="ot">=</span> <span class="fu">t</span>(D) <span class="sc">%*%</span> D</span>
+<span id="cb213-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb213-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb213-4"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb213-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View SSCP matrix</span></span>
+<span id="cb213-5"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb213-5" aria-hidden="true" tabindex="-1"></a>SSCP</span></code></pre></div>
 <pre><code>      [,1]  [,2] [,3]    [,4]
 [1,] 96600 370.0  260 14100.0
 [2,]   370   1.7    2    47.4
@@ -683,28 +834,28 @@ Also note that the <strong>SSCP</strong> matrix is symmetric.</p>
   \mathrm{Cov}(X_4,X_1) &amp; \mathrm{Cov}(X_4,X_2) &amp; \mathrm{Cov}(X_4,X_3) &amp; \mathrm{Var}(X_4)
   \end{bmatrix}
 \]</span></p>
-<p>Similar to the <strong>SSCP</strong> matrix, <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is also a symmetric matrix.</p>
+<p>Similar to the <strong>SSCP</strong> matrix, <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is also a square, symmetric matrix.</p>
 <p>Using R:</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SIGMA matrix</span></span>
-<span id="cb213-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb213-2" aria-hidden="true" tabindex="-1"></a>SIGMA <span class="ot">=</span> SSCP <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span>
-<span id="cb213-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb213-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb213-4"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb213-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View SIGMA matrix</span></span>
-<span id="cb213-5"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb213-5" aria-hidden="true" tabindex="-1"></a>SIGMA</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SIGMA matrix</span></span>
+<span id="cb215-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb215-2" aria-hidden="true" tabindex="-1"></a>SIGMA <span class="ot">=</span> SSCP <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span>
+<span id="cb215-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb215-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-4"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb215-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View SIGMA matrix</span></span>
+<span id="cb215-5"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb215-5" aria-hidden="true" tabindex="-1"></a>SIGMA</span></code></pre></div>
 <pre><code>            [,1]       [,2]       [,3]      [,4]
 [1,] 16100.00000 61.6666667 43.3333333 2350.0000
 [2,]    61.66667  0.2833333  0.3333333    7.9000
 [3,]    43.33333  0.3333333 18.3333333   -5.5000
 [4,]  2350.00000  7.9000000 -5.5000000  372.3333</code></pre>
 <p>The <code>var()</code> function can also be applied to <strong>X</strong> directly to obtain the <span class="math inline">\(\boldsymbol{\Sigma}\)</span> matrix. Note that the <code>var()</code> function uses <span class="math inline">\(\frac{1}{n-1}\)</span> rather than <span class="math inline">\(\frac{1}{n}\)</span> as the scalar multiple to obtain the variance–covariance matrix.</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb215-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain SIGMA directly</span></span>
-<span id="cb215-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb215-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(X)</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain SIGMA directly</span></span>
+<span id="cb217-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb217-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(X)</span></code></pre></div>
 <pre><code>      [,1]  [,2] [,3]    [,4]
 [1,] 19320 74.00 52.0 2820.00
 [2,]    74  0.34  0.4    9.48
 [3,]    52  0.40 22.0   -6.60
 [4,]  2820  9.48 -6.6  446.80</code></pre>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check</span></span>
-<span id="cb217-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb217-2" aria-hidden="true" tabindex="-1"></a>SSCP <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb219-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb219-2" aria-hidden="true" tabindex="-1"></a>SSCP <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code>      [,1]  [,2] [,3]    [,4]
 [1,] 19320 74.00 52.0 2820.00
 [2,]    74  0.34  0.4    9.48
@@ -712,8 +863,8 @@ Also note that the <strong>SSCP</strong> matrix is symmetric.</p>
 [4,]  2820  9.48 -6.6  446.80</code></pre>
 <p><br /></p>
 </div>
-<div id="correlation-matrix" class="section level2" number="11.3">
-<h2><span class="header-section-number">11.3</span> Correlation Matrix</h2>
+<div id="correlation-matrix" class="section level2" number="15.3">
+<h2><span class="header-section-number">15.3</span> Correlation Matrix</h2>
 <p>We can convert <span class="math inline">\(\boldsymbol{\Sigma}\)</span> to a correlation matrix by standardizing it; that is dividing each element by its corresponding standard deviation. This is equivalent to pre- <em>and</em> post-multiplying <span class="math inline">\(\boldsymbol{\Sigma}\)</span> by a scaling matrix, <strong>S</strong>, a diagonal matrix with elements equal to the reciprocal of the standard deviations of each of the variables:</p>
 <p><span class="math display">\[
 \mathbf{S} = \begin{bmatrix}
@@ -724,13 +875,13 @@ Also note that the <strong>SSCP</strong> matrix is symmetric.</p>
 \end{bmatrix}
 \]</span></p>
 <p>Employing R, we can obtain the scaling matrix by first pulling out the diagonal elements of <span class="math inline">\(\boldsymbol{\Sigma}\)</span> (the variances) and then using those to create <strong>S</strong>.</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get variances</span></span>
-<span id="cb219-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb219-2" aria-hidden="true" tabindex="-1"></a>V <span class="ot">=</span> <span class="fu">diag</span>(SIGMA)</span>
-<span id="cb219-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb219-3" aria-hidden="true" tabindex="-1"></a>V</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get variances</span></span>
+<span id="cb221-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb221-2" aria-hidden="true" tabindex="-1"></a>V <span class="ot">=</span> <span class="fu">diag</span>(SIGMA)</span>
+<span id="cb221-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb221-3" aria-hidden="true" tabindex="-1"></a>V</span></code></pre></div>
 <pre><code>[1] 1.610000e+04 2.833333e-01 1.833333e+01 3.723333e+02</code></pre>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create S</span></span>
-<span id="cb221-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb221-2" aria-hidden="true" tabindex="-1"></a>S <span class="ot">=</span> <span class="fu">diag</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(V))</span>
-<span id="cb221-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb221-3" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create S</span></span>
+<span id="cb223-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb223-2" aria-hidden="true" tabindex="-1"></a>S <span class="ot">=</span> <span class="fu">diag</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(V))</span>
+<span id="cb223-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb223-3" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div>
 <pre><code>            [,1]     [,2]      [,3]       [,4]
 [1,] 0.007881104 0.000000 0.0000000 0.00000000
 [2,] 0.000000000 1.878673 0.0000000 0.00000000
@@ -740,9 +891,9 @@ Also note that the <strong>SSCP</strong> matrix is symmetric.</p>
 <p><span class="math display">\[
 \mathbf{R} = \mathbf{S}\boldsymbol{\Sigma}\mathbf{S}
 \]</span>
-Since both <strong>S</strong> and <span class="math inline">\(\boldsymbol{\Sigma}\)</span> are <span class="math inline">\(4 \times 4\)</span> matrices, <strong>R</strong> will also be a <span class="math inline">\(4 \times 4\)</span> matrix.</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb223-1" aria-hidden="true" tabindex="-1"></a>R <span class="ot">=</span> S <span class="sc">%*%</span> SIGMA <span class="sc">%*%</span> S</span>
-<span id="cb223-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb223-2" aria-hidden="true" tabindex="-1"></a>R</span></code></pre></div>
+Since both <strong>S</strong> and <span class="math inline">\(\boldsymbol{\Sigma}\)</span> are <span class="math inline">\(4 \times 4\)</span> matrices, <strong>R</strong> will also be a <span class="math inline">\(4 \times 4\)</span> matrix. Moreover, <strong>R</strong> will also be both square and symmetric.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb225-1" aria-hidden="true" tabindex="-1"></a>R <span class="ot">=</span> S <span class="sc">%*%</span> SIGMA <span class="sc">%*%</span> S</span>
+<span id="cb225-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb225-2" aria-hidden="true" tabindex="-1"></a>R</span></code></pre></div>
 <pre><code>           [,1]      [,2]        [,3]        [,4]
 [1,] 1.00000000 0.9130377  0.07976061  0.95981817
 [2,] 0.91303768 1.0000000  0.14625448  0.76915222
@@ -751,15 +902,15 @@ Since both <strong>S</strong> and <span class="math inline">\(\boldsymbol{\Sigma
 <p>Again, the <code>cor()</code> function could be applied directly to <strong>X</strong>, noting that the <strong>SSCP</strong> matrix would be scaled by <span class="math inline">\(\frac{1}{n-1}\)</span>.</p>
 <p><br /></p>
 </div>
-<div id="standardized-scores" class="section level2" number="11.4">
-<h2><span class="header-section-number">11.4</span> Standardized Scores</h2>
+<div id="standardized-scores" class="section level2" number="15.4">
+<h2><span class="header-section-number">15.4</span> Standardized Scores</h2>
 <p>Standardized scores (<em>z</em>-scores) can be computed for the original values in <strong>X</strong> by post-multiplying the deviation matrix (<strong>D</strong>) by the same scaling matrix, <strong>S</strong>.</p>
 <p><span class="math display">\[
 \mathbf{Z} = \mathbf{DS}
 \]</span></p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute standardized scores</span></span>
-<span id="cb225-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb225-2" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">=</span> D <span class="sc">%*%</span> S</span>
-<span id="cb225-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb225-3" aria-hidden="true" tabindex="-1"></a>Z</span></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute standardized scores</span></span>
+<span id="cb227-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb227-2" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">=</span> D <span class="sc">%*%</span> S</span>
+<span id="cb227-3"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb227-3" aria-hidden="true" tabindex="-1"></a>Z</span></code></pre></div>
 <pre><code>            [,1]       [,2]       [,3]       [,4]
 [1,] -0.39405520 -0.1878673 -0.4670994 -0.4145950
 [2,]  1.33978769  1.5029383 -0.7006490  1.1919605
@@ -771,8 +922,8 @@ Since both <strong>S</strong> and <span class="math inline">\(\boldsymbol{\Sigma
 <p><span class="math display">\[
 \mathbf{R} = \frac{\mathbf{Z}^\intercal\mathbf{Z}}{n} 
 \]</span></p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute R</span></span>
-<span id="cb227-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb227-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Z) <span class="sc">%*%</span> Z <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute R</span></span>
+<span id="cb229-2"><a href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html#cb229-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Z) <span class="sc">%*%</span> Z <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span></code></pre></div>
 <pre><code>           [,1]      [,2]        [,3]        [,4]
 [1,] 1.00000000 0.9130377  0.07976061  0.95981817
 [2,] 0.91303768 1.0000000  0.14625448  0.76915222
@@ -782,13 +933,16 @@ Since both <strong>S</strong> and <span class="math inline">\(\boldsymbol{\Sigma
 
 </div>
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="properties-of-square-matrices.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="eigenvalues-and-eigenvectors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="basis-vectors-and-matrices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -811,6 +965,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
