@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 24 QR Decompostion | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 24 QR Decompostion | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="cholesky-decompostion.html"/>
 <link rel="next" href="spectral-decompostion.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,8 +479,8 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="qr-decompostion" class="section level1" number="24">
-<h1><span class="header-section-number">Chapter 24</span> QR Decompostion</h1>
+<div id="qr-decompostion" class="section level1 hasAnchor" number="24">
+<h1><span class="header-section-number">Chapter 24</span> QR Decompostion<a href="qr-decompostion.html#qr-decompostion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Another decomposition method is QR decomposition. One advantage of QR decomposition over LU decomposition is that this method does not require that the decomposition be carried out on a square matrix. QR decomposition results in factoring matrix <strong>A</strong> (having independent columns) into the product of two matrices, namely <strong>Q</strong> and <strong>R</strong>:
 .</p>
 <p><span class="math display">\[
@@ -487,25 +488,25 @@ div.csl-indent {
 \]</span></p>
 <p>where <strong>Q</strong> is an <em>orthogonal matrix</em><a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> and <strong>R</strong> is an upper-triangular matrix.</p>
 <p><br /></p>
-<div id="qr-decomposition-using-r" class="section level2" number="24.1">
-<h2><span class="header-section-number">24.1</span> QR Decomposition using R</h2>
+<div id="qr-decomposition-using-r" class="section level2 hasAnchor" number="24.1">
+<h2><span class="header-section-number">24.1</span> QR Decomposition using R<a href="qr-decompostion.html#qr-decomposition-using-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Although there is a way to hand-calculate the matrices <strong>Q</strong> and <strong>R</strong> (e.g., using the Gram-Schmidt process), we will rely on computation. To carry out a QR decomposition in R, we will use the <code>qr()</code> function which factors the matrix and returns a list of output related to the QR decomposition. To extract the actual <strong>Q</strong> and <strong>R</strong> matrices from this output, we will use the <code>qr.Q()</code> and <code>qr.R()</code> functions, respectively.</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="qr-decompostion.html#cb304-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create matrix A</span></span>
-<span id="cb304-2"><a href="qr-decompostion.html#cb304-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb304-3"><a href="qr-decompostion.html#cb304-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
-<span id="cb304-4"><a href="qr-decompostion.html#cb304-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
-<span id="cb304-5"><a href="qr-decompostion.html#cb304-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb304-6"><a href="qr-decompostion.html#cb304-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb304-7"><a href="qr-decompostion.html#cb304-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Carry out QR decomposition</span></span>
-<span id="cb304-8"><a href="qr-decompostion.html#cb304-8" aria-hidden="true" tabindex="-1"></a>qr_decomp <span class="ot">=</span> <span class="fu">qr</span>(A)</span>
-<span id="cb304-9"><a href="qr-decompostion.html#cb304-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb304-10"><a href="qr-decompostion.html#cb304-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View Q matrix</span></span>
-<span id="cb304-11"><a href="qr-decompostion.html#cb304-11" aria-hidden="true" tabindex="-1"></a><span class="fu">qr.Q</span>(qr_decomp)</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="qr-decompostion.html#cb308-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create matrix A</span></span>
+<span id="cb308-2"><a href="qr-decompostion.html#cb308-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb308-3"><a href="qr-decompostion.html#cb308-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb308-4"><a href="qr-decompostion.html#cb308-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb308-5"><a href="qr-decompostion.html#cb308-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb308-6"><a href="qr-decompostion.html#cb308-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb308-7"><a href="qr-decompostion.html#cb308-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Carry out QR decomposition</span></span>
+<span id="cb308-8"><a href="qr-decompostion.html#cb308-8" aria-hidden="true" tabindex="-1"></a>qr_decomp <span class="ot">=</span> <span class="fu">qr</span>(A)</span>
+<span id="cb308-9"><a href="qr-decompostion.html#cb308-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb308-10"><a href="qr-decompostion.html#cb308-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View Q matrix</span></span>
+<span id="cb308-11"><a href="qr-decompostion.html#cb308-11" aria-hidden="true" tabindex="-1"></a><span class="fu">qr.Q</span>(qr_decomp)</span></code></pre></div>
 <pre><code>        [,1]   [,2]
 [1,] -0.7809 0.6247
 [2,]  0.6247 0.7809</code></pre>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="qr-decompostion.html#cb306-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View R matrix</span></span>
-<span id="cb306-2"><a href="qr-decompostion.html#cb306-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qr.R</span>(qr_decomp)</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="qr-decompostion.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View R matrix</span></span>
+<span id="cb310-2"><a href="qr-decompostion.html#cb310-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qr.R</span>(qr_decomp)</span></code></pre></div>
 <pre><code>       [,1]   [,2]
 [1,] -6.403 0.4685
 [2,]  0.000 2.1864</code></pre>
@@ -517,26 +518,26 @@ div.csl-indent {
 \end{split}
 \]</span></p>
 <p>You can see that <strong>R</strong> is an upper-triangular matrix, and we can check that <strong>Q</strong> is orthonormal by testing whether <span class="math inline">\(\mathbf{Q}^{\intercal} = \mathbf{Q}^{-1}\)</span>.</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="qr-decompostion.html#cb308-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q^T</span></span>
-<span id="cb308-2"><a href="qr-decompostion.html#cb308-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">qr.Q</span>(qr_decomp))</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="qr-decompostion.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q^T</span></span>
+<span id="cb312-2"><a href="qr-decompostion.html#cb312-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">qr.Q</span>(qr_decomp))</span></code></pre></div>
 <pre><code>        [,1]   [,2]
 [1,] -0.7809 0.6247
 [2,]  0.6247 0.7809</code></pre>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="qr-decompostion.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q^-1</span></span>
-<span id="cb310-2"><a href="qr-decompostion.html#cb310-2" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(<span class="fu">qr.Q</span>(qr_decomp))</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="qr-decompostion.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q^-1</span></span>
+<span id="cb314-2"><a href="qr-decompostion.html#cb314-2" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(<span class="fu">qr.Q</span>(qr_decomp))</span></code></pre></div>
 <pre><code>        [,1]   [,2]
 [1,] -0.7809 0.6247
 [2,]  0.6247 0.7809</code></pre>
 <p>We can also check to see that the product of the decomposed matrices is <strong>A</strong>.</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="qr-decompostion.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A = QR?</span></span>
-<span id="cb312-2"><a href="qr-decompostion.html#cb312-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qr.Q</span>(qr_decomp) <span class="sc">%*%</span> <span class="fu">qr.R</span>(qr_decomp)</span></code></pre></div>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="qr-decompostion.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A = QR?</span></span>
+<span id="cb316-2"><a href="qr-decompostion.html#cb316-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qr.Q</span>(qr_decomp) <span class="sc">%*%</span> <span class="fu">qr.R</span>(qr_decomp)</span></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    5    1
 [2,]   -4    2</code></pre>
 <p><br /></p>
 </div>
-<div id="statistical-application-estimating-regression-coefficents-with-qr-decomposition" class="section level2" number="24.2">
-<h2><span class="header-section-number">24.2</span> Statistical Application: Estimating Regression Coefficents with QR Decomposition</h2>
+<div id="statistical-application-estimating-regression-coefficents-with-qr-decomposition" class="section level2 hasAnchor" number="24.2">
+<h2><span class="header-section-number">24.2</span> Statistical Application: Estimating Regression Coefficents with QR Decomposition<a href="qr-decompostion.html#statistical-application-estimating-regression-coefficents-with-qr-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can use the two decomposed matrices, <strong>Q</strong> and <strong>R</strong>, to compute the elements of <strong>b</strong> in the OLS solution, solving the system of equations represented in:</p>
 <p><span class="math display">\[
 (\mathbf{X}^{\intercal}\mathbf{X})\mathbf{b} = \mathbf{X}^{\intercal}\mathbf{y}
@@ -557,35 +558,35 @@ div.csl-indent {
 \begin{split}
 \mathbf{R}^{\intercal}\mathbf{I}\mathbf{R}\mathbf{b} &amp;= \mathbf{R}^{\intercal}\mathbf{Q}^{\intercal}\mathbf{y} \\[2ex]
 \mathbf{R}^{\intercal}\mathbf{R}\mathbf{b} &amp;= \mathbf{R}^{\intercal}\mathbf{Q}^{\intercal}\mathbf{y} \\[2ex]
-\mathbf{R}\mathbf{b} &amp;= \mathbf{Q}^{\intercal}\mathbf{y} 
+\mathbf{R}\mathbf{b} &amp;= \mathbf{Q}^{\intercal}\mathbf{y}
 \end{split}
 \]</span></p>
 <p>Since <strong>R</strong> is an upper-triangular matrix, we can use back substitution to solve for the elements of <strong>b</strong>. Using the same simulated data as the example from last chapter, consider the following simulated data set of <span class="math inline">\(n=50\)</span> cases:</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="qr-decompostion.html#cb314-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of cases</span></span>
-<span id="cb314-2"><a href="qr-decompostion.html#cb314-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">50</span></span>
-<span id="cb314-3"><a href="qr-decompostion.html#cb314-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb314-4"><a href="qr-decompostion.html#cb314-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create 50 x-values evenly spread b/w 1 and 500 </span></span>
-<span id="cb314-5"><a href="qr-decompostion.html#cb314-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">500</span>, <span class="at">len =</span> n)</span>
-<span id="cb314-6"><a href="qr-decompostion.html#cb314-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb314-7"><a href="qr-decompostion.html#cb314-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X matrix</span></span>
-<span id="cb314-8"><a href="qr-decompostion.html#cb314-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>)</span>
-<span id="cb314-9"><a href="qr-decompostion.html#cb314-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Intercept&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>)</span>
-<span id="cb314-10"><a href="qr-decompostion.html#cb314-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb314-11"><a href="qr-decompostion.html#cb314-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create b matrix</span></span>
-<span id="cb314-12"><a href="qr-decompostion.html#cb314-12" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb314-13"><a href="qr-decompostion.html#cb314-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
-<span id="cb314-14"><a href="qr-decompostion.html#cb314-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">4</span></span>
-<span id="cb314-15"><a href="qr-decompostion.html#cb314-15" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb314-16"><a href="qr-decompostion.html#cb314-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb314-17"><a href="qr-decompostion.html#cb314-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of y-values</span></span>
-<span id="cb314-18"><a href="qr-decompostion.html#cb314-18" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb314-19"><a href="qr-decompostion.html#cb314-19" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> X <span class="sc">%*%</span> b <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="qr-decompostion.html#cb318-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of cases</span></span>
+<span id="cb318-2"><a href="qr-decompostion.html#cb318-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb318-3"><a href="qr-decompostion.html#cb318-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb318-4"><a href="qr-decompostion.html#cb318-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create 50 x-values evenly spread b/w 1 and 500 </span></span>
+<span id="cb318-5"><a href="qr-decompostion.html#cb318-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">500</span>, <span class="at">len =</span> n)</span>
+<span id="cb318-6"><a href="qr-decompostion.html#cb318-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb318-7"><a href="qr-decompostion.html#cb318-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X matrix</span></span>
+<span id="cb318-8"><a href="qr-decompostion.html#cb318-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb318-9"><a href="qr-decompostion.html#cb318-9" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(X) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Intercept&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>)</span>
+<span id="cb318-10"><a href="qr-decompostion.html#cb318-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb318-11"><a href="qr-decompostion.html#cb318-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create b matrix</span></span>
+<span id="cb318-12"><a href="qr-decompostion.html#cb318-12" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb318-13"><a href="qr-decompostion.html#cb318-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
+<span id="cb318-14"><a href="qr-decompostion.html#cb318-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">4</span></span>
+<span id="cb318-15"><a href="qr-decompostion.html#cb318-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb318-16"><a href="qr-decompostion.html#cb318-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb318-17"><a href="qr-decompostion.html#cb318-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of y-values</span></span>
+<span id="cb318-18"><a href="qr-decompostion.html#cb318-18" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb318-19"><a href="qr-decompostion.html#cb318-19" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> X <span class="sc">%*%</span> b <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>We can use QR decomposition to solve for <strong>b</strong>.</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="qr-decompostion.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carry out QR decomposition</span></span>
-<span id="cb315-2"><a href="qr-decompostion.html#cb315-2" aria-hidden="true" tabindex="-1"></a>QR <span class="ot">=</span> <span class="fu">qr</span>(X)</span>
-<span id="cb315-3"><a href="qr-decompostion.html#cb315-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb315-4"><a href="qr-decompostion.html#cb315-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for b</span></span>
-<span id="cb315-5"><a href="qr-decompostion.html#cb315-5" aria-hidden="true" tabindex="-1"></a><span class="fu">backsolve</span>(<span class="fu">qr.R</span>(QR), <span class="fu">t</span>(<span class="fu">qr.Q</span>(QR)) <span class="sc">%*%</span> y)</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="qr-decompostion.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carry out QR decomposition</span></span>
+<span id="cb319-2"><a href="qr-decompostion.html#cb319-2" aria-hidden="true" tabindex="-1"></a>QR <span class="ot">=</span> <span class="fu">qr</span>(X)</span>
+<span id="cb319-3"><a href="qr-decompostion.html#cb319-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb319-4"><a href="qr-decompostion.html#cb319-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for b</span></span>
+<span id="cb319-5"><a href="qr-decompostion.html#cb319-5" aria-hidden="true" tabindex="-1"></a><span class="fu">backsolve</span>(<span class="fu">qr.R</span>(QR), <span class="fu">t</span>(<span class="fu">qr.Q</span>(QR)) <span class="sc">%*%</span> y)</span></code></pre></div>
 <pre><code>       [,1]
 [1,] 0.9038
 [2,] 1.0066
@@ -614,7 +615,6 @@ div.csl-indent {
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -654,6 +654,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

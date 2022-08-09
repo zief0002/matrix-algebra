@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 26 Singular Value Decompostion | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 26 Singular Value Decompostion | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="spectral-decompostion.html"/>
 <link rel="next" href="important-matrices-in-regression.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,8 +479,8 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="singular-value-decompostion" class="section level1" number="26">
-<h1><span class="header-section-number">Chapter 26</span> Singular Value Decompostion</h1>
+<div id="singular-value-decompostion" class="section level1 hasAnchor" number="26">
+<h1><span class="header-section-number">Chapter 26</span> Singular Value Decompostion<a href="singular-value-decompostion.html#singular-value-decompostion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Singular value decomposition (SVD) is commonly used for data compression or variable reduction, and plays a large role in machine learning applications. SVD decomposes a matrix into the product of three matrices:</p>
 <p><span class="math display">\[
 \underset{m\times n}{\mathbf{A}} = \underset{m\times n}{\mathbf{U}}~ \underset{n\times n}{\mathbf{D}}~ \underset{n\times n}{\mathbf{V}^{\intercal}}
@@ -507,20 +508,20 @@ div.csl-indent {
 \mathbf{U} = \mathbf{A}\mathbf{V}\mathbf{D}^{-1}
 \]</span></p>
 <p><br /></p>
-<div id="svd-using-r" class="section level2" number="26.1">
-<h2><span class="header-section-number">26.1</span> SVD Using R</h2>
+<div id="svd-using-r" class="section level2 hasAnchor" number="26.1">
+<h2><span class="header-section-number">26.1</span> SVD Using R<a href="singular-value-decompostion.html#svd-using-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In practice, we will use the <code>svd()</code> function in R to carry out singular value decomposition.</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="singular-value-decompostion.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
-<span id="cb327-2"><a href="singular-value-decompostion.html#cb327-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb327-3"><a href="singular-value-decompostion.html#cb327-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
-<span id="cb327-4"><a href="singular-value-decompostion.html#cb327-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
-<span id="cb327-5"><a href="singular-value-decompostion.html#cb327-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb327-6"><a href="singular-value-decompostion.html#cb327-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb327-7"><a href="singular-value-decompostion.html#cb327-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Singular value decomposition</span></span>
-<span id="cb327-8"><a href="singular-value-decompostion.html#cb327-8" aria-hidden="true" tabindex="-1"></a>sv_decomp <span class="ot">=</span> <span class="fu">svd</span>(A)</span>
-<span id="cb327-9"><a href="singular-value-decompostion.html#cb327-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb327-10"><a href="singular-value-decompostion.html#cb327-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View results</span></span>
-<span id="cb327-11"><a href="singular-value-decompostion.html#cb327-11" aria-hidden="true" tabindex="-1"></a>sv_decomp</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="singular-value-decompostion.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb331-2"><a href="singular-value-decompostion.html#cb331-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb331-3"><a href="singular-value-decompostion.html#cb331-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb331-4"><a href="singular-value-decompostion.html#cb331-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb331-5"><a href="singular-value-decompostion.html#cb331-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb331-6"><a href="singular-value-decompostion.html#cb331-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb331-7"><a href="singular-value-decompostion.html#cb331-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Singular value decomposition</span></span>
+<span id="cb331-8"><a href="singular-value-decompostion.html#cb331-8" aria-hidden="true" tabindex="-1"></a>sv_decomp <span class="ot">=</span> <span class="fu">svd</span>(A)</span>
+<span id="cb331-9"><a href="singular-value-decompostion.html#cb331-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb331-10"><a href="singular-value-decompostion.html#cb331-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View results</span></span>
+<span id="cb331-11"><a href="singular-value-decompostion.html#cb331-11" aria-hidden="true" tabindex="-1"></a>sv_decomp</span></code></pre></div>
 <pre><code>$d
 [1] 6.422 2.180
 
@@ -537,22 +538,22 @@ $v
 <p><span class="math display">\[
 \begin{split}
 \mathbf{U} &amp;= \begin{bmatrix}
--0.76 &amp; 0.65 \\ 
+-0.76 &amp; 0.65 \\
 0.65 &amp; 0.76  \\
 \end{bmatrix} \\[1em]
 \mathbf{D} &amp;= \begin{bmatrix}
-6.42 &amp; 0 \\ 
+6.42 &amp; 0 \\
 0 &amp; 2.18  \\
 \end{bmatrix} \\[1em]
 \mathbf{V} &amp;= \begin{bmatrix}
--1.00 &amp; 0.08 \\ 
+-1.00 &amp; 0.08 \\
 0.08 &amp; 1.00  \\
 \end{bmatrix}
 \end{split}
 \]</span>
 We can verify that <span class="math inline">\(\mathbf{A}=\mathbf{USV}^\intercal\)</span>. Note that the <code>svd()</code> function outputs the diagonal elements of the <strong>D</strong> matrix, so we need to use the <code>diag()</code> function to create the actual <strong>D</strong> matrix.</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="singular-value-decompostion.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify the results of the SVD</span></span>
-<span id="cb329-2"><a href="singular-value-decompostion.html#cb329-2" aria-hidden="true" tabindex="-1"></a>sv_decomp<span class="sc">$</span>u <span class="sc">%*%</span> <span class="fu">diag</span>(sv_decomp<span class="sc">$</span>d) <span class="sc">%*%</span> <span class="fu">t</span>(sv_decomp<span class="sc">$</span>v)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="singular-value-decompostion.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify the results of the SVD</span></span>
+<span id="cb333-2"><a href="singular-value-decompostion.html#cb333-2" aria-hidden="true" tabindex="-1"></a>sv_decomp<span class="sc">$</span>u <span class="sc">%*%</span> <span class="fu">diag</span>(sv_decomp<span class="sc">$</span>d) <span class="sc">%*%</span> <span class="fu">t</span>(sv_decomp<span class="sc">$</span>v)</span></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    5    1
 [2,]   -4    2</code></pre>
@@ -573,7 +574,6 @@ We can verify that <span class="math inline">\(\mathbf{A}=\mathbf{USV}^\intercal
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -613,6 +613,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

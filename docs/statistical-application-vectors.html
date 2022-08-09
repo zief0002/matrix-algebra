@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 Statistical Application: Vectors | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 Statistical Application: Vectors | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="vector-geometry-angles-projection-and-decomposition.html"/>
 <link rel="next" href="matrices-1.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,11 +479,11 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="statistical-application-vectors" class="section level1" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Statistical Application: Vectors</h1>
+<div id="statistical-application-vectors" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Statistical Application: Vectors<a href="statistical-application-vectors.html#statistical-application-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter, we will provide examples of how vectors define the underlying geometry of various statistical summaries (standard deviation and correlation coefficient), including linear models. We will provide an example using a single predictor, but again, the ideas can be extended to models that include multiple predictors.</p>
-<div id="deviation-scores-and-the-standard-deviation" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Deviation Scores and the Standard Deviation</h2>
+<div id="deviation-scores-and-the-standard-deviation" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Deviation Scores and the Standard Deviation<a href="statistical-application-vectors.html#deviation-scores-and-the-standard-deviation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Consider the following vector scores (<strong>x</strong>) and the vector of the mean deviation scores (<span class="math inline">\(\mathbf{d_x}\)</span>):</p>
 <p><span class="math display">\[
 \mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n\end{bmatrix} \qquad \mathbf{d_x} = \begin{bmatrix} x_1-\bar{x} \\ x_2-\bar{x} \\ x_3-\bar{x} \\ \vdots \\ x_n-\bar{x}\end{bmatrix}
@@ -598,8 +599,8 @@ s_\mathbf{y} &amp;= \frac{4.04}{\sqrt{10}} = 0.64
 <pre><code>[1] 0.6699917</code></pre>
 <p><br /></p>
 </div>
-<div id="vector-correlation-and-separation" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Vector Correlation and Separation</h2>
+<div id="vector-correlation-and-separation" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Vector Correlation and Separation<a href="statistical-application-vectors.html#vector-correlation-and-separation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The correlation between two vectors can also be expressed in terms of deviation scores:</p>
 <p><span class="math display">\[
 \begin{split}
@@ -653,8 +654,8 @@ r_{\mathbf{xy}} = \cos (\theta)
 </div>
 <p><br /></p>
 </div>
-<div id="orthogonal-decomposition-and-bivariate-regression" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Orthogonal Decomposition and Bivariate Regression</h2>
+<div id="orthogonal-decomposition-and-bivariate-regression" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Orthogonal Decomposition and Bivariate Regression<a href="statistical-application-vectors.html#orthogonal-decomposition-and-bivariate-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Recall that the simple regression model seeks to explain variation in an outcome variable <em>Y</em> using a predictor variable <em>X</em>. Mathematically, the model fitted is expressed as:</p>
 <p><span class="math display">\[
 \mathbf{y} = b_0 + b_1(\mathbf{x}) + \mathbf{e}
@@ -672,14 +673,14 @@ where <span class="math inline">\(\hat{\mathbf{d}}_\mathbf{y}=b_1(\mathbf{d}_\ma
 \mathbf{d}_\mathbf{y} = \hat{\mathbf{d}}_\mathbf{y} + \mathbf{e}
 \]</span></p>
 <p>Ordinary least squares (OLS) estimation determines the value of <span class="math inline">\(b_1\)</span> by minimizing the sum of squared residuals, that is, it minimizes the quantity <span class="math inline">\(\lvert\lvert\mathbf{e}\rvert\rvert^2\)</span>. Geometrically, minimizing <span class="math inline">\(\lvert\lvert\mathbf{e}\rvert\rvert^2\)</span> is determining the orthogonal projection of <span class="math inline">\(\mathbf{d}_\mathbf{y}\)</span> onto <span class="math inline">\(\mathbf{d}_\mathbf{x}\)</span>.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> This projection is the first component of the partitioning of the deviation vector described previously, <span class="math inline">\(\hat{\mathbf{d}}_\mathbf{y}=b_1(\mathbf{d}_\mathbf{x})\)</span>, which is collinear with <span class="math inline">\(\mathbf{d}_\mathbf{x}\)</span> since <span class="math inline">\(b_1(\mathbf{d}_\mathbf{x})\)</span> is a scalar multiple of <span class="math inline">\(\mathbf{d}_\mathbf{x}\)</span> This is shown in Figure <a href="statistical-application-vectors.html#fig:fig06-01">6.1</a>.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig06-01"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig06-01"></span>
 <img src="figs/fig-06-01.png" alt="The two orthogonal projections from the deviation vector of **y** form the basis for the model triangle (yellow). Note that the vector making up the right side of the model triangle is the same as the **e** vector." width="60%" />
 <p class="caption">
 Figure 6.1: The two orthogonal projections from the deviation vector of <strong>y</strong> form the basis for the model triangle (yellow). Note that the vector making up the right side of the model triangle is the same as the <strong>e</strong> vector.
 </p>
 </div>
 <p>The ‘triangle’ formed by the vectors <span class="math inline">\(\hat{\mathbf{d}}_\mathbf{y}\)</span>, <strong>e</strong>, and <span class="math inline">\(\mathbf{d}_\mathbf{y}\)</span> is referred to as the <em>model triangle</em>. Figure <a href="statistical-application-vectors.html#fig:model-triangle">6.2</a> shows the model triangle. (Remember <strong>e</strong> can be moved to the right-side of the triangle since location is not a vector property.)</p>
-<div class="figure" style="text-align: center"><span id="fig:model-triangle"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:model-triangle"></span>
 <img src="figs/fig-06-model-triangle.png" alt="The model triangle (yellow). Note that the vector making up the right side of the model triangle is the same as the **e** vector." width="60%" />
 <p class="caption">
 Figure 6.2: The model triangle (yellow). Note that the vector making up the right side of the model triangle is the same as the <strong>e</strong> vector.
@@ -721,7 +722,7 @@ r_{\mathbf{e},\hat{\mathbf{d}}_\mathbf{y}} = 0
 \lvert\lvert\mathbf{e}\rvert\rvert &amp;= \sqrt{\mathrm{Residual~SS}}
 \end{split}
 \]</span></p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-25"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-25"></span>
 <img src="figs/fig-06-02.png" alt="The side lengths of the model triangle (yellow) correspond to the square roots of the sum of square terms used in the ANOVA decomposition." width="60%" />
 <p class="caption">
 Figure 6.3: The side lengths of the model triangle (yellow) correspond to the square roots of the sum of square terms used in the ANOVA decomposition.
@@ -738,8 +739,8 @@ r_{\mathbf{xy}} &amp;= \sqrt{R^2} \\[2em]
 \]</span></p>
 <p>That is, the correlation coefficient between <strong>x</strong> and <strong>y</strong> is equivalent to the ratio of the lengths between the orthogonal projection vector collinear with the deviation vector of <strong>x</strong> and the deviation vector of <strong>y</strong>. Note this is also exactly how we compute cosine of <span class="math inline">\(\theta\)</span>.</p>
 <p><br /></p>
-<div id="back-to-the-sat-and-gpa-example" class="section level3" number="6.3.1">
-<h3><span class="header-section-number">6.3.1</span> Back to the SAT and GPA Example</h3>
+<div id="back-to-the-sat-and-gpa-example" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Back to the SAT and GPA Example<a href="statistical-application-vectors.html#back-to-the-sat-and-gpa-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Here we return to our GPA and SAT data to provide an example of these computations. Suppose we want to predict SAT (<strong>y</strong>) from GPA (<strong>x</strong>), employing deviation scores. We begin by computing the length of both deviation vectors:</p>
 <p><span class="math display">\[
 \begin{split}
@@ -758,7 +759,7 @@ r_{\mathbf{xy}} &amp;= \sqrt{R^2} \\[2em]
 <span id="cb99-2"><a href="statistical-application-vectors.html#cb99-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">sum</span>(d_x <span class="sc">*</span> d_y) <span class="sc">/</span> (l_x <span class="sc">*</span> l_y)</span>
 <span id="cb99-3"><a href="statistical-application-vectors.html#cb99-3" aria-hidden="true" tabindex="-1"></a>r</span></code></pre></div>
 <pre><code>[1] 0.8468822</code></pre>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-28"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-28"></span>
 <img src="figs/fig-06-02.png" alt="The model triangle (yellow) for our regression of GPA (**y**) onto SAT scores (**x**)." width="60%" />
 <p class="caption">
 Figure 6.4: The model triangle (yellow) for our regression of GPA (<strong>y</strong>) onto SAT scores (<strong>x</strong>).
@@ -787,7 +788,7 @@ Figure 6.4: The model triangle (yellow) for our regression of GPA (<strong>y</st
 <span id="cb103-2"><a href="statistical-application-vectors.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(<span class="fu">acos</span>(r)) <span class="sc">*</span> l_y</span></code></pre></div>
 <pre><code>[1] 1.068866</code></pre>
 <p>Figure <a href="statistical-application-vectors.html#fig:fig06-04">6.5</a> shows the model triangle for the regression of GPA (<strong>y</strong>) onto SAT scores (<strong>x</strong>) with all of the computed side lengths.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig06-04"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig06-04"></span>
 <img src="figs/fig-06-04.png" alt="The model triangle (yellow) for our regression of GPA (**y**) onto SAT scores (**x**)." width="60%" />
 <p class="caption">
 Figure 6.5: The model triangle (yellow) for our regression of GPA (<strong>y</strong>) onto SAT scores (<strong>x</strong>).
@@ -838,7 +839,6 @@ R^2 = \frac{\mathrm{Model~SS}}{\mathrm{Total~SS}} =  \frac{2.90}{4.04} = 0.718
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -878,6 +878,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

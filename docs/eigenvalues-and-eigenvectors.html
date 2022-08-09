@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 14 Eigenvalues and Eigenvectors | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 14 Eigenvalues and Eigenvectors | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="properties-of-square-matrices.html"/>
 <link rel="next" href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,12 +479,12 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="eigenvalues-and-eigenvectors" class="section level1" number="14">
-<h1><span class="header-section-number">Chapter 14</span> Eigenvalues and Eigenvectors</h1>
+<div id="eigenvalues-and-eigenvectors" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Eigenvalues and Eigenvectors<a href="eigenvalues-and-eigenvectors.html#eigenvalues-and-eigenvectors" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter, you will learn about eigenvalues and eigenvectors. Eigenvalues (a.k.a., characteristic roots) are scalars that are associated with linear systems of equations. Each eigenvalue has a corresponding vector, an eigenvector, associated with it. Eigenvalues and eigenvectors play a role in many statistical applications, featuring prominently in some methods of decomposition and principal component analysis (PCA).</p>
 <p><br /></p>
-<div id="eigenvalues" class="section level2" number="14.1">
-<h2><span class="header-section-number">14.1</span> Eigenvalues</h2>
+<div id="eigenvalues" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Eigenvalues<a href="eigenvalues-and-eigenvectors.html#eigenvalues" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let <strong>A</strong> be a <span class="math inline">\(p \times p\)</span> square matrix and <strong>I</strong> be a <span class="math inline">\(p \times p\)</span> identity matrix. Eigenvalues are the set of non-zero scalars <span class="math inline">\(\lambda_1,\lambda_2, \lambda_3,\ldots,\lambda_p\)</span> that satisfy,</p>
 <p><span class="math display">\[
 \mathrm{det}\bigg(\mathbf{A} - \lambda \mathbf{I}\bigg) = 0
@@ -491,17 +492,17 @@ div.csl-indent {
 <p>Consider an example,</p>
 <p><span class="math display">\[
 \underset{2\times 2}{\mathbf{A}} = \begin{bmatrix}
--3 &amp; 5  \\ 
+-3 &amp; 5  \\
 4 &amp; -2  \\
 \end{bmatrix}
 \]</span></p>
 <p>Our goal is to find the values of <span class="math inline">\(\lambda\)</span> that satisfy</p>
 <p><span class="math display">\[
 \mathrm{det}\bigg(\begin{bmatrix}
--3 &amp; 5  \\ 
+-3 &amp; 5  \\
 4 &amp; -2  \\
 \end{bmatrix} - \lambda\begin{bmatrix}
-1 &amp; 0  \\ 
+1 &amp; 0  \\
 0 &amp; 1  \\
 \end{bmatrix}\bigg) = 0
 \]</span></p>
@@ -509,21 +510,21 @@ div.csl-indent {
 <p><span class="math display">\[
 \begin{split}
 \mathrm{det}\bigg(\begin{bmatrix}
--3 &amp; 5  \\ 
+-3 &amp; 5  \\
 4 &amp; -2  \\
 \end{bmatrix} - \lambda\begin{bmatrix}
-1 &amp; 0  \\ 
+1 &amp; 0  \\
 0 &amp; 1  \\
 \end{bmatrix}\bigg) &amp;= 0 \\[2ex]
 \mathrm{det}\bigg(\begin{bmatrix}
--3 &amp; 5  \\ 
+-3 &amp; 5  \\
 4 &amp; -2  \\
 \end{bmatrix} - \begin{bmatrix}
-\lambda &amp; 0  \\ 
+\lambda &amp; 0  \\
 0 &amp; \lambda  \\
 \end{bmatrix}\bigg) &amp;= 0 \\[2ex]
 \mathrm{det}\begin{bmatrix}
--3 - \lambda &amp; 5  \\ 
+-3 - \lambda &amp; 5  \\
 4 &amp; -2 - \lambda \\
 \end{bmatrix} &amp;= 0 \\[2ex]
 (-3 - \lambda)(-2 - \lambda) - 20 &amp;= 0
@@ -556,8 +557,8 @@ x = \frac{-B\pm \sqrt{B^2-4AC}}{2A}
 <p>is referred to as the <em>characteristic equation</em>. Solving the characteristic equation gives the eigenvalues. Sometimes the eigenvalues are referred to as the characteristic roots of matrix <strong>A</strong>.</p>
 <p><br /></p>
 </div>
-<div id="eigenvectors" class="section level2" number="14.2">
-<h2><span class="header-section-number">14.2</span> Eigenvectors</h2>
+<div id="eigenvectors" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Eigenvectors<a href="eigenvalues-and-eigenvectors.html#eigenvectors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If <span class="math inline">\(\lambda\)</span> is an eigenvalue of matrix <strong>A</strong>, then it is possible to find a vector <strong>v</strong> (an eigenvector) that satisfies</p>
 <p><span class="math display">\[
 \mathbf{A}\mathbf{v} = \lambda \mathbf{v}
@@ -576,20 +577,20 @@ x = \frac{-B\pm \sqrt{B^2-4AC}}{2A}
 \]</span></p>
 <p>In order to obtain a nonzero solution for <strong>v</strong>, the determinant of <span class="math inline">\(\mathbf{A} - \lambda \mathbf{I}\)</span> needs to be zero. This is why the eigenvalues are the <span class="math inline">\(\lambda\)</span>-values that make this nonsingular.</p>
 <p><br /></p>
-<div id="finding-the-elements-of-v" class="section level3" number="14.2.1">
-<h3><span class="header-section-number">14.2.1</span> Finding the Elements of v</h3>
+<div id="finding-the-elements-of-v" class="section level3 hasAnchor" number="14.2.1">
+<h3><span class="header-section-number">14.2.1</span> Finding the Elements of v<a href="eigenvalues-and-eigenvectors.html#finding-the-elements-of-v" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can use matrix algebra to solve for the elements of vector <strong>v</strong> using each eigenvalue seperately.</p>
 <p><span class="math display">\[
 \begin{split}
 \mathbf{A}\mathbf{v} &amp;= \lambda \mathbf{v} \\[1em]
 \begin{bmatrix}
--3 &amp; 5  \\ 
+-3 &amp; 5  \\
 4 &amp; -2  \\
 \end{bmatrix}\begin{bmatrix}
-v_1 \\ 
+v_1 \\
 v_2 \\
 \end{bmatrix} &amp;= -7\begin{bmatrix}
-v_1 \\ 
+v_1 \\
 v_2 \\
 \end{bmatrix}\\[1em]
 \end{split}
@@ -598,28 +599,28 @@ v_2 \\
 <p><span class="math display">\[
 \begin{split}
 -3v_1 + 5v_2 &amp;= -7v_1 \\
-4v_1 - 2v_2 &amp;= -7v_2 
+4v_1 - 2v_2 &amp;= -7v_2
 \end{split}
 \]</span></p>
 <p>Simplifying this, we get</p>
 <p><span class="math display">\[
 \begin{split}
 4v_1 + 5v_2 &amp;= 0 \\
-4v_1 + 5v_2 &amp;= 0 
+4v_1 + 5v_2 &amp;= 0
 \end{split}
 \]</span></p>
 <p>The homogeneous set of equations means that there are an infinite number of solutions. The general solution here is to express one variable (say <span class="math inline">\(v_2\)</span>) as a function of the other.</p>
 <p><span class="math display">\[
 \begin{split}
 v_1 &amp;= \theta \\[0.5em]
-v_2 &amp;= -\frac{4}{5}\theta 
+v_2 &amp;= -\frac{4}{5}\theta
 \end{split}
 \]</span></p>
 <p>Any set of <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span> in which <span class="math inline">\(v_2 = -\frac{4}{5}v_1\)</span> will satisfy this set of equations.</p>
 <p><br /></p>
 </div>
-<div id="normalized-eigenvectors" class="section level3" number="14.2.2">
-<h3><span class="header-section-number">14.2.2</span> Normalized Eigenvectors</h3>
+<div id="normalized-eigenvectors" class="section level3 hasAnchor" number="14.2.2">
+<h3><span class="header-section-number">14.2.2</span> Normalized Eigenvectors<a href="eigenvalues-and-eigenvectors.html#normalized-eigenvectors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Although there are an infinite number of solutions, one that is particularly nice is that whose a sum of squared values is equal to 1, that is <span class="math inline">\(\mathbf{v}^\intercal\mathbf{v}=1\)</span>. This is referred to as <em>normalizing</em> the eigenvector. Normalized eigenvectors are denoted as <strong>e</strong>.</p>
 <p><span class="math display">\[
 \begin{split}
@@ -646,7 +647,7 @@ e_2 &amp;= -\frac{4}{\sqrt{41}}
 <p>We could verify this by ensuring that the the equation <span class="math inline">\(\mathbf{A}\mathbf{e}=\lambda\mathbf{e}\)</span> holds:</p>
 <p><span class="math display">\[
 \begin{bmatrix}
--3 &amp; 5  \\ 
+-3 &amp; 5  \\
 4 &amp; -2  \\
 \end{bmatrix}\begin{bmatrix}\frac{5}{\sqrt{41}} \\ -\frac{4}{\sqrt{41}}\end{bmatrix} = -7\begin{bmatrix}\frac{5}{\sqrt{41}} \\ -\frac{4}{\sqrt{41}}\end{bmatrix}
 \]</span></p>
@@ -658,8 +659,8 @@ e_2 &amp;= -\frac{4}{\sqrt{41}}
 <p><br /></p>
 </div>
 </div>
-<div id="using-r-to-find-eigenvalues-and-eigenvectors" class="section level2" number="14.3">
-<h2><span class="header-section-number">14.3</span> Using R to Find Eigenvalues and Eigenvectors</h2>
+<div id="using-r-to-find-eigenvalues-and-eigenvectors" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Using R to Find Eigenvalues and Eigenvectors<a href="eigenvalues-and-eigenvectors.html#using-r-to-find-eigenvalues-and-eigenvectors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can use the <code>eigen()</code> function to find the eigenvalues and eigenvectors for a matrix. The syntax to find these for our example matrix <strong>A</strong> is:</p>
 <div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="eigenvalues-and-eigenvectors.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
 <span id="cb199-2"><a href="eigenvalues-and-eigenvectors.html#cb199-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
@@ -704,7 +705,6 @@ $vectors
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -744,6 +744,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

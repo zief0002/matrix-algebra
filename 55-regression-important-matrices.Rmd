@@ -28,9 +28,6 @@ knitr::kable(
 
 <br />
 
-
-## Vector of Fitted Values
-
 Recall that the regression model is denoted as
 
 $$
@@ -42,6 +39,56 @@ where **y** is the outcome vector, **X** is the design matrix, **e** is the vect
 $$
 \mathbf{b} = (\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal\mathbf{y}
 $$
+
+
+## Design Matrix
+
+The design matrix, **X** plays a critical role in the regression model and in any estimation computed from the model. There is also a direct link from the model formula inputted in `lm()` and the design matrix. Namely, that each term "added" in the right-hand side of the formula (after the tilde) indicates a unique column in the design matrix. Below we use the toy data set to show the connection between different `lm()` formulations and the design matrix used.
+
+$$
+\begin{split}
+&\mathtt{lm(GPA \sim 1 + SAT)} \\[2ex]
+& \mathbf{X} = \begin{bmatrix}1 & 560 \\ 1 & 780 \\ 1 & 620\\ 1 & 600\\ 1 & 720\\ 1 & 380 \end{bmatrix}
+\end{split}
+$$
+
+In this design matrix we have two columns, indicated by the two terms being added on the right-hand side of the formula. The `1` in the formula indicates that the design matrix should include a column of 1s. The second term (we added `SAT`) is comprised of the SAT scores.
+
+
+$$
+\begin{split}
+&\mathtt{lm(GPA \sim 1 + SAT + IQ)} \\[2ex]
+& \mathbf{X} = \begin{bmatrix}1 & 560 & 112 \\ 1 & 780 & 143 \\ 1 & 620 & 124\\ 1 & 600 & 129\\ 1 & 720 & 130\\ 1 & 380 & 82 \end{bmatrix}
+\end{split}
+$$
+
+In this design matrix we have three columns, indicated by the three terms being added on the right-hand side of the formula. The first two columns are the same as in the previous design matrix, but now we also include a column of the IQ scores.
+
+$$
+\begin{split}
+&\mathtt{lm(GPA \sim 1 + SAT + IQ + SAT:IQ)} \\[2ex]
+& \mathbf{X} = \begin{bmatrix}1 & 560 & 112 & 62720 \\ 1 & 780 & 143 & 111540 \\ 1 & 620 & 124 & 76880\\ 1 & 600 & 129 & 77400\\ 1 & 720 & 130 & 93600\\ 1 & 380 & 82 & 31160 \end{bmatrix}
+\end{split}
+$$
+
+In this design matrix we have four columns, indicated by the four terms being added on the right-hand side of the formula. The first three columns are the same as in the previous design matrix. The column of interaction terms is based on the product of the SAT and IQ scores.
+
+
+$$
+\begin{split}
+&\mathtt{lm(GPA \sim 1 + SAT + I(SAT\widehat{}2)} \\[2ex]
+& \mathbf{X} = \begin{bmatrix}1 & 560 & 313600 \\ 1 & 780 & 608400 \\ 1 & 620 & 384400\\ 1 & 600 & 360000\\ 1 & 720 & 518400\\ 1 & 380 & 144400 \end{bmatrix}
+\end{split}
+$$
+
+In this design matrix we have three columns, indicated by the three terms being added on the right-hand side of the formula. The first two columns are the same as in the previous design matrix. The quadratic effect of SAT constitutes the elements in the third column.^[The `I()` function makes the quadratic a specific column in the design matrix. You need the `I()` function because `^` is a special character in formula syntax that indicates crossing.  Without the `I()` term the design matrix would only have two columns; a column of 1s and a column of SAT scores. You can read more by accesing the help page for `formula`, namely `help(formula)`.]
+
+
+
+<br />
+
+
+## Vector of Fitted Values
 
 We can compute the vector of fitted values using
 

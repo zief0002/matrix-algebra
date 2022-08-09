@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 21 LU Decompostion | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 21 LU Decompostion | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="introduction-to-matrix-decompostion.html"/>
 <link rel="next" href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,21 +479,21 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="lu-decompostion" class="section level1" number="21">
-<h1><span class="header-section-number">Chapter 21</span> LU Decompostion</h1>
+<div id="lu-decompostion" class="section level1 hasAnchor" number="21">
+<h1><span class="header-section-number">Chapter 21</span> LU Decompostion<a href="lu-decompostion.html#lu-decompostion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>One common method of matrix decomposition is LU decomposition. Commonly used to computationally solve systems of equations, and to find the determinant of a matrix, LU decomposition decomposes a square matrix into a pair of triangular matrices to more easily carry out Gaussian elimination. It is based on a theorem in linear algebra, which states:</p>
 <p>Any nonsingular, square matrix, <strong>A</strong>, can be written as the product of two triangular matrices, <strong>L</strong> and <strong>U</strong>, of the same order such that matrix <strong>L</strong> is a lower-triangular matrix (all elements above the main diagonal are 0) and <strong>U</strong> is an upper-triangular matrix (all elements below the main diagonal are 0).</p>
 <p><span class="math display">\[
 \begin{split}
 \underset{n\times n}{\mathbf{A}} &amp;= \underset{n\times n}{\mathbf{L}}~ \underset{n\times n}{\mathbf{U}} \\[2ex]
 &amp;= \begin{bmatrix}
-l_{11} &amp; 0 &amp; 0 &amp; \ldots &amp; 0\\ 
+l_{11} &amp; 0 &amp; 0 &amp; \ldots &amp; 0\\
 l_{21}&amp; l_{22} &amp; 0 &amp; \ldots &amp; 0\\
 l_{31}&amp; l_{32} &amp; l_{33} &amp; \ldots &amp; 0\\
 \vdots &amp; \vdots &amp;\vdots &amp; \ddots &amp; \vdots \\
 l_{n1} &amp; l_{n2} &amp; l_{n3} &amp; \ldots &amp; l_{nn}
 \end{bmatrix}\begin{bmatrix}
-u_{11} &amp; u_{12} &amp; u_{13} &amp; \ldots &amp; u_{1n}\\ 
+u_{11} &amp; u_{12} &amp; u_{13} &amp; \ldots &amp; u_{1n}\\
 0 &amp; u_{22} &amp; u_{23} &amp; \ldots &amp; u_{2n}\\
 0 &amp; 0 &amp; u_{33} &amp; \ldots &amp; u_{3n}\\
 \vdots &amp; \vdots  &amp;\vdots &amp; \ddots &amp; \vdots \\
@@ -502,12 +503,12 @@ u_{11} &amp; u_{12} &amp; u_{13} &amp; \ldots &amp; u_{1n}\\
 \]</span></p>
 <p>The goal of LU decomposition would be to find the values for each of the non-zero elements in <strong>L</strong> and <strong>U</strong>.</p>
 <p><br /></p>
-<div id="an-example-of-lu-decomposition" class="section level2" number="21.1">
-<h2><span class="header-section-number">21.1</span> An Example of LU Decomposition</h2>
+<div id="an-example-of-lu-decomposition" class="section level2 hasAnchor" number="21.1">
+<h2><span class="header-section-number">21.1</span> An Example of LU Decomposition<a href="lu-decompostion.html#an-example-of-lu-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Consider the following <span class="math inline">\(2 \times 2\)</span> matrix:</p>
 <p><span class="math display">\[
 \underset{2\times 2}{\mathbf{A}} = \begin{bmatrix}
-5 &amp; 1  \\ 
+5 &amp; 1  \\
 -4 &amp; 2  \\
 \end{bmatrix}
 \]</span></p>
@@ -516,13 +517,13 @@ u_{11} &amp; u_{12} &amp; u_{13} &amp; \ldots &amp; u_{1n}\\
 \begin{split}
 \underset{2\times 2}{\mathbf{A}} &amp;= \underset{2\times 2}{\mathbf{L}}~\underset{2\times 2}{\mathbf{U}}\\[1em]
 \begin{bmatrix}
-5 &amp; 1  \\ 
+5 &amp; 1  \\
 -4 &amp; 2  \\
 \end{bmatrix} &amp;= \begin{bmatrix}
-l_{11} &amp; 0 \\ 
+l_{11} &amp; 0 \\
 l_{21}&amp; l_{22} \\
 \end{bmatrix}\begin{bmatrix}
-u_{11} &amp; u_{12}  \\ 
+u_{11} &amp; u_{12}  \\
 0 &amp; u_{22} \\
 \end{bmatrix}
 \end{split}
@@ -530,7 +531,7 @@ u_{11} &amp; u_{12}  \\
 To determine the elements of <strong>L</strong> and <strong>U</strong>, we can write out the system of equations based on the matrix algebra, we get:</p>
 <p><span class="math display">\[
 \begin{split}
-5 &amp;= l_{11}(u_{11}) + 0(0) \\ 
+5 &amp;= l_{11}(u_{11}) + 0(0) \\
 1 &amp;= l_{11}(u_{12}) + 0(u_{22})\\
 -4 &amp;= l_{21}(u_{11}) + l_{22}(0)\\
 2 &amp;= l_{21}(u_{12}) + l_{22}(u_{22})\\
@@ -539,7 +540,7 @@ To determine the elements of <strong>L</strong> and <strong>U</strong>, we can w
 <p>Unfortunately there are more unknowns (6) than equations (4) which means the system is underdetermined. To find a unique solution, we need to add additional constraints on the system. One way to do this is to require <strong>L</strong> to be a <em>unit triangular matrix</em> (i.e. elements on the main diagonal are ones). In our example, <span class="math inline">\(l_{11} = l_{22} = 1\)</span>, and our system of equations becomes:</p>
 <p><span class="math display">\[
 \begin{split}
-5 &amp;= 1(u_{11}) + 0(0) \\ 
+5 &amp;= 1(u_{11}) + 0(0) \\
 1 &amp;= 1(u_{12}) + 0(u_{22})\\
 -4 &amp;= l_{21}(u_{11}) + 1(0)\\
 2 &amp;= l_{21}(u_{12}) + 1(u_{22})\\
@@ -549,7 +550,7 @@ To determine the elements of <strong>L</strong> and <strong>U</strong>, we can w
 <p><span class="math display">\[
 \begin{split}
 l_{21} &amp;= -0.8\\
-u_{11} &amp;= 5 \\ 
+u_{11} &amp;= 5 \\
 u_{12} &amp;= 1\\
 u_{22} &amp;= 2.8\\
 \end{split}
@@ -557,13 +558,13 @@ u_{22} &amp;= 2.8\\
 <p>Thus, the LU decomposition of <strong>A</strong> is,</p>
 <p><span class="math display">\[
 \begin{bmatrix}
-5 &amp; 1  \\ 
+5 &amp; 1  \\
 -4 &amp; 2  \\
 \end{bmatrix} = \begin{bmatrix}
-1 &amp; 0 \\ 
+1 &amp; 0 \\
 -0.8 &amp; 1 \\
 \end{bmatrix}\begin{bmatrix}
-5 &amp; 1  \\ 
+5 &amp; 1  \\
 0 &amp; 2.8 \\
 \end{bmatrix}
 \]</span></p>
@@ -631,11 +632,11 @@ $U
 <p><span class="math display">\[
 \begin{split}
 {\mathbf{L}} &amp;= \begin{bmatrix}
-1 &amp; 0  \\ 
+1 &amp; 0  \\
 -0.8 &amp; 1  \\
 \end{bmatrix} \\[1em]
 {\mathbf{U}} &amp;= \begin{bmatrix}
-5 &amp; 1  \\ 
+5 &amp; 1  \\
 0 &amp; 2.8  \\
 \end{bmatrix}
 \end{split}
@@ -649,8 +650,8 @@ $U
 <p>There are other methods of LU decomposition, including <em>pivoting</em> methods (PLU decomposition), which are more applicable in practice. There is also LDU decomposition in which <strong>A</strong> is decomposed into unit triangular matrices <strong>L</strong> and <strong>U</strong>, and diagonal matrix <strong>D</strong>.</p>
 <p><br /></p>
 </div>
-<div id="solving-systems-of-equations-with-the-lu-decomposition" class="section level2" number="21.2">
-<h2><span class="header-section-number">21.2</span> Solving Systems of Equations with the LU Decomposition</h2>
+<div id="solving-systems-of-equations-with-the-lu-decomposition" class="section level2 hasAnchor" number="21.2">
+<h2><span class="header-section-number">21.2</span> Solving Systems of Equations with the LU Decomposition<a href="lu-decompostion.html#solving-systems-of-equations-with-the-lu-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Imagine if we wanted to solve a set of simultaneous equations to compute unknown values of <strong>B</strong> using our matrix <strong>A</strong>, and known values for <strong>Y</strong>, say,</p>
 <p><span class="math display">\[
 \mathbf{A}\mathbf{X}=\mathbf{Y}
@@ -683,29 +684,29 @@ $U
 <p>Remember, the goal was to solve for <strong>X</strong>, so to do this, we first solve the second equation, <span class="math inline">\(\mathbf{L}\mathbf{Z} = \mathbf{Y}\)</span>, for <strong>Z</strong> (which is unknown), and then use that to solve the first equation for <strong>X</strong>. Let’s see it in action using our example. To do so, let’s solve this set of simultaneous equations:</p>
 <p><span class="math display">\[
 \underset{\mathbf{A}}{\begin{bmatrix}
-5 &amp; 1  \\ 
+5 &amp; 1  \\
 -4 &amp; 2  \\
 \end{bmatrix}}\underset{\mathbf{X}}{\begin{bmatrix}
-x_{11}  \\ 
+x_{11}  \\
 x_{21}  \\
 \end{bmatrix}} = \underset{\mathbf{Y}}{\begin{bmatrix}
-1  \\ 
+1  \\
 -3  \\
 \end{bmatrix}}
 \]</span></p>
-<div id="step-1-solve-for-z" class="section level3" number="21.2.1">
-<h3><span class="header-section-number">21.2.1</span> Step 1: Solve for Z</h3>
+<div id="step-1-solve-for-z" class="section level3 hasAnchor" number="21.2.1">
+<h3><span class="header-section-number">21.2.1</span> Step 1: Solve for Z<a href="lu-decompostion.html#step-1-solve-for-z" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math display">\[
 \begin{split}
 \mathbf{L}\mathbf{Z} &amp;= \mathbf{Y} \\[0.5em]
 \begin{bmatrix}
-1 &amp; 0  \\ 
+1 &amp; 0  \\
 -0.8 &amp; 1  \\
 \end{bmatrix}\begin{bmatrix}
-z_{11}  \\ 
+z_{11}  \\
 z_{21}  \\
 \end{bmatrix} &amp;= \begin{bmatrix}
-1  \\ 
+1  \\
 -3  \\
 \end{bmatrix}
 \end{split}
@@ -726,19 +727,19 @@ z_{21}&amp;=-2.2
 \]</span></p>
 <p>We can now use these values of <strong>Z</strong> in the second equation.</p>
 </div>
-<div id="step-2-solve-for-x" class="section level3" number="21.2.2">
-<h3><span class="header-section-number">21.2.2</span> Step 2: Solve for X</h3>
+<div id="step-2-solve-for-x" class="section level3 hasAnchor" number="21.2.2">
+<h3><span class="header-section-number">21.2.2</span> Step 2: Solve for X<a href="lu-decompostion.html#step-2-solve-for-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math display">\[
 \begin{split}
 \mathbf{U}\mathbf{X} &amp;= \mathbf{Z} \\[0.5em]
 \begin{bmatrix}
-5 &amp; 1  \\ 
+5 &amp; 1  \\
 0 &amp; 2.8  \\
 \end{bmatrix} \begin{bmatrix}
-x_{11}  \\ 
+x_{11}  \\
 x_{21}  \\
 \end{bmatrix} &amp;= \begin{bmatrix}
-1  \\ 
+1  \\
 -2.2  \\
 \end{bmatrix}
 \end{split}
@@ -753,27 +754,27 @@ x_{21}  \\
 <p>Again, the triangular matrix makes this really easy to solve these equations for the two elements of <strong>X</strong>. Solving these equations boils down to substituting values from later equations into each of the earlier equations. Hence, this method of solving the equations is referred to as <em>back substitution</em>. After carrying out the algebra,</p>
 <p><span class="math display">\[
 \mathbf{B} \approx\begin{bmatrix}
-0.36  \\ 
+0.36  \\
 -0.79  \\
 \end{bmatrix}
 \]</span></p>
 <p>The exciting thing here is that we have solved for <strong>X</strong> without ever finding the inverse of the <strong>A</strong> matrix! It turns out that this is also a much more computationally efficient method to solve systems of equations. (Even though it maybe didn’t feel like it when we used a <span class="math inline">\(2 \times 2\)</span> matrix.)</p>
 <p><br /></p>
 </div>
-<div id="using-r-to-solve-the-two-equations" class="section level3" number="21.2.3">
-<h3><span class="header-section-number">21.2.3</span> Using R to Solve the Two Equations</h3>
+<div id="using-r-to-solve-the-two-equations" class="section level3 hasAnchor" number="21.2.3">
+<h3><span class="header-section-number">21.2.3</span> Using R to Solve the Two Equations<a href="lu-decompostion.html#using-r-to-solve-the-two-equations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can also use R to solve the two equations, <span class="math inline">\(\mathbf{LZ}=\mathbf{Y}\)</span> and <span class="math inline">\(\mathbf{UX}=\mathbf{Z}\)</span>. The function <code>forwardsolve()</code> (forward substitution) can be used to solve the equation <span class="math inline">\(\mathbf{LZ}=\mathbf{Y}\)</span>, and more generally, any equation where a lower-triangular matrix is being pre-multiplied by a matrix of unknown elements to produce another known matrix. This function takes a lower-triangular matrix as its first argument and the solution matrix as its second argument. The syntax to solve the following equation for the elements of <strong>Z</strong> is given below.</p>
 <p><span class="math display">\[
 \begin{split}
 \mathbf{L}\mathbf{Z} &amp;= \mathbf{Y} \\[0.5em]
 \begin{bmatrix}
-1 &amp; 0  \\ 
+1 &amp; 0  \\
 -0.8 &amp; 1  \\
 \end{bmatrix}\begin{bmatrix}
-z_{11}  \\ 
+z_{11}  \\
 z_{21}  \\
 \end{bmatrix} &amp;= \begin{bmatrix}
-1  \\ 
+1  \\
 -3  \\
 \end{bmatrix}
 \end{split}
@@ -803,13 +804,13 @@ z_{21}  \\
 \begin{split}
 \mathbf{U}\mathbf{X} &amp;= \mathbf{Z} \\[0.5em]
 \begin{bmatrix}
-5 &amp; 1  \\ 
+5 &amp; 1  \\
 0 &amp; 2.8  \\
 \end{bmatrix} \begin{bmatrix}
-x_{11}  \\ 
+x_{11}  \\
 x_{21}  \\
 \end{bmatrix} &amp;= \begin{bmatrix}
-1  \\ 
+1  \\
 -2.2  \\
 \end{bmatrix}
 \end{split}
@@ -841,8 +842,77 @@ x_{21}  \\
 [1,]  0.3571429
 [2,] -0.7857143</code></pre>
 <p><br /></p>
-
 </div>
+</div>
+<div id="application-of-lu-decomposition-in-computing" class="section level2 hasAnchor" number="21.3">
+<h2><span class="header-section-number">21.3</span> Application of LU Decomposition in Computing<a href="lu-decompostion.html#application-of-lu-decomposition-in-computing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>One application of LU decomposition in computing is in the computation of a determinant. The determinant is often computed by taking the product of the elements on the diagonal of both the <strong>L</strong> and <strong>U</strong> matrices. Since LU decomposition is quite efficient, this is a computationally efficient way of computing the determinant. The <code>det()</code> function R, for example, uses this method to compute the determinant. This method, however, can lead to “wrong” results, especially for matrices that have a determinant of 0.</p>
+<p>Consider the following matrix,</p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}
+3 &amp; 2  \\
+1.2 &amp; 0.8  \\
+\end{bmatrix}
+\]</span></p>
+<p>The determinant can be computed as:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{det}(\mathbf{A}) &amp;= 3(0.8) - 1.2(2) \\
+&amp;= 2.4 - 2.4 \\
+&amp;= 0
+\end{split}
+\]</span></p>
+<p>However, if we use the <code>det()</code> function on the matrix, we find:</p>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="lu-decompostion.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb279-2"><a href="lu-decompostion.html#cb279-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb279-3"><a href="lu-decompostion.html#cb279-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="fl">1.2</span>, <span class="dv">2</span>, <span class="fl">0.8</span>),</span>
+<span id="cb279-4"><a href="lu-decompostion.html#cb279-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb279-5"><a href="lu-decompostion.html#cb279-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb279-6"><a href="lu-decompostion.html#cb279-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb279-7"><a href="lu-decompostion.html#cb279-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute determinant</span></span>
+<span id="cb279-8"><a href="lu-decompostion.html#cb279-8" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(A)</span></code></pre></div>
+<pre><code>[1] 3.330669e-16</code></pre>
+<p>While close to 0, the <code>det()</code> function does not return 0.</p>
+<p>This function, as mentioned earlier, computes the determinant by carrying out an LU decomposition using a Fortran routine called LAPACK (Linear Algebra PACKage). This routine is also used in the <code>lu.decomposition()</code> function.</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="lu-decompostion.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use LAPACK routine for LU decomposition</span></span>
+<span id="cb281-2"><a href="lu-decompostion.html#cb281-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lu.decomposition</span>(A)</span></code></pre></div>
+<pre><code>$L
+     [,1] [,2]
+[1,]  1.0    0
+[2,]  0.4    1
+
+$U
+     [,1]         [,2]
+[1,]    3 2.000000e+00
+[2,]    0 1.110223e-16</code></pre>
+<p>Note that the diagonal elements of these matrices are 1, 1, 3, and <span class="math inline">\(1.110223\times 10^{-16}\)</span>. Multiplying these together, we get <span class="math inline">\(3.330669\times 10^{-16}\)</span>, the same result as we got from <code>det()</code>. The routines used to carry out the LU decomposition are computationally approximate, and suffer from the same floating point issues that all computation suffers from. Because of this, the <strong>U</strong> matrix has a diagonal element of <span class="math inline">\(1.110223\times 10^{-16}\)</span> rather than 0.</p>
+<p>Note that using zero in the <strong>U</strong> matrix produces the correct decomposition.</p>
+<p><span class="math display">\[
+\begin{split}
+\underset{\mathbf{A}}{\begin{bmatrix}
+3 &amp; 2  \\
+1.2 &amp; 0.8  \\
+\end{bmatrix}} &amp;= \underset{\mathbf{L}}{\begin{bmatrix}
+1 &amp; 0  \\
+0.4 &amp; 1  \\
+\end{bmatrix}}\underset{\mathbf{U}}{\begin{bmatrix}
+3 &amp; 2  \\
+0 &amp; 0  \\
+\end{bmatrix}}\\[1em]
+\begin{bmatrix}
+5 &amp; 1  \\
+-4 &amp; 2  \\
+\end{bmatrix} &amp;= \begin{bmatrix}
+l_{11} &amp; 0 \\
+l_{21}&amp; l_{22} \\
+\end{bmatrix}\begin{bmatrix}
+u_{11} &amp; u_{12}  \\
+0 &amp; u_{22} \\
+\end{bmatrix}
+\end{split}
+\]</span></p>
+<p><br /></p>
+
 </div>
 </div>
             </section>
@@ -855,7 +925,6 @@ x_{21}  \\
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -895,6 +964,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

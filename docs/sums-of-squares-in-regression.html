@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 28 Sums of Squares in Regression | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 28 Sums of Squares in Regression | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="important-matrices-in-regression.html"/>
 <link rel="next" href="standard-errors-and-variance-estimates.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,12 +479,12 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="sums-of-squares-in-regression" class="section level1" number="28">
-<h1><span class="header-section-number">Chapter 28</span> Sums of Squares in Regression</h1>
+<div id="sums-of-squares-in-regression" class="section level1 hasAnchor" number="28">
+<h1><span class="header-section-number">Chapter 28</span> Sums of Squares in Regression<a href="sums-of-squares-in-regression.html#sums-of-squares-in-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter, you will learn about how matrix algebra is used to compute sum of square terms in regression.</p>
 <p><br /></p>
-<div id="sums-of-squares" class="section level2" number="28.1">
-<h2><span class="header-section-number">28.1</span> Sums of Squares</h2>
+<div id="sums-of-squares" class="section level2 hasAnchor" number="28.1">
+<h2><span class="header-section-number">28.1</span> Sums of Squares<a href="sums-of-squares-in-regression.html#sums-of-squares" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Recall that the regression model can be used to partition the total variation in the outcome into that which is explained by the regression model and that which is not explained by the model. To do this we compute sums of square terms such that:</p>
 <p><span class="math display">\[
 \mathrm{SS}_{\mathrm{Total}} = \mathrm{SS}_{\mathrm{Model}} + \mathrm{SS}_{\mathrm{Residual}}
@@ -506,11 +507,11 @@ div.csl-indent {
 \]</span></p>
 <p>Re-arranging the right-hand side of the equation:</p>
 <p><span class="math display">\[
-\mathbf{y} - \bar{\mathbf{y}} = (\hat{\mathbf{y}}- \bar{\mathbf{y}}) + \mathbf{e} 
+\mathbf{y} - \bar{\mathbf{y}} = (\hat{\mathbf{y}}- \bar{\mathbf{y}}) + \mathbf{e}
 \]</span></p>
 <p>Now remember that the residuals and the fitted values are independent, which means that the vectors are orthogonal and the Pythagorean Theorem applies. That is:</p>
 <p><span class="math display">\[
-(\mathbf{y} - \bar{\mathbf{y}})^2 = (\hat{\mathbf{y}}- \bar{\mathbf{y}})^2 + \mathbf{e}^2 
+(\mathbf{y} - \bar{\mathbf{y}})^2 = (\hat{\mathbf{y}}- \bar{\mathbf{y}})^2 + \mathbf{e}^2
 \]</span></p>
 <p>Since these are vectors, squaring them creates dot products, which are sums. In this case, the sums of squares. That is, in matrix notation:</p>
 <p><span class="math display">\[
@@ -524,8 +525,8 @@ div.csl-indent {
 \end{split}
 \]</span></p>
 <p><br /></p>
-<div id="mean-centering-the-outcome" class="section level3" number="28.1.1">
-<h3><span class="header-section-number">28.1.1</span> Mean Centering the Outcome</h3>
+<div id="mean-centering-the-outcome" class="section level3 hasAnchor" number="28.1.1">
+<h3><span class="header-section-number">28.1.1</span> Mean Centering the Outcome<a href="sums-of-squares-in-regression.html#mean-centering-the-outcome" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If the outcome, <strong>y</strong>, is mean centered—it is a mean deviation vector—then the math is simplified further. In this case, since the mean of a mean centered variable is zero, the quantity <span class="math inline">\(\mathbf{y} - \bar{\mathbf{y}}=\mathbf{y} - \mathbf{0} =\mathbf{y}\)</span>, and the total sum of squares is, simply,</p>
 <p><span class="math display">\[
 \mathrm{SS}_{\mathrm{Total}} = \mathbf{y}^\intercal\mathbf{y}
@@ -541,15 +542,15 @@ Finally, the residual sum of squares is</p>
 <p>This means that for mean centered data,</p>
 <p><span class="math display">\[
 \begin{split}
-\mathrm{SS}_{\mathrm{Total}} &amp;= \mathrm{SS}_{\mathrm{Model}} + \mathrm{SS}_{\mathrm{Residual}} \\[2ex] 
+\mathrm{SS}_{\mathrm{Total}} &amp;= \mathrm{SS}_{\mathrm{Model}} + \mathrm{SS}_{\mathrm{Residual}} \\[2ex]
 \mathbf{y}^\intercal\mathbf{y} &amp;= \hat{\mathbf{y}}^\intercal\hat{\mathbf{y}} + \mathbf{e}^\intercal\mathbf{e}
 \end{split}
 \]</span></p>
 <p><br /></p>
 </div>
 </div>
-<div id="sums-of-squares-as-functions-of-the-data" class="section level2" number="28.2">
-<h2><span class="header-section-number">28.2</span> Sums of Squares as Functions of the Data</h2>
+<div id="sums-of-squares-as-functions-of-the-data" class="section level2 hasAnchor" number="28.2">
+<h2><span class="header-section-number">28.2</span> Sums of Squares as Functions of the Data<a href="sums-of-squares-in-regression.html#sums-of-squares-as-functions-of-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The model and residual sums of squares can also be written as products of the design matrix, <strong>X</strong>, and the vector of outcomes, <strong>y</strong>. To do this, we will make use of the relationships between <span class="math inline">\(\hat{\mathbf{y}}\)</span>, <strong>e</strong>, and the <strong>H</strong>-matrix. Remember that</p>
 <p><span class="math display">\[
 \begin{split}
@@ -622,8 +623,8 @@ We can carry out a similar substitution and reduction to re-write the sum of squ
 \]</span></p>
 <p>And, of course <span class="math inline">\(\mathrm{SS}_{\mathrm{Total}}=\mathbf{y}^\intercal\mathbf{y}\)</span>. Each of the sums of squares is a function of the design matrix or the vector of outcomes. Don’t forget that for these computations, the vector of outcomes needs to be mean-centered!</p>
 <p><br /></p>
-<div id="example-using-r" class="section level3" number="28.2.1">
-<h3><span class="header-section-number">28.2.1</span> Example Using R</h3>
+<div id="example-using-r" class="section level3 hasAnchor" number="28.2.1">
+<h3><span class="header-section-number">28.2.1</span> Example Using R<a href="sums-of-squares-in-regression.html#example-using-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To illustrate these computations, we will again use the following toy data set to fit a regression model using SAT and Self-Esteem to predict variation in GPA.</p>
 <table style="width:60%; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;" class=" lightable-classic">
 <caption>
@@ -760,33 +761,33 @@ IQ
 <li><span class="math inline">\(\mathrm{SS}_{\mathrm{Residual}} = 0.274\)</span></li>
 </ul>
 <p>Using the matrix algebra, we can replicate these values.</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="sums-of-squares-in-regression.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of outcomes</span></span>
-<span id="cb343-2"><a href="sums-of-squares-in-regression.html#cb343-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">3.0</span>, <span class="fl">3.9</span>, <span class="fl">2.9</span>, <span class="fl">2.7</span>, <span class="fl">3.7</span>, <span class="fl">2.4</span>)</span>
-<span id="cb343-3"><a href="sums-of-squares-in-regression.html#cb343-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb343-4"><a href="sums-of-squares-in-regression.html#cb343-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean-center y</span></span>
-<span id="cb343-5"><a href="sums-of-squares-in-regression.html#cb343-5" aria-hidden="true" tabindex="-1"></a>mc_y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
-<span id="cb343-6"><a href="sums-of-squares-in-regression.html#cb343-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb343-7"><a href="sums-of-squares-in-regression.html#cb343-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create design matrix</span></span>
-<span id="cb343-8"><a href="sums-of-squares-in-regression.html#cb343-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb343-9"><a href="sums-of-squares-in-regression.html#cb343-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(</span>
-<span id="cb343-10"><a href="sums-of-squares-in-regression.html#cb343-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>),</span>
-<span id="cb343-11"><a href="sums-of-squares-in-regression.html#cb343-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">560</span>, <span class="dv">780</span>, <span class="dv">620</span>, <span class="dv">600</span>, <span class="dv">720</span>, <span class="dv">380</span>, </span>
-<span id="cb343-12"><a href="sums-of-squares-in-regression.html#cb343-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">13</span></span>
-<span id="cb343-13"><a href="sums-of-squares-in-regression.html#cb343-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb343-14"><a href="sums-of-squares-in-regression.html#cb343-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
-<span id="cb343-15"><a href="sums-of-squares-in-regression.html#cb343-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb343-16"><a href="sums-of-squares-in-regression.html#cb343-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb343-17"><a href="sums-of-squares-in-regression.html#cb343-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb343-18"><a href="sums-of-squares-in-regression.html#cb343-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_total</span></span>
-<span id="cb343-19"><a href="sums-of-squares-in-regression.html#cb343-19" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(mc_y) <span class="sc">%*%</span> mc_y</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="sums-of-squares-in-regression.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of outcomes</span></span>
+<span id="cb347-2"><a href="sums-of-squares-in-regression.html#cb347-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">3.0</span>, <span class="fl">3.9</span>, <span class="fl">2.9</span>, <span class="fl">2.7</span>, <span class="fl">3.7</span>, <span class="fl">2.4</span>)</span>
+<span id="cb347-3"><a href="sums-of-squares-in-regression.html#cb347-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb347-4"><a href="sums-of-squares-in-regression.html#cb347-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean-center y</span></span>
+<span id="cb347-5"><a href="sums-of-squares-in-regression.html#cb347-5" aria-hidden="true" tabindex="-1"></a>mc_y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb347-6"><a href="sums-of-squares-in-regression.html#cb347-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb347-7"><a href="sums-of-squares-in-regression.html#cb347-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create design matrix</span></span>
+<span id="cb347-8"><a href="sums-of-squares-in-regression.html#cb347-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb347-9"><a href="sums-of-squares-in-regression.html#cb347-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(</span>
+<span id="cb347-10"><a href="sums-of-squares-in-regression.html#cb347-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>),</span>
+<span id="cb347-11"><a href="sums-of-squares-in-regression.html#cb347-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">560</span>, <span class="dv">780</span>, <span class="dv">620</span>, <span class="dv">600</span>, <span class="dv">720</span>, <span class="dv">380</span>, </span>
+<span id="cb347-12"><a href="sums-of-squares-in-regression.html#cb347-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">13</span></span>
+<span id="cb347-13"><a href="sums-of-squares-in-regression.html#cb347-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb347-14"><a href="sums-of-squares-in-regression.html#cb347-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb347-15"><a href="sums-of-squares-in-regression.html#cb347-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb347-16"><a href="sums-of-squares-in-regression.html#cb347-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb347-17"><a href="sums-of-squares-in-regression.html#cb347-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb347-18"><a href="sums-of-squares-in-regression.html#cb347-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_total</span></span>
+<span id="cb347-19"><a href="sums-of-squares-in-regression.html#cb347-19" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(mc_y) <span class="sc">%*%</span> mc_y</span></code></pre></div>
 <pre><code>     [,1]
 [1,]  1.7</code></pre>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="sums-of-squares-in-regression.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_model</span></span>
-<span id="cb345-2"><a href="sums-of-squares-in-regression.html#cb345-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="sums-of-squares-in-regression.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_model</span></span>
+<span id="cb349-2"><a href="sums-of-squares-in-regression.html#cb349-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span></code></pre></div>
 <pre><code>      [,1]
 [1,] 1.426</code></pre>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="sums-of-squares-in-regression.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_residuals</span></span>
-<span id="cb347-2"><a href="sums-of-squares-in-regression.html#cb347-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(mc_y) <span class="sc">%*%</span> mc_y <span class="sc">-</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="sums-of-squares-in-regression.html#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_residuals</span></span>
+<span id="cb351-2"><a href="sums-of-squares-in-regression.html#cb351-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(mc_y) <span class="sc">%*%</span> mc_y <span class="sc">-</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span></code></pre></div>
 <pre><code>       [,1]
 [1,] 0.2736</code></pre>
 <p><br /></p>
@@ -804,7 +805,6 @@ IQ
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -844,6 +844,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

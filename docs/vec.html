@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Vectors | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Vectors | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="datastructures.html"/>
 <link rel="next" href="vecop.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,12 +479,12 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="vec" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Vectors</h1>
+<div id="vec" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Vectors<a href="vec.html#vec" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter you will learn more about the vector data structure. You will be introduced to some of the vocabulary that we use to describe vectors. You will also be introduced to the geometry of vectors. It is important to recognize that although the illustration of vector geometry is restricted to 2-dimensional space, all of these ideas can be extended to <em>n</em>-dimensions.</p>
 <p><br /></p>
-<div id="what-is-a-vector" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> What is a Vector?</h2>
+<div id="what-is-a-vector" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> What is a Vector?<a href="vec.html#what-is-a-vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A <em>vector</em> is a specifically ordered one-dimensional array of values written as a row or column. Vectors are typically described by the number of elements they have. Here, for example, <strong>a</strong> is a four-element column vector:</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}
@@ -513,8 +514,8 @@ div.csl-indent {
 <span id="cb7-2"><a href="vec.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(b)</span></code></pre></div>
 <pre><code>[1] 3</code></pre>
 <p><br /></p>
-<div id="transposition" class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Transposition</h3>
+<div id="transposition" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Transposition<a href="vec.html#transposition" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One important vector operation is <em>transposition</em>. Transposition is an operation in which we replace the <em>i</em>th element of a column vector as the <em>i</em>th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. Notationally, we use a superscripted prime or a superscripted <a href="https://unicode-table.com/en/22BA/#:~:text=%E2%8A%BA%20%2D%20Intercalate%3A%20U%2B22BA%20intcal%20%2D%20Unicode%20Character%20Table">intercalate symbol</a> (looks like a “T”) to denote a vector’s transpose. For example, transposing vector <strong>a</strong>, which we defined earlier:</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}
@@ -540,8 +541,8 @@ div.csl-indent {
 <p><br /></p>
 </div>
 </div>
-<div id="general-form-of-a-vector" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> General Form of a Vector</h2>
+<div id="general-form-of-a-vector" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> General Form of a Vector<a href="vec.html#general-form-of-a-vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now that we have introduced transposition, we can formalize the general notation for both column and row vectors. The general form of a column vector with <em>n</em> elements is:</p>
 <p><span class="math display">\[
 \mathbf{x} = \begin{bmatrix}
@@ -557,8 +558,8 @@ x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
 <p>Vectors can also be thought of as a special case of a matrix in one of the dimensions is equal to 1. For example <strong>x</strong> could be considered a <span class="math inline">\(n \times 1\)</span> matrix, and <span class="math inline">\(\mathbf{x}^{\intercal}\)</span> could be considered a <span class="math inline">\(1 \times n\)</span> matrix.</p>
 <p><br /></p>
 </div>
-<div id="the-geometry-of-vectors" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> The Geometry of Vectors</h2>
+<div id="the-geometry-of-vectors" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> The Geometry of Vectors<a href="vec.html#the-geometry-of-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A vector can be represented geometrically by using a coordinate system where each element in the vector corresponds to a distance along one of the reference axes defining the coordinate system. Consider the column vector <strong>a</strong>:</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}
@@ -566,7 +567,7 @@ x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
 \end{bmatrix}
 \]</span></p>
 <p>This vector has a distance of 2 on the first reference axis (R1) and a distance of 3 on the second reference axis (R2).</p>
-<div class="figure" style="text-align: center"><span id="fig:fig01"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig01"></span>
 <img src="matrix-algebra_files/figure-html/fig01-1.png" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space." width="60%" />
 <p class="caption">
 Figure 3.1: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensional space.
@@ -576,11 +577,11 @@ Figure 3.1: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimen
 <p>The reference axes always intersect at the origin of the space (i.e., the reference point <span class="math inline">\((0, 0)\)</span>). Here the reference axes are at right angles to one another, although this is not a requirement. When the reference axes are at right angles to each other, the reference system is referred to as an <em>orthogonal coordinate system</em>.</p>
 <p><br /></p>
 </div>
-<div id="vector-properties" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Vector Properties</h2>
+<div id="vector-properties" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Vector Properties<a href="vec.html#vector-properties" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Geometrically, a vector is displayed as a line segment with an arrowhead at one end of the segment. The end of the vector with the arrowhead is called the <em>head</em> or <em>terminus</em>, and the other end of the vector is called the <em>tail</em> or <em>origin</em>. The head of the vector indicates the direction of the vector.</p>
 <p>All vectors have a direction. They also have a length. These two properties completely define a vector within a given reference system. Note that location of the vector in the reference system is not a property of the vector. For example, the red vector and the blue vector below are identical—they have the same direction and length!</p>
-<div class="figure" style="text-align: center"><span id="fig:fig02"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig02"></span>
 <img src="matrix-algebra_files/figure-html/fig02-1.png" alt="Plot showing two identical vectors (in red and blue) in the R1--R2 dimensional space. They are identical because they have the same length and direction. Location in the reference system is a convenience, not a property of the vector." width="60%" />
 <p class="caption">
 Figure 3.2: Plot showing two identical vectors (in red and blue) in the R1–R2 dimensional space. They are identical because they have the same length and direction. Location in the reference system is a convenience, not a property of the vector.
@@ -590,10 +591,10 @@ Figure 3.2: Plot showing two identical vectors (in red and blue) in the R1–R2 
 <p>Location is a convenience in that we can re-locate any vector within the reference system to make it easier to work with.</p>
 </div>
 <p><br /></p>
-<div id="vector-length" class="section level3" number="3.4.1">
-<h3><span class="header-section-number">3.4.1</span> Vector Length</h3>
+<div id="vector-length" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Vector Length<a href="vec.html#vector-length" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The length of a vector (also referred to as the vector’s <em>magnitude</em> or <em>norm</em>) is the distance from the vector’s tip to tail. In an orthogonal reference system, if we locate the tail of the vector at the origin, multiple right triangles with the vector as hypotenuse can be formed with the reference axes. The <a href="https://en.wikipedia.org/wiki/Pythagorean_theorem">Pythagorean Theorem</a> can then be applied to determine the length of a vector.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig03"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig03"></span>
 <img src="matrix-algebra_files/figure-html/fig03-1.png" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space. This vector is the hypotenuse of a right triangle with legs of length 2 and 3." width="60%" />
 <p class="caption">
 Figure 3.3: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensional space. This vector is the hypotenuse of a right triangle with legs of length 2 and 3.
@@ -628,10 +629,10 @@ Computationally, to compute the length of a vector, we chain together several co
 <pre><code>[1] 3.605551</code></pre>
 <p><br /></p>
 </div>
-<div id="vector-direction" class="section level3" number="3.4.2">
-<h3><span class="header-section-number">3.4.2</span> Vector Direction</h3>
+<div id="vector-direction" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Vector Direction<a href="vec.html#vector-direction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A vector’s direction is often expressed as the measure of the angle between the horizontal reference axis and the vector.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Figure <a href="vec.html#fig:fig04">3.4</a> shows this angle (denoted <span class="math inline">\(\theta\)</span>) for vector <strong>a</strong>.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig04"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig04"></span>
 <img src="matrix-algebra_files/figure-html/fig04-1.png" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the horizontal reference axis and the vector." width="60%" />
 <p class="caption">
 Figure 3.4: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensional space. The direction of this vector is the measure of the angle (<span class="math inline">\(\theta\)</span>) between the horizontal reference axis and the vector.
@@ -653,14 +654,14 @@ Figure 3.4: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimen
 <span id="cb19-2"><a href="vec.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">13</span>)) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code></pre></div>
 <pre><code>[1] 56.30993</code></pre>
 <p>We always measure the angle counter-clockwise to the reference axis. So if we measure the direction associated with the vector <span class="math inline">\(\begin{bmatrix}-2 \\ -2\end{bmatrix}\)</span>, the direction is more than <span class="math inline">\(\pi\)</span> radians (or <span class="math inline">\(180^\circ\)</span>).</p>
-<div class="figure" style="text-align: center"><span id="fig:fig05"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig05"></span>
 <img src="matrix-algebra_files/figure-html/fig05-1.png" alt="Plot showing vector (-2, -2) (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis." width="60%" />
 <p class="caption">
 Figure 3.5: Plot showing vector (-2, -2) (in red) in the R1–R2 dimensional space. The direction of this vector is the measure of the angle (<span class="math inline">\(\theta\)</span>) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis.
 </p>
 </div>
 <p>There are several ways to compute this angle. Remember that when we use the trigonometric functions, we are computing the angle in the right triangle formed by the vector and the reference axes (see Figure <a href="vec.html#fig:fig06">3.6</a>).</p>
-<div class="figure" style="text-align: center"><span id="fig:fig06"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig06"></span>
 <img src="matrix-algebra_files/figure-html/fig06-1.png" alt="Plot showing vector (-2, -2) (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis. Here we have split this angle up into two parts; $\alpha$ can be computed using a trigonometric function, and $\beta = \pi$ radians." width="60%" />
 <p class="caption">
 Figure 3.6: Plot showing vector (-2, -2) (in red) in the R1–R2 dimensional space. The direction of this vector is the measure of the angle (<span class="math inline">\(\theta\)</span>) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis. Here we have split this angle up into two parts; <span class="math inline">\(\alpha\)</span> can be computed using a trigonometric function, and <span class="math inline">\(\beta = \pi\)</span> radians.
@@ -688,8 +689,8 @@ Figure 3.6: Plot showing vector (-2, -2) (in red) in the R1–R2 dimensional spa
 <p><br /></p>
 </div>
 </div>
-<div id="vector-equality" class="section level2" number="3.5">
-<h2><span class="header-section-number">3.5</span> Vector Equality</h2>
+<div id="vector-equality" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Vector Equality<a href="vec.html#vector-equality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Two vectors are said to be equal if they satisfy two conditions:</p>
 <ol style="list-style-type: decimal">
 <li>Both vectors have the same dimensions (i.e., they have the same number of elements and both are row or column vectors);</li>
@@ -714,12 +715,12 @@ Figure 3.6: Plot showing vector (-2, -2) (in red) in the R1–R2 dimensional spa
 <p>Geometrically, two vectors are equal if they have the same length and direction. (Remember, location in the reference coordinate system is not a property of the vectors, so two equal vectors might be in different locations.)</p>
 <p><br /></p>
 </div>
-<div id="special-vectors" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Special Vectors</h2>
+<div id="special-vectors" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Special Vectors<a href="vec.html#special-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are several vectors that are special in that they have unique properties.</p>
 <p><br /></p>
-<div id="zero-vector" class="section level3" number="3.6.1">
-<h3><span class="header-section-number">3.6.1</span> Zero Vector</h3>
+<div id="zero-vector" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Zero Vector<a href="vec.html#zero-vector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One special vector is the <em>zero vector</em>. A zero vector (denoted <strong>0</strong>) is a vector in which every element is 0. For example, the following vector is a zero vector:</p>
 <p><span class="math display">\[
 \mathbf{0} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
@@ -727,14 +728,14 @@ Figure 3.6: Plot showing vector (-2, -2) (in red) in the R1–R2 dimensional spa
 <p>The length of a zero vector is 0. (Convince yourself of this!) Furthermore, since geometrically the head and tail of a zero vector coincide (are at the same location in the reference coordinate system) they have an undefinable direction.</p>
 <p><br /></p>
 </div>
-<div id="ones-vector" class="section level3" number="3.6.2">
-<h3><span class="header-section-number">3.6.2</span> Ones Vector</h3>
+<div id="ones-vector" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Ones Vector<a href="vec.html#ones-vector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Another special vector is referred to as a <em>ones vector</em>. A ones vector is a vector in which every elements is 1. For example, the following vector <strong>1</strong> is a ones vector:</p>
 <p><span class="math display">\[
 \mathbf{1} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
 \]</span></p>
 <p>The length of a ones vector is <span class="math inline">\(\sqrt{n}\)</span>. (Convince yourself of this!) The direction of a ones vector is <span class="math inline">\(45^\circ\)</span> or 0.785 radians since the each element in the vector is equal. For example, locating the tail of a 2-dimensional ones vector at the origin, it would lie on the <span class="math inline">\(R1=R2\)</span> line. Figure <a href="vec.html#fig:fig07">3.7</a> shows a 2-dimensional ones vector with its tail located at the origin.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig07"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig07"></span>
 <img src="matrix-algebra_files/figure-html/fig07-1.png" alt="Plot showing the ones vector (in red) in the R1--R2 dimensional space. The $R1=R2$ line is also displayed. " width="60%" />
 <p class="caption">
 Figure 3.7: Plot showing the ones vector (in red) in the R1–R2 dimensional space. The <span class="math inline">\(R1=R2\)</span> line is also displayed.
@@ -742,8 +743,8 @@ Figure 3.7: Plot showing the ones vector (in red) in the R1–R2 dimensional spa
 </div>
 <p><br /></p>
 </div>
-<div id="unit-vector" class="section level3" number="3.6.3">
-<h3><span class="header-section-number">3.6.3</span> Unit Vector</h3>
+<div id="unit-vector" class="section level3 hasAnchor" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> Unit Vector<a href="vec.html#unit-vector" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Consider the <em>n</em>-element column vector <strong>u</strong>:</p>
 <p><span class="math display">\[
 \mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \\ u_3 \\ \vdots \\ u_n \end{bmatrix}
@@ -753,7 +754,7 @@ Figure 3.7: Plot showing the ones vector (in red) in the R1–R2 dimensional spa
 \mathbf{u}_1 = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix} \qquad \mathbf{u}_2 = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0 \end{bmatrix} \qquad \mathbf{u}_3 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
 \]</span></p>
 <p>Although the length of a unit vector must be 1, the direction is not specified. Thus there are an infinite number of unit vectors. Figure <a href="vec.html#fig:fig08">3.8</a> shows several unit vectors with their tail located at the origin.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig08"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig08"></span>
 <img src="matrix-algebra_files/figure-html/fig08-1.png" alt="Plot showing several unit vectors in the R1--R2 dimensional space. All vector tails have been located at the origin." width="60%" />
 <p class="caption">
 Figure 3.8: Plot showing several unit vectors in the R1–R2 dimensional space. All vector tails have been located at the origin.
@@ -761,14 +762,14 @@ Figure 3.8: Plot showing several unit vectors in the R1–R2 dimensional space. 
 </div>
 <p><br /></p>
 </div>
-<div id="elementary-vectors" class="section level3" number="3.6.4">
-<h3><span class="header-section-number">3.6.4</span> Elementary Vectors</h3>
+<div id="elementary-vectors" class="section level3 hasAnchor" number="3.6.4">
+<h3><span class="header-section-number">3.6.4</span> Elementary Vectors<a href="vec.html#elementary-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>An <em>elementary vector</em> is a vector that has one element that is equal to one and the remainder of its elements equal to 0. For example, each of the 3-element column vectors below are elementary vectors.</p>
 <p><span class="math display">\[
 \mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} \qquad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix} \qquad \mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
 \]</span></p>
 <p>For an <em>n</em>-dimensional vector there are always <em>n</em> elementary vectors. Moreover, every elementary vector is also a unit vector. Geometrically, each elementary vector lies on one of the reference axes. Figure <a href="vec.html#fig:fig09">3.9</a> shows the two elementary vectors (with their tail located at the origin) in our 2-dimensional reference coordinate system.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig09"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig09"></span>
 <img src="matrix-algebra_files/figure-html/fig09-1.png" alt="Plot showing the two elementary vectors in the R1--R2 dimensional space. All vector tails have been located at the origin." width="60%" />
 <p class="caption">
 Figure 3.9: Plot showing the two elementary vectors in the R1–R2 dimensional space. All vector tails have been located at the origin.
@@ -777,8 +778,8 @@ Figure 3.9: Plot showing the two elementary vectors in the R1–R2 dimensional s
 <p><br /></p>
 </div>
 </div>
-<div id="exercises-1" class="section level2 exercises" number="3.7">
-<h2><span class="header-section-number">3.7</span> Exercises</h2>
+<div id="exercises-1" class="section level2 hasAnchor exercises" number="3.7">
+<h2><span class="header-section-number">3.7</span> Exercises<a href="vec.html#exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Create a 2-dimensional orthogonal reference system. Add the following vectors to that system.</strong></p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(\mathbf{x} = \begin{bmatrix}2 \\ -1 \end{bmatrix}\)</span></li>
@@ -967,7 +968,6 @@ Show/Hide Solution
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -1007,6 +1007,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

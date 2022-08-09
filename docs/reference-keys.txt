@@ -169,6 +169,7 @@ solving-systems-of-equations-with-the-lu-decomposition
 step-1-solve-for-z
 step-2-solve-for-x
 using-r-to-solve-the-two-equations
+application-of-lu-decomposition-in-computing
 statistical-application-estimating-regression-coefficients-with-lu-decomposition
 estimating-regression-coefficients-using-lu-decomposition
 cholesky-decompostion
@@ -184,6 +185,7 @@ solving-systems-of-equations-with-spectral-decomposition
 singular-value-decompostion
 svd-using-r
 important-matrices-in-regression
+design-matrix
 vector-of-fitted-values
 the-h-matrix-hat-matrix
 vector-of-residuals

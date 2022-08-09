@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 29 Standard Errors and Variance Estimates | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 29 Standard Errors and Variance Estimates | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="sums-of-squares-in-regression.html"/>
 <link rel="next" href="assumptions-of-the-regression-model.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,8 +479,8 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="standard-errors-and-variance-estimates" class="section level1" number="29">
-<h1><span class="header-section-number">Chapter 29</span> Standard Errors and Variance Estimates</h1>
+<div id="standard-errors-and-variance-estimates" class="section level1 hasAnchor" number="29">
+<h1><span class="header-section-number">Chapter 29</span> Standard Errors and Variance Estimates<a href="standard-errors-and-variance-estimates.html#standard-errors-and-variance-estimates" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter, you will learn about how matrix algebra is used to compute standard errors and variance estimates in regression. These allow us to compute confidence intervals and carry out hypothesis tests.</p>
 <p>To illustrate computations, we will again use the following toy data set to fit a regression model using SAT and Self-Esteem to predict variation in GPA.</p>
 <table style="width:60%; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;" class=" lightable-classic">
@@ -611,8 +612,8 @@ IQ
 </tbody>
 </table>
 <p><br /></p>
-<div id="residual-variance-of-the-model" class="section level2" number="29.1">
-<h2><span class="header-section-number">29.1</span> Residual Variance of the Model</h2>
+<div id="residual-variance-of-the-model" class="section level2 hasAnchor" number="29.1">
+<h2><span class="header-section-number">29.1</span> Residual Variance of the Model<a href="standard-errors-and-variance-estimates.html#residual-variance-of-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Recall that the estimate of the residual variance (i.e., mean squared residuals) for the model is</p>
 <p><span class="math display">\[
 \hat\sigma^2_{\epsilon} = \frac{\mathrm{SS}_{\mathrm{Residuals}}}{\mathrm{df}_{\mathrm{Residuals}}}
@@ -626,43 +627,43 @@ IQ
 \hat\sigma^2_{\epsilon} = \frac{\mathbf{e}^\intercal\mathbf{e}}{n - \mathrm{tr}(\mathbf{H})}
 \]</span></p>
 <p>Using our toy example,</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="standard-errors-and-variance-estimates.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of outcomes</span></span>
-<span id="cb349-2"><a href="standard-errors-and-variance-estimates.html#cb349-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">3.0</span>, <span class="fl">3.9</span>, <span class="fl">2.9</span>, <span class="fl">2.7</span>, <span class="fl">3.7</span>, <span class="fl">2.4</span>)</span>
-<span id="cb349-3"><a href="standard-errors-and-variance-estimates.html#cb349-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb349-4"><a href="standard-errors-and-variance-estimates.html#cb349-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create design matrix</span></span>
-<span id="cb349-5"><a href="standard-errors-and-variance-estimates.html#cb349-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb349-6"><a href="standard-errors-and-variance-estimates.html#cb349-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(</span>
-<span id="cb349-7"><a href="standard-errors-and-variance-estimates.html#cb349-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>),</span>
-<span id="cb349-8"><a href="standard-errors-and-variance-estimates.html#cb349-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">560</span>, <span class="dv">780</span>, <span class="dv">620</span>, <span class="dv">600</span>, <span class="dv">720</span>, <span class="dv">380</span>, </span>
-<span id="cb349-9"><a href="standard-errors-and-variance-estimates.html#cb349-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">13</span></span>
-<span id="cb349-10"><a href="standard-errors-and-variance-estimates.html#cb349-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb349-11"><a href="standard-errors-and-variance-estimates.html#cb349-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
-<span id="cb349-12"><a href="standard-errors-and-variance-estimates.html#cb349-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb349-13"><a href="standard-errors-and-variance-estimates.html#cb349-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb349-14"><a href="standard-errors-and-variance-estimates.html#cb349-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_residual</span></span>
-<span id="cb349-15"><a href="standard-errors-and-variance-estimates.html#cb349-15" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
-<span id="cb349-16"><a href="standard-errors-and-variance-estimates.html#cb349-16" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> y <span class="sc">-</span> X <span class="sc">%*%</span> b</span>
-<span id="cb349-17"><a href="standard-errors-and-variance-estimates.html#cb349-17" aria-hidden="true" tabindex="-1"></a>ss_resid <span class="ot">=</span> <span class="fu">t</span>(e) <span class="sc">%*%</span> e</span>
-<span id="cb349-18"><a href="standard-errors-and-variance-estimates.html#cb349-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb349-19"><a href="standard-errors-and-variance-estimates.html#cb349-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute df_residual</span></span>
-<span id="cb349-20"><a href="standard-errors-and-variance-estimates.html#cb349-20" aria-hidden="true" tabindex="-1"></a>H <span class="ot">=</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
-<span id="cb349-21"><a href="standard-errors-and-variance-estimates.html#cb349-21" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">diag</span>(H))</span>
-<span id="cb349-22"><a href="standard-errors-and-variance-estimates.html#cb349-22" aria-hidden="true" tabindex="-1"></a>df_resid <span class="ot">=</span> <span class="dv">6</span> <span class="sc">-</span> k</span>
-<span id="cb349-23"><a href="standard-errors-and-variance-estimates.html#cb349-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb349-24"><a href="standard-errors-and-variance-estimates.html#cb349-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute estimate of error variance</span></span>
-<span id="cb349-25"><a href="standard-errors-and-variance-estimates.html#cb349-25" aria-hidden="true" tabindex="-1"></a>var_e <span class="ot">=</span> ss_resid <span class="sc">/</span> df_resid</span>
-<span id="cb349-26"><a href="standard-errors-and-variance-estimates.html#cb349-26" aria-hidden="true" tabindex="-1"></a>var_e</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="standard-errors-and-variance-estimates.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of outcomes</span></span>
+<span id="cb353-2"><a href="standard-errors-and-variance-estimates.html#cb353-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">3.0</span>, <span class="fl">3.9</span>, <span class="fl">2.9</span>, <span class="fl">2.7</span>, <span class="fl">3.7</span>, <span class="fl">2.4</span>)</span>
+<span id="cb353-3"><a href="standard-errors-and-variance-estimates.html#cb353-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-4"><a href="standard-errors-and-variance-estimates.html#cb353-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create design matrix</span></span>
+<span id="cb353-5"><a href="standard-errors-and-variance-estimates.html#cb353-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb353-6"><a href="standard-errors-and-variance-estimates.html#cb353-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(</span>
+<span id="cb353-7"><a href="standard-errors-and-variance-estimates.html#cb353-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>),</span>
+<span id="cb353-8"><a href="standard-errors-and-variance-estimates.html#cb353-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">560</span>, <span class="dv">780</span>, <span class="dv">620</span>, <span class="dv">600</span>, <span class="dv">720</span>, <span class="dv">380</span>, </span>
+<span id="cb353-9"><a href="standard-errors-and-variance-estimates.html#cb353-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">13</span></span>
+<span id="cb353-10"><a href="standard-errors-and-variance-estimates.html#cb353-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb353-11"><a href="standard-errors-and-variance-estimates.html#cb353-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb353-12"><a href="standard-errors-and-variance-estimates.html#cb353-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb353-13"><a href="standard-errors-and-variance-estimates.html#cb353-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-14"><a href="standard-errors-and-variance-estimates.html#cb353-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_residual</span></span>
+<span id="cb353-15"><a href="standard-errors-and-variance-estimates.html#cb353-15" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb353-16"><a href="standard-errors-and-variance-estimates.html#cb353-16" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> y <span class="sc">-</span> X <span class="sc">%*%</span> b</span>
+<span id="cb353-17"><a href="standard-errors-and-variance-estimates.html#cb353-17" aria-hidden="true" tabindex="-1"></a>ss_resid <span class="ot">=</span> <span class="fu">t</span>(e) <span class="sc">%*%</span> e</span>
+<span id="cb353-18"><a href="standard-errors-and-variance-estimates.html#cb353-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-19"><a href="standard-errors-and-variance-estimates.html#cb353-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute df_residual</span></span>
+<span id="cb353-20"><a href="standard-errors-and-variance-estimates.html#cb353-20" aria-hidden="true" tabindex="-1"></a>H <span class="ot">=</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb353-21"><a href="standard-errors-and-variance-estimates.html#cb353-21" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">diag</span>(H))</span>
+<span id="cb353-22"><a href="standard-errors-and-variance-estimates.html#cb353-22" aria-hidden="true" tabindex="-1"></a>df_resid <span class="ot">=</span> <span class="dv">6</span> <span class="sc">-</span> k</span>
+<span id="cb353-23"><a href="standard-errors-and-variance-estimates.html#cb353-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb353-24"><a href="standard-errors-and-variance-estimates.html#cb353-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute estimate of error variance</span></span>
+<span id="cb353-25"><a href="standard-errors-and-variance-estimates.html#cb353-25" aria-hidden="true" tabindex="-1"></a>var_e <span class="ot">=</span> ss_resid <span class="sc">/</span> df_resid</span>
+<span id="cb353-26"><a href="standard-errors-and-variance-estimates.html#cb353-26" aria-hidden="true" tabindex="-1"></a>var_e</span></code></pre></div>
 <pre><code>       [,1]
 [1,] 0.0912</code></pre>
 <p>If we take the sqaure root of this estimate, that gives us the <em>residual standard error</em> (RSE) of the model, a.k.a., the <em>root mean square error</em> (RMSE).</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="standard-errors-and-variance-estimates.html#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find RSE/RMSE</span></span>
-<span id="cb351-2"><a href="standard-errors-and-variance-estimates.html#cb351-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(var_e)</span></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="standard-errors-and-variance-estimates.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find RSE/RMSE</span></span>
+<span id="cb355-2"><a href="standard-errors-and-variance-estimates.html#cb355-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(var_e)</span></code></pre></div>
 <pre><code>      [,1]
 [1,] 0.302</code></pre>
 <p><br /></p>
 </div>
-<div id="coefficient-variances-and-covariances" class="section level2" number="29.2">
-<h2><span class="header-section-number">29.2</span> Coefficient Variances and Covariances</h2>
+<div id="coefficient-variances-and-covariances" class="section level2 hasAnchor" number="29.2">
+<h2><span class="header-section-number">29.2</span> Coefficient Variances and Covariances<a href="standard-errors-and-variance-estimates.html#coefficient-variances-and-covariances" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In matrix applications, it is typical to indicate the error variances and covariances for the coefficients in a <em>variance–covariance matrix</em>. In this matrix the error variances for each of the coefficients is given along the main diagonal of the matrix. The covariances between the coefficients are given in the off-diagonal elements. For example, the variance–covariance matrix for a simple regression model is:</p>
 <p><span class="math display">\[
 \boldsymbol{\sigma^2_B} = \begin{bmatrix}\mathrm{Var}(b_0) &amp; \mathrm{Cov}(b_0,b_1) \\ \mathrm{Cov}(b_0,b_1)  &amp; \mathrm{Var}(b_1) \end{bmatrix}
@@ -673,9 +674,9 @@ IQ
 \]</span></p>
 <!-- Based on this formula, we see that the variance of the estimator increases when the error term is more noisy ($\sigma^2_{\epsilon}$ increases). However, it decreases when the variation in **X** increases.^[Convince yourself of this.] This is because having more observations, allows for more accurate estimation of the coefficients. These also affect the size of the covariance terms on the off-diagonal. -->
 <p>In our toy example,</p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="standard-errors-and-variance-estimates.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance-covariance matrix of the coefficients</span></span>
-<span id="cb353-2"><a href="standard-errors-and-variance-estimates.html#cb353-2" aria-hidden="true" tabindex="-1"></a>V_b <span class="ot">=</span> <span class="fu">as.numeric</span>(var_e) <span class="sc">*</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
-<span id="cb353-3"><a href="standard-errors-and-variance-estimates.html#cb353-3" aria-hidden="true" tabindex="-1"></a>V_b</span></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="standard-errors-and-variance-estimates.html#cb357-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance-covariance matrix of the coefficients</span></span>
+<span id="cb357-2"><a href="standard-errors-and-variance-estimates.html#cb357-2" aria-hidden="true" tabindex="-1"></a>V_b <span class="ot">=</span> <span class="fu">as.numeric</span>(var_e) <span class="sc">*</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
+<span id="cb357-3"><a href="standard-errors-and-variance-estimates.html#cb357-3" aria-hidden="true" tabindex="-1"></a>V_b</span></code></pre></div>
 <pre><code>           [,1]       [,2]       [,3]
 [1,]  0.4741276 -5.504e-04 -9.477e-03
 [2,] -0.0005504  9.501e-07 -2.246e-06
@@ -693,34 +694,34 @@ IQ
 <li><span class="math inline">\(\mathrm{Cov}(\hat\beta_{\mathrm{SAT}},\hat\beta_{\mathrm{Self\mbox{-}Esteem}}) = -0.0000022\)</span></li>
 </ul>
 <p>In practice, the variance-covariance matrix of the regression coefficients can be obtained directly from R using the <code>vcov()</code> function.</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="standard-errors-and-variance-estimates.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model</span></span>
-<span id="cb355-2"><a href="standard-errors-and-variance-estimates.html#cb355-2" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> X[ , <span class="dv">2</span>] <span class="sc">+</span> X[ , <span class="dv">3</span>])</span>
-<span id="cb355-3"><a href="standard-errors-and-variance-estimates.html#cb355-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb355-4"><a href="standard-errors-and-variance-estimates.html#cb355-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain variance-covariance matrix of the coefficients</span></span>
-<span id="cb355-5"><a href="standard-errors-and-variance-estimates.html#cb355-5" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(lm<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="standard-errors-and-variance-estimates.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model</span></span>
+<span id="cb359-2"><a href="standard-errors-and-variance-estimates.html#cb359-2" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> X[ , <span class="dv">2</span>] <span class="sc">+</span> X[ , <span class="dv">3</span>])</span>
+<span id="cb359-3"><a href="standard-errors-and-variance-estimates.html#cb359-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb359-4"><a href="standard-errors-and-variance-estimates.html#cb359-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain variance-covariance matrix of the coefficients</span></span>
+<span id="cb359-5"><a href="standard-errors-and-variance-estimates.html#cb359-5" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(lm<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>            (Intercept)     X[, 2]     X[, 3]
 (Intercept)   0.4741276 -5.504e-04 -9.477e-03
 X[, 2]       -0.0005504  9.501e-07 -2.246e-06
 X[, 3]       -0.0094769 -2.246e-06  8.344e-04</code></pre>
 <p><br /></p>
 </div>
-<div id="standard-errors-for-the-coefficients" class="section level2" number="29.3">
-<h2><span class="header-section-number">29.3</span> Standard Errors for the Coefficients</h2>
+<div id="standard-errors-for-the-coefficients" class="section level2 hasAnchor" number="29.3">
+<h2><span class="header-section-number">29.3</span> Standard Errors for the Coefficients<a href="standard-errors-and-variance-estimates.html#standard-errors-for-the-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>While the variances are mathematically convenient, in applied work, the standard errors (SEs) of the coefficients are more commonly presented. Recall that the standard errors are given in the same metric as the coefficient estimates, and represent the uncertainty in that estimate. They are also used to construct test statistics (e.g., <em>z</em> or <em>t</em>) and confidence intervals for the estimates. The estimated standard error for each regression coefficient can be found by computing the square root of the variance estimates, that is:</p>
 <p><span class="math display">\[
 \mathrm{SE}(\beta_j) = \sqrt{\mathrm{Var}(\beta_j)}
 \]</span></p>
 <p>Thus, we can find the standard errors by computing the square roots of the diagonal elements in the variance–covariance matrix of the coefficients.</p>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="standard-errors-and-variance-estimates.html#cb357-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SEs</span></span>
-<span id="cb357-2"><a href="standard-errors-and-variance-estimates.html#cb357-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(V_b))</span>
-<span id="cb357-3"><a href="standard-errors-and-variance-estimates.html#cb357-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb357-4"><a href="standard-errors-and-variance-estimates.html#cb357-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View SEs</span></span>
-<span id="cb357-5"><a href="standard-errors-and-variance-estimates.html#cb357-5" aria-hidden="true" tabindex="-1"></a>se</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="standard-errors-and-variance-estimates.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SEs</span></span>
+<span id="cb361-2"><a href="standard-errors-and-variance-estimates.html#cb361-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(V_b))</span>
+<span id="cb361-3"><a href="standard-errors-and-variance-estimates.html#cb361-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb361-4"><a href="standard-errors-and-variance-estimates.html#cb361-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View SEs</span></span>
+<span id="cb361-5"><a href="standard-errors-and-variance-estimates.html#cb361-5" aria-hidden="true" tabindex="-1"></a>se</span></code></pre></div>
 <pre><code>[1] 0.6885692 0.0009747 0.0288855</code></pre>
 <p><br /></p>
 </div>
-<div id="correlation-between-the-coefficients" class="section level2" number="29.4">
-<h2><span class="header-section-number">29.4</span> Correlation Between the Coefficients</h2>
+<div id="correlation-between-the-coefficients" class="section level2 hasAnchor" number="29.4">
+<h2><span class="header-section-number">29.4</span> Correlation Between the Coefficients<a href="standard-errors-and-variance-estimates.html#correlation-between-the-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Recall that correlation, which is a standardized covariance, is often times more interpretable than the covariance. We can obtain the correlation coefficient between two coefficients, <span class="math inline">\(\hat\beta_j\)</span> and <span class="math inline">\(\hat\beta_k\)</span>, using</p>
 <p><span class="math display">\[
 \mathrm{Cor}(b_j,b_k) = \frac{\mathrm{Cov}(b_j,b_k)}{\sqrt{\mathrm{Var}(b_j)\times \mathrm{Var}(b_k)}}
@@ -734,24 +735,24 @@ X[, 3]       -0.0094769 -2.246e-06  8.344e-04</code></pre>
 \end{split}
 \]</span></p>
 <p>In R, if we have assigned the variance-covariance matrix to an object, we can use indexing to access the different elements to compute the correlation.</p>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="standard-errors-and-variance-estimates.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation between b_0 and b_SAT</span></span>
-<span id="cb359-2"><a href="standard-errors-and-variance-estimates.html#cb359-2" aria-hidden="true" tabindex="-1"></a>V_b[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(V_b[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">*</span> V_b[<span class="dv">2</span>, <span class="dv">2</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="standard-errors-and-variance-estimates.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation between b_0 and b_SAT</span></span>
+<span id="cb363-2"><a href="standard-errors-and-variance-estimates.html#cb363-2" aria-hidden="true" tabindex="-1"></a>V_b[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(V_b[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">*</span> V_b[<span class="dv">2</span>, <span class="dv">2</span>])</span></code></pre></div>
 <pre><code>[1] -0.82</code></pre>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="standard-errors-and-variance-estimates.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation between b_0 and b_selfesteem</span></span>
-<span id="cb361-2"><a href="standard-errors-and-variance-estimates.html#cb361-2" aria-hidden="true" tabindex="-1"></a>V_b[<span class="dv">1</span>, <span class="dv">3</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(V_b[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">*</span> V_b[<span class="dv">3</span>, <span class="dv">3</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="standard-errors-and-variance-estimates.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation between b_0 and b_selfesteem</span></span>
+<span id="cb365-2"><a href="standard-errors-and-variance-estimates.html#cb365-2" aria-hidden="true" tabindex="-1"></a>V_b[<span class="dv">1</span>, <span class="dv">3</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(V_b[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">*</span> V_b[<span class="dv">3</span>, <span class="dv">3</span>])</span></code></pre></div>
 <pre><code>[1] -0.4765</code></pre>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="standard-errors-and-variance-estimates.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation between b_SAT and b_selfesteem</span></span>
-<span id="cb363-2"><a href="standard-errors-and-variance-estimates.html#cb363-2" aria-hidden="true" tabindex="-1"></a>V_b[<span class="dv">2</span>, <span class="dv">3</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(V_b[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">*</span> V_b[<span class="dv">3</span>, <span class="dv">3</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="standard-errors-and-variance-estimates.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation between b_SAT and b_selfesteem</span></span>
+<span id="cb367-2"><a href="standard-errors-and-variance-estimates.html#cb367-2" aria-hidden="true" tabindex="-1"></a>V_b[<span class="dv">2</span>, <span class="dv">3</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(V_b[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">*</span> V_b[<span class="dv">3</span>, <span class="dv">3</span>])</span></code></pre></div>
 <pre><code>[1] -0.07976</code></pre>
 <p>The correlations indicates that the intercept is highly, negatively correlated with both the other coefficients. Whereas the effects of SAT and self-esteem seem to be mostly uncorrelated (i.e., independent).</p>
 <!-- How can one set of regression coefficients have a correlation? You have to remember the thought experiments about repeated sampling from a population that we talked about in EPsy 8251/8252. The estimated correlation gives the *expected correlation* of the regression coefficients across multiple random samples. In our example, it is telling you that if you did the experiment again and it so happened that the intercept was smaller, it is likely that the slope coefficient would be larger. -->
 <p><br /></p>
 </div>
-<div id="inference-model-level" class="section level2" number="29.5">
-<h2><span class="header-section-number">29.5</span> Inference: Model-Level</h2>
+<div id="inference-model-level" class="section level2 hasAnchor" number="29.5">
+<h2><span class="header-section-number">29.5</span> Inference: Model-Level<a href="standard-errors-and-variance-estimates.html#inference-model-level" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The model-level (i.e., omnibus) null hypothesis for the regression model</p>
 <p><span class="math display">\[
-Y_i = \beta_0 + \beta_1(X_{1_i}) + \beta_2(X_{2_i}) + \beta_3(X_{3_i}) + \ldots + \beta_k(X_{k_i}) + \epsilon_i 
+Y_i = \beta_0 + \beta_1(X_{1_i}) + \beta_2(X_{2_i}) + \beta_3(X_{3_i}) + \ldots + \beta_k(X_{k_i}) + \epsilon_i
 \]</span></p>
 <p>is commonly expressed as:</p>
 <p><span class="math display">\[
@@ -762,32 +763,32 @@ H_0: \beta_1 = \beta_2 = \beta_3 = \ldots = \beta_k = 0
 H_0: \boldsymbol{\beta} = 0
 \]</span></p>
 <p>Note that the we can express the vector of coefficients as either a column vector (<span class="math inline">\(\boldsymbol{\beta}\)</span>) or as a row vector (<span class="math inline">\(\boldsymbol{\beta}^\intercal\)</span>). To test this we compute an <em>F</em>-statistic based on the ratio of the mean square for the model and that for the residuals. This is evaluted in an <em>F</em>-distribution having <span class="math inline">\(k-1\)</span> and <span class="math inline">\(n-k\)</span> degrees of freedom. (See <a href="https://zief0002.github.io/modeling/modinf.html#modinf">here</a> for a reminder about the model-level test.) Using our toy-example:</p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="standard-errors-and-variance-estimates.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute MS_model</span></span>
-<span id="cb365-2"><a href="standard-errors-and-variance-estimates.html#cb365-2" aria-hidden="true" tabindex="-1"></a>mc_y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y) <span class="co"># Mean-center y</span></span>
-<span id="cb365-3"><a href="standard-errors-and-variance-estimates.html#cb365-3" aria-hidden="true" tabindex="-1"></a>ss_model <span class="ot">=</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span>
-<span id="cb365-4"><a href="standard-errors-and-variance-estimates.html#cb365-4" aria-hidden="true" tabindex="-1"></a>ms_model <span class="ot">=</span> ss_model <span class="sc">/</span> (k <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb365-5"><a href="standard-errors-and-variance-estimates.html#cb365-5" aria-hidden="true" tabindex="-1"></a>ms_model</span></code></pre></div>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="standard-errors-and-variance-estimates.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute MS_model</span></span>
+<span id="cb369-2"><a href="standard-errors-and-variance-estimates.html#cb369-2" aria-hidden="true" tabindex="-1"></a>mc_y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y) <span class="co"># Mean-center y</span></span>
+<span id="cb369-3"><a href="standard-errors-and-variance-estimates.html#cb369-3" aria-hidden="true" tabindex="-1"></a>ss_model <span class="ot">=</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span>
+<span id="cb369-4"><a href="standard-errors-and-variance-estimates.html#cb369-4" aria-hidden="true" tabindex="-1"></a>ms_model <span class="ot">=</span> ss_model <span class="sc">/</span> (k <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb369-5"><a href="standard-errors-and-variance-estimates.html#cb369-5" aria-hidden="true" tabindex="-1"></a>ms_model</span></code></pre></div>
 <pre><code>       [,1]
 [1,] 0.7132</code></pre>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="standard-errors-and-variance-estimates.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute MS_residual</span></span>
-<span id="cb367-2"><a href="standard-errors-and-variance-estimates.html#cb367-2" aria-hidden="true" tabindex="-1"></a>ss_resid <span class="ot">=</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> mc_y <span class="sc">-</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span>
-<span id="cb367-3"><a href="standard-errors-and-variance-estimates.html#cb367-3" aria-hidden="true" tabindex="-1"></a>ms_resid <span class="ot">=</span> ss_resid <span class="sc">/</span> (<span class="dv">6</span> <span class="sc">-</span> k)</span>
-<span id="cb367-4"><a href="standard-errors-and-variance-estimates.html#cb367-4" aria-hidden="true" tabindex="-1"></a>ms_resid</span></code></pre></div>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="standard-errors-and-variance-estimates.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute MS_residual</span></span>
+<span id="cb371-2"><a href="standard-errors-and-variance-estimates.html#cb371-2" aria-hidden="true" tabindex="-1"></a>ss_resid <span class="ot">=</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> mc_y <span class="sc">-</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span>
+<span id="cb371-3"><a href="standard-errors-and-variance-estimates.html#cb371-3" aria-hidden="true" tabindex="-1"></a>ms_resid <span class="ot">=</span> ss_resid <span class="sc">/</span> (<span class="dv">6</span> <span class="sc">-</span> k)</span>
+<span id="cb371-4"><a href="standard-errors-and-variance-estimates.html#cb371-4" aria-hidden="true" tabindex="-1"></a>ms_resid</span></code></pre></div>
 <pre><code>       [,1]
 [1,] 0.0912</code></pre>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="standard-errors-and-variance-estimates.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute F</span></span>
-<span id="cb369-2"><a href="standard-errors-and-variance-estimates.html#cb369-2" aria-hidden="true" tabindex="-1"></a>F_stat <span class="ot">=</span> ms_model <span class="sc">/</span> ms_resid</span>
-<span id="cb369-3"><a href="standard-errors-and-variance-estimates.html#cb369-3" aria-hidden="true" tabindex="-1"></a>F_stat</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="standard-errors-and-variance-estimates.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute F</span></span>
+<span id="cb373-2"><a href="standard-errors-and-variance-estimates.html#cb373-2" aria-hidden="true" tabindex="-1"></a>F_stat <span class="ot">=</span> ms_model <span class="sc">/</span> ms_resid</span>
+<span id="cb373-3"><a href="standard-errors-and-variance-estimates.html#cb373-3" aria-hidden="true" tabindex="-1"></a>F_stat</span></code></pre></div>
 <pre><code>     [,1]
 [1,] 7.82</code></pre>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="standard-errors-and-variance-estimates.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
-<span id="cb371-2"><a href="standard-errors-and-variance-estimates.html#cb371-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F_stat, <span class="at">df1 =</span> (k<span class="dv">-1</span>), <span class="at">df2 =</span> (<span class="dv">6</span><span class="sc">-</span>k))</span></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="standard-errors-and-variance-estimates.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
+<span id="cb375-2"><a href="standard-errors-and-variance-estimates.html#cb375-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F_stat, <span class="at">df1 =</span> (k<span class="dv">-1</span>), <span class="at">df2 =</span> (<span class="dv">6</span><span class="sc">-</span>k))</span></code></pre></div>
 <pre><code>        [,1]
 [1,] 0.06456</code></pre>
 <p><br /></p>
 </div>
-<div id="inference-coefficient-level" class="section level2" number="29.6">
-<h2><span class="header-section-number">29.6</span> Inference: Coefficient-Level</h2>
+<div id="inference-coefficient-level" class="section level2 hasAnchor" number="29.6">
+<h2><span class="header-section-number">29.6</span> Inference: Coefficient-Level<a href="standard-errors-and-variance-estimates.html#inference-coefficient-level" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The coefficient-level null hypotheses for the regression model are:</p>
 <p><span class="math display">\[
 \begin{split}
@@ -795,15 +796,15 @@ H_0: \beta_j = 0
 \end{split}
 \]</span></p>
 <p>for each <em>j</em>. To test this we compute a <em>t</em>-statistic based on the ratio of the coefficent estimate and that its associated standard error. This is evaluted in a <em>t</em>-distribution having <span class="math inline">\(n-k\)</span> degrees of freedom. (See <a href="https://zief0002.github.io/modeling/coefinf.html#coefinf">here</a> for a reminder about the coefficient-level tests.) Using our toy-example:</p>
-<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="standard-errors-and-variance-estimates.html#cb373-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute t for all three coefficients</span></span>
-<span id="cb373-2"><a href="standard-errors-and-variance-estimates.html#cb373-2" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">=</span> b <span class="sc">/</span> se</span>
-<span id="cb373-3"><a href="standard-errors-and-variance-estimates.html#cb373-3" aria-hidden="true" tabindex="-1"></a>t_stat</span></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="standard-errors-and-variance-estimates.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute t for all three coefficients</span></span>
+<span id="cb377-2"><a href="standard-errors-and-variance-estimates.html#cb377-2" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">=</span> b <span class="sc">/</span> se</span>
+<span id="cb377-3"><a href="standard-errors-and-variance-estimates.html#cb377-3" aria-hidden="true" tabindex="-1"></a>t_stat</span></code></pre></div>
 <pre><code>       [,1]
 [1,] 0.9574
 [2,] 3.9041
 [3,] 0.3180</code></pre>
-<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="standard-errors-and-variance-estimates.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
-<span id="cb375-2"><a href="standard-errors-and-variance-estimates.html#cb375-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_stat), <span class="at">df =</span> (<span class="dv">6</span><span class="sc">-</span>k), <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="standard-errors-and-variance-estimates.html#cb379-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
+<span id="cb379-2"><a href="standard-errors-and-variance-estimates.html#cb379-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_stat), <span class="at">df =</span> (<span class="dv">6</span><span class="sc">-</span>k), <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>        [,1]
 [1,] 0.40901
 [2,] 0.02984
@@ -813,17 +814,17 @@ H_0: \beta_j = 0
 B_j \pm t^*(\mathrm{SE}_{B_j})
 \]</span></p>
 <p>where <span class="math inline">\(B_j\)</span> is the jth coefficient, <span class="math inline">\(\mathrm{SE}_{B_j}\)</span> is the standard error associated with that coefficient, and <span class="math inline">\(t^*\)</span> is the appropriate critical value. Using our toy example,</p>
-<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="standard-errors-and-variance-estimates.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain critical value for 95% CI</span></span>
-<span id="cb377-2"><a href="standard-errors-and-variance-estimates.html#cb377-2" aria-hidden="true" tabindex="-1"></a>t_star <span class="ot">=</span> <span class="fu">abs</span>(<span class="fu">qt</span>(.<span class="dv">025</span>, <span class="at">df =</span> (<span class="dv">6</span><span class="sc">-</span>k)))</span>
-<span id="cb377-3"><a href="standard-errors-and-variance-estimates.html#cb377-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb377-4"><a href="standard-errors-and-variance-estimates.html#cb377-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute lower limit of CI</span></span>
-<span id="cb377-5"><a href="standard-errors-and-variance-estimates.html#cb377-5" aria-hidden="true" tabindex="-1"></a>b <span class="sc">-</span> t_star<span class="sc">*</span>se</span></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="standard-errors-and-variance-estimates.html#cb381-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain critical value for 95% CI</span></span>
+<span id="cb381-2"><a href="standard-errors-and-variance-estimates.html#cb381-2" aria-hidden="true" tabindex="-1"></a>t_star <span class="ot">=</span> <span class="fu">abs</span>(<span class="fu">qt</span>(.<span class="dv">025</span>, <span class="at">df =</span> (<span class="dv">6</span><span class="sc">-</span>k)))</span>
+<span id="cb381-3"><a href="standard-errors-and-variance-estimates.html#cb381-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb381-4"><a href="standard-errors-and-variance-estimates.html#cb381-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute lower limit of CI</span></span>
+<span id="cb381-5"><a href="standard-errors-and-variance-estimates.html#cb381-5" aria-hidden="true" tabindex="-1"></a>b <span class="sc">-</span> t_star<span class="sc">*</span>se</span></code></pre></div>
 <pre><code>           [,1]
 [1,] -1.5321211
 [2,]  0.0007035
 [3,] -0.0827395</code></pre>
-<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="standard-errors-and-variance-estimates.html#cb379-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute upper limit of CI</span></span>
-<span id="cb379-2"><a href="standard-errors-and-variance-estimates.html#cb379-2" aria-hidden="true" tabindex="-1"></a>b <span class="sc">+</span> t_star<span class="sc">*</span>se</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="standard-errors-and-variance-estimates.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute upper limit of CI</span></span>
+<span id="cb383-2"><a href="standard-errors-and-variance-estimates.html#cb383-2" aria-hidden="true" tabindex="-1"></a>b <span class="sc">+</span> t_star<span class="sc">*</span>se</span></code></pre></div>
 <pre><code>         [,1]
 [1,] 2.850548
 [2,] 0.006908
@@ -843,7 +844,6 @@ B_j \pm t^*(\mathrm{SE}_{B_j})
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -883,6 +883,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

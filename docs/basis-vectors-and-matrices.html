@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 16 Basis Vectors and Matrices | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 16 Basis Vectors and Matrices | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="statistical-application-sscp-variancecovariance-and-correlation-matrices.html"/>
 <link rel="next" href="quadratic-form-of-a-matrix.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,12 +479,12 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="basis-vectors-and-matrices" class="section level1" number="16">
-<h1><span class="header-section-number">Chapter 16</span> Basis Vectors and Matrices</h1>
+<div id="basis-vectors-and-matrices" class="section level1 hasAnchor" number="16">
+<h1><span class="header-section-number">Chapter 16</span> Basis Vectors and Matrices<a href="basis-vectors-and-matrices.html#basis-vectors-and-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter, you will learn about basis vectors and basis matrices and how they are used to define the dimensionality of a coordinate space. You will also learn how to transition to different coordinate systems by changing the basis vectors.</p>
 <p><br /></p>
-<div id="an-example" class="section level2" number="16.1">
-<h2><span class="header-section-number">16.1</span> An Example</h2>
+<div id="an-example" class="section level2 hasAnchor" number="16.1">
+<h2><span class="header-section-number">16.1</span> An Example<a href="basis-vectors-and-matrices.html#an-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In the chapter <a href="">Vectors</a>, we learned that a vector could be represented in a coordinate system where each element in the vector corresponds to a distance along one of the reference axes defining the coordinate system. For example, the vector:</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}
@@ -491,7 +492,7 @@ div.csl-indent {
 \end{bmatrix}
 \]</span></p>
 <p>has a distance of <span class="math inline">\(-3\)</span> on the first reference axis (R1) and a distance of 4 on the second reference axis (R2). This vector and the reference axes are shown in Figure <a href="basis-vectors-and-matrices.html#fig:fig14-1">16.1</a>. The reference axes (R1 and R2) define a two-dimensional coordinate space.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig14-1"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig14-1"></span>
 <img src="figs/fig-14-01.png" alt="Plot showing vector **a** (in teal) in the R1--R2 dimensional space." width="60%" />
 <p class="caption">
 Figure 16.1: Plot showing vector <strong>a</strong> (in teal) in the R1–R2 dimensional space.
@@ -504,7 +505,7 @@ Figure 16.1: Plot showing vector <strong>a</strong> (in teal) in the R1–R2 dim
 1 \\ 0
 \end{bmatrix} \qquad\mathbf{e}_2 = \begin{bmatrix}
 0 \\ 1
-\end{bmatrix} 
+\end{bmatrix}
 \]</span></p>
 <p>Here the two basis vectors are orthogonal and have unit length. We refer to vectors that have these properties as <em>orthonormal</em>.</p>
 <p>We can represent any vector in the space as a linear combination of a set of scalars and the basis vectors. For example consider the vector:</p>
@@ -531,18 +532,18 @@ Figure 16.1: Plot showing vector <strong>a</strong> (in teal) in the R1–R2 dim
 <p>where <span class="math inline">\(\mathbf{e}_i\)</span> is the <em>i</em>th orthonormal basis vector.</p>
 <p><br /></p>
 </div>
-<div id="changing-basis-vectors" class="section level2" number="16.2">
-<h2><span class="header-section-number">16.2</span> Changing Basis Vectors</h2>
+<div id="changing-basis-vectors" class="section level2 hasAnchor" number="16.2">
+<h2><span class="header-section-number">16.2</span> Changing Basis Vectors<a href="basis-vectors-and-matrices.html#changing-basis-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There is nothing sacred about the Cartesian coordinate system. We could also define the two-dimensional space using a different set of orthonormal basis vectors. For example consider the basis vectors:</p>
 <p><span class="math display">\[
 \mathbf{b}_1 = \begin{bmatrix}
 \frac{\sqrt{2}}{2} \\ -\frac{\sqrt{2}}{2}
 \end{bmatrix} \qquad\mathbf{b}_2 = \begin{bmatrix}
 \frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2}
-\end{bmatrix} 
+\end{bmatrix}
 \]</span></p>
 <p>These basis vectors still are orthonormal—they are orthogonal and their length is one. However, they are not elementary vectors. Not all orthonormal vectors are elementary vectors. R1 and R2 are still defined as the spans of these vectors, but now the vector <strong>a</strong> (which had the coordinates <span class="math inline">\(-3, 4\)</span> in the system defined by the standard basis) has a different set of coordinates in the new basis. We can see this in <a href="basis-vectors-and-matrices.html#fig:fig14-2">16.2</a>.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig14-2"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig14-2"></span>
 <img src="figs/fig-14-01.png" alt="Plot showing vector **a** (in teal) in the R1--R2 dimensional space with basis vectors **b1** and **b2**." width="60%" />
 <p class="caption">
 Figure 16.2: Plot showing vector <strong>a</strong> (in teal) in the R1–R2 dimensional space with basis vectors <strong>b1</strong> and <strong>b2</strong>.
@@ -562,7 +563,7 @@ Figure 16.2: Plot showing vector <strong>a</strong> (in teal) in the R1–R2 dim
 \frac{\sqrt{2}}{2} \\ -\frac{\sqrt{2}}{2}
 \end{bmatrix} + a_2\begin{bmatrix}
 \frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2}
-\end{bmatrix} 
+\end{bmatrix}
 \end{split}
 \]</span></p>
 <p>Then, since <strong>a</strong> has coordinates (<span class="math inline">\(-3,4\)</span>) in the standard system, we can re-write this as:</p>
@@ -598,18 +599,18 @@ Now we need to solve for the values of <span class="math inline">\(a_1\)</span> 
 [1,] -4.9497475
 [2,]  0.7071068</code></pre>
 <p><br /></p>
-<div id="non-orthonormal-basis" class="section level3" number="16.2.1">
-<h3><span class="header-section-number">16.2.1</span> Non-Orthonormal Basis</h3>
+<div id="non-orthonormal-basis" class="section level3 hasAnchor" number="16.2.1">
+<h3><span class="header-section-number">16.2.1</span> Non-Orthonormal Basis<a href="basis-vectors-and-matrices.html#non-orthonormal-basis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There is no specification that the basis vectors need to be orthogonal, or have length of one. For example consider the basis vectors:</p>
 <p><span class="math display">\[
 \mathbf{b}_1 = \begin{bmatrix}
 \frac{\sqrt{2}}{2} \\ \frac{\sqrt{2}}{2}
 \end{bmatrix} \qquad\mathbf{b}_2 = \begin{bmatrix}
 1.8 \\ 0.2
-\end{bmatrix} 
+\end{bmatrix}
 \]</span></p>
 <p>Here the basis vectors are no longer orthogonal. We refer to non-orthogonal vectors as <em>oblique</em>. The second basis vector also has a length which is no longer one. In this basis, the vector <strong>a</strong> (which had the coordinates <span class="math inline">\(-3, 4\)</span> in the system defined by the standard basis) has yet a different set of coordinates; seen in <a href="basis-vectors-and-matrices.html#fig:fig14-3">16.3</a>.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig14-3"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig14-3"></span>
 <img src="figs/fig-14-03.png" alt="Plot showing vector **a** (in teal) in the R1--R2 dimensional space with the oblique basis vectors **b1** and **b2**." width="60%" />
 <p class="caption">
 Figure 16.3: Plot showing vector <strong>a</strong> (in teal) in the R1–R2 dimensional space with the oblique basis vectors <strong>b1</strong> and <strong>b2</strong>.
@@ -647,8 +648,8 @@ Figure 16.3: Plot showing vector <strong>a</strong> (in teal) in the R1–R2 dim
 <p><br /></p>
 </div>
 </div>
-<div id="converting-non-standard-coordinates-to-the-standard-basis" class="section level2" number="16.3">
-<h2><span class="header-section-number">16.3</span> Converting Non-Standard Coordinates to the Standard Basis</h2>
+<div id="converting-non-standard-coordinates-to-the-standard-basis" class="section level2 hasAnchor" number="16.3">
+<h2><span class="header-section-number">16.3</span> Converting Non-Standard Coordinates to the Standard Basis<a href="basis-vectors-and-matrices.html#converting-non-standard-coordinates-to-the-standard-basis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can, given a set of coordinates for a vector in a non-standard basis system, transform this to the coordinates of a vector in the standrd basis system. For example, consider the vector <strong>a</strong>, which has coordinates defined in the basis given by <strong>B</strong>:</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}3 \\ 2\end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}
@@ -656,7 +657,7 @@ Figure 16.3: Plot showing vector <strong>a</strong> (in teal) in the R1–R2 dim
 \end{bmatrix}
 \]</span></p>
 <p>What are the coordinates of this vector in the standard basis system? <a href="basis-vectors-and-matrices.html#fig:fig14-3">16.3</a> shows this graphically.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig14-4"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig14-4"></span>
 <img src="figs/fig-14-04.png" alt="Plot showing vector **a** (in teal) in the R1--R2 non-standard basis defined by **b1** and **b2**. The coordinates in the standard basis are found by determining the projection onto the span of the standard basis vectors (i.e., the R1 and R2 axes in the standard basis)." width="60%" />
 <p class="caption">
 Figure 16.4: Plot showing vector <strong>a</strong> (in teal) in the R1–R2 non-standard basis defined by <strong>b1</strong> and <strong>b2</strong>. The coordinates in the standard basis are found by determining the projection onto the span of the standard basis vectors (i.e., the R1 and R2 axes in the standard basis).
@@ -690,8 +691,8 @@ Figure 16.4: Plot showing vector <strong>a</strong> (in teal) in the R1–R2 non
 \]</span></p>
 <p><br /></p>
 </div>
-<div id="final-thoughts" class="section level2" number="16.4">
-<h2><span class="header-section-number">16.4</span> Final Thoughts</h2>
+<div id="final-thoughts" class="section level2 hasAnchor" number="16.4">
+<h2><span class="header-section-number">16.4</span> Final Thoughts<a href="basis-vectors-and-matrices.html#final-thoughts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Although we have been working in two dimensions so it is easier to show these ideas visually, basis vectors and matrices can, of course, be expanded to define coordinate systems in higher dimensions. For example, to define the standard three-dimensional space, we use the following basis vectors:</p>
 <p><span class="math display">\[
 \mathbf{e}_1 = \begin{bmatrix}
@@ -742,7 +743,6 @@ where <strong>y</strong> and <strong>x</strong> are vectors and <strong>B</stron
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -782,6 +782,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

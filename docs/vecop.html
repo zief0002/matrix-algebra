@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Vector Operations | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Vector Operations | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="vec.html"/>
 <link rel="next" href="vector-geometry-angles-projection-and-decomposition.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,12 +479,12 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="vecop" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Vector Operations</h1>
+<div id="vecop" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Vector Operations<a href="vecop.html#vecop" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter you will learn about some of the common arithmetic operations (addition, subtraction, and multiplication) that can be performed with vectors. As in the previous chapter, you will also be introduced to the geometry of these vector operations in 2-dimensional space.</p>
 <p><br /></p>
-<div id="vector-addition-and-subtraction" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Vector Addition and Subtraction</h2>
+<div id="vector-addition-and-subtraction" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Vector Addition and Subtraction<a href="vecop.html#vector-addition-and-subtraction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Vectors can be added together if they have the same dimensions (i.e., they have the same number of elements and are both row or column vectors). To add two vectors, each of length <em>n</em>, together, we sum the corresponding elements in the vectors. For example, consider the column vectors <strong>a</strong> and <strong>b</strong>, where,</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}5 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 3\end{bmatrix}
@@ -505,8 +506,8 @@ div.csl-indent {
 \]</span></p>
 <p>This process is similar for summing two <em>n</em>-dimensional row vectors, except the resulting vector will be an <em>n</em>-dimensional row vector.</p>
 <p><br /></p>
-<div id="geometry-of-adding-vectors" class="section level3" number="4.1.1">
-<h3><span class="header-section-number">4.1.1</span> Geometry of Adding Vectors</h3>
+<div id="geometry-of-adding-vectors" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Geometry of Adding Vectors<a href="vecop.html#geometry-of-adding-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Geometrically, adding two vectors, say <strong>a</strong> and <strong>b</strong>, is equivalent to drawing vector <strong>b</strong> so that its tail is placed at the head of vector <strong>a</strong>. Then the sum is the new vector that originates at vector <strong>a</strong>’s tail and terminates at vector <strong>b</strong>’s head. Figure <a href="vecop.html#fig:fig04-01">4.1</a> geometrically shows the sum of the following vectors:</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}
@@ -517,7 +518,7 @@ div.csl-indent {
 6 \\ 5
 \end{bmatrix}
 \]</span></p>
-<div class="figure" style="text-align: center"><span id="fig:fig04-01"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig04-01"></span>
 <img src="matrix-algebra_files/figure-html/fig04-01-1.png" alt="Plot showing the sum of vector **a** (in red) and vector **b** (in blue) in the R1--R2 dimensional space. For convenience we have located the tail of vector **a** at the origin. The vector that corresponds to the sum of **a** and **b** is shown in purple." width="60%" />
 <p class="caption">
 Figure 4.1: Plot showing the sum of vector <strong>a</strong> (in red) and vector <strong>b</strong> (in blue) in the R1–R2 dimensional space. For convenience we have located the tail of vector <strong>a</strong> at the origin. The vector that corresponds to the sum of <strong>a</strong> and <strong>b</strong> is shown in purple.
@@ -525,8 +526,8 @@ Figure 4.1: Plot showing the sum of vector <strong>a</strong> (in red) and vecto
 </div>
 <p><br /></p>
 </div>
-<div id="vector-subtraction" class="section level3" number="4.1.2">
-<h3><span class="header-section-number">4.1.2</span> Vector Subtraction</h3>
+<div id="vector-subtraction" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Vector Subtraction<a href="vecop.html#vector-subtraction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To subtract vector <strong>b</strong> from vector <strong>a</strong>, we subtract the corresponding elements in vector <strong>b</strong> from those in vector <strong>a</strong>. For example, working with our previously defined vectors,</p>
 <p><span class="math display">\[
 \begin{split}
@@ -555,7 +556,7 @@ Since subtraction is equivalent to adding the inverse, subtracting the elements 
 \end{split}
 \]</span></p>
 <p>Figure <a href="vecop.html#fig:fig04-02">4.2</a> geometrically shows the operation of vector subtraction by adding the inverse of <strong>b</strong> to <strong>a</strong>.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig04-02"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig04-02"></span>
 <img src="matrix-algebra_files/figure-html/fig04-02-1.png" alt="Plot showing the sum of vector **a** (in red) and the inverted vector **b** (in blue) in the R1--R2 dimensional space. For convenience we have located the tail of vector **a** at the origin. The vector that corresponds to the difference of **a** and **b** is shown in purple." width="60%" />
 <p class="caption">
 Figure 4.2: Plot showing the sum of vector <strong>a</strong> (in red) and the inverted vector <strong>b</strong> (in blue) in the R1–R2 dimensional space. For convenience we have located the tail of vector <strong>a</strong> at the origin. The vector that corresponds to the difference of <strong>a</strong> and <strong>b</strong> is shown in purple.
@@ -563,8 +564,8 @@ Figure 4.2: Plot showing the sum of vector <strong>a</strong> (in red) and the i
 </div>
 <p><br /></p>
 </div>
-<div id="properties-of-vector-addition-and-subtraction" class="section level3" number="4.1.3">
-<h3><span class="header-section-number">4.1.3</span> Properties of Vector Addition and Subtraction</h3>
+<div id="properties-of-vector-addition-and-subtraction" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> Properties of Vector Addition and Subtraction<a href="vecop.html#properties-of-vector-addition-and-subtraction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In vector addition, since each corresponding element is added, vector addition satisfies both the commutative and associative properties. That is,</p>
 <p><span class="math display">\[
 \mathbf{a} + \mathbf{b} = \mathbf{b} + \mathbf{a}
@@ -584,8 +585,8 @@ Figure 4.2: Plot showing the sum of vector <strong>a</strong> (in red) and the i
 <p><br /></p>
 </div>
 </div>
-<div id="vectorscalar-multiplication" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Vector–Scalar Multiplication</h2>
+<div id="vectorscalar-multiplication" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Vector–Scalar Multiplication<a href="vecop.html#vectorscalar-multiplication" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When a vector is multiplied by a scalar, each element of the vector is multiplied by the value of the scalar. Consider the following vector <strong>a</strong> and scalar <span class="math inline">\(\lambda\)</span>,</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \qquad \lambda=3
@@ -603,8 +604,8 @@ Figure 4.2: Plot showing the sum of vector <strong>a</strong> (in red) and the i
 \gamma\mathbf{a} = \begin{bmatrix}2\gamma \\ 3\gamma \\ 0 \\ -1\gamma\end{bmatrix}
 \]</span></p>
 <p><br /></p>
-<div id="division-by-a-scalar" class="section level3" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> Division by a Scalar</h3>
+<div id="division-by-a-scalar" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Division by a Scalar<a href="vecop.html#division-by-a-scalar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Technically, division is undefined for vectors. However, if we are dividing by a scalar, we can multiply the vector by the scalar’s reciprocal. For example, using our previously defined vector <strong>a</strong> and scalar <span class="math inline">\(\lambda\)</span>,</p>
 <p><span class="math display">\[
 \mathbf{a} \div \lambda \quad \mathrm{does~not~exist}
@@ -619,8 +620,8 @@ Figure 4.2: Plot showing the sum of vector <strong>a</strong> (in red) and the i
 \]</span></p>
 <p><br /></p>
 </div>
-<div id="geometry-of-vectorscalar-multiplication" class="section level3" number="4.2.2">
-<h3><span class="header-section-number">4.2.2</span> Geometry of Vector–Scalar Multiplication</h3>
+<div id="geometry-of-vectorscalar-multiplication" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Geometry of Vector–Scalar Multiplication<a href="vecop.html#geometry-of-vectorscalar-multiplication" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Consider the product <span class="math inline">\(\lambda \mathbf{a}\)</span> where,</p>
 <p><span class="math display">\[
 \lambda = 2 \quad \mathrm{and} \quad \mathbf{a} = \begin{bmatrix}
@@ -634,14 +635,14 @@ Figure 4.2: Plot showing the sum of vector <strong>a</strong> (in red) and the i
 \end{bmatrix}
 \]</span></p>
 <p>To show what happens geometrically when we multiply a vector by a scalar, let’s examine a plot of the original vector and the product.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig04-03"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig04-03"></span>
 <img src="matrix-algebra_files/figure-html/fig04-03-1.png" alt="LEFT: Plot showing vector **a** in the R1--R2 dimensional space. RIGHT: Plot showing vector 2(**a**) in the R1--R2 dimensional space. For convenience we have located the tail of both vectors at the origin." width="90%" />
 <p class="caption">
 Figure 4.3: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensional space. RIGHT: Plot showing vector 2(<strong>a</strong>) in the R1–R2 dimensional space. For convenience we have located the tail of both vectors at the origin.
 </p>
 </div>
 <p>Multiplying vector <strong>a</strong> by 2 doubled its length. However the direction of the new vector is the same as the original. In general, multiplying a vector by a positive scalar changes the length of a vector but not the direction. If it is multiplied by a negative scalar, not only does the length of the resulting vector change, but its direction is <span class="math inline">\(180^\circ\)</span> from the original. For example, Figure <a href="vecop.html#fig:fig04-04">4.4</a> shows vector <strong>a</strong> and the vector <span class="math inline">\(\lambda \mathbf{a}\)</span> where <span class="math inline">\(\lambda = -0.5\)</span>.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig04-04"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig04-04"></span>
 <img src="matrix-algebra_files/figure-html/fig04-04-1.png" alt="LEFT: Plot showing vector **a** in the R1--R2 dimensional space. RIGHT: Plot showing vector -0.5(**a**) in the R1--R2 dimensional space. For convenience we have located the tail of both vectors at the origin." width="90%" />
 <p class="caption">
 Figure 4.4: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensional space. RIGHT: Plot showing vector -0.5(<strong>a</strong>) in the R1–R2 dimensional space. For convenience we have located the tail of both vectors at the origin.
@@ -651,8 +652,8 @@ Figure 4.4: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensio
 <p><br /></p>
 </div>
 </div>
-<div id="vectorvector-multiplication-dot-product" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Vector–Vector Multiplication: Dot Product</h2>
+<div id="vectorvector-multiplication-dot-product" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Vector–Vector Multiplication: Dot Product<a href="vecop.html#vectorvector-multiplication-dot-product" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>For two column vectors, <strong>a</strong> and <strong>b</strong> each having <em>n</em> elements, the dot product (i.e., scalar product) is defined as:</p>
 <p><span class="math display">\[
 \mathbf{a} \bullet \mathbf{b} = \sum_{i=1}^n a_ib_i
@@ -670,8 +671,8 @@ Figure 4.4: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensio
 \]</span></p>
 <p>Remember that the result of a dot product is a scalar.</p>
 <p><br /></p>
-<div id="re-visiting-vector-length" class="section level3" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Re-visiting Vector Length</h3>
+<div id="re-visiting-vector-length" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Re-visiting Vector Length<a href="vecop.html#re-visiting-vector-length" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Recall that to find the length of a vector <strong>a</strong> with <em>n</em>-dimensions:</p>
 <p><span class="math display">\[
 \lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2 + a_3^2 + \ldots + a_n^2}
@@ -682,8 +683,8 @@ Figure 4.4: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensio
 \]</span></p>
 <p><br /></p>
 </div>
-<div id="dot-products-using-the-special-vectors" class="section level3" number="4.3.2">
-<h3><span class="header-section-number">4.3.2</span> Dot Products Using the Special Vectors</h3>
+<div id="dot-products-using-the-special-vectors" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Dot Products Using the Special Vectors<a href="vecop.html#dot-products-using-the-special-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In the <a href="vec.html#vec">previous chapter</a> we introduced several special vectors, including zero vectors, ones vectors, and elementary vectors. It is useful to explore what happens when one of these special vectors is used to calculate an dot product.</p>
 <p>Consider finding the dot product between an <em>n</em>-dimensional vector <strong>a</strong> and an <em>n</em>-dimensional zero vector <strong>0</strong>:</p>
 <p><span class="math display">\[
@@ -741,8 +742,8 @@ Figure 4.4: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensio
 <p><br /></p>
 </div>
 </div>
-<div id="vector-operations-using-r" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Vector Operations Using R</h2>
+<div id="vector-operations-using-r" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Vector Operations Using R<a href="vecop.html#vector-operations-using-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can also carry out these vector operations using R. Below we show how to carry out the operations of vector addition and vector subtraction.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="vecop.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors</span></span>
 <span id="cb27-2"><a href="vecop.html#cb27-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
@@ -819,8 +820,8 @@ Figure 4.4: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensio
 <pre><code>[1] 9.69536</code></pre>
 <p><br /></p>
 </div>
-<div id="exercises-2" class="section level2 exercises" number="4.5">
-<h2><span class="header-section-number">4.5</span> Exercises</h2>
+<div id="exercises-2" class="section level2 hasAnchor exercises" number="4.5">
+<h2><span class="header-section-number">4.5</span> Exercises<a href="vecop.html#exercises-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Consider the following vectors:</strong></p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}1 \\ 2 \\ 4 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}2 \\ 1 \\ -1\end{bmatrix} \qquad \mathbf{c} = \begin{bmatrix}5 \\ 2 \\ 3 \end{bmatrix} \qquad \mathbf{d} = \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \qquad \mathbf{e} = \begin{bmatrix}1 \\ 3 \\ 2 \end{bmatrix}
@@ -937,7 +938,6 @@ Show/Hide Solution
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -977,6 +977,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

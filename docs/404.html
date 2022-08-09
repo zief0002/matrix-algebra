@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 19 Statistical Appplication: Estimating Regression Coefficients | Matrix Algebra for Educational Scientists</title>
+  <title>Page not found | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
   <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 19 Statistical Appplication: Estimating Regression Coefficients | Matrix Algebra for Educational Scientists" />
+  <meta property="og:title" content="Page not found | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 19 Statistical Appplication: Estimating Regression Coefficients | Matrix Algebra for Educational Scientists" />
+  <meta name="twitter:title" content="Page not found | Matrix Algebra for Educational Scientists" />
   
   <meta name="twitter:description" content="Matrix algebra content for QME students" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="systems-of-equations.html"/>
-<link rel="next" href="introduction-to-matrix-decompostion.html"/>
+
+
 <script src="libs/jquery/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -479,342 +479,19 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="statistical-appplication-estimating-regression-coefficients" class="section level1 hasAnchor" number="19">
-<h1><span class="header-section-number">Chapter 19</span> Statistical Appplication: Estimating Regression Coefficients<a href="statistical-appplication-estimating-regression-coefficients.html#statistical-appplication-estimating-regression-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>In this chapter, you will learn about how matrix algebra is used to compute regression coefficients.</p>
-<p><br /></p>
-<div id="regression-model" class="section level2 hasAnchor" number="19.1">
-<h2><span class="header-section-number">19.1</span> Regression Model<a href="statistical-appplication-estimating-regression-coefficients.html#regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Recall the model equation we use in linear regression:</p>
-<p><span class="math display">\[
-Y_i = \beta_0 + \beta_1(X_{1_i}) + \beta_2(X_{2_i}) + \ldots + \beta_k(X_{k_i}) + \epsilon_i
-\]</span></p>
-<p>where the response variable (<em>Y</em>) is represented as a linear function of the set of predictors <span class="math inline">\(X_1,X_2,\ldots,X_k\)</span>) and a residual (<span class="math inline">\(\epsilon\)</span>). Equation terms with an <em>i</em> subscript vary across subjects. Terms without an <em>i</em> subscript are the same (fixed) across subjects.</p>
-<p>Recall that this notation is a mathematical expression of the <em>n</em> subject-specific equations:</p>
-<p><span class="math display">\[
-\begin{split}
-Y_1 &amp;= \beta_0 + \beta_1(X_{1_1}) + \beta_2(X_{2_1}) + \ldots + \beta_k(X_{k_1}) + \epsilon_1 \\
-Y_2 &amp;= \beta_0 + \beta_1(X_{1_2}) + \beta_2(X_{2_2}) + \ldots + \beta_k(X_{k_2}) + \epsilon_2 \\
-Y_3 &amp;= \beta_0 + \beta_1(X_{1_3}) + \beta_2(X_{2_3}) + \ldots + \beta_k(X_{k_3}) + \epsilon_3 \\
-\vdots &amp;~ ~~~~~\vdots ~~~~~~~~~~\vdots~~~~~~~~~~~~~~~~~~~\vdots~~~~~~~~~~~~~~\vdots~~~~~~~~~~~~~\vdots~~~~~~~~~~~\vdots  \\
-Y_n &amp;= \beta_0 + \beta_1(X_{1_n}) + \beta_2(X_{2_n}) + \ldots + \beta_k(X_{k_n}) + \epsilon_n
-\end{split}
-\]</span></p>
-<p>These can be arranged into a set of vectors and matrices,</p>
-<p><span class="math display">\[
-\begin{bmatrix}Y_1 \\ Y_2 \\ Y_3 \\ \vdots \\ Y_n\end{bmatrix} = \begin{bmatrix}\beta_0(1) + \beta_1(X_{1_1}) + \beta_2(X_{2_1}) + \ldots + \beta_k(X_{k_1}) \\ \beta_0(1) + \beta_1(X_{1_2}) + \beta_2(X_{2_2}) + \ldots + \beta_k(X_{k_2}) \\ \beta_0(1) + \beta_1(X_{1_3}) + \beta_2(X_{2_3}) + \ldots + \beta_k(X_{k_3}) \\ \vdots \\ \beta_0(1) + \beta_1(X_{1_n}) + \beta_2(X_{2_n}) + \ldots + \beta_k(X_{k_n})\end{bmatrix} + \begin{bmatrix}\epsilon_1 \\ \epsilon_2 \\ \epsilon_3 \\ \vdots \\ \epsilon_n\end{bmatrix}
-\]</span></p>
-<p>We can re-write this as,</p>
-<p><span class="math display">\[
-\begin{bmatrix}Y_1 \\ Y_2 \\ Y_3 \\ \vdots \\ Y_n\end{bmatrix} = \begin{bmatrix}1 &amp; X_{1_1} &amp; X_{2_1} &amp; \ldots &amp; X_{k_1} \\ 1 &amp; X_{1_2} &amp; X_{2_2} &amp; \ldots &amp; X_{k_2} \\ 1 &amp; X_{1_3} &amp; X_{2_3} &amp; \ldots &amp; X_{k_3} \\ \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\ 1 &amp; X_{1_n} &amp; X_{2_n} &amp; \ldots &amp; X_{k_n}\end{bmatrix} \begin{bmatrix}\beta_0 \\ \beta_1 \\\beta_2 \\ \vdots \\ \beta_k\end{bmatrix}+ \begin{bmatrix}\epsilon_1 \\ \epsilon_2 \\ \epsilon_3 \\ \vdots \\ \epsilon_n\end{bmatrix}
-\]</span></p>
-<p>Naming these vectors and matrices, we can use matrix notation to compactly write the regression model as,</p>
-<p><span class="math display">\[
-\underset{n \times 1}{\mathbf{y}} = \underset{n \times k}{\mathbf{X}}~\underset{k \times 1}{\mathbf{b}} + \underset{n \times 1}{\mathbf{e}}
-\]</span></p>
-<p>In the equation above,</p>
-<ul>
-<li><strong>y</strong> is a vector of the outcome values,</li>
-<li><strong>X</strong> is a matrix referred to the <em>design matrix</em> (a.k.a., the <em>model matrix</em>, the <em>data matrix</em>),</li>
-<li><strong>b</strong> is a vector of regression coefficients, and</li>
-<li><strong>e</strong> is a vector of the residuals.</li>
-</ul>
-<p><br /></p>
-</div>
-<div id="estimating-the-regression-coefficients" class="section level2 hasAnchor" number="19.2">
-<h2><span class="header-section-number">19.2</span> Estimating the Regression Coefficients<a href="statistical-appplication-estimating-regression-coefficients.html#estimating-the-regression-coefficients" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>When we fit a regression model to a dataset, one of the goals is to estimate the regression coefficients, <span class="math inline">\(\beta_0, \beta_1, \beta_2,\ldots,\beta_k\)</span>. Based on the regression equation,</p>
-<p><span class="math display">\[
-\mathbf{Y} = \mathbf{Xb} + \boldsymbol{\epsilon}
-\]</span></p>
-<p>our goal is to solve for terms in the <strong>b</strong> vector. (Note that here (and moving forward) the dimensions of each matrix/vector have been omitted when we write the regression model.) How this is done, depends on the estimation method used. For the rest of this chapter, we will assume that Ordinary Least Squares (OLS) regression is being used to estimate the coefficients.</p>
-<p>In OLS estimation, we want to find the coefficient values that produce the smallest sum of squared residuals. To do this, we first re-write the regression equation to isolate the error vector:</p>
-<p><span class="math display">\[
-\mathbf{e} = \mathbf{y} - \mathbf{Xb}
-\]</span></p>
-<p>The sum of squared residual can be expressed in matrix notation as <span class="math inline">\(\mathbf{e}^{\intercal}\mathbf{e}\)</span>. This implies:</p>
-<p><span class="math display">\[
-\mathbf{e}^{\intercal}\mathbf{e} = (\mathbf{y} - \mathbf{Xb})^{\intercal} (\mathbf{y} - \mathbf{Xb})
-\]</span></p>
-<p>Using the rules of transposes and expanding the right-hand side, we get,</p>
-<p><span class="math display">\[
-\mathbf{y}^{\intercal}\mathbf{y} - \mathbf{b}^{\intercal}\mathbf{X}^{\intercal}\mathbf{y} - \mathbf{y}^{\intercal}\mathbf{X}\mathbf{b} + \mathbf{b}^{\intercal}\mathbf{X}^{\intercal}\mathbf{X}\mathbf{b}
-\]</span></p>
-<p>Each of these terms is a <span class="math inline">\(1\times 1\)</span> matrix<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>, which implies that each term is equal to its transpose. We will re-write the third term <span class="math inline">\(\mathbf{y}^{\intercal}\mathbf{X}\mathbf{b}\)</span> as its transpose <span class="math inline">\(\mathbf{b}^{\intercal}\mathbf{X}^{\intercal}\mathbf{y}\)</span>. Re-writing, we get:</p>
-<p><span class="math display">\[
-\mathbf{y}^{\intercal}\mathbf{y} - \mathbf{b}^{\intercal}\mathbf{X}^{\intercal}\mathbf{y} - \mathbf{b}^{\intercal}\mathbf{X}^{\intercal}\mathbf{y} + \mathbf{b}^{\intercal}\mathbf{X}^{\intercal}\mathbf{X}\mathbf{b}
-\]</span></p>
-<p>Combining the two middle terms,</p>
-<p><span class="math display">\[
-\mathbf{y}^{\intercal}\mathbf{y} - 2\mathbf{b}^{\intercal}\mathbf{X}^{\intercal}\mathbf{y} + \mathbf{b}^{\intercal}\mathbf{X}^{\intercal}\mathbf{X}\mathbf{b}
-\]</span></p>
-<p>To find the values for the elements in <strong>b</strong> that minimize the equation, we differentiate this expression with respect to <strong>b</strong>.</p>
-<p><span class="math display">\[
-\frac{\delta}{\delta\mathbf{b}}~\mathbf{y}^{\intercal}\mathbf{y} - 2\mathbf{b}^{\intercal}\mathbf{X}^{\intercal}\mathbf{y} + \mathbf{b}^{\intercal}\mathbf{X}^{\intercal}\mathbf{X}\mathbf{b}
-\]</span></p>
-<div class="math">
-<p>Although calculus, especially calculus on matrices, is beyond the scope of this book, <span class="citation">Fox (<a href="#ref-Fox:2009" role="doc-biblioref">2009</a>)</span> gives the interested reader some mathematical background on optimization (i.e., minimizing). For now you just need to understand we can optimize a function by computing its derivative, setting the derivative equal to 0, and solving for any remaining unknowns.</p>
-</div>
-<p>Differentiating this we get</p>
-<p><span class="math display">\[
--2\mathbf{X}^{\intercal}\mathbf{y} + 2\mathbf{X}^{\intercal}\mathbf{Xb}
-\]</span></p>
-<p>We set this equal to zero and solve for <strong>b</strong>.</p>
-<p><span class="math display">\[
-\begin{split}
--2\mathbf{X}^{\intercal}\mathbf{y} + 2\mathbf{X}^{\intercal}\mathbf{Xb} &amp;= 0 \\[2ex]
-2\mathbf{X}^{\intercal}\mathbf{Xb} &amp;= 2\mathbf{X}^{\intercal}\mathbf{y} \\[2ex]
-\mathbf{X}^{\intercal}\mathbf{Xb} &amp;= \mathbf{X}^{\intercal}\mathbf{y}
-\end{split}
-\]</span></p>
-<div class="protip">
-<p>This representation of the OLS equations:</p>
-<p><span class="math display">\[
-\mathbf{X}^{\intercal}\mathbf{Xb} = \mathbf{X}^{\intercal}\mathbf{y}
-\]</span></p>
-<p>is referred to as the <em>Normal Equations</em>. It is the basis for many methods of soving for <strong>b</strong>.</p>
-</div>
-<p><br /></p>
-<p>To isolate <strong>b</strong> we pre-multiply both sides of the equation by <span class="math inline">\((\mathbf{X}^{\intercal}\mathbf{X})^{-1}\)</span>.</p>
-<p><span class="math display">\[
-\begin{split}
-(\mathbf{X}^{\intercal}\mathbf{X})^{-1}(\mathbf{X}^{\prime}\mathbf{X})\mathbf{b} &amp;= (\mathbf{X}^{\intercal}\mathbf{X})^{-1}(\mathbf{X}^{\intercal}\mathbf{y}) \\[2ex]
-\mathbf{I}\mathbf{b} &amp;= (\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}\mathbf{y} \\[2ex]
-\mathbf{b} &amp;= (\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}\mathbf{y}
-\end{split}
-\]</span></p>
-<p>The vector of regression coefficients can be obtain from:</p>
-<p><span class="math display">\[
-\mathbf{b} = (\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}\mathbf{y}
-\]</span></p>
-<p>This implies that the vector of regression coefficients can be obtained directly through manipulation of the design matrix and the vector of outcomes. In other words, the OLS coefficients is a direct function of the data.</p>
-<p><br /></p>
-<div id="example-using-data" class="section level3 hasAnchor" number="19.2.1">
-<h3><span class="header-section-number">19.2.1</span> Example Using Data<a href="statistical-appplication-estimating-regression-coefficients.html#example-using-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We will use the following toy data set to illustrate how regression is carried out via matrix algebra.</p>
-<table style="width:60%; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;" class=" lightable-classic">
-<caption>
-<span id="tab:tab-21-01">Table 19.1: </span>Example set of education data.
-</caption>
-<thead>
-<tr>
-<th style="text-align:center;">
-ID
-</th>
-<th style="text-align:center;">
-SAT
-</th>
-<th style="text-align:center;">
-GPA
-</th>
-<th style="text-align:center;">
-Self-Esteem
-</th>
-<th style="text-align:center;">
-IQ
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-560
-</td>
-<td style="text-align:center;">
-3.0
-</td>
-<td style="text-align:center;">
-11
-</td>
-<td style="text-align:center;">
-112
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-780
-</td>
-<td style="text-align:center;">
-3.9
-</td>
-<td style="text-align:center;">
-10
-</td>
-<td style="text-align:center;">
-143
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;">
-620
-</td>
-<td style="text-align:center;">
-2.9
-</td>
-<td style="text-align:center;">
-19
-</td>
-<td style="text-align:center;">
-124
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-4
-</td>
-<td style="text-align:center;">
-600
-</td>
-<td style="text-align:center;">
-2.7
-</td>
-<td style="text-align:center;">
-7
-</td>
-<td style="text-align:center;">
-129
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-5
-</td>
-<td style="text-align:center;">
-720
-</td>
-<td style="text-align:center;">
-3.7
-</td>
-<td style="text-align:center;">
-18
-</td>
-<td style="text-align:center;">
-130
-</td>
-</tr>
-<tr>
-<td style="text-align:center;">
-6
-</td>
-<td style="text-align:center;">
-380
-</td>
-<td style="text-align:center;">
-2.4
-</td>
-<td style="text-align:center;">
-13
-</td>
-<td style="text-align:center;">
-82
-</td>
-</tr>
-</tbody>
-</table>
-<p>Say we wanted to fit a regression model using SAT and Self-Esteem to predict variation in GPA. We can estimate the regression coefficients by creating a design matrix (<strong>X</strong>), the vector of outcomes (<strong>y</strong>), and then using matrix algebra.</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of outcomes</span></span>
-<span id="cb261-2"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">3.0</span>, <span class="fl">3.9</span>, <span class="fl">2.9</span>, <span class="fl">2.7</span>, <span class="fl">3.7</span>, <span class="fl">2.4</span>)</span>
-<span id="cb261-3"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb261-4"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create design matrix</span></span>
-<span id="cb261-5"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb261-6"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(</span>
-<span id="cb261-7"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>), </span>
-<span id="cb261-8"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">560</span>, <span class="dv">780</span>, <span class="dv">620</span>, <span class="dv">600</span>, <span class="dv">720</span>, <span class="dv">380</span>, </span>
-<span id="cb261-9"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">13</span></span>
-<span id="cb261-10"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb261-11"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
-<span id="cb261-12"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb261-13"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb261-14"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-14" aria-hidden="true" tabindex="-1"></a><span class="co"># View X</span></span>
-<span id="cb261-15"><a href="statistical-appplication-estimating-regression-coefficients.html#cb261-15" aria-hidden="true" tabindex="-1"></a>X</span></code></pre></div>
-<pre><code>     [,1] [,2] [,3]
-[1,]    1  560   11
-[2,]    1  780   10
-[3,]    1  620   19
-[4,]    1  600    7
-[5,]    1  720   18
-[6,]    1  380   13</code></pre>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="statistical-appplication-estimating-regression-coefficients.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate coefficients</span></span>
-<span id="cb263-2"><a href="statistical-appplication-estimating-regression-coefficients.html#cb263-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
-<span id="cb263-3"><a href="statistical-appplication-estimating-regression-coefficients.html#cb263-3" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
-<pre><code>            [,1]
-[1,] 0.659213517
-[2,] 0.003805501
-[3,] 0.009186998</code></pre>
-<p>Let’s compare this to the estimates given in the <code>lm()</code> function.</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data frame</span></span>
-<span id="cb265-2"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
-<span id="cb265-3"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">GPA =</span> <span class="fu">c</span>(<span class="fl">3.0</span>, <span class="fl">3.9</span>, <span class="fl">2.9</span>, <span class="fl">2.7</span>, <span class="fl">3.7</span>, <span class="fl">2.4</span>),</span>
-<span id="cb265-4"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">SAT =</span> <span class="fu">c</span>(<span class="dv">560</span>, <span class="dv">780</span>, <span class="dv">620</span>, <span class="dv">600</span>, <span class="dv">720</span>, <span class="dv">380</span>),</span>
-<span id="cb265-5"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Self =</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">13</span>)</span>
-<span id="cb265-6"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb265-7"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb265-8"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model</span></span>
-<span id="cb265-9"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-9" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">=</span> <span class="fu">lm</span>(GPA <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> SAT <span class="sc">+</span> Self, <span class="at">data =</span> d)</span>
-<span id="cb265-10"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb265-11"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-11" aria-hidden="true" tabindex="-1"></a><span class="co"># View coefficients</span></span>
-<span id="cb265-12"><a href="statistical-appplication-estimating-regression-coefficients.html#cb265-12" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm<span class="fl">.1</span>)</span></code></pre></div>
-<pre><code>(Intercept)         SAT        Self 
-0.659213517 0.003805501 0.009186998 </code></pre>
-<p>The matrix algebra and <code>lm()</code> function produce identical coefficient estimates.</p>
-<p><br /></p>
-</div>
-</div>
-<div id="the-mathbfxintercalmathbfx-matrix" class="section level2 hasAnchor" number="19.3">
-<h2><span class="header-section-number">19.3</span> The <span class="math inline">\(\mathbf{X}^\intercal\mathbf{X}\)</span> Matrix<a href="statistical-appplication-estimating-regression-coefficients.html#the-mathbfxintercalmathbfx-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In computing estimates, the matrix that must be inverted is <span class="math inline">\(\mathbf{X}^\intercal\mathbf{X}\)</span>. In simple regression (with a single predictor) this is:</p>
-<p><span class="math display">\[
-\begin{split}
-\mathbf{X}^\intercal\mathbf{X} &amp;= \begin{bmatrix}1 &amp; 1 &amp; 1 &amp; \ldots &amp; 1\\ X_1 &amp; X_2 &amp; X_3 &amp; \ldots &amp; X_n\end{bmatrix} \begin{bmatrix}1 &amp; X_1\\ 1 &amp; X_2\\ 1 &amp; X_3\\ \vdots &amp; \vdots\\ 1&amp; X_n\end{bmatrix} \\[2ex]
-&amp;= \begin{bmatrix}n &amp; \sum X_i\\ \sum X_i &amp; \sum X_i^2\end{bmatrix}
-\end{split}
-\]</span>
-The determninant can then be found as:</p>
-<p><span class="math display">\[
-\begin{split}
-\begin{vmatrix}n &amp; \sum X_i\\ \sum X_i &amp; \sum X_i^2\end{vmatrix} &amp;= n\sum X_i^2 - \bigg(\sum X_i\bigg)^2 \\[2ex]
-&amp;= n\sum X_i^2 - (n\bar{X})^2 \\[2ex]
-&amp;= n \bigg(\sum X_i^2 - n\bar{X}^2\bigg) \\[2ex]
-&amp;= n \sum(X_i - \bar{X})^2
-\end{split}
-\]</span></p>
-<p>This will be a positive value as long as there is variation in <em>X</em>, which implies that the inverse of <span class="math inline">\(\mathbf{X}^\intercal\mathbf{X}\)</span> should exist. Note that when there is very little variation in <em>X</em>, it may be that the inverse is computationally singular.</p>
-<p>When the design matrix expands to include more than one predictor, this is also the case. The inverse of the <span class="math inline">\(\mathbf{X}^\intercal\mathbf{X}\)</span> matrix can be computed as long as there is variation in the predictors and no one predictor is a linear combination of the other columns in the design matrix.</p>
-<p><br /></p>
-
-</div>
-</div>
-
-
-
-<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-Fox:2009" class="csl-entry">
-Fox, J. (2009). <em>A mathematical primer for social statistics</em>. Sage.
-</div>
-</div>
-<div class="footnotes">
-<hr />
-<ol start="10">
-<li id="fn10"><p>You should verify that the dimension of each term is <span class="math inline">\(1\times 1\)</span>.<a href="statistical-appplication-estimating-regression-coefficients.html#fnref10" class="footnote-back">↩︎</a></p></li>
-</ol>
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="systems-of-equations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-to-matrix-decompostion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>

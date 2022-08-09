@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Matrices | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Matrices | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="statistical-application-vectors.html"/>
 <link rel="next" href="matrix-addition-and-subtraction.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,8 +479,8 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="matrices-1" class="section level1" number="7">
-<h1><span class="header-section-number">Chapter 7</span> Matrices</h1>
+<div id="matrices-1" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Matrices<a href="matrices-1.html#matrices-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>A matrix is a rectangular array of elements arranged in rows and columns. We typically denote matrices using a bold-faced, upper-case letter. For example, consider the matrix <strong>B</strong> which has 3 rows and 2 columns:</p>
 <p><span class="math display">\[
 \mathbf{B} = \begin{bmatrix}
@@ -488,7 +489,7 @@ div.csl-indent {
 -2 &amp; -1
 \end{bmatrix}
 \]</span></p>
-<p>In psychometric and statistical applications, the data we work with typically have this type of rectangular arrangement. For example, the data in <a href="matrices-1.html#tab:tab01">7.1</a>, which includes measures of 5 variables for 100 students, is arranged into the familiar case-by-variable rectangular ‘data matrix.’<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<p>In psychometric and statistical applications, the data we work with typically have this type of rectangular arrangement. For example, the data in <a href="matrices-1.html#tab:tab01">7.1</a>, which includes measures of 5 variables for 100 students, is arranged into the familiar case-by-variable rectangular ‘data matrix’.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
 <table style="width:60%; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;" class=" lightable-classic">
 <caption>
 <span id="tab:tab01">Table 7.1: </span>Example set of education data. The data are rectangular, having rows (cases) and columns (variables).
@@ -601,8 +602,8 @@ Public
 </tbody>
 </table>
 <p><br /></p>
-<div id="dimensions-of-a-matrix" class="section level3" number="7.0.1">
-<h3><span class="header-section-number">7.0.1</span> Dimensions of a Matrix</h3>
+<div id="dimensions-of-a-matrix" class="section level3 hasAnchor" number="7.0.1">
+<h3><span class="header-section-number">7.0.1</span> Dimensions of a Matrix<a href="matrices-1.html#dimensions-of-a-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We define matrices in terms of their <em>dimensions</em> or <em>order</em>; the number of rows and columns within the matrix. The dimensions of the matrix <strong>B</strong> is <span class="math inline">\(3\times 2\)</span>; it has three rows and two columns. Whereas the dimensions of the data matrix is <span class="math inline">\(100\times 5\)</span>. We often denote the matrix’s dimension by appending it to the bottom of the matrix’s name,</p>
 <p><span class="math display">\[
 \underset{3\times 2}{\mathbf{B}} = \begin{bmatrix}
@@ -613,14 +614,14 @@ Public
 \]</span></p>
 <p><br /></p>
 </div>
-<div id="indexing-individual-elements" class="section level3" number="7.0.2">
-<h3><span class="header-section-number">7.0.2</span> Indexing Individual Elements</h3>
+<div id="indexing-individual-elements" class="section level3 hasAnchor" number="7.0.2">
+<h3><span class="header-section-number">7.0.2</span> Indexing Individual Elements<a href="matrices-1.html#indexing-individual-elements" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The elements within the matrix are indexed by their row number and column number. For example, <span class="math inline">\(\mathbf{B}_{1,2} = 1\)</span> since the element in the first row and second column is 1. The subscripts on each element indicate the row and column positions of the element.</p>
 <p>Vectors are a special case of a matrix, where a row vector is a <span class="math inline">\(1\times n\)</span> matrix, and a column vector is a <span class="math inline">\(n \times 1\)</span> matrix. Note that although a vector can always be described as a matrix, a matrix cannot always be described as a vector.</p>
 <p>In general, we define matrix <strong>A</strong>, which has <em>n</em> rows and <em>k</em> columns as:</p>
 <p><span class="math display">\[
 \underset{n\times k}{\mathbf{A}} = \begin{bmatrix}
-a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1k} \\ 
+a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1k} \\
 a_{21} &amp; a_{22} &amp; a_{23} &amp; \ldots &amp; a_{2k} \\
 a_{31} &amp; a_{32} &amp; a_{33} &amp; \ldots &amp; a_{3k} \\
 \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
@@ -630,8 +631,8 @@ a_{n1} &amp; a_{n2} &amp; a_{n3} &amp; \ldots &amp; a_{nk}
 <p>where element <span class="math inline">\(a_{ij}\)</span> is in the <span class="math inline">\(i^{\mathrm{th}}\)</span> row and <span class="math inline">\(j^{\mathrm{th}}\)</span> column of <strong>A</strong>.</p>
 <p><br /></p>
 </div>
-<div id="geometry-of-matrices" class="section level3" number="7.0.3">
-<h3><span class="header-section-number">7.0.3</span> Geometry of Matrices</h3>
+<div id="geometry-of-matrices" class="section level3 hasAnchor" number="7.0.3">
+<h3><span class="header-section-number">7.0.3</span> Geometry of Matrices<a href="matrices-1.html#geometry-of-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A matrix is an <em>k</em>-dimensional representation where <em>k</em> is the number of columns in the matrix. For example, consider the matrix <strong>M</strong>:</p>
 <p><span class="math display">\[
 \mathbf{M} = \begin{bmatrix}
@@ -639,7 +640,7 @@ a_{n1} &amp; a_{n2} &amp; a_{n3} &amp; \ldots &amp; a_{nk}
 \end{bmatrix}
 \]</span></p>
 <p>Since <strong>M</strong> has two columns, this matrix represents a 2-dimensional structure (i.e., a plane). Each column in the matrix corresponds to a vector in the coordinate system that helps define that structure. <strong>M</strong> is defined by the space encompassed by the vectors <span class="math inline">\((1, 2)\)</span> and <span class="math inline">\((3, -2)\)</span>. Figure <a href="matrices-1.html#fig:fig-07-01">7.1</a> shows matrix <strong>M</strong> plotted in the 2-dimensional coordinate space defined by R1 and R2.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig-07-01"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig-07-01"></span>
 <img src="figs/fig-07-01.png" alt="Matrix **M** (yellow) in the 2-dimensional coordinate system defined by R1 and R2." width="60%" />
 <p class="caption">
 Figure 7.1: Matrix <strong>M</strong> (yellow) in the 2-dimensional coordinate system defined by R1 and R2.
@@ -648,8 +649,8 @@ Figure 7.1: Matrix <strong>M</strong> (yellow) in the 2-dimensional coordinate s
 <p>Because most matrices have much higher dimensions, we typically do not visualize them geometrically. For additional detail on the geometry of matrices, see YouTube content creator 3Blue1Brown’s excellent playlist, <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">Essence of Linear Algebra</a>.</p>
 <p><br /></p>
 </div>
-<div id="matrices-in-r" class="section level3" number="7.0.4">
-<h3><span class="header-section-number">7.0.4</span> Matrices in R</h3>
+<div id="matrices-in-r" class="section level3 hasAnchor" number="7.0.4">
+<h3><span class="header-section-number">7.0.4</span> Matrices in R<a href="matrices-1.html#matrices-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To enter a matrix in R, we use the <code>matrix()</code> function, similar to creating a vector. The only difference is that the <code>nrow=</code> or <code>ncol=</code> argument will include a value other than 1. The elements of the matrix given in the <code>data=</code> argument, by default, will be filled-in by columns. For example to create matrix <strong>B</strong> from the earlier example, we can use the following syntax.</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="matrices-1.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create B by filling in columns</span></span>
 <span id="cb105-2"><a href="matrices-1.html#cb105-2" aria-hidden="true" tabindex="-1"></a>B <span class="ot">=</span> <span class="fu">matrix</span>(</span>
@@ -688,8 +689,8 @@ Figure 7.1: Matrix <strong>M</strong> (yellow) in the 2-dimensional coordinate s
 <pre><code>[1] 7</code></pre>
 <p><br /></p>
 </div>
-<div id="matrix-equality" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Matrix Equality</h2>
+<div id="matrix-equality" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Matrix Equality<a href="matrices-1.html#matrix-equality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Two matrices are said to be equal if they satisfy two conditions:</p>
 <ol style="list-style-type: decimal">
 <li>They have the same dimensions, and</li>
@@ -699,10 +700,10 @@ Figure 7.1: Matrix <strong>M</strong> (yellow) in the 2-dimensional coordinate s
 <p><span class="math display">\[
 \mathbf{A} = \begin{bmatrix}
 112 &amp; 86 &amp; 0 \\ 134 &amp; 94 &amp; 0
-\end{bmatrix} \qquad 
+\end{bmatrix} \qquad
 \mathbf{B} = \begin{bmatrix}
 112 &amp; 134 \\86 &amp; 94 \\ 0 &amp; 0
-\end{bmatrix} \qquad 
+\end{bmatrix} \qquad
 \mathbf{C} = \begin{bmatrix}
 112 &amp; 86 &amp; 0 \\ 134 &amp; 94 &amp; 0
 \end{bmatrix}
@@ -715,8 +716,8 @@ Figure 7.1: Matrix <strong>M</strong> (yellow) in the 2-dimensional coordinate s
 </ul>
 <p><br /></p>
 </div>
-<div id="exercises-3" class="section level2 exercises" number="7.2">
-<h2><span class="header-section-number">7.2</span> Exercises</h2>
+<div id="exercises-3" class="section level2 hasAnchor exercises" number="7.2">
+<h2><span class="header-section-number">7.2</span> Exercises<a href="matrices-1.html#exercises-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Consider the following matrices:</strong></p>
 <p><span class="math display">\[
 \mathbf{A} = \begin{bmatrix}5 &amp; 6 &amp; 4&amp; 5 &amp; 9 \\21 &amp; 23 &amp; 24 &amp; 22 &amp; 20 \end{bmatrix} \qquad \mathbf{b}^\intercal = \begin{bmatrix}0 &amp; 1 &amp; 0 &amp; 0 \end{bmatrix} \qquad \mathbf{Y} = \begin{bmatrix}2 &amp; 3 &amp; 1 \\5 &amp; 6 &amp; 8\\9 &amp; 4 &amp; 7 \end{bmatrix}
@@ -802,7 +803,6 @@ X_{4,1}=58
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -842,6 +842,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

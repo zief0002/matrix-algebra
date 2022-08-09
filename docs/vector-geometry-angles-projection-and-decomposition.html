@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Vector Geometry: Angles, Projection, and Decomposition | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Vector Geometry: Angles, Projection, and Decomposition | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="vecop.html"/>
 <link rel="next" href="statistical-application-vectors.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,12 +479,12 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="vector-geometry-angles-projection-and-decomposition" class="section level1" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Vector Geometry: Angles, Projection, and Decomposition</h1>
+<div id="vector-geometry-angles-projection-and-decomposition" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Vector Geometry: Angles, Projection, and Decomposition<a href="vector-geometry-angles-projection-and-decomposition.html#vector-geometry-angles-projection-and-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter you will learn some about some additional ideas in the geometry of vectors. Again, while the illustration of these concepts is restricted to 2-dimensional space, all of these ideas can be extended to <em>n</em>-dimensions.</p>
 <p><br /></p>
-<div id="angle-between-vectors" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Angle Between Vectors</h2>
+<div id="angle-between-vectors" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Angle Between Vectors<a href="vector-geometry-angles-projection-and-decomposition.html#angle-between-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>It can be quite useful to determine the angle between two vectors. For example, what is the angle between vector <strong>a</strong> and <strong>b</strong> where,</p>
 <p><span class="math display">\[
 \mathbf{a} = \begin{bmatrix}
@@ -493,7 +494,7 @@ div.csl-indent {
 \end{bmatrix}
 \]</span></p>
 <p>Figure <a href="vector-geometry-angles-projection-and-decomposition.html#fig:fig05-01">5.1</a> shows both vectors displayed in the same two-dimensional reference coordinate system.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig05-01"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig05-01"></span>
 <img src="matrix-algebra_files/figure-html/fig05-01-1.png" alt="Plot showing two vector **a** (in red) and **b** (in blue) in the R1--R2 dimensional space. The angle between them is denoted as $\theta$. For convenience we have located the tail of both vectors at the origin." width="60%" />
 <p class="caption">
 Figure 5.1: Plot showing two vector <strong>a</strong> (in red) and <strong>b</strong> (in blue) in the R1–R2 dimensional space. The angle between them is denoted as <span class="math inline">\(\theta\)</span>. For convenience we have located the tail of both vectors at the origin.
@@ -541,8 +542,8 @@ Figure 5.1: Plot showing two vector <strong>a</strong> (in red) and <strong>b</s
 That is the dot product between vectors <strong>a</strong> and <strong>b</strong> is equal to the product of their magnitudes and the cosine of the angle between them.</p>
 </div>
 <p><br /></p>
-<div id="orthogonal-vectors" class="section level3" number="5.1.1">
-<h3><span class="header-section-number">5.1.1</span> Orthogonal Vectors</h3>
+<div id="orthogonal-vectors" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Orthogonal Vectors<a href="vector-geometry-angles-projection-and-decomposition.html#orthogonal-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Two vectors <strong>a</strong> and <strong>b</strong> are <em>orthogonal</em> when the angle between them is <span class="math inline">\(90^\circ\)</span>. Since the cosine of a <span class="math inline">\(90^\circ\)</span> angle is 0, if <strong>a</strong> and <strong>b</strong> are orthogonal, then</p>
 <p><span class="math display">\[
 0 = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
@@ -555,8 +556,8 @@ That is the dot product between vectors <strong>a</strong> and <strong>b</strong
 <!-- This indicates that one vector contains no information about another vector.   -->
 <p><br /></p>
 </div>
-<div id="collinear-vectors" class="section level3" number="5.1.2">
-<h3><span class="header-section-number">5.1.2</span> Collinear Vectors</h3>
+<div id="collinear-vectors" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Collinear Vectors<a href="vector-geometry-angles-projection-and-decomposition.html#collinear-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Two vectors <strong>a</strong> and <strong>b</strong> are <em>collinear</em> when the angle between them is <span class="math inline">\(0^\circ\)</span>. Since the cosine of a <span class="math inline">\(0^\circ\)</span> angle is 1, if <strong>a</strong> and <strong>b</strong> are collinear, then</p>
 <p><span class="math display">\[
 1 = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
@@ -581,10 +582,10 @@ Geometrically, collinear vectors are parallel to one another (remember location 
 <p><br /></p>
 </div>
 </div>
-<div id="orthogonal-projection" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Orthogonal Projection</h2>
+<div id="orthogonal-projection" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Orthogonal Projection<a href="vector-geometry-angles-projection-and-decomposition.html#orthogonal-projection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Orthogonal projection of vector <strong>a</strong> on vector <strong>b</strong> occurs by dropping a <em>perpendicular line</em> from the terminus of <strong>a</strong> to intersect with x2.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig05-02"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig05-02"></span>
 <img src="figs/fig-05-02.png" alt="Orthogonal projection of vector **a** (vermillion) onto vector **b** (black). Note that the projection creates a 90-degree angle with vector **b**. The result of the projection is the vector **p** (blue)." width="60%" />
 <p class="caption">
 Figure 5.2: Orthogonal projection of vector <strong>a</strong> (vermillion) onto vector <strong>b</strong> (black). Note that the projection creates a 90-degree angle with vector <strong>b</strong>. The result of the projection is the vector <strong>p</strong> (blue).
@@ -632,7 +633,7 @@ Figure 5.2: Orthogonal projection of vector <strong>a</strong> (vermillion) onto
 \mathbf{a} = \begin{bmatrix} 2 \\ 3 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix} 2 \\ -1  \end{bmatrix}
 \]</span></p>
 <p>Projecting <strong>a</strong> onto <strong>b</strong>, geometrically,</p>
-<div class="figure" style="text-align: center"><span id="fig:fig05-03"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig05-03"></span>
 <img src="matrix-algebra_files/figure-html/fig05-03-1.png" alt="Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector **p** (in black)." width="60%" />
 <p class="caption">
 Figure 5.3: Orthogonal projection of vector <strong>a</strong> (in red) onto vector <strong>b</strong> (in blue). The result of the projection is the vector <strong>p</strong> (in black).
@@ -669,13 +670,13 @@ Figure 5.3: Orthogonal projection of vector <strong>a</strong> (in red) onto vec
 </div>
 <p><br /></p>
 </div>
-<div id="orthogonal-decomposition" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Orthogonal Decomposition</h2>
+<div id="orthogonal-decomposition" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Orthogonal Decomposition<a href="vector-geometry-angles-projection-and-decomposition.html#orthogonal-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Orthogonal projection of a vector results in a geometric decomposition of the vector into two additive components. Figure <a href="vector-geometry-angles-projection-and-decomposition.html#fig:fig05-04">5.4</a> illustrates the decomposition of vector <strong>a</strong> into two additive components, <span class="math inline">\(\mathbf{p}_1\)</span> and <span class="math inline">\(\mathbf{p}_2\)</span>. That is,</p>
 <p><span class="math display">\[
 \mathbf{a} = \mathbf{p}_1 + \mathbf{p}_2
 \]</span></p>
-<div class="figure" style="text-align: center"><span id="fig:fig05-04"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig05-04"></span>
 <img src="figs/fig-05-04.png" alt="Two orthogonal projections of vector **a** (vermillion). The first orthogonal projection is from vector **a** onto vector **b** (horizontal black) and the secondorthogonal projection is from vector **a** is onto vector **o** (vertical black). The result of the projections are the vectors $\mathbf{p}_1$ (blue horizontal) and $\mathbf{p}_2$ (blue vertical)." width="60%" />
 <p class="caption">
 Figure 5.4: Two orthogonal projections of vector <strong>a</strong> (vermillion). The first orthogonal projection is from vector <strong>a</strong> onto vector <strong>b</strong> (horizontal black) and the secondorthogonal projection is from vector <strong>a</strong> is onto vector <strong>o</strong> (vertical black). The result of the projections are the vectors <span class="math inline">\(\mathbf{p}_1\)</span> (blue horizontal) and <span class="math inline">\(\mathbf{p}_2\)</span> (blue vertical).
@@ -734,7 +735,7 @@ Figure 5.4: Two orthogonal projections of vector <strong>a</strong> (vermillion)
 <span id="cb65-2"><a href="vector-geometry-angles-projection-and-decomposition.html#cb65-2" aria-hidden="true" tabindex="-1"></a>l_a<span class="sc">^</span><span class="dv">2</span> <span class="sc">==</span> l_p<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> l_p2<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
 <pre><code>[1] TRUE</code></pre>
 <p>The final system is shown in Figure <a href="vector-geometry-angles-projection-and-decomposition.html#fig:fig05-05">5.5</a>.</p>
-<div class="figure" style="text-align: center"><span id="fig:fig05-05"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig05-05"></span>
 <img src="matrix-algebra_files/figure-html/fig05-05-1.png" alt="Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector $\mathbf{p}_1$ (in black). A second projection is the vector $\mathbf{p}_2$ (in black) on to the vector **o**, which is orthogonal to **b**." width="60%" />
 <p class="caption">
 Figure 5.5: Orthogonal projection of vector <strong>a</strong> (in red) onto vector <strong>b</strong> (in blue). The result of the projection is the vector <span class="math inline">\(\mathbf{p}_1\)</span> (in black). A second projection is the vector <span class="math inline">\(\mathbf{p}_2\)</span> (in black) on to the vector <strong>o</strong>, which is orthogonal to <strong>b</strong>.
@@ -760,7 +761,6 @@ Figure 5.5: Orthogonal projection of vector <strong>a</strong> (in red) onto vec
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -800,6 +800,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Data Structures | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Data Structures | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="intro.html"/>
 <link rel="next" href="vec.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,12 +479,12 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="datastructures" class="section level1" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Data Structures</h1>
+<div id="datastructures" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Data Structures<a href="datastructures.html#datastructures" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter you will be introduced to four common data structures that form the building blocks of matrix algebra: scalars, vectors, matrices, and tensors. You will also be introduced to some of the vocabulary that we use to describe these structures. In future chapters, we will examine these structures in more detail and learn how to mathematically manipulate and operate on these structures.</p>
 <p><br /></p>
-<div id="scalars" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Scalars</h2>
+<div id="scalars" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Scalars<a href="datastructures.html#scalars" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A <em>scalar</em> is a single real number. You have likely had a lot of previous experience with scalars, as they are emphasized in much of the mathematics taught in high schools in the United States. Here are three examples of scalars:</p>
 <p><span class="math display">\[
 1 \qquad \sqrt{2} \qquad -7
@@ -498,8 +499,8 @@ div.csl-indent {
 <p>Notice that scalar arithmetic also produces a scalar. For example the scalar addition in the example, <span class="math inline">\(2+3\)</span> produces the scalar <span class="math inline">\(5\)</span>.</p>
 <p><br /></p>
 </div>
-<div id="vectors" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Vectors</h2>
+<div id="vectors" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Vectors<a href="datastructures.html#vectors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A <em>vector</em> is a specifically ordered one-dimensional array of values. Here are three examples of vectors:</p>
 <p><span class="math display">\[
 \begin{bmatrix}
@@ -507,8 +508,8 @@ div.csl-indent {
 \end{bmatrix} \qquad \begin{bmatrix}
 5 &amp; 4
 \end{bmatrix} \qquad \begin{bmatrix}
-a_1 \\ a_2 \\ a_3 
-\end{bmatrix} 
+a_1 \\ a_2 \\ a_3
+\end{bmatrix}
 \]</span></p>
 <p>A vector may be written as a row or a column, and are respectively referred to as <em>row vectors</em> or <em>column vectors</em>. Each value in a vector is called an <em>element</em> or <em>component</em>. Vectors are also typically described in terms of the number of elements they have. For example, the following is a two-element row vector:</p>
 <p><span class="math display">\[
@@ -524,8 +525,8 @@ a_1 \\ a_2 \\ a_3
 \]</span></p>
 <p><br /></p>
 </div>
-<div id="matrices" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Matrices</h2>
+<div id="matrices" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Matrices<a href="datastructures.html#matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A <em>matrix</em> is specifically ordered two-dimensional array of values. Here are three examples of matrices:</p>
 <p><span class="math display">\[
 \begin{bmatrix}
@@ -533,8 +534,8 @@ a_1 \\ a_2 \\ a_3
 \end{bmatrix} \qquad \begin{bmatrix}
 5 &amp; 4 \\ 1 &amp; 6
 \end{bmatrix} \qquad \begin{bmatrix}
-a_{11} &amp; a_{12} \\ a_{21} &amp; a_{22} \\ a_{3,1} &amp; a_{32} 
-\end{bmatrix} 
+a_{11} &amp; a_{12} \\ a_{21} &amp; a_{22} \\ a_{3,1} &amp; a_{32}
+\end{bmatrix}
 \]</span>
 Matrices have both rows and columns, and are typically described by the number of rows and columns they have. For example, the matrix <strong>B</strong> (below) has 3 rows and 2 columns:</p>
 <p><span class="math display">\[
@@ -549,7 +550,7 @@ Matrices have both rows and columns, and are typically described by the number o
 <p>More generally, we define matrix <strong>A</strong>, which has <em>n</em> rows and <em>k</em> columns as:</p>
 <p><span class="math display">\[
 \underset{n\times k}{\mathbf{A}} = \begin{bmatrix}
-a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1k} \\ 
+a_{11} &amp; a_{12} &amp; a_{13} &amp; \ldots &amp; a_{1k} \\
 a_{21} &amp; a_{22} &amp; a_{23} &amp; \ldots &amp; a_{2k} \\
 a_{31} &amp; a_{32} &amp; a_{33} &amp; \ldots &amp; a_{3k} \\
 \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \vdots \\
@@ -559,8 +560,8 @@ a_{n1} &amp; a_{n2} &amp; a_{n3} &amp; \ldots &amp; a_{nk}
 <p>where element <span class="math inline">\(a_{ij}\)</span> is in the <span class="math inline">\(i^{\mathrm{th}}\)</span> row and <span class="math inline">\(j^{\mathrm{th}}\)</span> column of <strong>A</strong>.</p>
 <p><br /></p>
 </div>
-<div id="tensors" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Tensors</h2>
+<div id="tensors" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Tensors<a href="datastructures.html#tensors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><em>Tensors</em>, generally speaking, are the generalization of the matrix to three or more dimensions. Here is an example of a tensor:</p>
 <p><span class="math display">\[
 \begin{bmatrix}
@@ -573,14 +574,14 @@ a_{n1} &amp; a_{n2} &amp; a_{n3} &amp; \ldots &amp; a_{nk}
 \end{bmatrix} &amp; \begin{bmatrix}
 0 &amp; 7
 \end{bmatrix}
-\end{bmatrix} 
+\end{bmatrix}
 \]</span></p>
 <p>Technically, this definition is not quite true, but for our purposes it will be adequate to think of a tensor as a structure for data in <em>N</em> dimensions.</p>
-<p>This book will primarily deal with scalars, vectors, and matrices, but tensors do come up in statistical work. For example, image data are often represented as tensors; with each pixel in a two-dimensional image having multiple values associated with it to represent the color information for the pixel. In longitudinal data analysis, the variance–covariance matrix of the responses for multiple subjects is also represented as a tensor. <span class="citation"><a href="#ref-bi_tensors_2021" role="doc-biblioref">Bi et al.</a> (<a href="#ref-bi_tensors_2021" role="doc-biblioref">2021</a>)</span> and <span class="citation"><a href="#ref-mccullagh_tensor_2018" role="doc-biblioref">McCullagh</a> (<a href="#ref-mccullagh_tensor_2018" role="doc-biblioref">2018</a>)</span> are good resources to learn more about working with and operating on tensors.</p>
+<p>This book will primarily deal with scalars, vectors, and matrices, but tensors do come up in statistical work. For example, image data are often represented as tensors; with each pixel in a two-dimensional image having multiple values associated with it to represent the color information for the pixel. In longitudinal data analysis, the variance–covariance matrix of the responses for multiple subjects is also represented as a tensor. <span class="citation">Bi et al. (<a href="#ref-bi_tensors_2021" role="doc-biblioref">2021</a>)</span> and <span class="citation">McCullagh (<a href="#ref-mccullagh_tensor_2018" role="doc-biblioref">2018</a>)</span> are good resources to learn more about working with and operating on tensors.</p>
 <p><br / ></p>
 </div>
-<div id="a-word-about-notation" class="section level2" number="2.5">
-<h2><span class="header-section-number">2.5</span> A Word about Notation</h2>
+<div id="a-word-about-notation" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> A Word about Notation<a href="datastructures.html#a-word-about-notation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Authors and textbooks use a wide variety of notation to represent scalars, vectors, and matrices. For example, vectors might be denoted using a lower-case underlined letter (<span class="math inline">\(\underline{a}\)</span>), a lower-case bolded letter (<strong>a</strong>), or a lower-case letter with an overset arrow (<span class="math inline">\(\vec{a}\)</span>). In this book, we will try to use a consistent notation to denote each of these structures.</p>
 <div class="fyi">
 <ul>
@@ -591,8 +592,8 @@ a_{n1} &amp; a_{n2} &amp; a_{n3} &amp; \ldots &amp; a_{nk}
 </div>
 <p><br /></p>
 </div>
-<div id="exercises" class="section level2 exercises" number="2.6">
-<h2><span class="header-section-number">2.6</span> Exercises</h2>
+<div id="exercises" class="section level2 hasAnchor exercises" number="2.6">
+<h2><span class="header-section-number">2.6</span> Exercises<a href="datastructures.html#exercises" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Identify each of the following as a scalar, row vector, column vector, matrix, or tensor.</strong></p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\((a_1 + a_2 + a_3 + a_4)\)</span></li>
@@ -702,7 +703,7 @@ Show/Hide Solution
 
 
 
-<h3>References</h3>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-bi_tensors_2021" class="csl-entry">
 Bi, X., Tang, X., Yuan, Y., Zhang, Y., &amp; Qu, A. (2021). Tensors in <span>Statistics</span>. <em>Annual Review of Statistics and Its Application</em>, <em>8</em>(1), 345–368. <a href="https://doi.org/10.1146/annurev-statistics-042720-020816">https://doi.org/10.1146/annurev-statistics-042720-020816</a>
@@ -727,7 +728,6 @@ McCullagh, P. (2018). <em>Tensor methods in statistics</em>. <a href="http://pub
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -767,6 +767,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

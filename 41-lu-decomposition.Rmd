@@ -418,3 +418,81 @@ X
 
 
 <br />
+
+
+## Application of LU Decomposition in Computing
+
+One application of LU decomposition in computing is in the computation of a determinant. The determinant is often computed by taking the product of the elements on the diagonal of both the **L** and **U** matrices. Since LU decomposition is quite efficient, this is a computationally efficient way of computing the determinant. The `det()` function R, for example, uses this method to compute the determinant. This method, however, can lead to "wrong" results, especially for matrices that have a determinant of 0. 
+
+Consider the following matrix,
+
+$$
+\mathbf{A} = \begin{bmatrix}
+3 & 2  \\ 
+1.2 & 0.8  \\
+\end{bmatrix}
+$$
+
+The determinant can be computed as:
+
+$$
+\begin{split}
+\mathrm{det}(\mathbf{A}) &= 3(0.8) - 1.2(2) \\
+&= 2.4 - 2.4 \\
+&= 0
+\end{split}
+$$
+
+However, if we use the `det()` function on the matrix, we find:
+
+```{r}
+# Create A
+A = matrix(
+    data = c(3, 1.2, 2, 0.8),
+    nrow = 2
+)
+
+# Compute determinant
+det(A)
+```
+
+While close to 0, the `det()` function does not return 0. 
+
+This function, as mentioned earlier, computes the determinant by carrying out an LU decomposition using a Fortran routine called LAPACK (Linear Algebra PACKage). This routine is also used in the `lu.decomposition()` function.
+
+```{r message=FALSE}
+# Use LAPACK routine for LU decomposition
+lu.decomposition(A)
+```
+
+Note that the diagonal elements of these matrices are 1, 1, 3, and $1.110223\times 10^{-16}$. Multiplying these together, we get $3.330669\times 10^{-16}$, the same result as we got from `det()`. The routines used to carry out the LU decomposition are computationally approximate, and suffer from the same floating point issues that all computation suffers from. Because of this, the **U** matrix has a diagonal element of $1.110223\times 10^{-16}$ rather than 0. 
+
+Note that using zero in the **U** matrix produces the correct decomposition.
+
+
+$$
+\begin{split}
+\underset{\mathbf{A}}{\begin{bmatrix}
+3 & 2  \\ 
+1.2 & 0.8  \\
+\end{bmatrix}} &= \underset{\mathbf{L}}{\begin{bmatrix}
+1 & 0  \\ 
+0.4 & 1  \\
+\end{bmatrix}}\underset{\mathbf{U}}{\begin{bmatrix}
+3 & 2  \\ 
+0 & 0  \\
+\end{bmatrix}}\\[1em]
+\begin{bmatrix}
+5 & 1  \\ 
+-4 & 2  \\
+\end{bmatrix} &= \begin{bmatrix}
+l_{11} & 0 \\ 
+l_{21}& l_{22} \\
+\end{bmatrix}\begin{bmatrix}
+u_{11} & u_{12}  \\ 
+0 & u_{22} \\
+\end{bmatrix}
+\end{split}
+$$
+
+<br />

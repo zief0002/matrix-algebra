@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 23 Cholesky Decompostion | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 23 Cholesky Decompostion | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"/>
 <link rel="next" href="qr-decompostion.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,8 +479,8 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="cholesky-decompostion" class="section level1" number="23">
-<h1><span class="header-section-number">Chapter 23</span> Cholesky Decompostion</h1>
+<div id="cholesky-decompostion" class="section level1 hasAnchor" number="23">
+<h1><span class="header-section-number">Chapter 23</span> Cholesky Decompostion<a href="cholesky-decompostion.html#cholesky-decompostion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>Another decomposition method is Cholesky (or Choleski) decomposition. The Cholesky decomposition method—used in statistical applications from nonlinear optimization, to Monte Carlo simulation methods, to Kalman filtering—is much more computationally efficient than the LU method. The Cholesky method decomposes a symmetric, positive definite matrix <strong>A</strong> into the product of two matrices, <span class="math inline">\(\mathbf{L}\)</span> (a lower-triangular matrix) and <span class="math inline">\(\mathbf{L}^*\)</span> (the <em>conjugate transpose</em> of <span class="math inline">\(\mathbf{L}\)</span>).<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
 <p><span class="math display">\[
 \underset{n \times n}{\mathbf{A}} = \mathbf{LL}^*
@@ -513,8 +514,8 @@ div.csl-indent {
 <p>Many texts just present the notation for the Cholesky decomposition as <span class="math inline">\(\mathbf{A}=\mathbf{LL}^\intercal\)</span>, rather than <span class="math inline">\(\mathbf{A}=\mathbf{LL}^*\)</span>. This is because they make the further assumption that all the elements in <strong>A</strong> are real numbers. In that case, <span class="math inline">\(\mathbf{L}^*=\mathbf{L}^\intercal\)</span>. We will make that assumption and use that notation moving forward.</p>
 </div>
 <p><br /></p>
-<div id="example-of-cholesky-decomposition" class="section level2" number="23.1">
-<h2><span class="header-section-number">23.1</span> Example of Cholesky Decomposition</h2>
+<div id="example-of-cholesky-decomposition" class="section level2 hasAnchor" number="23.1">
+<h2><span class="header-section-number">23.1</span> Example of Cholesky Decomposition<a href="cholesky-decompostion.html#example-of-cholesky-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Say we wanted to compute a Cholsky decomposition on a <span class="math inline">\(2 \times 2\)</span> symmetric matrix:</p>
 <p><span class="math display">\[
 \underset{2\times 2}{\mathbf{A}} = \begin{bmatrix}
@@ -582,31 +583,31 @@ l_{22} &amp;= \sqrt{1.8} \approx 1.34
 \]</span></p>
 <p><br /></p>
 </div>
-<div id="cholesky-decomposition-using-r" class="section level2" number="23.2">
-<h2><span class="header-section-number">23.2</span> Cholesky Decomposition using R</h2>
+<div id="cholesky-decomposition-using-r" class="section level2 hasAnchor" number="23.2">
+<h2><span class="header-section-number">23.2</span> Cholesky Decomposition using R<a href="cholesky-decompostion.html#cholesky-decomposition-using-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can use the <code>chol()</code> function to compute the Cholesky decomposition. For example to carry out the Cholesky decomposition on <strong>A</strong> form the previous section, we would use the following syntax:</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="cholesky-decompostion.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
-<span id="cb291-2"><a href="cholesky-decompostion.html#cb291-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb291-3"><a href="cholesky-decompostion.html#cb291-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">5</span>), </span>
-<span id="cb291-4"><a href="cholesky-decompostion.html#cb291-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
-<span id="cb291-5"><a href="cholesky-decompostion.html#cb291-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb291-6"><a href="cholesky-decompostion.html#cb291-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb291-7"><a href="cholesky-decompostion.html#cb291-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cholesky decomposition</span></span>
-<span id="cb291-8"><a href="cholesky-decompostion.html#cb291-8" aria-hidden="true" tabindex="-1"></a>cholesky_decomp <span class="ot">=</span> <span class="fu">chol</span>(A)</span>
-<span id="cb291-9"><a href="cholesky-decompostion.html#cb291-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb291-10"><a href="cholesky-decompostion.html#cb291-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View results</span></span>
-<span id="cb291-11"><a href="cholesky-decompostion.html#cb291-11" aria-hidden="true" tabindex="-1"></a>cholesky_decomp</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="cholesky-decompostion.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb295-2"><a href="cholesky-decompostion.html#cb295-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb295-3"><a href="cholesky-decompostion.html#cb295-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">5</span>), </span>
+<span id="cb295-4"><a href="cholesky-decompostion.html#cb295-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb295-5"><a href="cholesky-decompostion.html#cb295-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb295-6"><a href="cholesky-decompostion.html#cb295-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb295-7"><a href="cholesky-decompostion.html#cb295-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cholesky decomposition</span></span>
+<span id="cb295-8"><a href="cholesky-decompostion.html#cb295-8" aria-hidden="true" tabindex="-1"></a>cholesky_decomp <span class="ot">=</span> <span class="fu">chol</span>(A)</span>
+<span id="cb295-9"><a href="cholesky-decompostion.html#cb295-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb295-10"><a href="cholesky-decompostion.html#cb295-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View results</span></span>
+<span id="cb295-11"><a href="cholesky-decompostion.html#cb295-11" aria-hidden="true" tabindex="-1"></a>cholesky_decomp</span></code></pre></div>
 <pre><code>      [,1]   [,2]
 [1,] 2.236 -1.789
 [2,] 0.000  1.342</code></pre>
 <p>Note that the output from <code>chol()</code> is actually the transpose matrix, <span class="math inline">\(\mathbf{L}^\intercal\)</span>. To obtain <strong>L</strong>, we need to take the transpose of this output. We can also verify that the decomposition worked.</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="cholesky-decompostion.html#cb293-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain L</span></span>
-<span id="cb293-2"><a href="cholesky-decompostion.html#cb293-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(cholesky_decomp)</span></code></pre></div>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="cholesky-decompostion.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain L</span></span>
+<span id="cb297-2"><a href="cholesky-decompostion.html#cb297-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(cholesky_decomp)</span></code></pre></div>
 <pre><code>       [,1]  [,2]
 [1,]  2.236 0.000
 [2,] -1.789 1.342</code></pre>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="cholesky-decompostion.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check results L(L^T) = A</span></span>
-<span id="cb295-2"><a href="cholesky-decompostion.html#cb295-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(cholesky_decomp) <span class="sc">%*%</span> cholesky_decomp</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="cholesky-decompostion.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check results L(L^T) = A</span></span>
+<span id="cb299-2"><a href="cholesky-decompostion.html#cb299-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(cholesky_decomp) <span class="sc">%*%</span> cholesky_decomp</span></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    5   -4
 [2,]   -4    5</code></pre>
@@ -618,27 +619,27 @@ l_{22} &amp;= \sqrt{1.8} \approx 1.34
 \mathbf{A} = \begin{bmatrix}5 &amp; 1\\ -4 &amp; 2\end{bmatrix}
 \]</span></p>
 <p>Computing the decomposition, we get:</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="cholesky-decompostion.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
-<span id="cb297-2"><a href="cholesky-decompostion.html#cb297-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb297-3"><a href="cholesky-decompostion.html#cb297-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
-<span id="cb297-4"><a href="cholesky-decompostion.html#cb297-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
-<span id="cb297-5"><a href="cholesky-decompostion.html#cb297-5" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb297-6"><a href="cholesky-decompostion.html#cb297-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb297-7"><a href="cholesky-decompostion.html#cb297-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cholsky decomposition</span></span>
-<span id="cb297-8"><a href="cholesky-decompostion.html#cb297-8" aria-hidden="true" tabindex="-1"></a><span class="fu">chol</span>(A)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="cholesky-decompostion.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb301-2"><a href="cholesky-decompostion.html#cb301-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb301-3"><a href="cholesky-decompostion.html#cb301-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb301-4"><a href="cholesky-decompostion.html#cb301-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb301-5"><a href="cholesky-decompostion.html#cb301-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb301-6"><a href="cholesky-decompostion.html#cb301-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-7"><a href="cholesky-decompostion.html#cb301-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cholsky decomposition</span></span>
+<span id="cb301-8"><a href="cholesky-decompostion.html#cb301-8" aria-hidden="true" tabindex="-1"></a><span class="fu">chol</span>(A)</span></code></pre></div>
 <pre><code>      [,1]   [,2]
 [1,] 2.236 0.4472
 [2,] 0.000 1.3416</code></pre>
 <p>Checking the matrix multiplication we do not get back to the original matrix, <strong>A</strong>:</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="cholesky-decompostion.html#cb299-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check results</span></span>
-<span id="cb299-2"><a href="cholesky-decompostion.html#cb299-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">chol</span>(A)) <span class="sc">%*%</span> <span class="fu">chol</span>(A)</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="cholesky-decompostion.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check results</span></span>
+<span id="cb303-2"><a href="cholesky-decompostion.html#cb303-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">chol</span>(A)) <span class="sc">%*%</span> <span class="fu">chol</span>(A)</span></code></pre></div>
 <pre><code>     [,1] [,2]
 [1,]    5    1
 [2,]    1    2</code></pre>
 <p><br /></p>
 </div>
-<div id="statistical-application-estimating-regression-coefficents-with-cholesky-decomposition" class="section level2" number="23.3">
-<h2><span class="header-section-number">23.3</span> Statistical Application: Estimating Regression Coefficents with Cholesky Decomposition</h2>
+<div id="statistical-application-estimating-regression-coefficents-with-cholesky-decomposition" class="section level2 hasAnchor" number="23.3">
+<h2><span class="header-section-number">23.3</span> Statistical Application: Estimating Regression Coefficents with Cholesky Decomposition<a href="cholesky-decompostion.html#statistical-application-estimating-regression-coefficents-with-cholesky-decomposition" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can again use the the OLS solution to compute the elements of <strong>b</strong> by solving the system of equations represented in:</p>
 <p><span class="math display">\[
 (\mathbf{X}^{\intercal}\mathbf{X})\mathbf{b} = \mathbf{X}^{\intercal}\mathbf{y}
@@ -647,41 +648,41 @@ l_{22} &amp;= \sqrt{1.8} \approx 1.34
 <p><span class="math display">\[
 \begin{split}
 &amp;\mathrm{Solve~~}\mathbf{LZ} &amp;= \mathbf{X}^{\intercal}\mathbf{y}~~\mathrm{for~}\mathbf{Z} \\[2ex]
-&amp;\mathrm{Solve~~}\mathbf{L}^\intercal\mathbf{b} &amp; =\mathbf{Z}~~\mathrm{for~}\mathbf{b} 
+&amp;\mathrm{Solve~~}\mathbf{L}^\intercal\mathbf{b} &amp; =\mathbf{Z}~~\mathrm{for~}\mathbf{b}
 \end{split}
 \]</span></p>
 <p>Using the same simulated data as the example from last chapter, consider the following simulated data set of <span class="math inline">\(n=50\)</span> cases:</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="cholesky-decompostion.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of cases</span></span>
-<span id="cb301-2"><a href="cholesky-decompostion.html#cb301-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">50</span></span>
-<span id="cb301-3"><a href="cholesky-decompostion.html#cb301-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb301-4"><a href="cholesky-decompostion.html#cb301-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create 50 x-values evenly spread b/w 1 and 500 </span></span>
-<span id="cb301-5"><a href="cholesky-decompostion.html#cb301-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">500</span>, <span class="at">len =</span> n)</span>
-<span id="cb301-6"><a href="cholesky-decompostion.html#cb301-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb301-7"><a href="cholesky-decompostion.html#cb301-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X matrix</span></span>
-<span id="cb301-8"><a href="cholesky-decompostion.html#cb301-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>)</span>
-<span id="cb301-9"><a href="cholesky-decompostion.html#cb301-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb301-10"><a href="cholesky-decompostion.html#cb301-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create b matrix</span></span>
-<span id="cb301-11"><a href="cholesky-decompostion.html#cb301-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(</span>
-<span id="cb301-12"><a href="cholesky-decompostion.html#cb301-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
-<span id="cb301-13"><a href="cholesky-decompostion.html#cb301-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">4</span></span>
-<span id="cb301-14"><a href="cholesky-decompostion.html#cb301-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb301-15"><a href="cholesky-decompostion.html#cb301-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb301-16"><a href="cholesky-decompostion.html#cb301-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of y-values</span></span>
-<span id="cb301-17"><a href="cholesky-decompostion.html#cb301-17" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb301-18"><a href="cholesky-decompostion.html#cb301-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> X <span class="sc">%*%</span> b <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="cholesky-decompostion.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of cases</span></span>
+<span id="cb305-2"><a href="cholesky-decompostion.html#cb305-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb305-3"><a href="cholesky-decompostion.html#cb305-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb305-4"><a href="cholesky-decompostion.html#cb305-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create 50 x-values evenly spread b/w 1 and 500 </span></span>
+<span id="cb305-5"><a href="cholesky-decompostion.html#cb305-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">500</span>, <span class="at">len =</span> n)</span>
+<span id="cb305-6"><a href="cholesky-decompostion.html#cb305-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb305-7"><a href="cholesky-decompostion.html#cb305-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X matrix</span></span>
+<span id="cb305-8"><a href="cholesky-decompostion.html#cb305-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb305-9"><a href="cholesky-decompostion.html#cb305-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb305-10"><a href="cholesky-decompostion.html#cb305-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create b matrix</span></span>
+<span id="cb305-11"><a href="cholesky-decompostion.html#cb305-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb305-12"><a href="cholesky-decompostion.html#cb305-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
+<span id="cb305-13"><a href="cholesky-decompostion.html#cb305-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">4</span></span>
+<span id="cb305-14"><a href="cholesky-decompostion.html#cb305-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb305-15"><a href="cholesky-decompostion.html#cb305-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb305-16"><a href="cholesky-decompostion.html#cb305-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of y-values</span></span>
+<span id="cb305-17"><a href="cholesky-decompostion.html#cb305-17" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb305-18"><a href="cholesky-decompostion.html#cb305-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> X <span class="sc">%*%</span> b <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>We can again use <code>forwardsolve()</code> and <code>backsolve()</code> to help solve the two equations.</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="cholesky-decompostion.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain L^T and L</span></span>
-<span id="cb302-2"><a href="cholesky-decompostion.html#cb302-2" aria-hidden="true" tabindex="-1"></a>L_T <span class="ot">=</span> <span class="fu">chol</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)</span>
-<span id="cb302-3"><a href="cholesky-decompostion.html#cb302-3" aria-hidden="true" tabindex="-1"></a>L <span class="ot">=</span> <span class="fu">t</span>(L_T)</span>
-<span id="cb302-4"><a href="cholesky-decompostion.html#cb302-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb302-5"><a href="cholesky-decompostion.html#cb302-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for Z</span></span>
-<span id="cb302-6"><a href="cholesky-decompostion.html#cb302-6" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">=</span> <span class="fu">forwardsolve</span>(L,  <span class="fu">crossprod</span>(X,y))</span>
-<span id="cb302-7"><a href="cholesky-decompostion.html#cb302-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb302-8"><a href="cholesky-decompostion.html#cb302-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for b</span></span>
-<span id="cb302-9"><a href="cholesky-decompostion.html#cb302-9" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">backsolve</span>(L_T, Z)</span>
-<span id="cb302-10"><a href="cholesky-decompostion.html#cb302-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb302-11"><a href="cholesky-decompostion.html#cb302-11" aria-hidden="true" tabindex="-1"></a><span class="co"># View b</span></span>
-<span id="cb302-12"><a href="cholesky-decompostion.html#cb302-12" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="cholesky-decompostion.html#cb306-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain L^T and L</span></span>
+<span id="cb306-2"><a href="cholesky-decompostion.html#cb306-2" aria-hidden="true" tabindex="-1"></a>L_T <span class="ot">=</span> <span class="fu">chol</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)</span>
+<span id="cb306-3"><a href="cholesky-decompostion.html#cb306-3" aria-hidden="true" tabindex="-1"></a>L <span class="ot">=</span> <span class="fu">t</span>(L_T)</span>
+<span id="cb306-4"><a href="cholesky-decompostion.html#cb306-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb306-5"><a href="cholesky-decompostion.html#cb306-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for Z</span></span>
+<span id="cb306-6"><a href="cholesky-decompostion.html#cb306-6" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">=</span> <span class="fu">forwardsolve</span>(L,  <span class="fu">crossprod</span>(X,y))</span>
+<span id="cb306-7"><a href="cholesky-decompostion.html#cb306-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb306-8"><a href="cholesky-decompostion.html#cb306-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for b</span></span>
+<span id="cb306-9"><a href="cholesky-decompostion.html#cb306-9" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">backsolve</span>(L_T, Z)</span>
+<span id="cb306-10"><a href="cholesky-decompostion.html#cb306-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb306-11"><a href="cholesky-decompostion.html#cb306-11" aria-hidden="true" tabindex="-1"></a><span class="co"># View b</span></span>
+<span id="cb306-12"><a href="cholesky-decompostion.html#cb306-12" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
 <pre><code>       [,1]
 [1,] 0.9038
 [2,] 1.0066
@@ -707,7 +708,6 @@ l_{22} &amp;= \sqrt{1.8} \approx 1.34
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -747,6 +747,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }

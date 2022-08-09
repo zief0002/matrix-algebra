@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 12 Square Matrices and Friends | Matrix Algebra for Educational Scientists</title>
   <meta name="description" content="Matrix algebra content for QME students" />
-  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 12 Square Matrices and Friends | Matrix Algebra for Educational Scientists" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Matrix algebra content for QME students" />
   <meta name="github-repo" content="zief0002/matrix-algebra" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler" />
 
 
-<meta name="date" content="2021-08-11" />
+<meta name="date" content="2022-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,8 @@
   
 <link rel="prev" href="exercises-matrix-operations.html"/>
 <link rel="next" href="properties-of-square-matrices.html"/>
-<script src="libs/header-attrs/header-attrs.js"></script>
-<script src="libs/jquery/jquery.min.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,8 +49,8 @@
 
 
 
-
 <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections/anchor-sections.js"></script>
 <script src="libs/kePrint/kePrint.js"></script>
 <link href="libs/lightable/lightable.css" rel="stylesheet" />
@@ -397,6 +396,7 @@ div.csl-indent {
 <li class="chapter" data-level="21.2.2" data-path="lu-decompostion.html"><a href="lu-decompostion.html#step-2-solve-for-x"><i class="fa fa-check"></i><b>21.2.2</b> Step 2: Solve for X</a></li>
 <li class="chapter" data-level="21.2.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#using-r-to-solve-the-two-equations"><i class="fa fa-check"></i><b>21.2.3</b> Using R to Solve the Two Equations</a></li>
 </ul></li>
+<li class="chapter" data-level="21.3" data-path="lu-decompostion.html"><a href="lu-decompostion.html#application-of-lu-decomposition-in-computing"><i class="fa fa-check"></i><b>21.3</b> Application of LU Decomposition in Computing</a></li>
 </ul></li>
 <li class="chapter" data-level="22" data-path="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><a href="statistical-application-estimating-regression-coefficients-with-lu-decomposition.html"><i class="fa fa-check"></i><b>22</b> Statistical Application: Estimating Regression Coefficients with LU Decomposition</a>
 <ul>
@@ -425,9 +425,10 @@ div.csl-indent {
 <li class="part"><span><b>Regression Applications</b></span></li>
 <li class="chapter" data-level="27" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html"><i class="fa fa-check"></i><b>27</b> Important Matrices in Regression</a>
 <ul>
-<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.1</b> Vector of Fitted Values</a></li>
-<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.2</b> The H-Matrix (Hat Matrix)</a></li>
-<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.3</b> Vector of Residuals</a></li>
+<li class="chapter" data-level="27.1" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#design-matrix"><i class="fa fa-check"></i><b>27.1</b> Design Matrix</a></li>
+<li class="chapter" data-level="27.2" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-fitted-values"><i class="fa fa-check"></i><b>27.2</b> Vector of Fitted Values</a></li>
+<li class="chapter" data-level="27.3" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#the-h-matrix-hat-matrix"><i class="fa fa-check"></i><b>27.3</b> The H-Matrix (Hat Matrix)</a></li>
+<li class="chapter" data-level="27.4" data-path="important-matrices-in-regression.html"><a href="important-matrices-in-regression.html#vector-of-residuals"><i class="fa fa-check"></i><b>27.4</b> Vector of Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="28" data-path="sums-of-squares-in-regression.html"><a href="sums-of-squares-in-regression.html"><i class="fa fa-check"></i><b>28</b> Sums of Squares in Regression</a>
 <ul>
@@ -478,29 +479,29 @@ div.csl-indent {
 <div class="hero-image-container"> 
   <img class= "hero-image" src="figs/hero-image-2.png">
 </div>
-<div id="square-matrices-and-friends" class="section level1" number="12">
-<h1><span class="header-section-number">Chapter 12</span> Square Matrices and Friends</h1>
+<div id="square-matrices-and-friends" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Square Matrices and Friends<a href="square-matrices-and-friends.html#square-matrices-and-friends" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter, you will learn about square matrices and several specific types of square matrices encountered in statistical and psychometric applications. Many of these matrices have properties that make them incredibly useful for computation.</p>
 <p><br /></p>
-<div id="square-matrices" class="section level2" number="12.1">
-<h2><span class="header-section-number">12.1</span> Square Matrices</h2>
+<div id="square-matrices" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> Square Matrices<a href="square-matrices-and-friends.html#square-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When the number of rows and columns in a matrix are equal, the matrix is referred to as a <em>square matrix</em>. For example, <strong>X</strong> and <strong>Y</strong> are both square matrices.</p>
 <p><span class="math display">\[
 \underset{2\times 2}{\mathbf{X}} = \begin{bmatrix}
-4 &amp; 1 \\ 
+4 &amp; 1 \\
 0 &amp; 3
 \end{bmatrix} \qquad \underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
-0 &amp; 1 &amp; 0 \\ 
+0 &amp; 1 &amp; 0 \\
 1 &amp; 3 &amp; -8\\
 10 &amp; 4 &amp; -2
 \end{bmatrix}
 \]</span></p>
-<div id="main-diagonal" class="section level3" number="12.1.1">
-<h3><span class="header-section-number">12.1.1</span> Main Diagonal</h3>
+<div id="main-diagonal" class="section level3 hasAnchor" number="12.1.1">
+<h3><span class="header-section-number">12.1.1</span> Main Diagonal<a href="square-matrices-and-friends.html#main-diagonal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In a square matrix, the <em>main diagonal</em> (a.k.a., <em>major diagonal</em> or <em>principal diagonal</em>) includes the elements that lie along the diagonal from the upper-left element to the lower-right element. For example, the main diagonal in <strong>Y</strong> (highlighted in red) includes the elements <span class="math inline">\(0\)</span>, <span class="math inline">\(3\)</span>, and <span class="math inline">\(-2\)</span>. Elements not in the main diagonal are referred to as <em>off-diagonal elements</em>.</p>
 <p><span class="math display">\[
 \underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
-\color{red}{0} &amp; 1 &amp; 0 \\ 
+\color{red}{0} &amp; 1 &amp; 0 \\
 1 &amp; \color{red}{3} &amp; -8\\
 10 &amp; 4 &amp; \color{red}{-2}
 \end{bmatrix}
@@ -508,12 +509,12 @@ div.csl-indent {
 <p>One interesting and useful property of a square matrix is that if we compute its transpose, the main diagonal is the same as in the original matrix.</p>
 <p><span class="math display">\[
 \underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
-\color{red}0 &amp; 1 &amp; 0 \\ 
+\color{red}0 &amp; 1 &amp; 0 \\
 1 &amp; \color{red}3 &amp; -8\\
 10 &amp; 4 &amp; \color{red}{-2}
 \end{bmatrix} \qquad
 \underset{3\times 3}{\mathbf{Y}^\intercal} = \begin{bmatrix}
-\color{red}0 &amp; 1 &amp; 10 \\ 
+\color{red}0 &amp; 1 &amp; 10 \\
 1 &amp; \color{red}3 &amp; 4\\
 0 &amp; -8 &amp; \color{red}{-2}
 \end{bmatrix}
@@ -554,8 +555,8 @@ div.csl-indent {
 <p><br /></p>
 </div>
 </div>
-<div id="diagonal-matrices" class="section level2" number="12.2">
-<h2><span class="header-section-number">12.2</span> Diagonal Matrices</h2>
+<div id="diagonal-matrices" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> Diagonal Matrices<a href="square-matrices-and-friends.html#diagonal-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A diagonal matrix is a square matrix in which all the off-diagonal elements are zero. Two examples of diagonal matrices are as follows:</p>
 <p><span class="math display">\[
 \underset{2\times 2}{\mathbf{D}_1} = \begin{bmatrix}
@@ -570,8 +571,8 @@ div.csl-indent {
 <p>In general, <strong>D</strong> is a diagonal matrix if element <span class="math inline">\(d_{ij}=0\)</span> for all <span class="math inline">\(i\neq j\)</span>.</p>
 <p><br /></p>
 </div>
-<div id="scalar-matrices" class="section level2" number="12.3">
-<h2><span class="header-section-number">12.3</span> Scalar Matrices</h2>
+<div id="scalar-matrices" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Scalar Matrices<a href="square-matrices-and-friends.html#scalar-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A diagonal matrix in which all the diagonal elements have the same value is called a scalar matrix. The following two matrices are scalar matrices:</p>
 <p><span class="math display">\[
 \underset{2\times 2}{\mathbf{S}_1} = \begin{bmatrix}
@@ -588,8 +589,8 @@ div.csl-indent {
 s_{ij}=\begin{cases}k \quad \mathrm{when} \quad i=j \\0 \quad \mathrm{when} \quad i\neq j\end{cases}
 \]</span></p>
 <p><br /></p>
-<div id="identity-matrices" class="section level3" number="12.3.1">
-<h3><span class="header-section-number">12.3.1</span> Identity Matrices</h3>
+<div id="identity-matrices" class="section level3 hasAnchor" number="12.3.1">
+<h3><span class="header-section-number">12.3.1</span> Identity Matrices<a href="square-matrices-and-friends.html#identity-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A special scalar matrix, the identity matrix, is one in which all the diagonal elements are the value of one (1).</p>
 <p><span class="math display">\[
 \underset{2\times 2}{\mathbf{I}} = \begin{bmatrix}
@@ -618,8 +619,8 @@ s_{ij}=\begin{cases}k \quad \mathrm{when} \quad i=j \\0 \quad \mathrm{when} \qua
 <p><br /></p>
 </div>
 </div>
-<div id="symmetric-matrices" class="section level2" number="12.4">
-<h2><span class="header-section-number">12.4</span> Symmetric Matrices</h2>
+<div id="symmetric-matrices" class="section level2 hasAnchor" number="12.4">
+<h2><span class="header-section-number">12.4</span> Symmetric Matrices<a href="square-matrices-and-friends.html#symmetric-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If <span class="math inline">\(\mathbf{A} = \mathbf{A}^{\intercal}\)</span>, the matrix <strong>A</strong> is considered <em>symmetric</em>. For example, the following matrix <strong>R</strong> is symmetric:</p>
 <p><span class="math display">\[
 \underset{3\times 3}{\mathbf{R}} = \begin{bmatrix}
@@ -668,8 +669,8 @@ s_{ij}=\begin{cases}k \quad \mathrm{when} \quad i=j \\0 \quad \mathrm{when} \qua
 [3,] TRUE TRUE TRUE</code></pre>
 <p>If the logical statement of equality evaluates as <code>TRUE</code> for all the elements, the matrix is symmetric. If the logical expression returns an <em>non-conformable array</em> error, or evaluates as <code>FALSE</code> for any of the elements, then it is not symmetric.</p>
 <p><br /></p>
-<div id="skew-symmetric-matrices" class="section level3" number="12.4.1">
-<h3><span class="header-section-number">12.4.1</span> Skew Symmetric Matrices</h3>
+<div id="skew-symmetric-matrices" class="section level3 hasAnchor" number="12.4.1">
+<h3><span class="header-section-number">12.4.1</span> Skew Symmetric Matrices<a href="square-matrices-and-friends.html#skew-symmetric-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A matrix <strong>A</strong> is said to be <em>skew symmetric</em> if <span class="math inline">\(\mathbf{A} = -\mathbf{A}^{\intercal}\)</span>.For example, the following matrix <strong>S</strong> is skew symmetric:</p>
 <p><span class="math display">\[
 \underset{3\times 3}{\mathbf{S}} = \begin{bmatrix}
@@ -682,8 +683,8 @@ s_{ij}=\begin{cases}k \quad \mathrm{when} \quad i=j \\0 \quad \mathrm{when} \qua
 <p><br /></p>
 </div>
 </div>
-<div id="triangular-matrices" class="section level2" number="12.5">
-<h2><span class="header-section-number">12.5</span> Triangular Matrices</h2>
+<div id="triangular-matrices" class="section level2 hasAnchor" number="12.5">
+<h2><span class="header-section-number">12.5</span> Triangular Matrices<a href="square-matrices-and-friends.html#triangular-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A matrix is a triangular matrix if all of the elements above or below the main diagonal are zero. These are referred to as <em>upper triangular matrices</em> and <em>lower triangular matrices</em>, respectively. A matrix <strong>A</strong> is a lower triangular matrix if elements <span class="math inline">\(a_{ij}=0\)</span> for <span class="math inline">\(j&gt;i\)</span> (all the elements above the main diagonal are zero). For example the matrix <strong>L</strong> is lower triangular:</p>
 <p><span class="math display">\[
 \underset{4\times 4}{\mathbf{L}} = \begin{bmatrix}
@@ -704,8 +705,8 @@ s_{ij}=\begin{cases}k \quad \mathrm{when} \quad i=j \\0 \quad \mathrm{when} \qua
 \]</span></p>
 <p><br /></p>
 </div>
-<div id="exercises-5" class="section level2 exercises" number="12.6">
-<h2><span class="header-section-number">12.6</span> Exercises</h2>
+<div id="exercises-5" class="section level2 hasAnchor exercises" number="12.6">
+<h2><span class="header-section-number">12.6</span> Exercises<a href="square-matrices-and-friends.html#exercises-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Consider the following matrices:</strong></p>
 <p><span class="math display">\[
 \mathbf{A} = \begin{bmatrix}1 &amp; 5 &amp; -1 \\ 3 &amp; 2 &amp; -1 \\ 0 &amp; 1 &amp; 5 \end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}3 &amp; 1 &amp; 6 \\ 2 &amp; 0 &amp; 1 \\ -7 &amp; -1 &amp; 2 \end{bmatrix}
@@ -805,7 +806,6 @@ Show/Hide Solution
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
-<script src="libs/gitbook/js/lunr.js"></script>
 <script src="libs/gitbook/js/clipboard.min.js"></script>
 <script src="libs/gitbook/js/plugin-search.js"></script>
 <script src="libs/gitbook/js/plugin-sharing.js"></script>
@@ -845,6 +845,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "section"
 }
