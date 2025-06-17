@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler">
-<meta name="dcterms.date" content="2025-06-17">
 
-<title>Matrix Algebra for Educational Scientists</title>
+<title>11&nbsp; Square Matrices and Friends – Matrix Algebra for Educational Scientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,6 +116,35 @@ function toggle_visibility(id) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/sticky-notes.css">
 <link rel="stylesheet" href="assets/table-styles.css">
@@ -98,7 +160,7 @@ function toggle_visibility(id) {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Matrix Algebra for Educational Scientists</h1>
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Square Matrices and Friends</span></h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -124,7 +186,7 @@ function toggle_visibility(id) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foreword</span></a>
   </div>
 </li>
@@ -227,7 +289,7 @@ function toggle_visibility(id) {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./21-square-matrices.html" class="sidebar-item-text sidebar-link">
+  <a href="./21-square-matrices.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Square Matrices and Friends</span></span></a>
   </div>
 </li>
@@ -396,26 +458,14 @@ function toggle_visibility(id) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Matrix Algebra for Educational Scientists</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Square Matrices and Friends</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael Rodriguez &amp; Andrew Zieffler </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 17, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -425,28 +475,353 @@ function toggle_visibility(id) {
 </header>
 
 
-<section id="foreword" class="level1 unnumbered">
-<h1 class="unnumbered">Foreword</h1>
-<p>Spring 2021.</p>
-<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
+<p>In this chapter, you will learn about square matrices and several specific types of square matrices encountered in statistical and psychometric applications. Many of these matrices have properties that make them incredibly useful for computation.</p>
 <p><br></p>
-<p>Andrew Zieffler &amp; Michael Rodriguez</p>
-<p><br> <br></p>
-<section id="acknowledgments" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copy editors.</p>
-<p><br><br></p>
+<section id="square-matrices" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="square-matrices"><span class="header-section-number">11.1</span> Square Matrices</h2>
+<p>When the number of rows and columns in a matrix are equal, the matrix is referred to as a <em>square matrix</em>. For example, <strong>X</strong> and <strong>Y</strong> are both square matrices.</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\mathbf{X}} = \begin{bmatrix}
+4 &amp; 1 \\
+0 &amp; 3
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+0 &amp; 1 &amp; 0 \\
+1 &amp; 3 &amp; -8\\
+10 &amp; 4 &amp; -2
+\end{bmatrix}
+\]</span></p>
+<section id="main-diagonal" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="main-diagonal"><span class="header-section-number">11.1.1</span> Main Diagonal</h3>
+<p>In a square matrix, the <em>main diagonal</em> (a.k.a., <em>major diagonal</em> or <em>principal diagonal</em>) includes the elements that lie along the diagonal from the upper-left element to the lower-right element. For example, the main diagonal in <strong>Y</strong> (highlighted in red) includes the elements <span class="math inline">\(0\)</span>, <span class="math inline">\(3\)</span>, and <span class="math inline">\(-2\)</span>. Elements not in the main diagonal are referred to as <em>off-diagonal elements</em>.</p>
+<p><span class="math display">\[
+\underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+\color{red}{0} &amp; 1 &amp; 0 \\
+1 &amp; \color{red}{3} &amp; -8\\
+10 &amp; 4 &amp; \color{red}{-2}
+\end{bmatrix}
+\]</span></p>
+<p>One interesting and useful property of a square matrix is that if we compute its transpose, the main diagonal is the same as in the original matrix.</p>
+<p><span class="math display">\[
+\underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+\color{red}0 &amp; 1 &amp; 0 \\
+1 &amp; \color{red}3 &amp; -8\\
+10 &amp; 4 &amp; \color{red}{-2}
+\end{bmatrix} \qquad
+\underset{3\times 3}{\mathbf{Y}^\intercal} = \begin{bmatrix}
+\color{red}0 &amp; 1 &amp; 10 \\
+1 &amp; \color{red}3 &amp; 4\\
+0 &amp; -8 &amp; \color{red}{-2}
+\end{bmatrix}
+\]</span></p>
+<p>We can use the <code>diag()</code> function to return the elements on the main diagonal in a square matrix.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create Y</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">8</span>, <span class="sc">-</span><span class="dv">2</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display Y</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    0    1    0
+[2,]    1    3   -8
+[3,]   10    4   -2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find diagonal elements</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(Y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0  3 -2</code></pre>
+</div>
+</div>
+<div class="fyi">
+<p><strong>CAUTION</strong></p>
+<p>The <code>diag()</code> function also works on non-square matrices. However, it returns the elements on the diagonal starting with the element in the first row and column.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span>),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display X</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    0    3
+[2,]    1    4
+[3,]    1    0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find 'diagonal' elements</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 4</code></pre>
+</div>
+</div>
+<p>This is because non-square matrices also have a main diagonal. The main diagonal in a non-square matrix includes the elements <span class="math inline">\(a_{11}, a_{22}, \ldots, a_{mm}\)</span> where <em>m</em> is the minimum of the row and column values.</p>
+</div>
+<p><br></p>
 </section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
-<p>The book is typeset using <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible">Atkinson Hyperlegible</a>. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
-<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
-<p>Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). <a href="https://rstudio4edu.github.io/rstudio4edu-book/">A handbook for teaching and learning with R and RStudio</a>.</p>
-<p><br><br></p>
+</section>
+<section id="diagonal-matrices" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="diagonal-matrices"><span class="header-section-number">11.2</span> Diagonal Matrices</h2>
+<p>A diagonal matrix is a square matrix in which all the off-diagonal elements are zero. Two examples of diagonal matrices are as follows:</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\mathbf{D}_1} = \begin{bmatrix}
+5 &amp; 0 \\
+0 &amp; -1
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{D}_2} = \begin{bmatrix}
+3 &amp; 0 &amp; 0 \\
+0 &amp; 3 &amp; 0 \\
+0 &amp; 0 &amp; 3
+\end{bmatrix}
+\]</span></p>
+<p>In general, <strong>D</strong> is a diagonal matrix if element <span class="math inline">\(d_{ij}=0\)</span> for all <span class="math inline">\(i\neq j\)</span>.</p>
+<p><br></p>
+</section>
+<section id="scalar-matrices" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="scalar-matrices"><span class="header-section-number">11.3</span> Scalar Matrices</h2>
+<p>A diagonal matrix in which all the diagonal elements have the same value is called a scalar matrix. The following two matrices are scalar matrices:</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\mathbf{S}_1} = \begin{bmatrix}
+-3 &amp; 0 \\
+0 &amp; -3
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{S}_2} = \begin{bmatrix}
+10 &amp; 0 &amp; 0 \\
+0 &amp; 10 &amp; 0 \\
+0 &amp; 0 &amp; 10
+\end{bmatrix}
+\]</span></p>
+<p>The null matrix is also a scalar matrix. In general <strong>S</strong> is a scalar matrix if element</p>
+<p><span class="math display">\[
+s_{ij}=\begin{cases}k \quad \mathrm{when} \quad i=j \\0 \quad \mathrm{when} \quad i\neq j\end{cases}
+\]</span></p>
+<p><br></p>
+<section id="identity-matrices" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="identity-matrices"><span class="header-section-number">11.3.1</span> Identity Matrices</h3>
+<p>A special scalar matrix, the identity matrix, is one in which all the diagonal elements are the value of one (1).</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\mathbf{I}} = \begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 1
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{I}} = \begin{bmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span></p>
+<p>The identity matrix has the following property:</p>
+<ul>
+<li>For any matrix <strong>A</strong>, <span class="math inline">\(\mathbf{AI} = \mathbf{IA} = \mathbf{A}\)</span></li>
+</ul>
+<p>The <code>diag()</code> function can be used to create an identity matrix. We give this function an argument which provides the number of rows and columns.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 3x3 identity matrix</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>I <span class="ot">=</span> <span class="fu">diag</span>(<span class="dv">3</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Display I</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>I</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    0    0
+[2,]    0    1    0
+[3,]    0    0    1</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="symmetric-matrices" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="symmetric-matrices"><span class="header-section-number">11.4</span> Symmetric Matrices</h2>
+<p>If <span class="math inline">\(\mathbf{A} = \mathbf{A}^{\intercal}\)</span>, the matrix <strong>A</strong> is considered <em>symmetric</em>. For example, the following matrix <strong>R</strong> is symmetric:</p>
+<p><span class="math display">\[
+\underset{3\times 3}{\mathbf{R}} = \begin{bmatrix}
+1.00 &amp; 0.32 &amp; 0.69\\
+0.32 &amp; 1.00 &amp; 0.85 \\
+0.69 &amp; 0.85 &amp; 1.00
+\end{bmatrix} =
+\underset{3\times 3}{\mathbf{R}^\intercal} = \begin{bmatrix}
+1.00 &amp; 0.32 &amp; 0.69\\
+0.32 &amp; 1.00 &amp; 0.85 \\
+0.69 &amp; 0.85 &amp; 1.00
+\end{bmatrix}
+\]</span></p>
+<p>In general, a matrix <strong>A</strong> is symmetric if,</p>
+<p><span class="math display">\[
+\mathbf{A}_{ij} = \mathbf{A}_{ji}
+\]</span></p>
+<p>If matrix <strong>A</strong> is symmetric, it necessitates that:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{A}^{\intercal}\)</span> have the same dimensions. This also implies that the matrix must be a square matrix.</li>
+<li>All of the corresponding elements in <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{A}^{\intercal}\)</span> are equal.</li>
+</ul>
+<p>All scalar matrices, including the identity matrix, are symmetric.</p>
+<p>In statistical practice, variance–covariance matrices and correlation matrices are symmetric. Computationally, we can examine whether a matrix is symmetric by checking whether the logical statement equating a matrix and its transpose evaluates as <code>TRUE</code> for all elements. For example, consider the correlation matrix <strong>R</strong>:</p>
+<p><span class="math display">\[
+\mathbf{R}=\begin{bmatrix}1.00 &amp; 0.32 &amp; 0.69\\ 0.32 &amp; 1.00 &amp; 0.85\\ 0.69 &amp; 0.85 &amp; 1.00\end{bmatrix}
+\]</span></p>
+<p>To check its symmetry, we can use the following syntax.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create matrix R</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="fl">1.00</span>, <span class="fl">0.32</span>, <span class="fl">0.69</span>, <span class="fl">0.32</span>, <span class="fl">1.00</span>, <span class="fl">0.85</span>, <span class="fl">0.69</span>, <span class="fl">0.85</span>, <span class="fl">1.00</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">3</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display R</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,] 1.00 0.32 0.69
+[2,] 0.32 1.00 0.85
+[3,] 0.69 0.85 1.00</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test for symmetry</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>R <span class="sc">==</span> <span class="fu">t</span>(R)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,] TRUE TRUE TRUE
+[2,] TRUE TRUE TRUE
+[3,] TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+<p>If the logical statement of equality evaluates as <code>TRUE</code> for all the elements, the matrix is symmetric. If the logical expression returns an <em>non-conformable array</em> error, or evaluates as <code>FALSE</code> for any of the elements, then it is not symmetric.</p>
+<p><br></p>
+<section id="skew-symmetric-matrices" class="level3" data-number="11.4.1">
+<h3 data-number="11.4.1" class="anchored" data-anchor-id="skew-symmetric-matrices"><span class="header-section-number">11.4.1</span> Skew Symmetric Matrices</h3>
+<p>A matrix <strong>A</strong> is said to be <em>skew symmetric</em> if <span class="math inline">\(\mathbf{A} = -\mathbf{A}^{\intercal}\)</span>.For example, the following matrix <strong>S</strong> is skew symmetric:</p>
+<p><span class="math display">\[
+\underset{3\times 3}{\mathbf{S}} = \begin{bmatrix}
+0 &amp; 2 &amp; -3\\
+-2 &amp; 0 &amp; 1 \\
+3 &amp; -1 &amp; 0
+\end{bmatrix}
+\]</span></p>
+<p>In general, a matrix <strong>A</strong> is skew symmetric if, <span class="math inline">\(\mathbf{a}_{ij} = -\mathbf{a}_{ji}\)</span>. Note that if a matrix is skew symmetric, all of its diagonal elements must be zero.</p>
+<p><br></p>
+</section>
+</section>
+<section id="triangular-matrices" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="triangular-matrices"><span class="header-section-number">11.5</span> Triangular Matrices</h2>
+<p>A matrix is a triangular matrix if all of the elements above or below the main diagonal are zero. These are referred to as <em>upper triangular matrices</em> and <em>lower triangular matrices</em>, respectively. A matrix <strong>A</strong> is a lower triangular matrix if elements <span class="math inline">\(a_{ij}=0\)</span> for <span class="math inline">\(j&gt;i\)</span> (all the elements above the main diagonal are zero). For example the matrix <strong>L</strong> is lower triangular:</p>
+<p><span class="math display">\[
+\underset{4\times 4}{\mathbf{L}} = \begin{bmatrix}
+6 &amp; \color{red}{0} &amp; \color{red}{0} &amp; \color{red}{0}\\
+-1 &amp; 5 &amp; \color{red}{0} &amp; \color{red}{0} \\
+0 &amp; 1 &amp; 2 &amp; \color{red}{0} \\
+3 &amp; -2 &amp; 5 &amp; 7
+\end{bmatrix}
+\]</span></p>
+<p>A matrix <strong>A</strong> is an upper triangular matrix if elements <span class="math inline">\(a_{ij}=0\)</span> for <span class="math inline">\(i&gt;j\)</span> (all the elements below the main diagonal are zero). For example the matrix <strong>U</strong> is lower triangular:</p>
+<p><span class="math display">\[
+\underset{4\times 4}{\mathbf{U}} = \begin{bmatrix}
+3 &amp; -2 &amp; 5 &amp; 7\\
+\color{red}{0} &amp; 1 &amp; 2 &amp; 0 \\
+\color{red}{0} &amp; \color{red}{0} &amp; -1 &amp; 5 &amp; \\
+\color{red}{0} &amp; \color{red}{0} &amp; \color{red}{0} &amp; 6\\
+\end{bmatrix}
+\]</span></p>
+<p><br></p>
+</section>
+<section id="exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
+<p><strong>Consider the following matrices:</strong></p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}1 &amp; 5 &amp; -1 \\ 3 &amp; 2 &amp; -1 \\ 0 &amp; 1 &amp; 5 \end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}3 &amp; 1 &amp; 6 \\ 2 &amp; 0 &amp; 1 \\ -7 &amp; -1 &amp; 2 \end{bmatrix}
+\]</span></p>
+<ol start="3" type="1">
+<li>List the diagonal elements of <span class="math inline">\(\mathbf{A}^\intercal\)</span>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_03');">
+Show/Hide Solution
+</button>
+<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\begin{split}
+B^\intercal_{1,1}=1 \\[1em]
+B^\intercal_{2,2}=2 \\[1em]
+B^\intercal_{3,3}=5 \\[1em]
+\end{split}
+\]</span></p>
+</div>
+<ol start="4" type="1">
+<li>Create an identity matrix of order 4.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_04');">
+Show/Hide Solution
+</button>
+<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\underset{4\times4}{\mathbf{I}} = \begin{bmatrix}1 &amp; 0 &amp; 0&amp; 0\\0 &amp; 1 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; 0 &amp; 1\end{bmatrix}
+\]</span></p>
+</div>
+<ol start="5" type="1">
+<li>Explain why the transpose of an upper triangular matrix will be a lower triangular matrix.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_05');">
+Show/Hide Solution
+</button>
+<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
+<p>An upper triangular matrix, <strong>U</strong>, has elements <span class="math inline">\(u_{ij}=0\)</span> for <span class="math inline">\(i&gt;j\)</span> (all the elements below the main diagonal are zero). Taking the transpose of <strong>U</strong>, element <span class="math inline">\(u_{ij}\)</span> becomes <span class="math inline">\(u^\intercal_{ji}\)</span>. This means that in <span class="math inline">\(\mathbf{U}^\intercal\)</span> the zero elements all be where <span class="math inline">\(j&gt;i\)</span>.</p>
+</div>
+<p><strong>Consider the following:</strong></p>
+<p><span class="math display">\[
+\mathbf{X} = \begin{bmatrix} 10 &amp; 4 &amp; 6\\4 &amp; 10 &amp; 8\\6 &amp; 8 &amp; 9 \end{bmatrix} \qquad \mathbf{Y} = \begin{bmatrix}0 &amp; 1 &amp; 2\\-1 &amp; 0 &amp; 4\\-2 &amp; -4 &amp; 0 \end{bmatrix}
+\]</span></p>
+<ol start="6" type="1">
+<li>Use R to show that <strong>X</strong> is symmetric.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_06');">
+Show/Hide Solution
+</button>
+<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">9</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Check symmetry</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>X <span class="sc">==</span> <span class="fu">t</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,] TRUE TRUE TRUE
+[2,] TRUE TRUE TRUE
+[3,] TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+</div>
+<ol start="7" type="1">
+<li>Use R to show that <strong>Y</strong> is skew symmetric.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_07');">
+Show/Hide Solution
+</button>
+<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">0</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Check symmetry</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>Y <span class="sc">==</span> <span class="sc">-</span><span class="fu">t</span>(Y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,] TRUE TRUE TRUE
+[2,] TRUE TRUE TRUE
+[3,] TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+</div>
+<p><br></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

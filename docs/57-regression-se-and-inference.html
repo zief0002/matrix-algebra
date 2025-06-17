@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler">
-<meta name="dcterms.date" content="2025-06-17">
 
-<title>Matrix Algebra for Educational Scientists</title>
+<title>28&nbsp; Standard Errors and Variance Estimates – Matrix Algebra for Educational Scientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,6 +116,35 @@ function toggle_visibility(id) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/sticky-notes.css">
 <link rel="stylesheet" href="assets/table-styles.css">
@@ -98,7 +160,7 @@ function toggle_visibility(id) {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Matrix Algebra for Educational Scientists</h1>
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Standard Errors and Variance Estimates</span></h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -124,7 +186,7 @@ function toggle_visibility(id) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foreword</span></a>
   </div>
 </li>
@@ -373,7 +435,7 @@ function toggle_visibility(id) {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./57-regression-se-and-inference.html" class="sidebar-item-text sidebar-link">
+  <a href="./57-regression-se-and-inference.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Standard Errors and Variance Estimates</span></span></a>
   </div>
 </li>
@@ -396,26 +458,14 @@ function toggle_visibility(id) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Matrix Algebra for Educational Scientists</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Standard Errors and Variance Estimates</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael Rodriguez &amp; Andrew Zieffler </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 17, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -425,28 +475,347 @@ function toggle_visibility(id) {
 </header>
 
 
-<section id="foreword" class="level1 unnumbered">
-<h1 class="unnumbered">Foreword</h1>
-<p>Spring 2021.</p>
-<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
+<p>In this chapter, you will learn about how matrix algebra is used to compute standard errors and variance estimates in regression. These allow us to compute confidence intervals and carry out hypothesis tests.</p>
+<p>To illustrate computations, we will again use the following toy data set to fit a regression model using SAT and Self-Esteem to predict variation in GPA.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-16-01" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-16-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;28.1: Example set of education data.
+</figcaption>
+<div aria-describedby="tbl-16-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">SAT</th>
+<th style="text-align: center;">GPA</th>
+<th style="text-align: center;">Self-Esteem</th>
+<th style="text-align: center;">IQ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">560</td>
+<td style="text-align: center;">3.0</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">112</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">780</td>
+<td style="text-align: center;">3.9</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">143</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">620</td>
+<td style="text-align: center;">2.9</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">124</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">600</td>
+<td style="text-align: center;">2.7</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">129</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">720</td>
+<td style="text-align: center;">3.7</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">130</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">380</td>
+<td style="text-align: center;">2.4</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">82</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
 <p><br></p>
-<p>Andrew Zieffler &amp; Michael Rodriguez</p>
-<p><br> <br></p>
-<section id="acknowledgments" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copy editors.</p>
-<p><br><br></p>
+<section id="residual-variance-of-the-model" class="level2" data-number="28.1">
+<h2 data-number="28.1" class="anchored" data-anchor-id="residual-variance-of-the-model"><span class="header-section-number">28.1</span> Residual Variance of the Model</h2>
+<p>Recall that the estimate of the residual variance (i.e., mean squared residuals) for the model is</p>
+<p><span class="math display">\[
+\hat\sigma^2_{\epsilon} = \frac{\mathrm{SS}_{\mathrm{Residuals}}}{\mathrm{df}_{\mathrm{Residuals}}}
+\]</span></p>
+<p>Using matrices, the sum of squared error (<span class="math inline">\(\mathrm{SS}_{\mathrm{Residuals}}\)</span>) is</p>
+<p><span class="math display">\[
+\mathrm{SS}_{\mathrm{Residuals}} = \mathbf{e}^\intercal\mathbf{e}
+\]</span></p>
+<p>The degrees-of-freedom associated with the residuals is <span class="math inline">\(\mathrm{df}_{\mathrm{Residuals}} = n-k\)</span>, where <span class="math inline">\(k\)</span> is the number of coefficients (including the intercept) being estimated in the model. Recall that the value of <span class="math inline">\(k\)</span> is the trace of the <strong>H</strong>-matrix. This implies,</p>
+<p><span class="math display">\[
+\hat\sigma^2_{\epsilon} = \frac{\mathbf{e}^\intercal\mathbf{e}}{n - \mathrm{tr}(\mathbf{H})}
+\]</span></p>
+<p>Using our toy example,</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of outcomes</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">3.0</span>, <span class="fl">3.9</span>, <span class="fl">2.9</span>, <span class="fl">2.7</span>, <span class="fl">3.7</span>, <span class="fl">2.4</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create design matrix</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">560</span>, <span class="dv">780</span>, <span class="dv">620</span>, <span class="dv">600</span>, <span class="dv">720</span>, <span class="dv">380</span>, </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">13</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_residual</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> y <span class="sc">-</span> X <span class="sc">%*%</span> b</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ss_resid <span class="ot">=</span> <span class="fu">t</span>(e) <span class="sc">%*%</span> e</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute df_residual</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>H <span class="ot">=</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">diag</span>(H))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>df_resid <span class="ot">=</span> <span class="dv">6</span> <span class="sc">-</span> k</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute estimate of error variance</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>var_e <span class="ot">=</span> ss_resid <span class="sc">/</span> df_resid</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>var_e</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.0911969</code></pre>
+</div>
+</div>
+<p>If we take the sqaure root of this estimate, that gives us the <em>residual standard error</em> (RSE) of the model, a.k.a., the <em>root mean square error</em> (RMSE).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find RSE/RMSE</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(var_e)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.3019882</code></pre>
+</div>
+</div>
+<p><br></p>
 </section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
-<p>The book is typeset using <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible">Atkinson Hyperlegible</a>. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
-<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
-<p>Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). <a href="https://rstudio4edu.github.io/rstudio4edu-book/">A handbook for teaching and learning with R and RStudio</a>.</p>
-<p><br><br></p>
+<section id="coefficient-variances-and-covariances" class="level2" data-number="28.2">
+<h2 data-number="28.2" class="anchored" data-anchor-id="coefficient-variances-and-covariances"><span class="header-section-number">28.2</span> Coefficient Variances and Covariances</h2>
+<p>In matrix applications, it is typical to indicate the error variances and covariances for the coefficients in a <em>variance–covariance matrix</em>. In this matrix the error variances for each of the coefficients is given along the main diagonal of the matrix. The covariances between the coefficients are given in the off-diagonal elements. For example, the variance–covariance matrix for a simple regression model is:</p>
+<p><span class="math display">\[
+\boldsymbol{\sigma^2_B} = \begin{bmatrix}\mathrm{Var}(b_0) &amp; \mathrm{Cov}(b_0,b_1) \\ \mathrm{Cov}(b_0,b_1)  &amp; \mathrm{Var}(b_1) \end{bmatrix}
+\]</span></p>
+<p>Examining the variance-covariance matrix of the coefficients, we find that it is a square, symmetric matrix with dimensions of <span class="math inline">\(k \times k\)</span>. This matrix is defined as:</p>
+<p><span class="math display">\[
+\boldsymbol{\sigma^2_B} = \sigma^2_{\epsilon} (\mathbf{X}^{\intercal}\mathbf{X})^{-1}
+\]</span></p>
+<!-- Based on this formula, we see that the variance of the estimator increases when the error term is more noisy ($\sigma^2_{\epsilon}$ increases). However, it decreases when the variation in **X** increases.^[Convince yourself of this.] This is because having more observations, allows for more accurate estimation of the coefficients. These also affect the size of the covariance terms on the off-diagonal. -->
+<p>In our toy example,</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variance-covariance matrix of the coefficients</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>V_b <span class="ot">=</span> <span class="fu">as.numeric</span>(var_e) <span class="sc">*</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>V_b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              [,1]             [,2]            [,3]
+[1,]  0.4741275943 -0.0005503737663 -0.009476931832
+[2,] -0.0005503738  0.0000009501116 -0.000002245718
+[3,] -0.0094769318 -0.0000022457184  0.000834370776</code></pre>
+</div>
+</div>
+<p>We use <code>as.numeric()</code> to convert the estimate of the model-level error variance to a numeric scalar. The estimated variance for each of the coefficients are:</p>
+<ul>
+<li><span class="math inline">\(\mathrm{Var}(\hat\beta_0) = 0.474\)</span></li>
+<li><span class="math inline">\(\mathrm{Var}(\hat\beta_{\mathrm{SAT}}) = 0.00000095\)</span></li>
+<li><span class="math inline">\(\mathrm{Var}(\hat\beta_{\mathrm{Self\mbox{-}Esteem}}) = 0.00083\)</span></li>
+</ul>
+<p>The covariances between these coefficients are also given in this matrix:</p>
+<ul>
+<li><span class="math inline">\(\mathrm{Cov}(\hat\beta_0,\hat\beta_{\mathrm{SAT}}) = -0.00055\)</span></li>
+<li><span class="math inline">\(\mathrm{Cov}(\hat\beta_0,\hat\beta_{\mathrm{Self\mbox{-}Esteem}}) = -0.0095\)</span></li>
+<li><span class="math inline">\(\mathrm{Cov}(\hat\beta_{\mathrm{SAT}},\hat\beta_{\mathrm{Self\mbox{-}Esteem}}) = -0.0000022\)</span></li>
+</ul>
+<p>In practice, the variance-covariance matrix of the regression coefficients can be obtained directly from R using the <code>vcov()</code> function.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> X[ , <span class="dv">2</span>] <span class="sc">+</span> X[ , <span class="dv">3</span>])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain variance-covariance matrix of the coefficients</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">vcov</span>(lm<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              (Intercept)           X[, 2]          X[, 3]
+(Intercept)  0.4741275943 -0.0005503737663 -0.009476931832
+X[, 2]      -0.0005503738  0.0000009501116 -0.000002245718
+X[, 3]      -0.0094769318 -0.0000022457184  0.000834370776</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="standard-errors-for-the-coefficients" class="level2" data-number="28.3">
+<h2 data-number="28.3" class="anchored" data-anchor-id="standard-errors-for-the-coefficients"><span class="header-section-number">28.3</span> Standard Errors for the Coefficients</h2>
+<p>While the variances are mathematically convenient, in applied work, the standard errors (SEs) of the coefficients are more commonly presented. Recall that the standard errors are given in the same metric as the coefficient estimates, and represent the uncertainty in that estimate. They are also used to construct test statistics (e.g., <em>z</em> or <em>t</em>) and confidence intervals for the estimates. The estimated standard error for each regression coefficient can be found by computing the square root of the variance estimates, that is:</p>
+<p><span class="math display">\[
+\mathrm{SE}(\beta_j) = \sqrt{\mathrm{Var}(\beta_j)}
+\]</span></p>
+<p>Thus, we can find the standard errors by computing the square roots of the diagonal elements in the variance–covariance matrix of the coefficients.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SEs</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(V_b))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View SEs</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>se</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6885692371 0.0009747367 0.0288854769</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="correlation-between-the-coefficients" class="level2" data-number="28.4">
+<h2 data-number="28.4" class="anchored" data-anchor-id="correlation-between-the-coefficients"><span class="header-section-number">28.4</span> Correlation Between the Coefficients</h2>
+<p>Recall that correlation, which is a standardized covariance, is often times more interpretable than the covariance. We can obtain the correlation coefficient between two coefficients, <span class="math inline">\(\hat\beta_j\)</span> and <span class="math inline">\(\hat\beta_k\)</span>, using</p>
+<p><span class="math display">\[
+\mathrm{Cor}(b_j,b_k) = \frac{\mathrm{Cov}(b_j,b_k)}{\sqrt{\mathrm{Var}(b_j)\times \mathrm{Var}(b_k)}}
+\]</span></p>
+<p>Using the values from our example, we can compute the correlation between each set of regression coefficients:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{Cor}(\hat\beta_0,\hat\beta_{\mathrm{SAT}}) &amp;= \frac{-0.00055}{\sqrt{0.474 \times 0.00000095}} &amp;= -0.820 \\[2ex]
+\mathrm{Cor}(\hat\beta_0,\hat\beta_{\mathrm{Self\mbox{-}Esteem}}) &amp;= \frac{-0.0095}{\sqrt{0.474 \times 0.00083}} &amp;= -0.479 \\[2ex]
+\mathrm{Cor}(\hat\beta_{\mathrm{SAT}},\hat\beta_{\mathrm{Self\mbox{-}Esteem}}) &amp;= \frac{-0.0000022}{\sqrt{0.00000095 \times 0.00083}} &amp;= -0.078
+\end{split}
+\]</span></p>
+<p>In R, if we have assigned the variance-covariance matrix to an object, we can use indexing to access the different elements to compute the correlation.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation between b_0 and b_SAT</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>V_b[<span class="dv">1</span>, <span class="dv">2</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(V_b[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">*</span> V_b[<span class="dv">2</span>, <span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.8200169</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation between b_0 and b_selfesteem</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>V_b[<span class="dv">1</span>, <span class="dv">3</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(V_b[<span class="dv">1</span>, <span class="dv">1</span>] <span class="sc">*</span> V_b[<span class="dv">3</span>, <span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.4764755</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation between b_SAT and b_selfesteem</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>V_b[<span class="dv">2</span>, <span class="dv">3</span>] <span class="sc">/</span> <span class="fu">sqrt</span>(V_b[<span class="dv">2</span>, <span class="dv">2</span>] <span class="sc">*</span> V_b[<span class="dv">3</span>, <span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.07976061</code></pre>
+</div>
+</div>
+<p>The correlations indicates that the intercept is highly, negatively correlated with both the other coefficients. Whereas the effects of SAT and self-esteem seem to be mostly uncorrelated (i.e., independent).</p>
+<!-- How can one set of regression coefficients have a correlation? You have to remember the thought experiments about repeated sampling from a population that we talked about in EPsy 8251/8252. The estimated correlation gives the *expected correlation* of the regression coefficients across multiple random samples. In our example, it is telling you that if you did the experiment again and it so happened that the intercept was smaller, it is likely that the slope coefficient would be larger. -->
+<p><br></p>
+</section>
+<section id="inference-model-level" class="level2" data-number="28.5">
+<h2 data-number="28.5" class="anchored" data-anchor-id="inference-model-level"><span class="header-section-number">28.5</span> Inference: Model-Level</h2>
+<p>The model-level (i.e., omnibus) null hypothesis for the regression model</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1(X_{1_i}) + \beta_2(X_{2_i}) + \beta_3(X_{3_i}) + \ldots + \beta_k(X_{k_i}) + \epsilon_i
+\]</span></p>
+<p>is commonly expressed as:</p>
+<p><span class="math display">\[
+H_0: \beta_1 = \beta_2 = \beta_3 = \ldots = \beta_k = 0
+\]</span></p>
+<p>If we write the set of predictor coefficients as a vector, <span class="math inline">\(\boldsymbol{\beta}^\intercal = \begin{bmatrix}  \beta_1 &amp; \beta_2 &amp; \beta_3 &amp; \ldots &amp; \beta_k\end{bmatrix}\)</span>, then we can write the model-level null hypothesis using vector notation:</p>
+<p><span class="math display">\[
+H_0: \boldsymbol{\beta} = 0
+\]</span></p>
+<p>Note that the we can express the vector of coefficients as either a column vector (<span class="math inline">\(\boldsymbol{\beta}\)</span>) or as a row vector (<span class="math inline">\(\boldsymbol{\beta}^\intercal\)</span>). To test this we compute an <em>F</em>-statistic based on the ratio of the mean square for the model and that for the residuals. This is evaluted in an <em>F</em>-distribution having <span class="math inline">\(k-1\)</span> and <span class="math inline">\(n-k\)</span> degrees of freedom. Using our toy-example:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute MS_model</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mc_y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y) <span class="co"># Mean-center y</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ss_model <span class="ot">=</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>ms_model <span class="ot">=</span> ss_model <span class="sc">/</span> (k <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>ms_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.7132047</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute MS_residual</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ss_resid <span class="ot">=</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> mc_y <span class="sc">-</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>ms_resid <span class="ot">=</span> ss_resid <span class="sc">/</span> (<span class="dv">6</span> <span class="sc">-</span> k)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>ms_resid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.0911969</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute F</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>F_stat <span class="ot">=</span> ms_model <span class="sc">/</span> ms_resid</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>F_stat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 7.820492</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F_stat, <span class="at">df1 =</span> (k<span class="dv">-1</span>), <span class="at">df2 =</span> (<span class="dv">6</span><span class="sc">-</span>k))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]
+[1,] 0.06456224</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="inference-coefficient-level" class="level2" data-number="28.6">
+<h2 data-number="28.6" class="anchored" data-anchor-id="inference-coefficient-level"><span class="header-section-number">28.6</span> Inference: Coefficient-Level</h2>
+<p>The coefficient-level null hypotheses for the regression model are:</p>
+<p><span class="math display">\[
+\begin{split}
+H_0: \beta_j = 0
+\end{split}
+\]</span></p>
+<p>for each <em>j</em>. To test this we compute a <em>t</em>-statistic based on the ratio of the coefficent estimate and that its associated standard error. This is evaluted in a <em>t</em>-distribution having <span class="math inline">\(n-k\)</span> degrees of freedom. Using our toy-example:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute t for all three coefficients</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">=</span> b <span class="sc">/</span> se</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>t_stat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.9573671
+[2,] 3.9041321
+[3,] 0.3180490</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_stat), <span class="at">df =</span> (<span class="dv">6</span><span class="sc">-</span>k), <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]
+[1,] 0.40900915
+[2,] 0.02983868
+[3,] 0.77130154</code></pre>
+</div>
+</div>
+<p>We could also compute a confidence interval using,</p>
+<p><span class="math display">\[
+B_j \pm t^*(\mathrm{SE}_{B_j})
+\]</span></p>
+<p>where <span class="math inline">\(B_j\)</span> is the jth coefficient, <span class="math inline">\(\mathrm{SE}_{B_j}\)</span> is the standard error associated with that coefficient, and <span class="math inline">\(t^*\)</span> is the appropriate critical value. Using our toy example,</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain critical value for 95% CI</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>t_star <span class="ot">=</span> <span class="fu">abs</span>(<span class="fu">qt</span>(.<span class="dv">025</span>, <span class="at">df =</span> (<span class="dv">6</span><span class="sc">-</span>k)))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute lower limit of CI</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>b <span class="sc">-</span> t_star<span class="sc">*</span>se</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              [,1]
+[1,] -1.5321211074
+[2,]  0.0007034536
+[3,] -0.0827394812</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute upper limit of CI</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>b <span class="sc">+</span> t_star<span class="sc">*</span>se</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            [,1]
+[1,] 2.850548142
+[2,] 0.006907548
+[3,] 0.101113477</code></pre>
+</div>
+</div>
+<p><br></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

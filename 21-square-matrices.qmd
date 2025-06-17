@@ -1,0 +1,372 @@
+# Square Matrices and Friends
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+source("scripts/_common.R")
+```
+
+
+In this chapter, you will learn about square matrices and several specific types of square matrices encountered in statistical and psychometric applications. Many of these matrices have properties that make them incredibly useful for computation.
+
+<br />
+
+
+## Square Matrices
+
+When the number of rows and columns in a matrix are equal, the matrix is referred to as a *square matrix*. For example, **X** and **Y** are both square matrices.
+
+$$
+\underset{2\times 2}{\mathbf{X}} = \begin{bmatrix}
+4 & 1 \\ 
+0 & 3
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+0 & 1 & 0 \\ 
+1 & 3 & -8\\
+10 & 4 & -2
+\end{bmatrix}
+$$
+
+
+
+### Main Diagonal
+
+In a square matrix, the *main diagonal* (a.k.a., *major diagonal* or *principal diagonal*) includes the elements that lie along the diagonal from the upper-left element to the lower-right element. For example, the main diagonal in **Y** (highlighted in red) includes the elements $0$, $3$, and $-2$. Elements not in the main diagonal are referred to as *off-diagonal elements*.
+
+$$
+\underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+\color{red}{0} & 1 & 0 \\ 
+1 & \color{red}{3} & -8\\
+10 & 4 & \color{red}{-2}
+\end{bmatrix}
+$$
+
+One interesting and useful property of a square matrix is that if we compute its transpose, the main diagonal is the same as in the original matrix.
+
+$$
+\underset{3\times 3}{\mathbf{Y}} = \begin{bmatrix}
+\color{red}0 & 1 & 0 \\ 
+1 & \color{red}3 & -8\\
+10 & 4 & \color{red}{-2}
+\end{bmatrix} \qquad
+\underset{3\times 3}{\mathbf{Y}^\intercal} = \begin{bmatrix}
+\color{red}0 & 1 & 10 \\ 
+1 & \color{red}3 & 4\\
+0 & -8 & \color{red}{-2}
+\end{bmatrix}
+$$
+
+
+We can use the `diag()` function to return the elements on the main diagonal in a square matrix.
+
+```{r}
+# Create Y
+Y = matrix(
+  data = c(0, 1, 10, 1, 3, 4, 0, -8, -2),
+  nrow = 3
+  )
+
+# Display Y
+Y
+
+# Find diagonal elements
+diag(Y)
+```
+
+:::fyi
+**CAUTION**
+
+The `diag()` function also works on non-square matrices. However, it returns the elements on the diagonal starting with the element in the first row and column.
+
+```{r}
+# Create X
+X = matrix(
+  data = c(0, 1, 1, 3, 4, 0),
+  nrow = 3
+  )
+
+# Display X
+X
+
+# Find 'diagonal' elements
+diag(X)
+```
+
+This is because non-square matrices also have a main diagonal. The main diagonal in a non-square matrix includes the elements $a_{11}, a_{22}, \ldots, a_{mm}$ where *m* is the minimum of the row and column values. 
+
+:::
+
+<br />
+
+
+## Diagonal Matrices
+
+A diagonal matrix is a square matrix in which all the off-diagonal elements are zero. Two examples of diagonal matrices are as follows:
+
+$$
+\underset{2\times 2}{\mathbf{D}_1} = \begin{bmatrix}
+5 & 0 \\
+0 & -1
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{D}_2} = \begin{bmatrix}
+3 & 0 & 0 \\
+0 & 3 & 0 \\
+0 & 0 & 3
+\end{bmatrix}
+$$
+
+In general, **D** is a diagonal matrix if element $d_{ij}=0$ for all $i\neq j$.
+
+<br />
+
+
+## Scalar Matrices
+
+A diagonal matrix in which all the diagonal elements have the same value is called a scalar matrix. The following two matrices are scalar matrices:
+
+$$
+\underset{2\times 2}{\mathbf{S}_1} = \begin{bmatrix}
+-3 & 0 \\
+0 & -3
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{S}_2} = \begin{bmatrix}
+10 & 0 & 0 \\
+0 & 10 & 0 \\
+0 & 0 & 10
+\end{bmatrix}
+$$
+
+The null matrix is also a scalar matrix. In general **S** is a scalar matrix if element
+
+$$
+s_{ij}=\begin{cases}k \quad \mathrm{when} \quad i=j \\0 \quad \mathrm{when} \quad i\neq j\end{cases}
+$$
+
+
+<br />
+
+
+### Identity Matrices
+
+A special scalar matrix, the identity matrix, is one in which all the diagonal elements are the value of one (1).  
+
+$$
+\underset{2\times 2}{\mathbf{I}} = \begin{bmatrix}
+1 & 0 \\
+0 & 1
+\end{bmatrix} \qquad \underset{3\times 3}{\mathbf{I}} = \begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+$$
+
+The identity matrix has the following property:
+
+- For any matrix **A**, $\mathbf{AI} = \mathbf{IA} = \mathbf{A}$
+
+The `diag()` function can be used to create an identity matrix. We give this function an argument which provides the number of rows and columns.
+
+```{r}
+# Create a 3x3 identity matrix
+I = diag(3)
+
+# Display I
+I
+```
+
+<br />
+
+
+## Symmetric Matrices
+
+If $\mathbf{A} = \mathbf{A}^{\intercal}$, the matrix **A** is considered *symmetric*. For example, the following matrix **R** is symmetric:
+
+$$
+\underset{3\times 3}{\mathbf{R}} = \begin{bmatrix}
+1.00 & 0.32 & 0.69\\
+0.32 & 1.00 & 0.85 \\
+0.69 & 0.85 & 1.00
+\end{bmatrix} =
+\underset{3\times 3}{\mathbf{R}^\intercal} = \begin{bmatrix}
+1.00 & 0.32 & 0.69\\
+0.32 & 1.00 & 0.85 \\
+0.69 & 0.85 & 1.00
+\end{bmatrix}
+$$
+
+In general, a matrix **A** is symmetric if,
+
+$$
+\mathbf{A}_{ij} = \mathbf{A}_{ji}
+$$
+
+
+If matrix **A** is symmetric, it necessitates that:
+
+- $\mathbf{A}$ and $\mathbf{A}^{\intercal}$ have the same dimensions. This also implies that the matrix must be a  square matrix.
+- All of the corresponding elements in $\mathbf{A}$ and $\mathbf{A}^{\intercal}$ are equal.
+
+All scalar matrices, including the identity matrix, are symmetric. 
+
+In statistical practice, variance--covariance matrices and correlation matrices are symmetric. Computationally, we can examine whether a matrix is symmetric by checking whether the logical statement equating a matrix and its transpose evaluates as `TRUE` for all elements. For example, consider the correlation matrix **R**:
+
+$$
+\mathbf{R}=\begin{bmatrix}1.00 & 0.32 & 0.69\\ 0.32 & 1.00 & 0.85\\ 0.69 & 0.85 & 1.00\end{bmatrix}
+$$
+
+To check its symmetry, we can use the following syntax.
+
+```{r}
+# Create matrix R
+R = matrix(
+  data = c(1.00, 0.32, 0.69, 0.32, 1.00, 0.85, 0.69, 0.85, 1.00),
+  nrow = 3
+)
+
+# Display R
+R
+
+# Test for symmetry
+R == t(R)
+```
+
+If the logical statement of equality evaluates as `TRUE` for all the elements, the matrix is symmetric. If the logical expression returns an *non-conformable array* error, or evaluates as `FALSE` for any of the elements, then it is not symmetric.
+
+<br />
+
+
+### Skew Symmetric Matrices
+
+A matrix **A** is said to be *skew symmetric* if $\mathbf{A} = -\mathbf{A}^{\intercal}$.For example, the following matrix **S** is skew symmetric:
+
+$$
+\underset{3\times 3}{\mathbf{S}} = \begin{bmatrix}
+0 & 2 & -3\\
+-2 & 0 & 1 \\
+3 & -1 & 0
+\end{bmatrix}
+$$
+
+In general, a matrix **A** is skew symmetric if, $\mathbf{a}_{ij} = -\mathbf{a}_{ji}$. Note that if a matrix is skew symmetric, all of its diagonal elements must be zero.
+
+<br />
+
+
+## Triangular Matrices
+
+A matrix is a triangular matrix if all of the elements above or below the main diagonal are zero. These are referred to as *upper triangular matrices* and *lower triangular matrices*, respectively. A matrix **A** is a lower triangular matrix if elements $a_{ij}=0$ for $j>i$ (all the elements above the main diagonal are zero). For example the matrix **L** is lower triangular:
+
+$$
+\underset{4\times 4}{\mathbf{L}} = \begin{bmatrix}
+6 & \color{red}{0} & \color{red}{0} & \color{red}{0}\\
+-1 & 5 & \color{red}{0} & \color{red}{0} \\
+0 & 1 & 2 & \color{red}{0} \\
+3 & -2 & 5 & 7
+\end{bmatrix}
+$$
+
+A matrix **A** is an upper triangular matrix if elements $a_{ij}=0$ for $i>j$ (all the elements below the main diagonal are zero). For example the matrix **U** is lower triangular:
+
+$$
+\underset{4\times 4}{\mathbf{U}} = \begin{bmatrix}
+3 & -2 & 5 & 7\\
+\color{red}{0} & 1 & 2 & 0 \\
+\color{red}{0} & \color{red}{0} & -1 & 5 & \\
+\color{red}{0} & \color{red}{0} & \color{red}{0} & 6\\
+\end{bmatrix}
+$$
+
+<br />
+
+
+## Exercises {-}
+
+**Consider the following matrices:**
+
+$$
+\mathbf{A} = \begin{bmatrix}1 & 5 & -1 \\ 3 & 2 & -1 \\ 0 & 1 & 5 \end{bmatrix} \qquad \mathbf{B} = \begin{bmatrix}3 & 1 & 6 \\ 2 & 0 & 1 \\ -7 & -1 & 2 \end{bmatrix}
+$$
+
+
+3. List the diagonal elements of $\mathbf{A}^\intercal$.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_03');">Show/Hide Solution</button>
+<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
+$$
+\begin{split}
+B^\intercal_{1,1}=1 \\[1em]
+B^\intercal_{2,2}=2 \\[1em]
+B^\intercal_{3,3}=5 \\[1em]
+\end{split}
+$$
+
+</div>
+
+4. Create an identity matrix of order 4.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_04');">Show/Hide Solution</button>
+<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
+
+$$
+\underset{4\times4}{\mathbf{I}} = \begin{bmatrix}1 & 0 & 0& 0\\0 & 1 & 0 & 0\\0 & 0 & 1 & 0\\0 & 0 & 0 & 1\end{bmatrix}
+$$
+
+</div>
+
+5. Explain why the transpose of an upper triangular matrix will be a lower triangular matrix.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_05');">Show/Hide Solution</button>
+<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
+
+An upper triangular matrix, **U**, has elements $u_{ij}=0$ for $i>j$ (all the elements below the main diagonal are zero). Taking the transpose of **U**, element $u_{ij}$ becomes $u^\intercal_{ji}$. This means that in $\mathbf{U}^\intercal$ the zero elements all be where $j>i$.
+
+</div>
+
+
+**Consider the following:**
+
+$$
+\mathbf{X} = \begin{bmatrix} 10 & 4 & 6\\4 & 10 & 8\\6 & 8 & 9 \end{bmatrix} \qquad \mathbf{Y} = \begin{bmatrix}0 & 1 & 2\\-1 & 0 & 4\\-2 & -4 & 0 \end{bmatrix}
+$$
+
+6. Use R to show that **X** is symmetric.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_06');">Show/Hide Solution</button>
+<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
+
+```{r}
+# Create X
+X = matrix(
+  data = c(10, 4, 6, 4, 10, 8, 6, 8, 9),
+  byrow = TRUE,
+  ncol = 3
+)
+
+# Check symmetry
+X == t(X)
+```
+
+
+</div>
+
+7. Use R to show that **Y** is skew symmetric.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_07');">Show/Hide Solution</button>
+<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
+
+```{r}
+# Create X
+Y = matrix(
+  data = c(0, 1, 2, -1, 0, 4, -2, -4, 0),
+  byrow = TRUE,
+  ncol = 3
+)
+
+# Check symmetry
+Y == -t(Y)
+```
+
+</div>
+
+
+<br />

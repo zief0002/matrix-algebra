@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler">
-<meta name="dcterms.date" content="2025-06-17">
 
-<title>Matrix Algebra for Educational Scientists</title>
+<title>27&nbsp; Sums of Squares in Regression – Matrix Algebra for Educational Scientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,6 +116,35 @@ function toggle_visibility(id) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/sticky-notes.css">
 <link rel="stylesheet" href="assets/table-styles.css">
@@ -98,7 +160,7 @@ function toggle_visibility(id) {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Matrix Algebra for Educational Scientists</h1>
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Sums of Squares in Regression</span></h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -124,7 +186,7 @@ function toggle_visibility(id) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foreword</span></a>
   </div>
 </li>
@@ -367,7 +429,7 @@ function toggle_visibility(id) {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./56-regression-sums-of-squares.html" class="sidebar-item-text sidebar-link">
+  <a href="./56-regression-sums-of-squares.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Sums of Squares in Regression</span></span></a>
   </div>
 </li>
@@ -396,26 +458,14 @@ function toggle_visibility(id) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Matrix Algebra for Educational Scientists</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Sums of Squares in Regression</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael Rodriguez &amp; Andrew Zieffler </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 17, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -425,25 +475,262 @@ function toggle_visibility(id) {
 </header>
 
 
-<section id="foreword" class="level1 unnumbered">
-<h1 class="unnumbered">Foreword</h1>
-<p>Spring 2021.</p>
-<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
+<p>In this chapter, you will learn about how matrix algebra is used to compute sum of square terms in regression.</p>
 <p><br></p>
-<p>Andrew Zieffler &amp; Michael Rodriguez</p>
-<p><br> <br></p>
-<section id="acknowledgments" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copy editors.</p>
-<p><br><br></p>
+<section id="sums-of-squares" class="level2" data-number="27.1">
+<h2 data-number="27.1" class="anchored" data-anchor-id="sums-of-squares"><span class="header-section-number">27.1</span> Sums of Squares</h2>
+<p>Recall that the regression model can be used to partition the total variation in the outcome into that which is explained by the regression model and that which is not explained by the model. To do this we compute sums of square terms such that:</p>
+<p><span class="math display">\[
+\mathrm{SS}_{\mathrm{Total}} = \mathrm{SS}_{\mathrm{Model}} + \mathrm{SS}_{\mathrm{Residual}}
+\]</span></p>
+<p>where, algebraically,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{SS}_{\mathrm{Total}} &amp;= \sum(Y_i - \bar{Y})^2\\[2ex]
+\mathrm{SS}_{\mathrm{Model}} &amp;= \sum(\hat{Y}_i - \bar{Y})^2\\[2ex]
+\mathrm{SS}_{\mathrm{Residual}} &amp;= \sum(Y_i - \hat{Y}_i)^2
+\end{split}
+\]</span></p>
+<p>We can also express each of these sums of squares using matrix notation. Remember that:</p>
+<p><span class="math display">\[
+\mathbf{y} = \hat{\mathbf{y}} + \mathbf{e}
+\]</span></p>
+<p>To make this mathematically easier, we will subtract the mean vector from the outcome.</p>
+<p><span class="math display">\[
+\mathbf{y} - \bar{\mathbf{y}} = \hat{\mathbf{y}} + \mathbf{e} - \bar{\mathbf{y}}
+\]</span></p>
+<p>Re-arranging the right-hand side of the equation:</p>
+<p><span class="math display">\[
+\mathbf{y} - \bar{\mathbf{y}} = (\hat{\mathbf{y}}- \bar{\mathbf{y}}) + \mathbf{e}
+\]</span></p>
+<p>Now remember that the residuals and the fitted values are independent, which means that the vectors are orthogonal and the Pythagorean Theorem applies. That is:</p>
+<p><span class="math display">\[
+(\mathbf{y} - \bar{\mathbf{y}})^2 = (\hat{\mathbf{y}}- \bar{\mathbf{y}})^2 + \mathbf{e}^2
+\]</span></p>
+<p>Since these are vectors, squaring them creates dot products, which are sums. In this case, the sums of squares. That is, in matrix notation:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{SS}_{\mathrm{Total}} &amp;= (\mathbf{y} - \bar{\mathbf{y}})^2 \\[2ex]
+&amp;= (\mathbf{y} - \bar{\mathbf{y}})^\intercal(\mathbf{y} - \bar{\mathbf{y}})\\[4ex]
+\mathrm{SS}_{\mathrm{Model}} &amp;= (\hat{\mathbf{y}}- \bar{\mathbf{y}})^2\\[2ex]
+&amp;= (\hat{\mathbf{y}}- \bar{\mathbf{y}})^\intercal (\hat{\mathbf{y}}- \bar{\mathbf{y}}) \\[4ex]
+\mathrm{SS}_{\mathrm{Residual}} &amp;= \mathbf{e}^2 \\[2ex]
+&amp;= \mathbf{e}^\intercal \mathbf{e}
+\end{split}
+\]</span></p>
+<p><br></p>
+<section id="mean-centering-the-outcome" class="level3" data-number="27.1.1">
+<h3 data-number="27.1.1" class="anchored" data-anchor-id="mean-centering-the-outcome"><span class="header-section-number">27.1.1</span> Mean Centering the Outcome</h3>
+<p>If the outcome, <strong>y</strong>, is mean centered—it is a mean deviation vector—then the math is simplified further. In this case, since the mean of a mean centered variable is zero, the quantity <span class="math inline">\(\mathbf{y} - \bar{\mathbf{y}}=\mathbf{y} - \mathbf{0} =\mathbf{y}\)</span>, and the total sum of squares is, simply,</p>
+<p><span class="math display">\[
+\mathrm{SS}_{\mathrm{Total}} = \mathbf{y}^\intercal\mathbf{y}
+\]</span></p>
+<p>Similarly, the model sum of squares also is simplified using a mean centered outcome to,</p>
+<p><span class="math display">\[
+\mathrm{SS}_{\mathrm{Model}} = \hat{\mathbf{y}}^\intercal\hat{\mathbf{y}}
+\]</span> Finally, the residual sum of squares is</p>
+<p><span class="math display">\[
+\mathrm{SS}_{\mathrm{Residual}} = \mathbf{e}^\intercal\mathbf{e}
+\]</span></p>
+<p>This means that for mean centered data,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{SS}_{\mathrm{Total}} &amp;= \mathrm{SS}_{\mathrm{Model}} + \mathrm{SS}_{\mathrm{Residual}} \\[2ex]
+\mathbf{y}^\intercal\mathbf{y} &amp;= \hat{\mathbf{y}}^\intercal\hat{\mathbf{y}} + \mathbf{e}^\intercal\mathbf{e}
+\end{split}
+\]</span></p>
+<p><br></p>
 </section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
-<p>The book is typeset using <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible">Atkinson Hyperlegible</a>. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
-<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
-<p>Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). <a href="https://rstudio4edu.github.io/rstudio4edu-book/">A handbook for teaching and learning with R and RStudio</a>.</p>
-<p><br><br></p>
+</section>
+<section id="sums-of-squares-as-functions-of-the-data" class="level2" data-number="27.2">
+<h2 data-number="27.2" class="anchored" data-anchor-id="sums-of-squares-as-functions-of-the-data"><span class="header-section-number">27.2</span> Sums of Squares as Functions of the Data</h2>
+<p>The model and residual sums of squares can also be written as products of the design matrix, <strong>X</strong>, and the vector of outcomes, <strong>y</strong>. To do this, we will make use of the relationships between <span class="math inline">\(\hat{\mathbf{y}}\)</span>, <strong>e</strong>, and the <strong>H</strong>-matrix. Remember that</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{\mathbf{y}} &amp;= \mathbf{Hy} \\[2ex]
+\mathbf{e} &amp;= (\mathbf{I} - \mathbf{H}) \mathbf{y}
+\end{split}
+\]</span></p>
+<p>where <span class="math inline">\(\mathbf{H}=\mathbf{X} (\mathbf{X}^\intercal\mathbf{X})^{-1} \mathbf{X}^\intercal\)</span>.</p>
+<p>We can re-write the sum of squared model using this formula,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{SS}_{\mathrm{Model}} &amp;= \hat{\mathbf{y}}^\intercal\hat{\mathbf{y}} \\[2ex]
+&amp;= (\mathbf{Hy})^\intercal\mathbf{Hy}
+\end{split}
+\]</span></p>
+<p>Using the rules of transposes</p>
+<p><span class="math display">\[
+\mathrm{SS}_{\mathrm{Model}} = \mathbf{y}^\intercal\mathbf{H}^\intercal\mathbf{Hy}
+\]</span></p>
+<p>Also, remember that the <strong>H</strong> matrix is square and symmetric (<span class="math inline">\(\mathbf{H}=\mathbf{H}^\intercal\)</span>) and that it is idempotent (<span class="math inline">\(\mathbf{HH} = \mathbf{H}\)</span>). This implies that <span class="math inline">\(\mathbf{HH}^\intercal = \mathbf{H}\)</span>, and,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{SS}_{\mathrm{Model}} &amp;= \mathbf{y}^\intercal\mathbf{H}^\intercal\mathbf{Hy} \\[2ex]
+&amp;= \mathbf{y}^\intercal\mathbf{Hy} \\[2ex]
+&amp;= \mathbf{y}^\intercal\mathbf{X} (\mathbf{X}^\intercal\mathbf{X})^{-1} \mathbf{X}^\intercal\mathbf{y}
+\end{split}
+\]</span> We can carry out a similar substitution and reduction to re-write the sum of squared residuals.</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{SS}_{\mathrm{Model}} &amp;= \mathbf{y}^\intercal\mathbf{H}^\intercal\mathbf{Hy} \\[2ex]
+&amp;= \mathbf{y}^\intercal\mathbf{Hy} \\[2ex]
+&amp;= \mathbf{y}^\intercal\mathbf{X} (\mathbf{X}^\intercal\mathbf{X})^{-1} \mathbf{X}^\intercal\mathbf{y}
+\end{split}
+\]</span></p>
+<p>We can write <span class="math inline">\(\hat{\mathbf{y}}=\mathbf{Xb}\)</span>, which means</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{SS}_{\mathrm{Model}} &amp;= (\mathbf{Xb})^\intercal\mathbf{Xb} \\[2ex]
+&amp;= \mathbf{b}^\intercal\mathbf{X}^\intercal\mathbf{Xb}
+\end{split}
+\]</span></p>
+<p>Then, since <span class="math inline">\(\mathbf{b}=(\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal\mathbf{y}\)</span>, we can substitute, getting,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{SS}_{\mathrm{Model}} &amp;= \mathbf{b}^\intercal\mathbf{X}^\intercal\mathbf{Xb}\\[2ex]
+&amp;= \bigg((\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal\mathbf{y}\bigg)^\intercal\mathbf{X}^\intercal\mathbf{X}\bigg((\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal\mathbf{y}\bigg)
+\end{split}
+\]</span></p>
+<p>Then, using the rules of transposes and inverses,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{SS}_{\mathrm{Model}} &amp;= \bigg((\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal\mathbf{y}\bigg)^\intercal\mathbf{X}^\intercal\mathbf{X}\bigg((\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal\mathbf{y}\bigg) \\[2ex]
+&amp;= \mathbf{y}^\intercal (\mathbf{X}^\intercal)^\intercal \bigg((\mathbf{X}^\intercal\mathbf{X})^{-1}\bigg)^\intercal \mathbf{X}^\intercal\mathbf{X}(\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal\mathbf{y} \\[2ex]
+&amp;= \mathbf{y}^\intercal\mathbf{X} \bigg((\mathbf{X}^\intercal\mathbf{X})^\intercal\bigg)^{-1} \mathbf{I}\mathbf{X}^\intercal\mathbf{y} \\[2ex]
+&amp;= \mathbf{y}^\intercal\mathbf{X} (\mathbf{X}^\intercal\mathbf{X})^{-1} \mathbf{X}^\intercal\mathbf{y}
+\end{split}
+\]</span></p>
+<p>Finally, we can also rewrite the residual sum of squares, again, using the rules of matrix algebra.</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{SS}_{\mathrm{Residual}} &amp;= \mathbf{e}^\intercal\mathbf{e} \\[2ex]
+&amp;= \bigg((\mathbf{I}-\mathbf{H})\mathbf{y}\bigg)^\intercal (\mathbf{I}-\mathbf{H})\mathbf{y} \\[2ex]
+&amp;= \mathbf{y}^\intercal (\mathbf{I}-\mathbf{H})^\intercal (\mathbf{I}-\mathbf{H})\mathbf{y} \\[2ex]
+&amp;= \mathbf{y}^\intercal (\mathbf{I}-\mathbf{H})\mathbf{y} \\[2ex]
+&amp;= \mathbf{y}^\intercal (\mathbf{y}-\mathbf{Hy}) \\[2ex]
+&amp;= \mathbf{y}^\intercal\mathbf{y} - \mathbf{y}^\intercal\mathbf{Hy} \\[2ex]
+&amp;= \mathbf{y}^\intercal\mathbf{y} - \mathbf{y}^\intercal\mathbf{X} (\mathbf{X}^\intercal\mathbf{X})^{-1} \mathbf{X}^\intercal\mathbf{y}
+\end{split}
+\]</span></p>
+<p>And, of course <span class="math inline">\(\mathrm{SS}_{\mathrm{Total}}=\mathbf{y}^\intercal\mathbf{y}\)</span>. Each of the sums of squares is a function of the design matrix or the vector of outcomes. Don’t forget that for these computations, the vector of outcomes needs to be mean-centered!</p>
+<p><br></p>
+<section id="example-using-r" class="level3" data-number="27.2.1">
+<h3 data-number="27.2.1" class="anchored" data-anchor-id="example-using-r"><span class="header-section-number">27.2.1</span> Example Using R</h3>
+<p>To illustrate these computations, we will again use the following toy data set to fit a regression model using SAT and Self-Esteem to predict variation in GPA.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-15-01" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-15-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;27.1: Example set of education data.
+</figcaption>
+<div aria-describedby="tbl-15-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">SAT</th>
+<th style="text-align: center;">GPA</th>
+<th style="text-align: center;">Self-Esteem</th>
+<th style="text-align: center;">IQ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">560</td>
+<td style="text-align: center;">3.0</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">112</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">780</td>
+<td style="text-align: center;">3.9</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">143</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">620</td>
+<td style="text-align: center;">2.9</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">124</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">600</td>
+<td style="text-align: center;">2.7</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">129</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">720</td>
+<td style="text-align: center;">3.7</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">130</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">380</td>
+<td style="text-align: center;">2.4</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">82</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Fitting the model and partitioning the variation (not shown), we find:</p>
+<ul>
+<li><span class="math inline">\(\mathrm{SS}_{\mathrm{Total}} = 1.7\)</span></li>
+<li><span class="math inline">\(\mathrm{SS}_{\mathrm{Model}} = 1.426\)</span></li>
+<li><span class="math inline">\(\mathrm{SS}_{\mathrm{Residual}} = 0.274\)</span></li>
+</ul>
+<p>Using the matrix algebra, we can replicate these values.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of outcomes</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">3.0</span>, <span class="fl">3.9</span>, <span class="fl">2.9</span>, <span class="fl">2.7</span>, <span class="fl">3.7</span>, <span class="fl">2.4</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean-center y</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mc_y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create design matrix</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dv">560</span>, <span class="dv">780</span>, <span class="dv">620</span>, <span class="dv">600</span>, <span class="dv">720</span>, <span class="dv">380</span>, </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">13</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_total</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(mc_y) <span class="sc">%*%</span> mc_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]  1.7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_model</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 1.426409</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SS_residuals</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(mc_y) <span class="sc">%*%</span> mc_y <span class="sc">-</span> <span class="fu">t</span>(mc_y) <span class="sc">%*%</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> mc_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.2735907</code></pre>
+</div>
+</div>
+<p><br></p>
 
 
 </section>

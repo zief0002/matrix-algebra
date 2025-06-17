@@ -1,0 +1,148 @@
+# Matrix Addition and Subtraction
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+source("scripts/_common.R")
+```
+
+
+Two or more matrices can be added or subtracted if they have the same dimensions; if not, matrix addition and subtraction is undefined. Just as in vector addition, each corresponding element is added or subtracted and placed in the corresponding location in the new matrix. Consider the following two matrices:
+
+$$
+\mathbf{A} = \begin{bmatrix}
+112 & 86 & 0 \\ 134 & 94 & 0
+\end{bmatrix} \qquad 
+\mathbf{B} = \begin{bmatrix}
+101 & 89 & 1 \\110 & 90 & 0
+\end{bmatrix}
+$$
+
+Then
+
+$$
+\begin{split}
+\mathbf{A} + \mathbf{B} &= \begin{bmatrix}
+112 & 86 & 0 \\ 134 & 94 & 0
+\end{bmatrix} + \begin{bmatrix}
+101 & 89 & 1 \\110 & 90 & 0
+\end{bmatrix} \\[2em]
+&= \begin{bmatrix}
+112 + 101 & 86+89 & 0+1 \\ 134+110 & 94+90 & 0+0
+\end{bmatrix} \\[2em]
+&= \begin{bmatrix}
+213 & 175 & 1 \\ 244 & 184 & 0
+\end{bmatrix}
+\end{split}
+$$
+
+In general, the elements in the summed matrix, **C**, are defined as $\mathbf{C}_{ij}=\mathbf{A}_{ij} + \mathbf{B}_{ij}$ for all *i* and *j*. Since subtraction is equivalent to adding the inverse, subtracting the elements of **B** from **A** is equivalent to adding the inverted elements of **B** to the elements of **A** (where "inverting the elements" means switching the sign on each element). 
+
+$$
+\begin{split}
+\mathbf{A} - \mathbf{B} &= \begin{bmatrix}
+112 & 86 & 0 \\ 134 & 94 & 0
+\end{bmatrix} + \begin{bmatrix}
+-101 & -89 & -1 \\-110 & -90 & 0
+\end{bmatrix} \\[2em]
+&= \begin{bmatrix}
+11 & -3 & -1 \\ 24 & 4 & 0
+\end{bmatrix}
+\end{split}
+$$
+
+Computationally, we can use the `+` and `-` operators in R to add and subtract matrices.
+
+```{r}
+# Create A
+A = matrix(data = c(112, 86, 0, 134, 94, 0), byrow = TRUE, nrow = 2)
+
+# Create B
+B = matrix(data = c(101, 89, 1, 110, 90, 0), byrow = TRUE, nrow = 2)
+
+# Matrix addition
+A + B
+
+# Matrix Subtraction
+A - B
+```
+
+<br /> 
+
+
+## Properties of Matrix Addition
+
+
+Matrix addition satisfies both the commutative and associative properties. That is,
+
+$$
+\mathbf{A} + \mathbf{B} = \mathbf{B} + \mathbf{A}
+$$
+
+and
+
+$$
+\begin{split}
+\mathbf{A} + (\mathbf{B} + \mathbf{C}) &= (\mathbf{A} + \mathbf{B}) + \mathbf{C} \\[2ex]
+&= \mathbf{A} + \mathbf{B} + \mathbf{C}
+\end{split}
+$$
+
+<br />
+
+
+## Statistical Application: Deviation Matrix
+
+We have seen that deviation scores are particularly useful in statistics. We can create a deviation matrix by taking a score matrix and subtracting from it a matrix of means, where each column contains the mean for each corresponding column in the original matrix, that is:
+
+$$
+\mathbf{D} = \mathbf{X} - \mathbf{M}
+$$
+
+For example, consider the following score matrix:
+
+$$
+\mathbf{X} = \begin{bmatrix}
+3.0 & 11 & 112 \\ 3.9 & 10 & 143 \\ 2.9 & 19 & 124 \\ 2.7 & 7 & 129
+\end{bmatrix}
+$$
+To compute the mean deviation matrix, **D** we use:
+
+
+$$
+\begin{split}
+\mathbf{D} &= \mathbf{X} - \mathbf{M} \\[2em]
+&= \begin{bmatrix}
+3.0 & 11 & 112 \\ 3.9 & 10 & 143 \\ 2.9 & 19 & 124 \\ 2.7 & 7 & 129
+\end{bmatrix} - \begin{bmatrix}
+3.125 & 11.75 & 127 \\ 3.125 & 11.75 & 127 \\ 3.125 & 11.75 & 127 \\ 3.125 & 11.75 & 127
+\end{bmatrix} \\[2em]
+&= \begin{bmatrix}
+-0.125 & -0.75 & -15 \\ 0.775 & -1.75 & 16 \\ -0.225 & 7.25 & -3 \\ -0.425 & -4.75 & 2
+\end{bmatrix}
+\end{split}
+$$
+
+Computationally, we can use the `colMeans()` function to compute the mean in each column of **X**. Then we can create matrix **M** by using the `rep()` function to repeat this set of means four times. (There are four rows in **M** that have the exact same elements.)
+
+```{r}
+# Create X
+X = matrix(data = c(3.0, 11, 112, 3.9, 10, 143, 2.9, 19, 124, 2.7, 7, 129), byrow = TRUE, nrow = 4)
+X
+
+# Compute column means
+colMeans(X)
+
+# Create M
+M = matrix(rep(colMeans(X), 4), byrow = TRUE, nrow =4)
+M
+
+# Compute deviation matrix
+X - M
+```
+
+
+
+<br />
+

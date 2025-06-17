@@ -1,0 +1,29 @@
+a:link {
+  color: #ff851b;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #ff851b;
+}
+
+a:active {
+  color: #ff851b;
+}
+
+a:hover {
+  color: #d97117;
+}
+
+.references p {
+  padding-left: 36px; 
+  text-indent: -36px;
+}
+
+hr {
+  height: 0;
+  border-bottom: none;
+  border-top-width: thin;
+  border-top-style: solid;
+  border-top-color: #09557f;
+}

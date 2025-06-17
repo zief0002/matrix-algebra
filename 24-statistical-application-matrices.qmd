@@ -1,0 +1,364 @@
+# Statistical Application: SSCP, Variance--Covariance, and Correlation Matrices
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+source("scripts/_common.R")
+```
+
+
+In this chapter, we will provide an example of how matrix operations are used in statistics to compute a sum of squares and cross-product (SSCP) matrix. To do this we will consider the following data set:
+
+```{r}
+#| label: tbl-24-01
+#| tbl-cap: "Example set of education data."
+#| echo: false
+
+d = data.frame(
+  ID = 1:6,
+  SAT = c(560, 780, 620, 600, 720, 380),
+  GPA = c(3.0, 3.9, 2.9, 2.7, 3.7, 2.4),
+  Self = c(11, 10, 19, 7, 18, 13),
+  IQ = c(112, 143, 124, 129, 130, 82)
+)
+
+knitr::kable(
+  d, 
+  col.names = c("ID", "SAT", "GPA", "Self-Esteem", "IQ"),
+  align = "c",
+  table.attr = "style='width:60%;'",
+  escape = FALSE
+  ) 
+```
+
+The data matrix (omitting ID values) could be conceived of as a $6 \times 4$ matrix:
+
+
+$$
+\mathbf{X} = \begin{bmatrix} 
+  560 & 3.0 & 11 & 112 \\
+  780 & 3.9 & 10 & 143 \\
+  620 & 2.9 & 19 & 124 \\
+  600 & 2.7 & 7 & 129 \\
+  720 & 3.7 & 18 & 130 \\
+  380 & 2.4 & 13 & 82
+  \end{bmatrix}
+$$
+
+<br />
+
+
+## Deviation Scores
+
+Since so much of statistics is dependent on the use of deviation scores, we will compute a matrix of means, where each column corresponds to the mean of the corresponding column mean of **X**, and subtract that from the original matrix **X**.   
+
+$$
+\begin{split}
+\mathbf{D} &= \mathbf{X} - \mathbf{M} \\[2ex]
+&= \begin{bmatrix} 
+  560 & 3.0 & 11 & 112 \\
+  780 & 3.9 & 10 & 143 \\
+  620 & 2.9 & 19 & 124 \\
+  600 & 2.7 & 7 & 129 \\
+  720 & 3.7 & 18 & 130 \\
+  380 & 2.4 & 13 & 82
+  \end{bmatrix} - \begin{bmatrix} 
+  610 & 3.1 & 13 & 120 \\
+  610 & 3.1 & 13 & 120 \\
+  610 & 3.1 & 13 & 120 \\
+  610 & 3.1 & 13 & 120 \\
+  610 & 3.1 & 13 & 120 \\
+  610 & 3.1 & 13 & 120
+  \end{bmatrix} \\[2ex]
+  &= \begin{bmatrix} 
+  -50  & -0.1 & -2 & -8 \\
+  170  & 0.8  & -3 & 23 \\
+   10  & -0.2 &  6 & 4 \\
+  -10  & -0.4 & -6 & 9 \\
+  110  & 0.6  &  5 & 10 \\
+  -230 & -0.7 &  0 & -38
+  \end{bmatrix}
+\end{split}  
+$$
+
+Using R, the following commands produce the deviation matrix.
+
+```{r}
+# Create X
+X = matrix(
+  data = c(560, 3.0, 11, 112,
+           780, 3.9, 10, 143,
+           620, 2.9, 19, 124,
+           600, 2.7,  7, 129, 
+           720, 3.7, 18, 130,
+           380, 2.4, 13, 82),
+  byrow = TRUE,
+  ncol = 4
+)
+
+# Create a ones column vector with six elements
+ones = rep(1, 6)
+
+# Compute M (mean matrix)
+M = ones %*% t(ones) %*% X * (1/6)
+M
+
+# Compute deviation matrix (D)
+D = X - M
+D
+```
+
+<br />
+
+
+### Creating the Mean Matrix
+
+Here we used matrix operations to compute the mean matrix rather than built-in R functions. Taking a ones column vector of *n* elements and post-multiplying by its transpose produces a $n \times n$ matrix where all the elements are one; in our case we get a $6 \times 6$ ones matrix.
+
+```{r}
+ones %*% t(ones)
+```
+
+This ones matrix is then post-multiplied by **X**. Since we are post-multiplyinga ones matrix, the resultin matrix will have the same elements in every row. Moreover these elements will be the column sums of **X**.
+
+```{r}
+ones %*% t(ones) %*% X
+
+# Compute column sums
+colSums(X)
+```
+
+Finally, since we want the means, we multiply by the scalar $\frac{1}{n}$, where *n* is the number of rows. This gets us the mean matrix, all via matrix operations.
+
+```{r}
+ones %*% t(ones) %*% X * (1/6)
+```
+
+Using mathematical notation, the deviation matrix can be expressed as:
+
+$$
+\begin{split}
+\underset{6 \times 4}{\mathbf{D}} &= \underset{6 \times 4}{\mathbf{X}} - \underset{6 \times 4}{\mathbf{M}} \\[2ex]
+&= \begin{bmatrix} 
+  X_{1_{1}} & X_{2_{1}} & X_{3_{1}} & X_{4_{1}} \\
+  X_{1_{2}} & X_{2_{2}} & X_{3_{2}} & X_{4_{2}} \\
+  X_{1_{3}} & X_{2_{3}} & X_{3_{3}} & X_{4_{3}} \\
+  X_{1_{4}} & X_{2_{4}} & X_{3_{4}} & X_{4_{4}} \\
+  X_{1_{5}} & X_{2_{5}} & X_{3_{5}} & X_{4_{5}} \\
+  X_{1_{6}} & X_{2_{6}} & X_{3_{6}} & X_{4_{6}}
+  \end{bmatrix} - \begin{bmatrix} 
+  \bar{X}_1 & \bar{X}_2 & \bar{X}_3 & \bar{X}_4 \\
+  \bar{X}_1 & \bar{X}_2 & \bar{X}_3 & \bar{X}_4 \\
+  \bar{X}_1 & \bar{X}_2 & \bar{X}_3 & \bar{X}_4 \\
+  \bar{X}_1 & \bar{X}_2 & \bar{X}_3 & \bar{X}_4 \\
+  \bar{X}_1 & \bar{X}_2 & \bar{X}_3 & \bar{X}_4 \\
+  \bar{X}_1 & \bar{X}_2 & \bar{X}_3 & \bar{X}_4
+  \end{bmatrix} \\[2ex]
+  &= \begin{bmatrix} 
+  (X_{1_{1}} - \bar{X}_1) & (X_{2_{1}} - \bar{X}_2) & (X_{3_{1}} - \bar{X}_3) & (X_{4_{1}} - \bar{X}_4) \\
+  (X_{1_{2}} - \bar{X}_1) & (X_{2_{2}} - \bar{X}_2) & (X_{3_{2}} - \bar{X}_3) & (X_{4_{2}} - \bar{X}_4) \\
+  (X_{1_{3}} - \bar{X}_1) & (X_{2_{3}} - \bar{X}_2) & (X_{3_{3}} - \bar{X}_3) & (X_{4_{3}} - \bar{X}_4) \\
+  (X_{1_{4}} - \bar{X}_1) & (X_{2_{4}} - \bar{X}_2) & (X_{3_{4}} - \bar{X}_3) & (X_{4_{4}} - \bar{X}_4) \\
+  (X_{1_{5}} - \bar{X}_1) & (X_{2_{5}} - \bar{X}_2) & (X_{3_{5}} - \bar{X}_3) & (X_{4_{5}} - \bar{X}_4) \\
+  (X_{1_{6}} - \bar{X}_1) & (X_{2_{6}} - \bar{X}_2) & (X_{3_{6}} - \bar{X}_3) & (X_{4_{6}} - \bar{X}_4)
+  \end{bmatrix}
+\end{split}  
+$$
+
+
+<br />
+
+
+## SSCP Matrix
+
+To obtain the sums of squares and cross products (SSCP) matrix, we can pre-multiply **D** by its transpose. 
+
+$$
+\scriptscriptstyle
+\begin{split}
+\underset{4 \times 4}{\mathbf{SSCP}} &= \underset{4 \times 6}{\mathbf{D}}^\intercal\underset{6 \times 4}{\mathbf{D}} \\[2ex] 
+&= \begin{bmatrix} 
+  (X_{1_{1}} - \bar{X}_1) & (X_{1_{2}} - \bar{X}_1) & (X_{1_{3}} - \bar{X}_1) & (X_{1_{4}} - \bar{X}_1) & (X_{1_{5}} - \bar{X}_1) & (X_{1_{6}} - \bar{X}_1) \\
+  (X_{2_{1}} - \bar{X}_2) & (X_{2_{2}} - \bar{X}_2) & (X_{2_{3}} - \bar{X}_2) & (X_{2_{4}} - \bar{X}_2) & (X_{2_{5}} - \bar{X}_2) & (X_{2_{6}} - \bar{X}_2) \\
+  (X_{3_{1}} - \bar{X}_3) & (X_{3_{2}} - \bar{X}_3) & (X_{3_{3}} - \bar{X}_3) & (X_{3_{4}} - \bar{X}_3) & (X_{3_{5}} - \bar{X}_3) & (X_{3_{6}} - \bar{X}_3) \\
+  (X_{4_{1}} - \bar{X}_4) & (X_{4_{2}} - \bar{X}_4) & (X_{4_{3}} - \bar{X}_4) & (X_{4_{4}} - \bar{X}_4) & (X_{4_{5}} - \bar{X}_4) & (X_{4_{6}} - \bar{X}_4)
+\end{bmatrix}
+\begin{bmatrix} 
+  (X_{1_{1}} - \bar{X}_1) & (X_{2_{1}} - \bar{X}_2) & (X_{3_{1}} - \bar{X}_3) & (X_{4_{1}} - \bar{X}_4) \\
+  (X_{1_{2}} - \bar{X}_1) & (X_{2_{2}} - \bar{X}_2) & (X_{3_{2}} - \bar{X}_3) & (X_{4_{2}} - \bar{X}_4) \\
+  (X_{1_{3}} - \bar{X}_1) & (X_{2_{3}} - \bar{X}_2) & (X_{3_{3}} - \bar{X}_3) & (X_{4_{3}} - \bar{X}_4) \\
+  (X_{1_{4}} - \bar{X}_1) & (X_{2_{4}} - \bar{X}_2) & (X_{3_{4}} - \bar{X}_3) & (X_{4_{4}} - \bar{X}_4) \\
+  (X_{1_{5}} - \bar{X}_1) & (X_{2_{5}} - \bar{X}_2) & (X_{3_{5}} - \bar{X}_3) & (X_{4_{5}} - \bar{X}_4) \\
+  (X_{1_{6}} - \bar{X}_1) & (X_{2_{6}} - \bar{X}_2) & (X_{3_{6}} - \bar{X}_3) & (X_{4_{6}} - \bar{X}_4)
+  \end{bmatrix} \\[2ex]
+  &= \begin{bmatrix} 
+  \sum (X_{1_{i}} - \bar{X}_1)^2 & \sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2) & \sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3) & \sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2) & \sum (X_{2_{i}} - \bar{X}_2)^2 & \sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3) & \sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3) & \sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3) & \sum (X_{3_{i}} - \bar{X}_3)^2 & \sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4) & \sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4) & \sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4) & \sum (X_{4_{i}} - \bar{X}_4)^2
+  \end{bmatrix}
+\end{split}  
+$$
+
+The diagonal of the **SSCP** matrix contains the sums of squared deviations for each of the variables (columns) represented in **X**. For example, the element in the first row and first column of the SSCP matrix ($\mathbf{SSCP}_{11}$) is the sum of squared deviations for the SAT variable. The off-diagonal elements in the SSCP matrix are the cross-products of the deviation scores between the different variables.  That is:
+
+$$
+\mathbf{SSCP} = \begin{bmatrix} 
+  \mathrm{SS}_1 & \mathrm{CP}_{12} & \mathrm{CP}_{13} & \mathrm{CP}_{14} \\
+  \mathrm{CP}_{21} & \mathrm{SS}_2 & \mathrm{CP}_{23} & \mathrm{CP}_{24} \\
+  \mathrm{CP}_{21} & \mathrm{CP}_{32} & \mathrm{SS}_3 & \mathrm{CP}_{34} \\
+  \mathrm{CP}_{41} & \mathrm{CP}_{42} & \mathrm{CP}_{43} & \mathrm{SS}_4
+  \end{bmatrix}
+$$
+Also note that the **SSCP** matrix is square and symmetric.
+
+Using R:
+
+```{r}
+# Compute SSCP matrix
+SSCP = t(D) %*% D
+
+# View SSCP matrix
+SSCP
+```
+
+<br /> 
+
+The **SSCP** matrix is a scalar multiple of the variance--covariance matrix ($\boldsymbol{\Sigma}$). Namely,
+
+$$
+\mathbf{SSCP} = n (\boldsymbol{\Sigma})
+$$
+
+That is if me multiply the **SSCP** matrix by $\frac{1}{n}$ we obtain the variance--covariance matrix. Mathematically,
+
+$$
+\scriptstyle
+\begin{split}
+\underset{4 \times 4}{\boldsymbol{\Sigma}} &= \frac{1}{n}(\underset{4 \times 4}{\mathbf{SSCP}}) \\[2ex] 
+&= \frac{1}{n} \begin{bmatrix} 
+  \sum (X_{1_{i}} - \bar{X}_1)^2 & \sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2) & \sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3) & \sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2) & \sum (X_{2_{i}} - \bar{X}_2)^2 & \sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3) & \sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3) & \sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3) & \sum (X_{3_{i}} - \bar{X}_3)^2 & \sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4) & \sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4) & \sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4) & \sum (X_{4_{i}} - \bar{X}_4)^2
+  \end{bmatrix} \\[2ex]
+  &= \begin{bmatrix} 
+  \frac{\sum (X_{1_{i}} - \bar{X}_1)^2}{n} & \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2)}{n} & \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3)}{n} & \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4)}{n} \\
+  \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2)}{n} & \frac{\sum (X_{2_{i}} - \bar{X}_2)^2}{n} & \frac{\sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3)}{n} & \frac{\sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4)}{n} \\
+  \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3)}{n} & \frac{\sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3)}{n} & \frac{\sum (X_{3_{i}} - \bar{X}_3)^2}{n} & \frac{\sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4)}{n} \\
+  \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4)}{n} & \frac{\sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4)}{n} & \frac{\sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4)}{n} & \frac{\sum (X_{4_{i}} - \bar{X}_4)^2}{n}
+  \end{bmatrix}
+\end{split}  
+$$
+
+The diagonal of the $\boldsymbol{\Sigma}$ matrix contains the variances for each of the variables (columns) represented in **X**. For example, the element in the first row and first column of $\boldsymbol{\Sigma}$ ($\boldsymbol{\Sigma}_{11}$) is the variance for the SAT variable. The off-diagonal elements in $\boldsymbol{\Sigma}$ are the covariances between the different variables.  That is:
+
+$$
+\boldsymbol{\Sigma} = \begin{bmatrix} 
+  \mathrm{Var}(X_1) & \mathrm{Cov}(X_1,X_2) & \mathrm{Cov}(X_1,X_3) & \mathrm{Cov}(X_1,X_4) \\
+  \mathrm{Cov}(X_2,X_1) & \mathrm{Var}(X_2) & \mathrm{Cov}(X_2,X_3) & \mathrm{Cov}(X_2,X_4) \\
+  \mathrm{Cov}(X_3,X_1) & \mathrm{Cov}(X_3,X_2) & \mathrm{Var}(X_3) & \mathrm{Cov}(X_3,X_4) \\
+  \mathrm{Cov}(X_4,X_1) & \mathrm{Cov}(X_4,X_2) & \mathrm{Cov}(X_4,X_3) & \mathrm{Var}(X_4)
+  \end{bmatrix}
+$$
+
+Similar to the **SSCP** matrix, $\boldsymbol{\Sigma}$ is also a square, symmetric matrix. 
+
+Using R:
+
+```{r}
+# Compute SIGMA matrix
+SIGMA = SSCP * (1/6)
+
+# View SIGMA matrix
+SIGMA
+```
+
+The `var()` function can also be applied to **X** directly to obtain the $\boldsymbol{\Sigma}$ matrix. Note that the `var()` function uses $\frac{1}{n-1}$ rather than $\frac{1}{n}$ as the scalar multiple to obtain the variance--covariance matrix.
+
+```{r}
+# Obtain SIGMA directly
+var(X)
+
+# Check
+SSCP * (1/5)
+```
+
+
+<br />
+
+
+## Correlation Matrix
+
+We can convert $\boldsymbol{\Sigma}$ to a correlation matrix by standardizing it; that is dividing each element by its corresponding standard deviation. This is equivalent to pre- *and* post-multiplying $\boldsymbol{\Sigma}$ by a scaling matrix, **S**, a diagonal matrix with elements equal to the reciprocal of the standard deviations of each of the variables:
+
+$$
+\mathbf{S} = \begin{bmatrix}
+  \frac{1}{\mathrm{SD}(X_1)} & 0 & 0 & 0 \\
+  0 & \frac{1}{\mathrm{SD}(X_2)} & 0 & 0 \\
+  0 & 0 & \frac{1}{\mathrm{SD}(X_3)} & 0 \\
+  0 & 0 & 0 & \frac{1}{\mathrm{SD}(X_4)}
+\end{bmatrix}
+$$
+
+Employing R, we can obtain the scaling matrix by first pulling out the diagonal elements of $\boldsymbol{\Sigma}$ (the variances) and then using those to create **S**.
+
+```{r}
+# Get variances
+V = diag(SIGMA)
+V
+
+# Create S
+S = diag(1 / sqrt(V))
+S
+```
+
+
+We can now pre- and post-multiply $\boldsymbol{\Sigma}$ by **S** to obtain the correlation matrix, **R**. That is,
+
+$$
+\mathbf{R} = \mathbf{S}\boldsymbol{\Sigma}\mathbf{S}
+$$
+Since both **S** and $\boldsymbol{\Sigma}$ are $4 \times 4$ matrices, **R** will also be a $4 \times 4$ matrix. Moreover, **R** will also be both square and symmetric.
+
+
+```{r}
+R = S %*% SIGMA %*% S
+R
+```
+
+Again, the `cor()` function could be applied directly to **X**, noting that the **SSCP** matrix would be scaled by $\frac{1}{n-1}$.
+
+<br />
+
+
+## Standardized Scores
+
+Standardized scores (*z*-scores) can be computed for the original values in **X** by post-multiplying the deviation matrix (**D**) by the same scaling matrix, **S**.
+
+$$
+\mathbf{Z} = \mathbf{DS}
+$$
+
+```{r}
+# Compute standardized scores
+Z = D %*% S
+Z
+```
+
+We can also use **Z** to compute the correlation matrix,
+
+$$
+\mathbf{R} = \frac{\mathbf{Z}^\intercal\mathbf{Z}}{n} 
+$$
+
+
+```{r}
+# Compute R
+t(Z) %*% Z * (1/6)
+```
+
+
+<br />
+

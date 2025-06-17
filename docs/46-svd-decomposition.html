@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler">
-<meta name="dcterms.date" content="2025-06-17">
 
-<title>Matrix Algebra for Educational Scientists</title>
+<title>25&nbsp; Singular Value Decompostion – Matrix Algebra for Educational Scientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,6 +116,35 @@ function toggle_visibility(id) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/sticky-notes.css">
 <link rel="stylesheet" href="assets/table-styles.css">
@@ -98,7 +160,7 @@ function toggle_visibility(id) {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Matrix Algebra for Educational Scientists</h1>
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Singular Value Decompostion</span></h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -124,7 +186,7 @@ function toggle_visibility(id) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foreword</span></a>
   </div>
 </li>
@@ -344,7 +406,7 @@ function toggle_visibility(id) {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./46-svd-decomposition.html" class="sidebar-item-text sidebar-link">
+  <a href="./46-svd-decomposition.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Singular Value Decompostion</span></span></a>
   </div>
 </li>
@@ -396,26 +458,14 @@ function toggle_visibility(id) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Matrix Algebra for Educational Scientists</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Singular Value Decompostion</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael Rodriguez &amp; Andrew Zieffler </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 17, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -425,28 +475,92 @@ function toggle_visibility(id) {
 </header>
 
 
-<section id="foreword" class="level1 unnumbered">
-<h1 class="unnumbered">Foreword</h1>
-<p>Spring 2021.</p>
-<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
+<p>Singular value decomposition (SVD) is commonly used for data compression or variable reduction, and plays a large role in machine learning applications. SVD decomposes a matrix into the product of three matrices:</p>
+<p><span class="math display">\[
+\underset{m\times n}{\mathbf{A}} = \underset{m\times n}{\mathbf{U}}~ \underset{n\times n}{\mathbf{D}}~ \underset{n\times n}{\mathbf{V}^{\intercal}}
+\]</span></p>
+<p>where, <strong>U</strong> and <strong>V</strong> are an orthogonal matrices, and <strong>D</strong> is a diagonal matrix. From the properties of the transpose, we know that,</p>
+<p><span class="math display">\[
+\mathbf{A}^{\intercal} = \mathbf{V}\mathbf{D}^{\intercal}\mathbf{U}^{\intercal}
+\]</span></p>
+<p>And for mathematical convenience, we can take advantage that <strong>U</strong> and <strong>V</strong> are an orthogonal matrices (<span class="math inline">\(\mathbf{U}^{\intercal}\mathbf{U}=\mathbf{V}^{\intercal}\mathbf{V}=\mathbf{I}\)</span>) by expressing two equations:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{A}\mathbf{A}^{\intercal}\mathbf{U} &amp;= \mathbf{U}\mathbf{S}\mathbf{V}^{\intercal}\mathbf{V}\mathbf{D}^{\intercal}\mathbf{U}^{\intercal}\mathbf{U} \\[0.5em]
+&amp;= \mathbf{U}\mathbf{D}^2
+\end{split}
+\]</span></p>
+<p>And,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{A}^{\intercal}\mathbf{A}\mathbf{V} &amp;= \mathbf{V}\mathbf{D}^{\intercal}\mathbf{U}^{\intercal}\mathbf{U}\mathbf{D}\mathbf{V}^{\intercal}\mathbf{V}\\[0.5em]
+&amp;= \mathbf{V}\mathbf{D}^2
+\end{split}
+\]</span></p>
+<p>These two equations are called <em>eigenvalue</em> equations, which show up all over the place in statistical work. These are easy to solve by computation. For example, we would solve the second eigenvalue equation to find <strong>V</strong> and <strong>D</strong>, and then find <strong>U</strong> by solving <span class="math inline">\(\mathbf{A}=\mathbf{UDV}^\intercal\)</span> for <strong>U</strong>, namely:</p>
+<p><span class="math display">\[
+\mathbf{U} = \mathbf{A}\mathbf{V}\mathbf{D}^{-1}
+\]</span></p>
 <p><br></p>
-<p>Andrew Zieffler &amp; Michael Rodriguez</p>
-<p><br> <br></p>
-<section id="acknowledgments" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copy editors.</p>
-<p><br><br></p>
-</section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
-<p>The book is typeset using <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible">Atkinson Hyperlegible</a>. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
-<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
-<p>Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). <a href="https://rstudio4edu.github.io/rstudio4edu-book/">A handbook for teaching and learning with R and RStudio</a>.</p>
-<p><br><br></p>
+<section id="svd-using-r" class="level2" data-number="25.1">
+<h2 data-number="25.1" class="anchored" data-anchor-id="svd-using-r"><span class="header-section-number">25.1</span> SVD Using R</h2>
+<p>In practice, we will use the <code>svd()</code> function in R to carry out singular value decomposition.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Singular value decomposition</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sv_decomp <span class="ot">=</span> <span class="fu">svd</span>(A)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View results</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>sv_decomp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$d
+[1] 6.422483 2.179842
+
+$u
+           [,1]      [,2]
+[1,] -0.7630200 0.6463749
+[2,]  0.6463749 0.7630200
+
+$v
+            [,1]       [,2]
+[1,] -0.99659268 0.08248053
+[2,]  0.08248053 0.99659268</code></pre>
+</div>
+</div>
+<p>The resulting decomposition is:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{U} &amp;= \begin{bmatrix}
+-0.76 &amp; 0.65 \\
+0.65 &amp; 0.76  \\
+\end{bmatrix} \\[1em]
+\mathbf{D} &amp;= \begin{bmatrix}
+6.42 &amp; 0 \\
+0 &amp; 2.18  \\
+\end{bmatrix} \\[1em]
+\mathbf{V} &amp;= \begin{bmatrix}
+-1.00 &amp; 0.08 \\
+0.08 &amp; 1.00  \\
+\end{bmatrix}
+\end{split}
+\]</span> We can verify that <span class="math inline">\(\mathbf{A}=\mathbf{USV}^\intercal\)</span>. Note that the <code>svd()</code> function outputs the diagonal elements of the <strong>D</strong> matrix, so we need to use the <code>diag()</code> function to create the actual <strong>D</strong> matrix.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify the results of the SVD</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sv_decomp<span class="sc">$</span>u <span class="sc">%*%</span> <span class="fu">diag</span>(sv_decomp<span class="sc">$</span>d) <span class="sc">%*%</span> <span class="fu">t</span>(sv_decomp<span class="sc">$</span>v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    5    1
+[2,]   -4    2</code></pre>
+</div>
+</div>
+<p><br></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

@@ -1,0 +1,96 @@
+project:
+  type: book
+  output-dir: docs
+  preview:
+    port: 4200
+    browser: true
+  # resources: 
+  #   - codebooks/ #Add codebooks to docs
+
+book:
+  title: "Matrix Algebra for Educational Scientists"
+  author: "Michael Rodriguez & Andrew Zieffler"
+  date: today
+  page-navigation: false
+  bread-crumbs: false
+  sidebar:
+    search: true
+    background: '#00759a'
+  # cover-image: "figs/banner.png"
+  chapters:
+    - index.qmd
+    - 01-introduction.qmd
+    - 02-data-structures.qmd
+    
+    - part: "Vectors and Vector Operations"
+      chapters:
+        - 03-vectors.qmd
+        - 04-vector-operations.qmd
+        - 05-projection.qmd
+        - 06-statistical-application-vectors.qmd
+    - part: "Matrices and Matrix Operations"
+      chapters:
+        - 07-matrices.qmd
+        - 10-matrix-addition-subtraction.qmd
+        - 11-matrix-multiplication.qmd
+        - 12-matrix-transposition.qmd
+        - 15-matrix-operations-exercises.qmd
+    - part: "Square Matrices and Their Properties"
+      chapters:
+        - 21-square-matrices.qmd
+        - 22-properties-of-square-matrices.qmd
+        - 23-eigenvalues-and-eigenvectors.qmd
+        - 24-statistical-application-matrices.qmd
+    - part: "Matrix Transformations"
+      chapters:
+        - 30-basis-vectors-and-matrices.qmd
+        - 32-quadratic-forms.qmd
+    - part: "Systems of Equations"
+      chapters:
+        - 60-solving-systems-of-equations.qmd
+        - 61-statistical-application-regression-estimates.qmd
+    - part: "Matrix Decomposition"
+      chapters:
+        - 40-introduction-to-decomposition.qmd
+        - 41-lu-decomposition.qmd
+        - 42-statistical-application-lu-decomposition.qmd
+        - 43-cholesky-decomposition.qmd
+        - 44-qr-decomposition.qmd
+        - 45-spectral-decomposition.qmd
+        - 46-svd-decomposition.qmd
+    - part: "Regression Applications"
+      chapters:
+        - 55-regression-important-matrices.qmd
+        - 56-regression-sums-of-squares.qmd
+        - 57-regression-se-and-inference.qmd
+        - 58-regression-assumptions.qmd
+# language:
+#   section-title-appendices: "Data Codebooks"
+bibliography: ["assets/matrix-algebra-text.bib", "assets/packages.bib"]
+csl: 'assets/apa-single-spaced.csl'
+
+format:
+  html:
+    theme: 
+      - cosmo
+      - "assets/theme.scss"
+    css: ["assets/sticky-notes.css", "assets/table-styles.css"]
+    header-includes: |
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    include-in-header: 'assets/exercises.js'
+    code-copy: true
+    code-overflow: wrap
+    highlight-style: a11y-dark
+    mainfont: 'Atkinson Hyperlegible'
+    fontsize: '13pt'
+    linestretch: '1.5em'
+    linkcolor: '#902441' #"#0099d4"
+    toc: false
+    toc-title: "On This Page"
+    tbl-cap-location: "top"
+    # html-table-processing: none
+    fig-cap-location: "top"
+editor: source
+

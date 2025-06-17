@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Statistical Application: Vectors – Matrix Algebra for Educational Scientists</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-732fb9ccd080a018ca85ca5d15770f52.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8d770ec9e2414948c93ba4710aeffb09.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="text/javascript">
+// Function to toggle the visibility of solutions in exercises
+function toggle_visibility(id) {
+   var e = document.getElementById(id);
+   if(e.style.display == 'block')
+      e.style.display = 'none';
+   else
+      e.style.display = 'block';
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="assets/sticky-notes.css">
+<link rel="stylesheet" href="assets/table-styles.css">
+</head>
+
+<body class="nav-sidebar floating fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Application: Vectors</span></h1>
+        </a>     
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Matrix Algebra for Educational Scientists</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foreword</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-data-structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Structures</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Vectors and Vector Operations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Vectors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-vector-operations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vector Operations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Vector Geometry: Angles, Projection, and Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-statistical-application-vectors.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Application: Vectors</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrices and Matrix Operations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-matrix-addition-subtraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Matrix Addition and Subtraction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-matrix-multiplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Multiplication</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-matrix-transposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Transposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-matrix-operations-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exercises: Matrix Operations</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Square Matrices and Their Properties</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21-square-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Square Matrices and Friends</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./22-properties-of-square-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Properties of Square Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23-eigenvalues-and-eigenvectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Eigenvalues and Eigenvectors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./24-statistical-application-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrix Transformations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./30-basis-vectors-and-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Basis Vectors and Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./32-quadratic-forms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Quadratic Form of a Matrix</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Systems of Equations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./60-solving-systems-of-equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Systems of Equations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./61-statistical-application-regression-estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Statistical Appplication: Estimating Regression Coefficients</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrix Decomposition</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./40-introduction-to-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Introduction to Matrix Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./41-lu-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">LU Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./42-statistical-application-lu-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Application: Estimating Regression Coefficients with LU Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./43-cholesky-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Cholesky Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./44-qr-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">QR Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./45-spectral-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Spectral Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./46-svd-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Singular Value Decompostion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Regression Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./55-regression-important-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Important Matrices in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./56-regression-sums-of-squares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Sums of Squares in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./57-regression-se-and-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Standard Errors and Variance Estimates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./58-regression-assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Assumptions of the Regression Model</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Application: Vectors</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In this chapter, we will provide examples of how vectors define the underlying geometry of various statistical summaries (standard deviation and correlation coefficient), including linear models. We will provide an example using a single predictor, but again, the ideas can be extended to models that include multiple predictors.</p>
+<p><br></p>
+<section id="deviation-scores-and-the-standard-deviation" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="deviation-scores-and-the-standard-deviation"><span class="header-section-number">5.1</span> Deviation Scores and the Standard Deviation</h2>
+<p>Consider the following vector scores (<strong>x</strong>) and the vector of the mean deviation scores (<span class="math inline">\(\mathbf{d_x}\)</span>):</p>
+<p><span class="math display">\[
+\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n\end{bmatrix} \qquad \mathbf{d_x} = \begin{bmatrix} x_1-\bar{x} \\ x_2-\bar{x} \\ x_3-\bar{x} \\ \vdots \\ x_n-\bar{x}\end{bmatrix}
+\]</span></p>
+<p>Remember that the length of a vector is the square root of the dot product of the vector with itself. If we were to compute the length of the deviation score vector, the length would be the square root of the sum of squared deviations:</p>
+<p><span class="math display">\[
+\sqrt{\mathbf{d_x}\bullet \mathbf{d_x}} = \sqrt{(x_1 - \bar{x})^2 + (x_2 - \bar{x})^2 + (x_3 - \bar{x})^2 + \ldots + (x_n - \bar{x})^2}
+\]</span></p>
+<p>If we divided this result by <span class="math inline">\(\sqrt{n}\)</span>, this would be equivalent to the standard deviation of the scores in <strong>x</strong> (<span class="math inline">\(s_\mathbf{x}\)</span>).</p>
+<p><span class="math display">\[
+s_\mathbf{x} = \frac{\lvert\lvert\mathbf{d_x}\rvert\rvert}{\sqrt{n}}
+\]</span></p>
+<p>So there is a direct relation between the length of a deviation vector and the standard deviation, namely,</p>
+<p><span class="math display">\[
+\lvert\lvert\mathbf{d_x}\rvert\rvert = \sqrt{n} (s_\mathbf{x})
+\]</span></p>
+<p>Consider the following vectors of data representing SAT scores (<strong>x</strong>) and GPA values (<strong>y</strong>) for <span class="math inline">\(n=10\)</span> student:</p>
+<p><span class="math display">\[
+\mathbf{x} = \begin{bmatrix}760 \\ 710 \\ 680 \\ 730 \\ 420 \\ 410 \\ 620 \\ 630 \\ 720 \\ 670\end{bmatrix} \qquad \mathbf{y} = \begin{bmatrix} 3.8 \\ 2.4 \\ 2.6 \\ 3.1 \\ 1.9 \\ 1.7 \\ 2.5 \\ 2.4 \\ 3.5 \\ 3.1\end{bmatrix}
+\]</span></p>
+<p>We compute the mean scores for each vector as <span class="math inline">\(\bar{x}=635\)</span> and <span class="math inline">\(\bar{y}=2.7\)</span>, respectively. By subtracting the mean (which is a scalar) from each vector of data, we can create deviation vectors:</p>
+<p><span class="math display">\[
+\mathbf{d_x} = \mathbf{x} - 635 = \begin{bmatrix}125 \\ 75 \\ 45 \\ 95 \\ -215 \\ -225 \\ -15 \\ -5 \\ 85 \\ 35\end{bmatrix} \qquad \mathbf{d_y} =\mathbf{y}-2.7 = \begin{bmatrix}1.1 \\ -0.3 \\ -0.1 \\ 0.4 \\ -0.8 \\ -1.0 \\ -0.2 \\ -0.3 \\ 0.8 \\ 0.4\end{bmatrix}
+\]</span> The length of the deviation vectors are computed as <span class="math inline">\(\sqrt{\mathbf{d}\bullet\mathbf{d}}\)</span>, namely,</p>
+<p><span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{d_x}\rvert\rvert &amp;= \sqrt{\mathbf{d_x}\bullet\mathbf{d_x}} \\[2em]
+\lvert\lvert\mathbf{d_x}\rvert\rvert &amp;= \sqrt{\mathbf{d_y}\bullet\mathbf{d_y}}
+\end{split}
+\]</span></p>
+<p>And using the values in the deviation vectors,</p>
+<p><span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{d_x}\rvert\rvert &amp;= \sqrt{137850} = 371.28 \\[2em]
+\lvert\lvert\mathbf{d_x}\rvert\rvert &amp;= \sqrt{4.04} = 2.01
+\end{split}
+\]</span></p>
+<p>Finally, we can compute the standard deviations for <strong>x</strong> and <strong>y</strong> by dividing these lengths by <span class="math inline">\(\sqrt{n}\)</span>.</p>
+<p><span class="math display">\[
+\begin{split}
+s_\mathbf{x} &amp;= \frac{371.28}{\sqrt{10}} = 117.41 \\[2em]
+s_\mathbf{y} &amp;= \frac{4.04}{\sqrt{10}} = 0.64
+\end{split}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Original vectors</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">760</span>, <span class="dv">710</span>, <span class="dv">680</span>, <span class="dv">730</span>, <span class="dv">420</span>, <span class="dv">410</span>, <span class="dv">620</span>, <span class="dv">630</span>, <span class="dv">720</span>, <span class="dv">670</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="fl">3.8</span>, <span class="fl">2.4</span>, <span class="fl">2.6</span>, <span class="fl">3.1</span>, <span class="fl">1.9</span>, <span class="fl">1.7</span>, <span class="fl">2.5</span>, <span class="fl">2.4</span>, <span class="fl">3.5</span>, <span class="fl">3.1</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute deviation vectors</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>d_x <span class="ot">=</span> x <span class="sc">-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>d_x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]
+ [1,]  125
+ [2,]   75
+ [3,]   45
+ [4,]   95
+ [5,] -215
+ [6,] -225
+ [7,]  -15
+ [8,]   -5
+ [9,]   85
+[10,]   35</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>d_y <span class="ot">=</span> y <span class="sc">-</span> <span class="fu">mean</span>(y)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>d_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]
+ [1,]  1.1
+ [2,] -0.3
+ [3,] -0.1
+ [4,]  0.4
+ [5,] -0.8
+ [6,] -1.0
+ [7,] -0.2
+ [8,] -0.3
+ [9,]  0.8
+[10,]  0.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute lengths of x deviation vector</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>l_x <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(d_x <span class="sc">*</span> d_x))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>l_x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 371.2816</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute lengths of y deviation vector</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>l_y <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(d_y <span class="sc">*</span> d_y))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>l_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.009975</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sd of x</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>s_x <span class="ot">=</span> l_x <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>s_x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 117.4095</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sd of y</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>s_y <span class="ot">=</span> l_y <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">10</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>s_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6356099</code></pre>
+</div>
+</div>
+<p>Note that if we are using <span class="math inline">\(s_\mathbf{x}\)</span> as an estimate for the population parameter <span class="math inline">\(\sigma_\mathbf{x}\)</span>, that is <strong>x</strong> is a sample of student scores, then we need to divide the length of vector <strong>x</strong> by <span class="math inline">\(n-1\)</span> rather than <span class="math inline">\(n\)</span>. In that case,</p>
+<p><span class="math display">\[
+\begin{split}
+\hat\sigma_\mathbf{x} &amp;= \frac{371.28}{\sqrt{9}} = 123.76 \\[2em]
+\hat\sigma_\mathbf{y} &amp;= \frac{4.04}{\sqrt{9}} = 0.67
+\end{split}
+\]</span></p>
+<p>This is the denominator that is used in the <code>sd()</code> function in R.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sd of x</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sigma_x <span class="ot">=</span> l_x <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">9</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>sigma_x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 123.7605</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sd of y</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sigma_y <span class="ot">=</span> l_y <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">9</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sigma_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6699917</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check results</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 123.7605</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6699917</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="vector-correlation-and-separation" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="vector-correlation-and-separation"><span class="header-section-number">5.2</span> Vector Correlation and Separation</h2>
+<p>The correlation between two vectors can also be expressed in terms of deviation scores:</p>
+<p><span class="math display">\[
+\begin{split}
+r_{xy} &amp;= \frac{\mathrm{Cov}_{\mathbf{xy}}}{s_\mathbf{x} s_\mathbf{y}} \\[2em]
+&amp;= \frac{\frac{\sum (\mathbf{x}-\bar{x})(\mathbf{y}-\bar{y})}{n}}{s_\mathbf{x} s_\mathbf{y}}
+\end{split}
+\]</span></p>
+<p>The expression <span class="math inline">\(\sum (x-\bar{x})(y-\bar{y})\)</span> is equivalent to <span class="math inline">\(\mathbf{x}\bullet\mathbf{y}\)</span>. Furthermore, we can re-write the standard deviations using our previous relationship with length of the deviation vectors. This implies,</p>
+<p><span class="math display">\[
+\begin{split}
+r_{xy} &amp;= \frac{\frac{\mathbf{d_x}\bullet\mathbf{d_y}}{n}}{\frac{\lvert\lvert\mathbf{d_x}\rvert\rvert}{\sqrt{n}}\frac{\lvert\lvert\mathbf{d_y}\rvert\rvert}{\sqrt{n}}} \\[2em]
+&amp;= \frac{\frac{\mathbf{d_x}\bullet\mathbf{d_y}}{n}}{\frac{\lvert\lvert\mathbf{d_x}\rvert\rvert~\lvert\lvert\mathbf{d_y}\rvert\rvert}{n}} \\[2em]
+&amp;= \frac{\mathbf{d_x}\bullet\mathbf{d_y}}{\lvert\lvert\mathbf{d_x}\rvert\rvert~\lvert\lvert\mathbf{d_y}\rvert\rvert}
+\end{split}
+\]</span> That is, the correlation between <strong>x</strong> and <strong>y</strong> is equal to the ratio between the dot product of the deviation vectors and the product of their lengths.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> In our example,</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(d_x <span class="sc">*</span> d_y) <span class="sc">/</span> (l_x <span class="sc">*</span> l_y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8468822</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check with correlation function</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.8468822</code></pre>
+</div>
+</div>
+<p>Recall that the angle between two vectors <strong>a</strong> and <strong>b</strong>, denoted <span class="math inline">\(\theta_{\mathbf{ab}}\)</span>, is given by,</p>
+<p><span class="math display">\[
+\cos (\theta_{\mathbf{ab}}) = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
+\]</span></p>
+<p>Thus to compute the angle between the two deviation vectors (<span class="math inline">\(\theta\)</span>), this is:</p>
+<p><span class="math display">\[
+\cos (\theta) = \frac{\mathbf{d_x}\bullet\mathbf{d_y}}{\lvert\lvert\mathbf{d_x}\rvert\rvert\times\lvert\lvert\mathbf{d_y}\rvert\rvert}
+\]</span></p>
+<p>This is the same as the formula for the correlation! In other words,</p>
+<p><span class="math display">\[
+r_{\mathbf{xy}} = \cos (\theta)
+\]</span></p>
+<p>The correlation between two vectors <strong>x</strong> and <strong>y</strong> is equal to the cosine of the angle between their deviation vectors. Using this equality, we can find the angle between the deviation vectors for our example SAT scores and GPA values. Since <span class="math inline">\(r_{\mathbf{xy}}=0.847\)</span>, that implies <span class="math inline">\(\theta\approx32^\circ\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta (in radians)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="fl">0.847</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5604801</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta (in degrees)</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="fl">0.847</span>) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 32.11314</code></pre>
+</div>
+</div>
+<p>This correlation corresponds to an angle of approximately <span class="math inline">\(32^\circ\)</span> of separation between the deviation score vectors for SAT scores and GPA values in the 10-dimensional space defined by our 10 students.</p>
+<div class="fyi">
+<p><strong>FYI</strong></p>
+<p>We can use the fact that <span class="math inline">\(r_{\mathbf{xy}} = \cos (\theta)\)</span> to make some connections between the value of the correlation coefficient and the angle between the deviation vectors.</p>
+<ul>
+<li>Perfect positive correlation (<span class="math inline">\(r_{\mathbf{xy}}=1\)</span>) indicates that deviation vectors are collinear. In this case <span class="math inline">\(\cos(\theta)=1\)</span> which implies that <span class="math inline">\(\theta=0^\circ\)</span>.</li>
+<li>Perfect negative correlation (<span class="math inline">\(r_{\mathbf{xy}}=-1\)</span>) indicates that deviation vectors are in opposite directions. In this case <span class="math inline">\(\cos(\theta)=-1\)</span> which implies that <span class="math inline">\(\theta=180^\circ\)</span>.</li>
+<li>Perfect lack of correlation (<span class="math inline">\(r_{\mathbf{xy}}=0\)</span>) indicates that deviation vectors are orthogonal. In this case <span class="math inline">\(\cos(\theta)=0\)</span> which implies that <span class="math inline">\(\theta=90^\circ\)</span>.</li>
+</ul>
+</div>
+<p><br></p>
+</section>
+<section id="orthogonal-decomposition-and-bivariate-regression" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="orthogonal-decomposition-and-bivariate-regression"><span class="header-section-number">5.3</span> Orthogonal Decomposition and Bivariate Regression</h2>
+<p>Recall that the simple regression model seeks to explain variation in an outcome variable <em>Y</em> using a predictor variable <em>X</em>. Mathematically, the model fitted is expressed as:</p>
+<p><span class="math display">\[
+\mathbf{y} = b_0 + b_1(\mathbf{x}) + \mathbf{e}
+\]</span></p>
+<p>where <strong>y</strong> is a vector of fitted values, <span class="math inline">\(b_0\)</span> and <span class="math inline">\(b_1\)</span> are scalars produced from the OLS estimation, <strong>x</strong> is a vector of the predictor values, and <strong>e</strong> is a vector of residuals. Recall that when we have mean centered the outcome and predictor, the intercept (<span class="math inline">\(b_0\)</span>) drops out of this equation. we can express this as:</p>
+<p><span class="math display">\[
+\mathbf{y} - \bar{y} = b_1(\mathbf{x} - \bar{x}) + \mathbf{e}
+\]</span></p>
+<p>The outcome and predictors are now expressed as deviation vectors, say</p>
+<p><span class="math display">\[
+\mathbf{d}_\mathbf{y} = b_1(\mathbf{d}_\mathbf{x} ) + \mathbf{e}
+\]</span> where <span class="math inline">\(\hat{\mathbf{d}}_\mathbf{y}=b_1(\mathbf{d}_\mathbf{x} )\)</span>. That is, we can partition the deviation vector of <strong>y</strong> into two components:</p>
+<p><span class="math display">\[
+\mathbf{d}_\mathbf{y} = \hat{\mathbf{d}}_\mathbf{y} + \mathbf{e}
+\]</span></p>
+<p>Ordinary least squares (OLS) estimation determines the value of <span class="math inline">\(b_1\)</span> by minimizing the sum of squared residuals, that is, it minimizes the quantity <span class="math inline">\(\lvert\lvert\mathbf{e}\rvert\rvert^2\)</span>. Geometrically, minimizing <span class="math inline">\(\lvert\lvert\mathbf{e}\rvert\rvert^2\)</span> is determining the orthogonal projection of <span class="math inline">\(\mathbf{d}_\mathbf{y}\)</span> onto <span class="math inline">\(\mathbf{d}_\mathbf{x}\)</span>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> This projection is the first component of the partitioning of the deviation vector described previously, <span class="math inline">\(\hat{\mathbf{d}}_\mathbf{y}=b_1(\mathbf{d}_\mathbf{x})\)</span>, which is collinear with <span class="math inline">\(\mathbf{d}_\mathbf{x}\)</span> since <span class="math inline">\(b_1(\mathbf{d}_\mathbf{x})\)</span> is a scalar multiple of <span class="math inline">\(\mathbf{d}_\mathbf{x}\)</span> This is shown in <a href="#fig-06-01" class="quarto-xref">Figure&nbsp;<span>5.1</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-06-01" class="quarto-float quarto-figure quarto-figure-center anchored" alt="The two orthogonal projections from the deviation vector of **y** form the basis for the model triangle (yellow). Note that the vector making up the right side of the model triangle is the same as the **e** vector." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-06-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.1: The two orthogonal projections from the deviation vector of <strong>y</strong> form the basis for the model triangle (yellow). Note that the vector making up the right side of the model triangle is the same as the <strong>e</strong> vector.
+</figcaption>
+<div aria-describedby="fig-06-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/fig-06-01.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="The two orthogonal projections from the deviation vector of **y** form the basis for the model triangle (yellow). Note that the vector making up the right side of the model triangle is the same as the **e** vector.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>The ‘triangle’ formed by the vectors <span class="math inline">\(\hat{\mathbf{d}}_\mathbf{y}\)</span>, <strong>e</strong>, and <span class="math inline">\(\mathbf{d}_\mathbf{y}\)</span> is referred to as the <em>model triangle</em>. <a href="#fig-model-triangle" class="quarto-xref">Figure&nbsp;<span>5.2</span></a> shows the model triangle. (Remember <strong>e</strong> can be moved to the right-side of the triangle since location is not a vector property.)</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-model-triangle" class="quarto-float quarto-figure quarto-figure-center anchored" alt="The model triangle (yellow). Note that the vector making up the right side of the model triangle is the same as the **e** vector." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-model-triangle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.2: The model triangle (yellow). Note that the vector making up the right side of the model triangle is the same as the <strong>e</strong> vector.
+</figcaption>
+<div aria-describedby="fig-model-triangle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/fig-06-model-triangle.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="The model triangle (yellow). Note that the vector making up the right side of the model triangle is the same as the **e** vector.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>The geometry of this triangle is the same as the geometry visualizing the sum of these vectors, namely</p>
+<p><span class="math display">\[
+\mathbf{d}_\mathbf{y} = \hat{\mathbf{d}}_\mathbf{y} + \mathbf{e}
+\]</span></p>
+<p>Namely that the vectors that create the legs of the model triangle can be added together to create the <span class="math inline">\(\mathbf{d}_\mathbf{y}\)</span> hypotenuse vector. The <strong>e</strong> vector is also the second orthogonal projection vector, <span class="math inline">\(\mathbf{e} = \mathbf{p}_{\mathbf{d}_\mathbf{y}\perp\mathbf{o}}\)</span>. By definition, this means that the vector of residuals (<strong>e</strong>) is orthogonal to the vector of fitted values (<span class="math inline">\(\hat{\mathbf{d}}_\mathbf{y}\)</span>), which means, the correlation between those two vectors is zero.</p>
+<p><span class="math display">\[
+r_{\mathbf{e},\hat{\mathbf{d}}_\mathbf{y}} = 0
+\]</span></p>
+<p>It also means that the model triangle is a right triangle, whose side lengths are governed by the Pythagorean Theorem.</p>
+<p><span class="math display">\[
+\lvert\lvert\mathbf{d}_\mathbf{y}\rvert\rvert^2 = \lvert\lvert\hat{\mathbf{d}}_\mathbf{y}\rvert\rvert^2 + \lvert\lvert\mathbf{e}\rvert\rvert^2
+\]</span></p>
+<p>Expressing these lengths using the deviations we get</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (y_i - \bar{y})^2 = \sum_{i=1}^n (\hat{y}_i - \bar{y})^2 + \sum_{i=1}^n (y_i - \hat{y}_i)^2
+\]</span></p>
+<p>This is the partitioning that describes the ANOVA decomposition:</p>
+<p><span class="math display">\[
+\mathrm{Total~SS} = \mathrm{Model~SS} + \mathrm{Residual~SS}
+\]</span></p>
+<p>Each of these sum of squares is the squared length of one of the vectors in the model triangle.</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{Total~SS} &amp;= \lvert\lvert\mathbf{d}_\mathbf{y}\rvert\rvert^2 \\[2em]
+\mathrm{Model~SS} &amp;= \lvert\lvert\hat{\mathbf{d}}_\mathbf{y}\rvert\rvert^2 \\[2em]
+\mathrm{Residual~SS} &amp;= \lvert\lvert\mathbf{e}\rvert\rvert^2
+\end{split}
+\]</span></p>
+<p>Relatedly, the lengths of the vectors making up the model triangle are the square roots of the these sum of square terms:</p>
+<p><span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{d}_\mathbf{y}\rvert\rvert &amp;= \sqrt{\mathrm{Total~SS}} \\[2em]
+\lvert\lvert\hat{\mathbf{d}}_\mathbf{y}\rvert\rvert &amp;= \sqrt{\mathrm{Model~SS}} \\[2em]
+\lvert\lvert\mathbf{e}\rvert\rvert &amp;= \sqrt{\mathrm{Residual~SS}}
+\end{split}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-06-03" class="quarto-float quarto-figure quarto-figure-center anchored" alt="The side lengths of the model triangle (yellow) correspond to the square roots of the sum of square terms used in the ANOVA decomposition." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-06-03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.3: The side lengths of the model triangle (yellow) correspond to the square roots of the sum of square terms used in the ANOVA decomposition.
+</figcaption>
+<div aria-describedby="fig-06-03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/fig-06-02.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="The side lengths of the model triangle (yellow) correspond to the square roots of the sum of square terms used in the ANOVA decomposition.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>Lastly, since the model-level <span class="math inline">\(R^2\)</span> value is defined as <span class="math inline">\(R^2 = \frac{\mathrm{Model~SS}}{\mathrm{Total~SS}}\)</span> and there is only a single predictor in the model then,</p>
+<p><span class="math display">\[
+\begin{split}
+r_{\mathbf{xy}} &amp;= \sqrt{R^2} \\[2em]
+&amp;= \sqrt{\frac{\mathrm{Model~SS}}{\mathrm{Total~SS}}} \\[2em]
+&amp;= \frac{\sqrt{\mathrm{Model~SS}}}{\sqrt{\mathrm{Total~SS}}} \\[2em]
+&amp;= \frac{\lvert\lvert\hat{\mathbf{d}}_\mathbf{y}\rvert\rvert}{\lvert\lvert\mathbf{d}_\mathbf{y}\rvert\rvert}
+\end{split}
+\]</span></p>
+<p>That is, the correlation coefficient between <strong>x</strong> and <strong>y</strong> is equivalent to the ratio of the lengths between the orthogonal projection vector collinear with the deviation vector of <strong>x</strong> and the deviation vector of <strong>y</strong>. Note this is also exactly how we compute cosine of <span class="math inline">\(\theta\)</span>.</p>
+<p><br></p>
+<section id="back-to-the-sat-and-gpa-example" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="back-to-the-sat-and-gpa-example"><span class="header-section-number">5.3.1</span> Back to the SAT and GPA Example</h3>
+<p>Here we return to our GPA and SAT data to provide an example of these computations. Suppose we want to predict SAT (<strong>y</strong>) from GPA (<strong>x</strong>), employing deviation scores. We begin by computing the length of both deviation vectors:</p>
+<p><span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{d}_\mathbf{x}\rvert\rvert &amp;= \sqrt{137850} = 371.28\\[2em]
+\lvert\lvert\mathbf{d}_\mathbf{y}\rvert\rvert &amp;= \sqrt{4.04} = 2.01
+\end{split}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of deviation vector d_x</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(l_x <span class="sc">*</span> l_x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 371.2816</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of deviation vector d_y</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(l_y <span class="sc">*</span> l_y))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.009975</code></pre>
+</div>
+</div>
+<p>We can also compute the correlation coefficient between SAT scores and GPAs by finding the cosine of the angle between the two vectors, <span class="math inline">\(r = 0.847\)</span>. Taking the arc-cosine, we find that <span class="math inline">\(\theta = 32.12^\circ\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute correlation</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="fu">sum</span>(d_x <span class="sc">*</span> d_y) <span class="sc">/</span> (l_x <span class="sc">*</span> l_y)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8468822</code></pre>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-06-02" class="quarto-float quarto-figure quarto-figure-center anchored" alt="The model triangle (yellow) for our regression of GPA (**y**) onto SAT scores (**x**)." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-06-02-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.4: The model triangle (yellow) for our regression of GPA (<strong>y</strong>) onto SAT scores (<strong>x</strong>).
+</figcaption>
+<div aria-describedby="fig-06-02-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/fig-06-02.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="The model triangle (yellow) for our regression of GPA (**y**) onto SAT scores (**x**).">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>We can now use the definition of cosine and sine to compute the lengths of the two orthogonal projections from <span class="math inline">\(\mathbf{d}_\mathbf{y}\)</span>. The length of the projection onto <span class="math inline">\(\mathbf{d}_\mathbf{x}\)</span> is calculated as:</p>
+<p><span class="math display">\[
+\begin{split}
+\cos(\theta) &amp;= \frac{\lvert\lvert\hat{\mathbf{d}}_\mathbf{y}\rvert\rvert}{\lvert\lvert\mathbf{d}_\mathbf{y}\rvert\rvert} \\[2em]
+0.847 &amp;= \frac{\lvert\lvert\hat{\mathbf{d}}_\mathbf{y}\rvert\rvert}{2.01} \\[2em]
+\lvert\lvert\hat{\mathbf{d}}_\mathbf{y}\rvert\rvert &amp;= 1.70
+\end{split}
+\]</span></p>
+<p>The length of the second projection onto <strong>o</strong> is calculated as:</p>
+<p><span class="math display">\[
+\begin{split}
+\sin(\theta) &amp;= \frac{\lvert\lvert\mathbf{e}\rvert\rvert}{\lvert\lvert\mathbf{d}_\mathbf{y}\rvert\rvert} \\[2em]
+0.531 &amp;= \frac{\lvert\lvert\mathbf{e}\rvert\rvert}{2.01} \\[2em]
+\lvert\lvert\mathbf{e}\rvert\rvert &amp;= 1.07
+\end{split}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of projection on d_x</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>r <span class="sc">*</span> l_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.702212</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of projection on o</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(<span class="fu">acos</span>(r)) <span class="sc">*</span> l_y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.068866</code></pre>
+</div>
+</div>
+<p><a href="#fig-06-04" class="quarto-xref">Figure&nbsp;<span>5.5</span></a> shows the model triangle for the regression of GPA (<strong>y</strong>) onto SAT scores (<strong>x</strong>) with all of the computed side lengths.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-06-04" class="quarto-float quarto-figure quarto-figure-center anchored" alt="The model triangle (yellow) for our regression of GPA (**y**) onto SAT scores (**x**)." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-06-04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5.5: The model triangle (yellow) for our regression of GPA (<strong>y</strong>) onto SAT scores (<strong>x</strong>).
+</figcaption>
+<div aria-describedby="fig-06-04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/fig-06-04.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="The model triangle (yellow) for our regression of GPA (**y**) onto SAT scores (**x**).">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>Finally, we can use these lengths, along with the length of <span class="math inline">\(\mathbf{d}_\mathbf{y}\)</span> to write out the ANOVA decomposition; the partitioning of the sum of squares.</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{Total~SS} &amp;= \lvert\lvert\mathbf{d}_\mathbf{y}\rvert\rvert^2 = 2.01^2 = 4.04\\[2em]
+\mathrm{Model~SS} &amp;= \lvert\lvert\hat{\mathbf{d}}_\mathbf{y}\rvert\rvert^2 = 1.70^2 = 2.90\\[2em]
+\mathrm{Residual~SS} &amp;= \lvert\lvert\mathbf{e}\rvert\rvert^2 = 1.07^2 = 1.14
+\end{split}
+\]</span></p>
+<p>These sums of squares are additive within rounding:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{Total~SS} &amp;= \mathrm{Model~SS} + \mathrm{Residual~SS} \\[2em]
+4.04 &amp;= 2.90 + 1.14
+\end{split}
+\]</span></p>
+<p>Using these values we can also compute the model-level <span class="math inline">\(R^2\)</span>.</p>
+<p><span class="math display">\[
+R^2 = \frac{\mathrm{Model~SS}}{\mathrm{Total~SS}} =  \frac{2.90}{4.04} = 0.718
+\]</span></p>
+<p>That is, differences in SAT scores explain 71.8% of the variation in GPAs.</p>
+<p><br></p>
+
+
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Most formulas for the correlation will use <span class="math inline">\(n-1\)</span> rather than <span class="math inline">\(n\)</span>, but here it doesn’t matter as the <span class="math inline">\(n\)</span>s drop out when we reduce this.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Remember from geometry that the shortest distance from a point (at the end of the <span class="math inline">\(\mathbf{d}_\mathbf{y}\)</span>) to a line (spanned by <span class="math inline">\(\mathbf{d}_\mathbf{x}\)</span>) is the perpendicular line segment between them.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

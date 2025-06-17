@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler">
-<meta name="dcterms.date" content="2025-06-17">
 
-<title>Matrix Algebra for Educational Scientists</title>
+<title>22&nbsp; Cholesky Decompostion – Matrix Algebra for Educational Scientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,6 +116,35 @@ function toggle_visibility(id) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/sticky-notes.css">
 <link rel="stylesheet" href="assets/table-styles.css">
@@ -98,7 +160,7 @@ function toggle_visibility(id) {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Matrix Algebra for Educational Scientists</h1>
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Cholesky Decompostion</span></h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -124,7 +186,7 @@ function toggle_visibility(id) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foreword</span></a>
   </div>
 </li>
@@ -326,7 +388,7 @@ function toggle_visibility(id) {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./43-cholesky-decomposition.html" class="sidebar-item-text sidebar-link">
+  <a href="./43-cholesky-decomposition.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Cholesky Decompostion</span></span></a>
   </div>
 </li>
@@ -396,26 +458,14 @@ function toggle_visibility(id) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Matrix Algebra for Educational Scientists</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Cholesky Decompostion</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael Rodriguez &amp; Andrew Zieffler </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 17, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -425,28 +475,248 @@ function toggle_visibility(id) {
 </header>
 
 
-<section id="foreword" class="level1 unnumbered">
-<h1 class="unnumbered">Foreword</h1>
-<p>Spring 2021.</p>
-<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
+<p>Another decomposition method is Cholesky (or Choleski) decomposition. The Cholesky decomposition method—used in statistical applications from nonlinear optimization, to Monte Carlo simulation methods, to Kalman filtering—is much more computationally efficient than the LU method. The Cholesky method decomposes a symmetric, positive definite matrix <strong>A</strong> into the product of two matrices, <span class="math inline">\(\mathbf{L}\)</span> (a lower-triangular matrix) and <span class="math inline">\(\mathbf{L}^*\)</span> (the <em>conjugate transpose</em> of <span class="math inline">\(\mathbf{L}\)</span>).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p><span class="math display">\[
+\underset{n \times n}{\mathbf{A}} = \mathbf{LL}^*
+\]</span></p>
+<p>The conjugate transpose is computed by taking the transpose of a matrix and then finding the <em>complex conjugate</em> of each element in the matrix. To understand what a complex conjugate is, we first remind you of the idea of a complex number. Remember that all real and imaginary numbers are complex numbers which can be expressed as <span class="math inline">\(a+bi\)</span>, where <em>a</em> is the real part of the number and <em>b</em> is the imaginary part of the number, and <em>i</em> is the square root of <span class="math inline">\(-1\)</span>. For example the number 2 can be expressed as <span class="math inline">\(2 + 0i\)</span>. <em>Note:</em> The complex conjugate of a real number is just the real number, since <span class="math inline">\(a+0i = a-0i=a\)</span>.</p>
+<p>The complex conjugate of a number is itself a complex number that has the exact same real part and an imaginary part equal in magnitude but opposite in sign. For example the complex conjugate for the number <span class="math inline">\(3 + 2i\)</span> is <span class="math inline">\(3 - 2i\)</span>.</p>
+<p>As an example, say that matrix <strong>A</strong> was</p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}
+1 &amp; 3+i &amp; -2+3i  \\
+0 &amp; 4 &amp; 0-i  \\
+\end{bmatrix}
+\]</span></p>
+<p>The conjugate transpose of <strong>A</strong>, symbolized as <span class="math inline">\(\mathbf{A}^*\)</span>, can be found by first computing the transpose of <strong>A</strong>, and then finding the complex conjugate of each element in the transpose.</p>
+<p><span class="math display">\[
+\mathbf{A}^{\intercal} = \begin{bmatrix}
+1 &amp; 0  \\
+3+i0 &amp; 4  \\
+-2+3i &amp; 0-i
+\end{bmatrix}
+\]</span></p>
+<p>And,</p>
+<p><span class="math display">\[
+\mathbf{A}^{*} = \begin{bmatrix}
+1 &amp; 0  \\
+3-i0 &amp; 4  \\
+-2-3i &amp; 0+i
+\end{bmatrix}
+\]</span></p>
+<div class="fyi">
+<p><strong>FYI</strong></p>
+<p>Many texts just present the notation for the Cholesky decomposition as <span class="math inline">\(\mathbf{A}=\mathbf{LL}^\intercal\)</span>, rather than <span class="math inline">\(\mathbf{A}=\mathbf{LL}^*\)</span>. This is because they make the further assumption that all the elements in <strong>A</strong> are real numbers. In that case, <span class="math inline">\(\mathbf{L}^*=\mathbf{L}^\intercal\)</span>. We will make that assumption and use that notation moving forward.</p>
+</div>
 <p><br></p>
-<p>Andrew Zieffler &amp; Michael Rodriguez</p>
-<p><br> <br></p>
-<section id="acknowledgments" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copy editors.</p>
-<p><br><br></p>
+<section id="example-of-cholesky-decomposition" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="example-of-cholesky-decomposition"><span class="header-section-number">22.1</span> Example of Cholesky Decomposition</h2>
+<p>Say we wanted to compute a Cholsky decomposition on a <span class="math inline">\(2 \times 2\)</span> symmetric matrix:</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\mathbf{A}} = \begin{bmatrix}
+5 &amp; -4  \\
+-4 &amp; 5  \\
+\end{bmatrix}
+\]</span></p>
+<p>The Cholesky decomposition would factor <strong>A</strong> into the following:</p>
+<p><span class="math display">\[
+\begin{split}
+\underset{2\times 2}{\mathbf{A}} &amp;= \underset{2\times 2}{\mathbf{L}}~\underset{2\times 2}{\mathbf{L}^\intercal}\\[1em]
+\begin{bmatrix}
+5 &amp; -4  \\
+-4 &amp; 5  \\
+\end{bmatrix} &amp;= \begin{bmatrix}
+l_{11} &amp; 0  \\
+l_{21} &amp; l_{22}  \\
+\end{bmatrix} \begin{bmatrix}
+l_{11} &amp; l_{21}  \\
+0 &amp; l_{22}  \\
+\end{bmatrix}
+\end{split}
+\]</span></p>
+<p>Carrying out the matrix algebra we have the following three unique equations:</p>
+<p><span class="math display">\[
+\begin{split}
+5 &amp;= l_{11}(l_{11}) \\[0.5em]
+-4 &amp;= l_{11}(l_{21}) \\[0.5em]
+5 &amp;= l_{21}(l_{21}) + l_{22}(l_{22})
+\end{split}
+\]</span></p>
+<p>Since we have three equations with three unknowns we can solve for each element in <strong>L</strong>.</p>
+<p><span class="math display">\[
+\begin{split}
+l_{11} &amp;= \sqrt{5} \approx 2.24\\[0.5em]
+l_{21} &amp;= \dfrac{-4}{\sqrt{5}} \approx -1.79 \\[0.5em]
+l_{22} &amp;= \sqrt{1.8} \approx 1.34
+\end{split}
+\]</span></p>
+<p>So the Cholsky decomposition is,</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+5 &amp; -4  \\
+-4 &amp; 5  \\
+\end{bmatrix} = \begin{bmatrix}
+\sqrt{5}  &amp; 0  \\
+\dfrac{-4}{\sqrt{5}} &amp; \sqrt{1.8}  \\
+\end{bmatrix} \begin{bmatrix}
+\sqrt{5}  &amp; \dfrac{-4}{\sqrt{5}}  \\
+0 &amp; \sqrt{1.8}  \\
+\end{bmatrix}
+\]</span></p>
+<p>Or using the approximations,</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+5 &amp; -4  \\
+-4 &amp; 5  \\
+\end{bmatrix} \approx \begin{bmatrix}
+2.24  &amp; 0  \\
+-1.79 &amp; 1.34  \\
+\end{bmatrix} \begin{bmatrix}
+2.24  &amp; -1.79  \\
+0 &amp; 1.34  \\
+\end{bmatrix}
+\]</span></p>
+<p><br></p>
 </section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
-<p>The book is typeset using <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible">Atkinson Hyperlegible</a>. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
-<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
-<p>Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). <a href="https://rstudio4edu.github.io/rstudio4edu-book/">A handbook for teaching and learning with R and RStudio</a>.</p>
-<p><br><br></p>
+<section id="cholesky-decomposition-using-r" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="cholesky-decomposition-using-r"><span class="header-section-number">22.2</span> Cholesky Decomposition using R</h2>
+<p>We can use the <code>chol()</code> function to compute the Cholesky decomposition. For example to carry out the Cholesky decomposition on <strong>A</strong> form the previous section, we would use the following syntax:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">5</span>), </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cholesky decomposition</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>cholesky_decomp <span class="ot">=</span> <span class="fu">chol</span>(A)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># View results</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>cholesky_decomp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]      [,2]
+[1,] 2.236068 -1.788854
+[2,] 0.000000  1.341641</code></pre>
+</div>
+</div>
+<p>Note that the output from <code>chol()</code> is actually the transpose matrix, <span class="math inline">\(\mathbf{L}^\intercal\)</span>. To obtain <strong>L</strong>, we need to take the transpose of this output. We can also verify that the decomposition worked.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain L</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(cholesky_decomp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]     [,2]
+[1,]  2.236068 0.000000
+[2,] -1.788854 1.341641</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check results L(L^T) = A</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(cholesky_decomp) <span class="sc">%*%</span> cholesky_decomp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    5   -4
+[2,]   -4    5</code></pre>
+</div>
+</div>
+<div class="fyi">
+<p><strong>CAUTION</strong></p>
+<p>The <code>chol()</code> function does not check for symmetry. If you use the function to decompose a nonsymmetric matrix, the results will likely be meaningless.</p>
+</div>
+<p>For example, consider the following nonsymmetric matrix:</p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}5 &amp; 1\\ -4 &amp; 2\end{bmatrix}
+\]</span></p>
+<p>Computing the decomposition, we get:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="sc">-</span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Cholsky decomposition</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">chol</span>(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]      [,2]
+[1,] 2.236068 0.4472136
+[2,] 0.000000 1.3416408</code></pre>
+</div>
+</div>
+<p>Checking the matrix multiplication we do not get back to the original matrix, <strong>A</strong>:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check results</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">chol</span>(A)) <span class="sc">%*%</span> <span class="fu">chol</span>(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2]
+[1,]    5    1
+[2,]    1    2</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="statistical-application-estimating-regression-coefficents-with-cholesky-decomposition" class="level2" data-number="22.3">
+<h2 data-number="22.3" class="anchored" data-anchor-id="statistical-application-estimating-regression-coefficents-with-cholesky-decomposition"><span class="header-section-number">22.3</span> Statistical Application: Estimating Regression Coefficents with Cholesky Decomposition</h2>
+<p>We can again use the the OLS solution to compute the elements of <strong>b</strong> by solving the system of equations represented in:</p>
+<p><span class="math display">\[
+(\mathbf{X}^{\intercal}\mathbf{X})\mathbf{b} = \mathbf{X}^{\intercal}\mathbf{y}
+\]</span></p>
+<p>So long as <span class="math inline">\(\mathbf{X}^\intercal\mathbf{X}\)</span> is positive definite, we can use Cholesky decomposition to solve for the elements of <strong>b</strong> using the same two-step process we did for LU decomposition. Namely,</p>
+<p><span class="math display">\[
+\begin{split}
+&amp;\mathrm{Solve~~}\mathbf{LZ} &amp;= \mathbf{X}^{\intercal}\mathbf{y}~~\mathrm{for~}\mathbf{Z} \\[2ex]
+&amp;\mathrm{Solve~~}\mathbf{L}^\intercal\mathbf{b} &amp; =\mathbf{Z}~~\mathrm{for~}\mathbf{b}
+\end{split}
+\]</span></p>
+<p>Using the same simulated data as the example from last chapter, consider the following simulated data set of <span class="math inline">\(n=50\)</span> cases:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of cases</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create 50 x-values evenly spread b/w 1 and 500 </span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">500</span>, <span class="at">len =</span> n)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X matrix</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create b matrix</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">4</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of y-values</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> X <span class="sc">%*%</span> b <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can again use <code>forwardsolve()</code> and <code>backsolve()</code> to help solve the two equations.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain L^T and L</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>L_T <span class="ot">=</span> <span class="fu">chol</span>(<span class="fu">t</span>(X)<span class="sc">%*%</span>X)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>L <span class="ot">=</span> <span class="fu">t</span>(L_T)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for Z</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">=</span> <span class="fu">forwardsolve</span>(L,  <span class="fu">crossprod</span>(X,y))</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for b</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">backsolve</span>(L_T, Z)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># View b</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]
+[1,] 0.9038377
+[2,] 1.0066440
+[3,] 0.9999622
+[4,] 1.0000001</code></pre>
+</div>
+</div>
+<p><br></p>
 
 
 </section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>There are also variations on the Cholesky decomposition method, including LDL and LDL<span class="math inline">\(^\intercal\)</span> decomposition. In these methods, <strong>D</strong> is a diagonal matrix.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

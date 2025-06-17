@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Vectors – Matrix Algebra for Educational Scientists</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-732fb9ccd080a018ca85ca5d15770f52.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8d770ec9e2414948c93ba4710aeffb09.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="text/javascript">
+// Function to toggle the visibility of solutions in exercises
+function toggle_visibility(id) {
+   var e = document.getElementById(id);
+   if(e.style.display == 'block')
+      e.style.display = 'none';
+   else
+      e.style.display = 'block';
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="assets/sticky-notes.css">
+<link rel="stylesheet" href="assets/table-styles.css">
+</head>
+
+<body class="nav-sidebar floating fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Vectors</span></h1>
+        </a>     
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Matrix Algebra for Educational Scientists</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foreword</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-data-structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Structures</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Vectors and Vector Operations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-vectors.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Vectors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-vector-operations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vector Operations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Vector Geometry: Angles, Projection, and Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-statistical-application-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Application: Vectors</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrices and Matrix Operations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-matrix-addition-subtraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Matrix Addition and Subtraction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-matrix-multiplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Multiplication</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-matrix-transposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Transposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-matrix-operations-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exercises: Matrix Operations</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Square Matrices and Their Properties</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21-square-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Square Matrices and Friends</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./22-properties-of-square-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Properties of Square Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23-eigenvalues-and-eigenvectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Eigenvalues and Eigenvectors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./24-statistical-application-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrix Transformations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./30-basis-vectors-and-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Basis Vectors and Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./32-quadratic-forms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Quadratic Form of a Matrix</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Systems of Equations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./60-solving-systems-of-equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Systems of Equations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./61-statistical-application-regression-estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Statistical Appplication: Estimating Regression Coefficients</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrix Decomposition</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./40-introduction-to-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Introduction to Matrix Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./41-lu-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">LU Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./42-statistical-application-lu-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Application: Estimating Regression Coefficients with LU Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./43-cholesky-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Cholesky Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./44-qr-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">QR Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./45-spectral-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Spectral Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./46-svd-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Singular Value Decompostion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Regression Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./55-regression-important-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Important Matrices in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./56-regression-sums-of-squares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Sums of Squares in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./57-regression-se-and-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Standard Errors and Variance Estimates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./58-regression-assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Assumptions of the Regression Model</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Vectors</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In this chapter you will learn more about the vector data structure. You will be introduced to some of the vocabulary that we use to describe vectors. You will also be introduced to the geometry of vectors. It is important to recognize that although the illustration of vector geometry is restricted to 2-dimensional space, all of these ideas can be extended to <em>n</em>-dimensions.</p>
+<p><br></p>
+<section id="what-is-a-vector" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="what-is-a-vector"><span class="header-section-number">2.1</span> What is a Vector?</h2>
+<p>A <em>vector</em> is a specifically ordered one-dimensional array of values written as a row or column. Vectors are typically described by the number of elements they have. Here, for example, <strong>a</strong> is a four-element column vector:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+5 \\ 4 \\ 7 \\ 2
+\end{bmatrix}
+\]</span></p>
+<p>We might also say that <strong>a</strong> is a column vector in 4-dimensions.</p>
+<p>In statistical or psychometric applications, vectors are how we typically represent and structure data collected on a particular attribute. For example, <strong>a</strong> might represent test scores for <span class="math inline">\(n=4\)</span> students. Each element in this vector would correspond to a student’s test score. In this case, <span class="math inline">\(a_1=5\)</span> would be the test score for the first student recorded in the vector, <span class="math inline">\(a_2=4\)</span> would be the test score for the second student recorded in the vector, etc.</p>
+<p>Computationally, we can also work with vectors using R. We use the <code>matrix()</code> function to create a column or row vector in R. We include the elements of the vector in a <code>c()</code> function and provide this to the <code>data=</code> argument. We also include either the argument <code>ncol=1</code> (column vector) or <code>nrow=1</code> (row vector). Below we create vector <strong>a</strong>. We can also use the <code>length()</code> function to count the number of elements in a vector.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create column vector a</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    5
+[2,]    4
+[3,]    7
+[4,]    2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create row vector b</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">1</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    0    0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count number of elements in a</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count number of elements in b</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<p><br></p>
+<section id="transposition" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="transposition"><span class="header-section-number">2.1.1</span> Transposition</h3>
+<p>One important vector operation is <em>transposition</em>. Transposition is an operation in which we replace the <em>i</em>th element of a column vector as the <em>i</em>th element of a row vector, and vice-versa. In other words, we are converting a column vector into a row vector, or, conversely, converting a row vector into a column vector. Notationally, we use a superscripted prime or a superscripted <a href="https://unicode-table.com/en/22BA/#:~:text=%E2%8A%BA%20%2D%20Intercalate%3A%20U%2B22BA%20intcal%20%2D%20Unicode%20Character%20Table">intercalate symbol</a> (looks like a “T”) to denote a vector’s transpose. For example, transposing vector <strong>a</strong>, which we defined earlier:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+5 \\ 4 \\ 7 \\ 2
+\end{bmatrix} \qquad \mathbf{a}^{\prime} = \mathbf{a}^{\intercal} = \begin{bmatrix}
+5 &amp; 4 &amp; 7 &amp; 2
+\end{bmatrix}
+\]</span></p>
+<p>In R, the <code>t()</code> function will compute the transpose of a vector. Here we use <code>t()</code> to compute the transpose of the earlier defined vectors <strong>a</strong> and <strong>b</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose of a</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    5    4    7    2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose of b</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    1
+[2,]    0
+[3,]    0</code></pre>
+</div>
+</div>
+<div class="fyi">
+<p><strong>NOTATION</strong></p>
+<p>Throughout the remainder of the book, row vectors will be denoted using a transpose. So, for example, <strong>a</strong> will indicate a column vector, and <span class="math inline">\(\mathbf{a}^{\intercal}\)</span> will indicate a row vector.</p>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="general-form-of-a-vector" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="general-form-of-a-vector"><span class="header-section-number">2.2</span> General Form of a Vector</h2>
+<p>Now that we have introduced transposition, we can formalize the general notation for both column and row vectors. The general form of a column vector with <em>n</em> elements is:</p>
+<p><span class="math display">\[
+\mathbf{x} = \begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n
+\end{bmatrix}
+\]</span></p>
+<p>While, the general form of a row vector with <em>n</em> elements is:</p>
+<p><span class="math display">\[
+\mathbf{x}^{\intercal} = \begin{bmatrix}
+x_1 &amp; x_2 &amp; x_3 &amp; \ldots &amp; x_n
+\end{bmatrix}
+\]</span></p>
+<p>Vectors can also be thought of as a special case of a matrix in one of the dimensions is equal to 1. For example <strong>x</strong> could be considered a <span class="math inline">\(n \times 1\)</span> matrix, and <span class="math inline">\(\mathbf{x}^{\intercal}\)</span> could be considered a <span class="math inline">\(1 \times n\)</span> matrix.</p>
+<p><br></p>
+</section>
+<section id="the-geometry-of-vectors" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="the-geometry-of-vectors"><span class="header-section-number">2.3</span> The Geometry of Vectors</h2>
+<p>A vector can be represented geometrically by using a coordinate system where each element in the vector corresponds to a distance along one of the reference axes defining the coordinate system. Consider the column vector <strong>a</strong>:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+2 \\ 3
+\end{bmatrix}
+\]</span></p>
+<p>This vector has a distance of 2 on the first reference axis (R1) and a distance of 3 on the second reference axis (R2).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig01" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.1: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensional space.
+</figcaption>
+<div aria-describedby="fig-fig01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-vectors_files/figure-html/fig-fig01-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>In <a href="#fig-fig01" class="quarto-xref">Figure&nbsp;<span>2.1</span></a> the reference coordinate system (R1–R2) define a two-dimensional space. Vector <strong>a</strong> had two elements and thus resides in a two-dimensional space. In general, an <em>n</em>-dimensional vector resides in an <em>n</em>-dimensional space.</p>
+<p>The reference axes always intersect at the origin of the space (i.e., the reference point <span class="math inline">\((0, 0)\)</span>). Here the reference axes are at right angles to one another, although this is not a requirement. When the reference axes are at right angles to each other, the reference system is referred to as an <em>orthogonal coordinate system</em>.</p>
+<p><br></p>
+</section>
+<section id="vector-properties" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="vector-properties"><span class="header-section-number">2.4</span> Vector Properties</h2>
+<p>Geometrically, a vector is displayed as a line segment with an arrowhead at one end of the segment. The end of the vector with the arrowhead is called the <em>head</em> or <em>terminus</em>, and the other end of the vector is called the <em>tail</em> or <em>origin</em>. The head of the vector indicates the direction of the vector.</p>
+<p>All vectors have a direction. They also have a length. These two properties completely define a vector within a given reference system. Note that location of the vector in the reference system is not a property of the vector. For example, the red vector and the blue vector below are identical—they have the same direction and length!</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig02" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing two identical vectors (in red and blue) in the R1--R2 dimensional space. They are identical because they have the same length and direction. Location in the reference system is a convenience, not a property of the vector." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig02-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.2: Plot showing two identical vectors (in red and blue) in the R1–R2 dimensional space. They are identical because they have the same length and direction. Location in the reference system is a convenience, not a property of the vector.
+</figcaption>
+<div aria-describedby="fig-fig02-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-vectors_files/figure-html/fig-fig02-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing two identical vectors (in red and blue) in the R1--R2 dimensional space. They are identical because they have the same length and direction. Location in the reference system is a convenience, not a property of the vector.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="fyi">
+<p><strong>PROTIP</strong></p>
+<p>Location is a convenience in that we can re-locate any vector within the reference system to make it easier to work with.</p>
+</div>
+<p><br></p>
+<section id="vector-length" class="level3" data-number="2.4.1">
+<h3 data-number="2.4.1" class="anchored" data-anchor-id="vector-length"><span class="header-section-number">2.4.1</span> Vector Length</h3>
+<p>The length of a vector (also referred to as the vector’s <em>magnitude</em> or <em>norm</em>) is the distance from the vector’s tip to tail. In an orthogonal reference system, if we locate the tail of the vector at the origin, multiple right triangles with the vector as hypotenuse can be formed with the reference axes. The <a href="https://en.wikipedia.org/wiki/Pythagorean_theorem">Pythagorean Theorem</a> can then be applied to determine the length of a vector.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig03" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space. This vector is the hypotenuse of a right triangle with legs of length 2 and 3." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.3: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensional space. This vector is the hypotenuse of a right triangle with legs of length 2 and 3.
+</figcaption>
+<div aria-describedby="fig-fig03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-vectors_files/figure-html/fig-fig03-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space. This vector is the hypotenuse of a right triangle with legs of length 2 and 3.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>In <a href="#fig-fig03" class="quarto-xref">Figure&nbsp;<span>2.3</span></a>, vector <strong>a</strong> is the hypotenuse of a right triangle with legs of length 2 and 3. We can use the Pythagorean Theorem to find the length of the vector:</p>
+<p><span class="math display">\[
+\begin{split}
+C^2 &amp;= A^2 + B^2 \\[2ex]
+&amp;= 2^2 + 3 ^2 \\[2ex]
+&amp;= 13 \\[2ex]
+C &amp;= \sqrt{13} \approx 3.61
+\end{split}
+\]</span></p>
+<p>Note that the sum of the squared elements is equal to the square of the length of the vector, and to determine the length of <strong>a</strong> (denoted as <span class="math inline">\(\lvert\lvert \mathbf{a} \rvert\rvert\)</span>), we take the square root of that sum. For our two-dimensional vector, this is</p>
+<p><span class="math display">\[
+\lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2}
+\]</span></p>
+<p>We can generalize this to finding the length of a vector <strong>a</strong> with <em>n</em>-dimensions:</p>
+<p><span class="math display">\[
+\lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2 + a_3^2 + \ldots + a_n^2}
+\]</span> Computationally, to compute the length of a vector, we chain together several computations that (1) square the elements of in the vector, (2) sum those squares together, and (3) compute the square root of this sum. Below we create a 2-element column vector <strong>a</strong> and compute its length.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector a</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    2
+[2,]    3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of vector a</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(a <span class="sc">^</span> <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.605551</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="vector-direction" class="level3" data-number="2.4.2">
+<h3 data-number="2.4.2" class="anchored" data-anchor-id="vector-direction"><span class="header-section-number">2.4.2</span> Vector Direction</h3>
+<p>A vector’s direction is often expressed as the measure of the angle between the horizontal reference axis and the vector.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <a href="#fig-fig04" class="quarto-xref">Figure&nbsp;<span>2.4</span></a> shows this angle (denoted <span class="math inline">\(\theta\)</span>) for vector <strong>a</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig04" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the horizontal reference axis and the vector." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.4: Plot showing vector <strong>a</strong> (in red) in the R1–R2 dimensional space. The direction of this vector is the measure of the angle (<span class="math inline">\(\theta\)</span>) between the horizontal reference axis and the vector.
+</figcaption>
+<div aria-describedby="fig-fig04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-vectors_files/figure-html/fig-fig04-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing vector **a** (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the horizontal reference axis and the vector.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>To determine this angle, we need to use a <a href="https://en.wikipedia.org/wiki/Trigonometric_functions">trigonometric function</a>. For example, here we can use the fact that the cosine of an angle <span class="math inline">\(\theta\)</span> is defined as the length of the side of the right triangle which is adjacent to <span class="math inline">\(\theta\)</span> divided by the length of the hypotenuse of the triangle.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p><span class="math display">\[
+\cos (\theta) = \frac{\lvert\lvert\mathrm{Adjacent~Side}\rvert\rvert}{\lvert\lvert\mathrm{Hypotenuse}\rvert\rvert}
+\]</span></p>
+<p>In our example,</p>
+<p><span class="math display">\[
+\cos (\theta) = \frac{2}{\sqrt{13}}
+\]</span></p>
+<p>To find <span class="math inline">\(\theta\)</span>, we need to calculate the arc-cosine of <span class="math inline">\(\frac{2}{\sqrt{13}}\)</span>. We can compute the arc-cosine in R using the <code>acos()</code> function. This function will compute the value of <span class="math inline">\(\theta\)</span> in radians. We can also convert this to degrees by multiplying by <span class="math inline">\(\frac{180}{\pi}\)</span> (where <span class="math inline">\(\pi\)</span> is the mathematical constant approximated as 3.14).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find theta using arccosine (radians)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">13</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9827937</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find theta using arccosine (degrees)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(<span class="dv">2</span> <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">13</span>)) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 56.30993</code></pre>
+</div>
+</div>
+<p>We always measure the angle counter-clockwise to the reference axis. So if we measure the direction associated with the vector <span class="math inline">\(\begin{bmatrix}-2 \\ -2\end{bmatrix}\)</span>, the direction is more than <span class="math inline">\(\pi\)</span> radians (or <span class="math inline">\(180^\circ\)</span>).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig05" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing vector (-2, -2) (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig05-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.5: Plot showing vector (-2, -2) (in red) in the R1–R2 dimensional space. The direction of this vector is the measure of the angle (<span class="math inline">\(\theta\)</span>) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis.
+</figcaption>
+<div aria-describedby="fig-fig05-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-vectors_files/figure-html/fig-fig05-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing vector (-2, -2) (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>There are several ways to compute this angle. Remember that when we use the trigonometric functions, we are computing the angle in the right triangle formed by the vector and the reference axes (see <a href="#fig-fig06" class="quarto-xref">Figure&nbsp;<span>2.6</span></a>).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig06" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing vector (-2, -2) (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis. Here we have split this angle up into two parts; $\alpha$ can be computed using a trigonometric function, and $\beta = \pi$ radians." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig06-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.6: Plot showing vector (-2, -2) (in red) in the R1–R2 dimensional space. The direction of this vector is the measure of the angle (<span class="math inline">\(\theta\)</span>) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis. Here we have split this angle up into two parts; <span class="math inline">\(\alpha\)</span> can be computed using a trigonometric function, and <span class="math inline">\(\beta = \pi\)</span> radians.
+</figcaption>
+<div aria-describedby="fig-fig06-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-vectors_files/figure-html/fig-fig06-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing vector (-2, -2) (in red) in the R1--R2 dimensional space. The direction of this vector is the measure of the angle ($\theta$) between the vector and the horizontal reference axis measured in the counter-clockwise direction from the axis. Here we have split this angle up into two parts; $\alpha$ can be computed using a trigonometric function, and $\beta = \pi$ radians.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>To find <span class="math inline">\(\theta\)</span> we need to find <span class="math inline">\(\alpha\)</span> using trigonometric functions and then add it to <span class="math inline">\(\beta\)</span>. For example,</p>
+<p><span class="math display">\[
+\begin{split}
+\tan (\alpha) &amp;= \frac{\lvert\lvert\mathrm{Opposite~Side}\rvert\rvert}{\lvert\lvert\mathrm{Adjacent~Side}\rvert\rvert} \\[2ex]
+&amp;= \frac{2}{2} \\[2ex]
+&amp;= 1
+\end{split}
+\]</span></p>
+<p>Computing the arc-tangent with the <code>atan()</code> function we find that <span class="math inline">\(\alpha=0.785\)</span> radians. Adding this to the <span class="math inline">\(\beta\)</span> value which is <span class="math inline">\(\pi\)</span> radians, we get the vector’s direction of 3.927 radians (or <span class="math inline">\(225^\circ\)</span>).</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute alpha (in radians)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">atan</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7853982</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta = alpha + beta (in radians)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">atan</span>(<span class="dv">1</span>) <span class="sc">+</span> pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.926991</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta = alpha + beta (in degrees)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>(<span class="fu">atan</span>(<span class="dv">1</span>) <span class="sc">+</span> pi) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 225</code></pre>
+</div>
+</div>
+<p>Beyond two dimensions, direction in more complicated, involving more than one angle. For example, reporting the direction of a vector in three dimensions requires two angles. One common method is to give (1) the angle between the first reference axis (e.g., <em>x</em>-axis) and the projection of the vector onto the plane defined by the first and second reference axes (e.g., the <em>xy</em>-plane), and (2) the angle between the vector and the third reference axis (e.g., the <em>z</em>-axis). Suffice it to say that we need additional angles to fully define the direction of a vector in higher dimensions.</p>
+<p><br></p>
+</section>
+</section>
+<section id="vector-equality" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="vector-equality"><span class="header-section-number">2.5</span> Vector Equality</h2>
+<p>Two vectors are said to be equal if they satisfy two conditions:</p>
+<ol type="1">
+<li>Both vectors have the same dimensions (i.e., they have the same number of elements and both are row or column vectors);</li>
+<li>Corresponding elements from each vector must be equal.</li>
+</ol>
+<p>Consider the following vectors:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+5 \\ 4 \\ 7 \\ 2
+\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}
+5 \\ 4 \\ 2 \\ 7
+\end{bmatrix} \qquad \mathbf{c}^{\intercal} = \begin{bmatrix}
+5 &amp; 4 &amp; 7 &amp; 2
+\end{bmatrix}
+\]</span></p>
+<p>Within this set of vectors,</p>
+<ul>
+<li><span class="math inline">\(\mathbf{a} \neq \mathbf{b}\)</span>, since not all of the corresponding elements are equal.</li>
+<li><span class="math inline">\(\mathbf{a} \neq \mathbf{c}^{\intercal}\)</span>, since <strong>a</strong>’s dimensions are <span class="math inline">\(4 \times 1\)</span> (column vector) and <span class="math inline">\(\mathbf{c}^{\intercal}\)</span>’s dimensions are <span class="math inline">\(1 \times 4\)</span> (row vector).</li>
+<li><span class="math inline">\(\mathbf{a} = \mathbf{c}\)</span> since both vectors <strong>a</strong> and <strong>c</strong> have the same dimensions (<span class="math inline">\(4 \times 1\)</span>) and all corresponding elements are equal.</li>
+</ul>
+<p>Geometrically, two vectors are equal if they have the same length and direction. (Remember, location in the reference coordinate system is not a property of the vectors, so two equal vectors might be in different locations.)</p>
+<p><br></p>
+</section>
+<section id="special-vectors" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="special-vectors"><span class="header-section-number">2.6</span> Special Vectors</h2>
+<p>There are several vectors that are special in that they have unique properties.</p>
+<p><br></p>
+<section id="zero-vector" class="level3" data-number="2.6.1">
+<h3 data-number="2.6.1" class="anchored" data-anchor-id="zero-vector"><span class="header-section-number">2.6.1</span> Zero Vector</h3>
+<p>One special vector is the <em>zero vector</em>. A zero vector (denoted <strong>0</strong>) is a vector in which every element is 0. For example, the following vector is a zero vector:</p>
+<p><span class="math display">\[
+\mathbf{0} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}
+\]</span></p>
+<p>The length of a zero vector is 0. (Convince yourself of this!) Furthermore, since geometrically the head and tail of a zero vector coincide (are at the same location in the reference coordinate system) they have an undefinable direction.</p>
+<p><br></p>
+</section>
+<section id="ones-vector" class="level3" data-number="2.6.2">
+<h3 data-number="2.6.2" class="anchored" data-anchor-id="ones-vector"><span class="header-section-number">2.6.2</span> Ones Vector</h3>
+<p>Another special vector is referred to as a <em>ones vector</em>. A ones vector is a vector in which every elements is 1. For example, the following vector <strong>1</strong> is a ones vector:</p>
+<p><span class="math display">\[
+\mathbf{1} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+\]</span></p>
+<p>The length of a ones vector is <span class="math inline">\(\sqrt{n}\)</span>. (Convince yourself of this!) The direction of a ones vector is <span class="math inline">\(45^\circ\)</span> or 0.785 radians since the each element in the vector is equal. For example, locating the tail of a 2-dimensional ones vector at the origin, it would lie on the <span class="math inline">\(R1=R2\)</span> line. <a href="#fig-fig07" class="quarto-xref">Figure&nbsp;<span>2.7</span></a> shows a 2-dimensional ones vector with its tail located at the origin.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig07" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing the ones vector (in red) in the R1--R2 dimensional space. The $R1=R2$ line is also displayed." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig07-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.7: Plot showing the ones vector (in red) in the R1–R2 dimensional space. The <span class="math inline">\(R1=R2\)</span> line is also displayed.
+</figcaption>
+<div aria-describedby="fig-fig07-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-vectors_files/figure-html/fig-fig07-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing the ones vector (in red) in the R1--R2 dimensional space. The $R1=R2$ line is also displayed.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="unit-vector" class="level3" data-number="2.6.3">
+<h3 data-number="2.6.3" class="anchored" data-anchor-id="unit-vector"><span class="header-section-number">2.6.3</span> Unit Vector</h3>
+<p>Consider the <em>n</em>-element column vector <strong>u</strong>:</p>
+<p><span class="math display">\[
+\mathbf{u} = \begin{bmatrix} u_1 \\ u_2 \\ u_3 \\ \vdots \\ u_n \end{bmatrix}
+\]</span></p>
+<p><strong>u</strong> is a unit vector if the length of the vector is 1. For example, each of the following vectors are unit vectors:</p>
+<p><span class="math display">\[
+\mathbf{u}_1 = \begin{bmatrix} \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \\ \frac{1}{\sqrt{3}} \end{bmatrix} \qquad \mathbf{u}_2 = \begin{bmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0 \end{bmatrix} \qquad \mathbf{u}_3 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}
+\]</span></p>
+<p>Although the length of a unit vector must be 1, the direction is not specified. Thus there are an infinite number of unit vectors. <a href="#fig-fig08" class="quarto-xref">Figure&nbsp;<span>2.8</span></a> shows several unit vectors with their tail located at the origin.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig08" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing several unit vectors in the R1--R2 dimensional space. All vector tails have been located at the origin." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig08-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.8: Plot showing several unit vectors in the R1–R2 dimensional space. All vector tails have been located at the origin.
+</figcaption>
+<div aria-describedby="fig-fig08-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-vectors_files/figure-html/fig-fig08-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing several unit vectors in the R1--R2 dimensional space. All vector tails have been located at the origin.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="elementary-vectors" class="level3" data-number="2.6.4">
+<h3 data-number="2.6.4" class="anchored" data-anchor-id="elementary-vectors"><span class="header-section-number">2.6.4</span> Elementary Vectors</h3>
+<p>An <em>elementary vector</em> is a vector that has one element that is equal to one and the remainder of its elements equal to 0. For example, each of the 3-element column vectors below are elementary vectors.</p>
+<p><span class="math display">\[
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix} \qquad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix} \qquad \mathbf{e}_3 = \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}
+\]</span></p>
+<p>For an <em>n</em>-dimensional vector there are always <em>n</em> elementary vectors. Moreover, every elementary vector is also a unit vector. Geometrically, each elementary vector lies on one of the reference axes. <a href="#fig-fig09" class="quarto-xref">Figure&nbsp;<span>2.9</span></a> shows the two elementary vectors (with their tail located at the origin) in our 2-dimensional reference coordinate system.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig09" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing the two elementary vectors in the R1--R2 dimensional space. All vector tails have been located at the origin." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig09-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2.9: Plot showing the two elementary vectors in the R1–R2 dimensional space. All vector tails have been located at the origin.
+</figcaption>
+<div aria-describedby="fig-fig09-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-vectors_files/figure-html/fig-fig09-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing the two elementary vectors in the R1--R2 dimensional space. All vector tails have been located at the origin.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+</section>
+<section id="exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
+<p><strong>Create a 2-dimensional orthogonal reference system. Add the following vectors to that system.</strong></p>
+<ol type="1">
+<li><span class="math inline">\(\mathbf{x} = \begin{bmatrix}2 \\ -1 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_01');">
+Show/Hide Solution
+</button>
+<div id="solution_01" style="display:none; margin: -40px 0 40px 40px;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="03-vectors_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li><span class="math inline">\(\mathbf{y} = \begin{bmatrix}-3 \\ 2 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_02');">
+Show/Hide Solution
+</button>
+<div id="solution_02" style="display:none; margin: -40px 0 40px 40px;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="03-vectors_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>A unit-vector <strong>z</strong> in which all the elements are equal.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_03');">
+Show/Hide Solution
+</button>
+<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\mathbf{z} = \begin{bmatrix}\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}\end{bmatrix}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="03-vectors_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>All elementary vectors.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_04');">
+Show/Hide Solution
+</button>
+<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\mathbf{e}_1 = \begin{bmatrix} 0 \\ 1\end{bmatrix} \quad \mathbf{e}_2 = \begin{bmatrix} 1 \\ 0\end{bmatrix}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="03-vectors_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Compute the following:</strong></p>
+<ol start="5" type="1">
+<li><span class="math inline">\(\lvert\lvert\mathbf{x}\rvert\rvert\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_05');">
+Show/Hide Solution
+</button>
+<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
+<p>C <span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{x}\rvert\rvert &amp;= \sqrt{(2)^2 + (-1)^2} \\[2ex]
+&amp;= \sqrt{5}
+\end{split}
+\]</span></p>
+</div>
+<ol start="6" type="1">
+<li><span class="math inline">\(\lvert\lvert\mathbf{y}\rvert\rvert\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_06');">
+Show/Hide Solution
+</button>
+<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
+<p>C <span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{y}\rvert\rvert &amp;= \sqrt{(-3)^2 + (2)^2} \\[2ex]
+&amp;= \sqrt{13}
+\end{split}
+\]</span></p>
+</div>
+<ol start="7" type="1">
+<li><span class="math inline">\(\lvert\lvert\mathbf{z}\rvert\rvert\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_07');">
+Show/Hide Solution
+</button>
+<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
+<p>C <span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{z}\rvert\rvert &amp;= \sqrt{\bigg(\frac{1}{\sqrt{2}}\bigg)^2 + \bigg(\frac{1}{\sqrt{2}}\bigg)^2} \\[2ex]
+&amp;= \sqrt{\frac{1}{2} + \frac{1}{2}} \\[2ex]
+&amp;= \sqrt{1} \\[2ex]
+&amp;= 1
+\end{split}
+\]</span> Remember, a unit-vector has a length of 1.</p>
+</div>
+<ol start="8" type="1">
+<li>The direction based on the angle (in radians) from the horizontal reference axis for <strong>x</strong>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_08');">
+Show/Hide Solution
+</button>
+<div id="solution_08" style="display:none; margin: -40px 0 40px 40px;">
+<p>C <span class="math display">\[
+\begin{split}
+\theta &amp;= 2\pi - \arccos(\frac{2}{\sqrt{5}}) \\[2ex]
+&amp;= 5.8195 \mathrm{~radians}
+\end{split}
+\]</span></p>
+</div>
+<ol start="9" type="1">
+<li>The direction based on the angle (in degrees) from the horizontal reference axis for <strong>y</strong>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_09');">
+Show/Hide Solution
+</button>
+<div id="solution_09" style="display:none; margin: -40px 0 40px 40px;">
+<p>C <span class="math display">\[
+\begin{split}
+\theta &amp;= \bigg(\frac{\pi}{2} + \arctan(\frac{3}{2})\bigg) \times \frac{180}{\pi} \\[2ex]
+&amp;= 146.31 \mathrm{~degrees}
+\end{split}
+\]</span></p>
+</div>
+<ol start="10" type="1">
+<li>The direction based on the angle (in radians) from the horizontal reference axis for <strong>z</strong>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_10');">
+Show/Hide Solution
+</button>
+<div id="solution_10" style="display:none; margin: -40px 0 40px 40px;">
+<p>C <span class="math display">\[
+\begin{split}
+\theta &amp;= \arctan\bigg(\frac{\frac{1}{\sqrt{2}}}{\frac{1}{\sqrt{2}}}\bigg) \\[2ex]
+&amp;= \arctan(1) \\[2ex]
+&amp;= 0.786 \mathrm{~radians}
+\end{split}
+\]</span></p>
+</div>
+<p><strong>Indicate whether the vectors are equal or not equal.</strong></p>
+<ol start="11" type="1">
+<li><span class="math inline">\(\begin{bmatrix} 5 \\ 6 \end{bmatrix} \overset{?}{=} \begin{bmatrix} 6 \\ 5 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_11');">
+Show/Hide Solution
+</button>
+<div id="solution_11" style="display:none; margin: -40px 0 40px 40px;">
+Not equal
+</div>
+<ol start="12" type="1">
+<li><span class="math inline">\(\begin{bmatrix} 55 \\ 66 \\ 48 \end{bmatrix} \overset{?}{=} \begin{bmatrix} 55 &amp; 66 &amp; 48 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_12');">
+Show/Hide Solution
+</button>
+<div id="solution_12" style="display:none; margin: -40px 0 40px 40px;">
+Not equal
+</div>
+<p><strong>Assume a and b are equal. Find the values for <span class="math inline">\(a_1\)</span>, <span class="math inline">\(a_3\)</span>, and <span class="math inline">\(b_2\)</span>.</strong></p>
+<ol start="13" type="1">
+<li><span class="math inline">\(\mathbf{a} = \begin{bmatrix} a_1 \\ 0 \\ a_3 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix} 9 \\ b_2 \\ 1 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_13');">
+Show/Hide Solution
+</button>
+<div id="solution_13" style="display:none; margin: -40px 0 40px 40px;">
+<span class="math inline">\(a_1=9\)</span>, <span class="math inline">\(a_3=1\)</span>, and <span class="math inline">\(b_2=0\)</span>
+</div>
+<p><br></p>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>While it is common to express the direction as the measure of the angle between the horizontal reference axis, it could also be expressed as the measure of the angle between the vector and any of the reference axes. In more than two-dimensions, the direction would need to include multiple angles to specify the direction; you would need <span class="math inline">\(n-1\)</span> angles to specify an <em>n</em>-dimensional vector.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>You could also use the definition for sine or tangent to compute <span class="math inline">\(\theta\)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

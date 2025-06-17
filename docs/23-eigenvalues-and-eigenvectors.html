@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler">
-<meta name="dcterms.date" content="2025-06-17">
 
-<title>Matrix Algebra for Educational Scientists</title>
+<title>13&nbsp; Eigenvalues and Eigenvectors – Matrix Algebra for Educational Scientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,6 +116,35 @@ function toggle_visibility(id) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/sticky-notes.css">
 <link rel="stylesheet" href="assets/table-styles.css">
@@ -98,7 +160,7 @@ function toggle_visibility(id) {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Matrix Algebra for Educational Scientists</h1>
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Eigenvalues and Eigenvectors</span></h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -124,7 +186,7 @@ function toggle_visibility(id) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foreword</span></a>
   </div>
 </li>
@@ -239,7 +301,7 @@ function toggle_visibility(id) {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./23-eigenvalues-and-eigenvectors.html" class="sidebar-item-text sidebar-link">
+  <a href="./23-eigenvalues-and-eigenvectors.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Eigenvalues and Eigenvectors</span></span></a>
   </div>
 </li>
@@ -396,26 +458,14 @@ function toggle_visibility(id) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Matrix Algebra for Educational Scientists</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Eigenvalues and Eigenvectors</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael Rodriguez &amp; Andrew Zieffler </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 17, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -425,28 +475,225 @@ function toggle_visibility(id) {
 </header>
 
 
-<section id="foreword" class="level1 unnumbered">
-<h1 class="unnumbered">Foreword</h1>
-<p>Spring 2021.</p>
-<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
+<p>In this chapter, you will learn about eigenvalues and eigenvectors. Eigenvalues (a.k.a., characteristic roots) are scalars that are associated with linear systems of equations. Each eigenvalue has a corresponding vector, an eigenvector, associated with it. Eigenvalues and eigenvectors play a role in many statistical applications, featuring prominently in some methods of decomposition and principal component analysis (PCA).</p>
 <p><br></p>
-<p>Andrew Zieffler &amp; Michael Rodriguez</p>
-<p><br> <br></p>
-<section id="acknowledgments" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copy editors.</p>
-<p><br><br></p>
+<section id="eigenvalues" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="eigenvalues"><span class="header-section-number">13.1</span> Eigenvalues</h2>
+<p>Let <strong>A</strong> be a <span class="math inline">\(p \times p\)</span> square matrix and <strong>I</strong> be a <span class="math inline">\(p \times p\)</span> identity matrix. Eigenvalues are the set of non-zero scalars <span class="math inline">\(\lambda_1,\lambda_2, \lambda_3,\ldots,\lambda_p\)</span> that satisfy,</p>
+<p><span class="math display">\[
+\mathrm{det}\bigg(\mathbf{A} - \lambda \mathbf{I}\bigg) = 0
+\]</span></p>
+<p>Consider an example,</p>
+<p><span class="math display">\[
+\underset{2\times 2}{\mathbf{A}} = \begin{bmatrix}
+-3 &amp; 5  \\
+4 &amp; -2  \\
+\end{bmatrix}
+\]</span></p>
+<p>Our goal is to find the values of <span class="math inline">\(\lambda\)</span> that satisfy</p>
+<p><span class="math display">\[
+\mathrm{det}\bigg(\begin{bmatrix}
+-3 &amp; 5  \\
+4 &amp; -2  \\
+\end{bmatrix} - \lambda\begin{bmatrix}
+1 &amp; 0  \\
+0 &amp; 1  \\
+\end{bmatrix}\bigg) = 0
+\]</span></p>
+<p>Using matrix algebra,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathrm{det}\bigg(\begin{bmatrix}
+-3 &amp; 5  \\
+4 &amp; -2  \\
+\end{bmatrix} - \lambda\begin{bmatrix}
+1 &amp; 0  \\
+0 &amp; 1  \\
+\end{bmatrix}\bigg) &amp;= 0 \\[2ex]
+\mathrm{det}\bigg(\begin{bmatrix}
+-3 &amp; 5  \\
+4 &amp; -2  \\
+\end{bmatrix} - \begin{bmatrix}
+\lambda &amp; 0  \\
+0 &amp; \lambda  \\
+\end{bmatrix}\bigg) &amp;= 0 \\[2ex]
+\mathrm{det}\begin{bmatrix}
+-3 - \lambda &amp; 5  \\
+4 &amp; -2 - \lambda \\
+\end{bmatrix} &amp;= 0 \\[2ex]
+(-3 - \lambda)(-2 - \lambda) - 20 &amp;= 0
+\end{split}
+\]</span></p>
+<p>Computing the determinant, distributing the first set of terms, subtracting 20 we obtain:</p>
+<p><span class="math display">\[
+\begin{split}
+(-3 - \lambda)(-2 - \lambda) - 20 &amp;= 0 \\[1em]
+6 + 3\lambda + 2\lambda + \lambda^2 -20 &amp;= 0 \\[1em]
+\lambda^2 + 5\lambda - 14 &amp;= 0 \\[1em]
+\end{split}
+\]</span></p>
+<p>Factoring the left-hand side,</p>
+<p><span class="math display">\[
+(\lambda + 7)(\lambda - 2) = 0
+\]</span></p>
+<p>Solving for <span class="math inline">\(\lambda\)</span>, we find that <span class="math inline">\(\lambda = -7\)</span> and <span class="math inline">\(\lambda = 2\)</span>. We could also have applied the quadratic formula to solve this for <span class="math inline">\(\lambda\)</span>.</p>
+<div class="fyi">
+<p><strong>MATH NOTE</strong></p>
+<p>Remember the quadratic formula? The roots of the polynomial <span class="math inline">\(Ax^2+Bx+C\)</span> are computed using:</p>
+<p><span class="math display">\[
+x = \frac{-B\pm \sqrt{B^2-4AC}}{2A}
+\]</span></p>
+<p>Quick recap at <a href="https://www.khanacademy.org/math/algebra/x2f8bb11595b61c86:quadratic-functions-equations/x2f8bb11595b61c86:quadratic-formula-a1/v/using-the-quadratic-formula">Khan Academy</a> if you need it.</p>
+</div>
+<p>Now that we have the eigenvalues we can double-check that <span class="math inline">\(\mathbf{A} - \lambda \mathbf{I}\)</span> is singular. (I will skip this here, but plug in the values for <span class="math inline">\(\lambda\)</span>, one at a time, and ensure that the determinant is zero.) The equation you solved,</p>
+<p><span class="math display">\[
+\mathrm{det}\big(\mathbf{A} - \lambda \mathbf{I}\big)=0
+\]</span></p>
+<p>is referred to as the <em>characteristic equation</em>. Solving the characteristic equation gives the eigenvalues. Sometimes the eigenvalues are referred to as the characteristic roots of matrix <strong>A</strong>.</p>
+<p><br></p>
 </section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
-<p>The book is typeset using <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible">Atkinson Hyperlegible</a>. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
-<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
-<p>Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). <a href="https://rstudio4edu.github.io/rstudio4edu-book/">A handbook for teaching and learning with R and RStudio</a>.</p>
-<p><br><br></p>
+<section id="eigenvectors" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="eigenvectors"><span class="header-section-number">13.2</span> Eigenvectors</h2>
+<p>If <span class="math inline">\(\lambda\)</span> is an eigenvalue of matrix <strong>A</strong>, then it is possible to find a vector <strong>v</strong> (an eigenvector) that satisfies</p>
+<p><span class="math display">\[
+\mathbf{A}\mathbf{v} = \lambda \mathbf{v}
+\]</span></p>
+<p>In our previous example, <strong>A</strong> was a <span class="math inline">\(2\times2\)</span> matrix, so <strong>v</strong> will be a <span class="math inline">\(2\times1\)</span> vector to make the matrix multiplication work.</p>
+<p><span class="math display">\[
+\underset{2\times2}{\mathbf{A}}~\underset{2\times1}{\mathbf{v}} = \lambda \underset{2\times1}{\mathbf{v}}
+\]</span></p>
+<p>Notice that we can also re-arrange the terms of this expression:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{A}\mathbf{v} &amp;= \lambda \mathbf{v} \\[2ex]
+\mathbf{A}\mathbf{v} - \lambda \mathbf{v} &amp;= 0\\[2ex]
+\big(\mathbf{A} - \lambda \mathbf{I}\big) \mathbf{v} &amp;= 0\\[2ex]
+\end{split}
+\]</span></p>
+<p>In order to obtain a nonzero solution for <strong>v</strong>, the determinant of <span class="math inline">\(\mathbf{A} - \lambda \mathbf{I}\)</span> needs to be zero. This is why the eigenvalues are the <span class="math inline">\(\lambda\)</span>-values that make this nonsingular.</p>
+<p><br></p>
+<section id="finding-the-elements-of-v" class="level3" data-number="13.2.1">
+<h3 data-number="13.2.1" class="anchored" data-anchor-id="finding-the-elements-of-v"><span class="header-section-number">13.2.1</span> Finding the Elements of v</h3>
+<p>We can use matrix algebra to solve for the elements of vector <strong>v</strong> using each eigenvalue seperately.</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{A}\mathbf{v} &amp;= \lambda \mathbf{v} \\[1em]
+\begin{bmatrix}
+-3 &amp; 5  \\
+4 &amp; -2  \\
+\end{bmatrix}\begin{bmatrix}
+v_1 \\
+v_2 \\
+\end{bmatrix} &amp;= -7\begin{bmatrix}
+v_1 \\
+v_2 \\
+\end{bmatrix}\\[1em]
+\end{split}
+\]</span></p>
+<p>This produces a system of two equations with two unknowns:</p>
+<p><span class="math display">\[
+\begin{split}
+-3v_1 + 5v_2 &amp;= -7v_1 \\
+4v_1 - 2v_2 &amp;= -7v_2
+\end{split}
+\]</span></p>
+<p>Simplifying this, we get</p>
+<p><span class="math display">\[
+\begin{split}
+4v_1 + 5v_2 &amp;= 0 \\
+4v_1 + 5v_2 &amp;= 0
+\end{split}
+\]</span></p>
+<p>The homogeneous set of equations means that there are an infinite number of solutions. The general solution here is to express one variable (say <span class="math inline">\(v_2\)</span>) as a function of the other.</p>
+<p><span class="math display">\[
+\begin{split}
+v_1 &amp;= \theta \\[0.5em]
+v_2 &amp;= -\frac{4}{5}\theta
+\end{split}
+\]</span></p>
+<p>Any set of <span class="math inline">\(v_1\)</span> and <span class="math inline">\(v_2\)</span> in which <span class="math inline">\(v_2 = -\frac{4}{5}v_1\)</span> will satisfy this set of equations.</p>
+<p><br></p>
+</section>
+<section id="normalized-eigenvectors" class="level3" data-number="13.2.2">
+<h3 data-number="13.2.2" class="anchored" data-anchor-id="normalized-eigenvectors"><span class="header-section-number">13.2.2</span> Normalized Eigenvectors</h3>
+<p>Although there are an infinite number of solutions, one that is particularly nice is that whose a sum of squared values is equal to 1, that is <span class="math inline">\(\mathbf{v}^\intercal\mathbf{v}=1\)</span>. This is referred to as <em>normalizing</em> the eigenvector. Normalized eigenvectors are denoted as <strong>e</strong>.</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{e}^\intercal \mathbf{e} &amp;= 1 \\[2ex]
+e_1^2 + e_2^2 &amp;= 1 \\[2ex]
+\theta^2 + (-\frac{4}{5}\theta)^2 &amp;= 1 \\[2ex]
+\frac{41}{25}\theta^2 &amp;= 1 \\[2ex]
+\theta^2 &amp;= \frac{25}{41} \\[2ex]
+\theta &amp;= \sqrt{\frac{25}{41}} \\[2ex]
+&amp;=\frac{5}{\sqrt{41}}
+\end{split}
+\]</span></p>
+<p>Which implies that,</p>
+<p><span class="math display">\[
+\begin{split}
+e_1 &amp;= \frac{5}{\sqrt{41}} \\[1em]
+e_2 &amp;= -\frac{4}{\sqrt{41}}
+\end{split}
+\]</span></p>
+<p>And the normalized eigenvector corresponding to the eigenvalue of <span class="math inline">\(-7\)</span> is:</p>
+<p><span class="math display">\[
+\mathbf{e}_1x = \begin{bmatrix}\frac{5}{\sqrt{41}} \\ -\frac{4}{\sqrt{41}}\end{bmatrix}
+\]</span></p>
+<p>We could verify this by ensuring that the the equation <span class="math inline">\(\mathbf{A}\mathbf{e}=\lambda\mathbf{e}\)</span> holds:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+-3 &amp; 5  \\
+4 &amp; -2  \\
+\end{bmatrix}\begin{bmatrix}\frac{5}{\sqrt{41}} \\ -\frac{4}{\sqrt{41}}\end{bmatrix} = -7\begin{bmatrix}\frac{5}{\sqrt{41}} \\ -\frac{4}{\sqrt{41}}\end{bmatrix}
+\]</span></p>
+<p>We can follow the same process for the second eigenvector which corresponds to the eigenvalue of 2. This produces an eigenvector of:</p>
+<p><span class="math display">\[
+\mathbf{e}_2 = \begin{bmatrix}\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}\end{bmatrix}
+\]</span></p>
+<p>Which can again be verified.</p>
+<p><br></p>
+</section>
+</section>
+<section id="using-r-to-find-eigenvalues-and-eigenvectors" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="using-r-to-find-eigenvalues-and-eigenvectors"><span class="header-section-number">13.3</span> Using R to Find Eigenvalues and Eigenvectors</h2>
+<p>We can use the <code>eigen()</code> function to find the eigenvalues and eigenvectors for a matrix. The syntax to find these for our example matrix <strong>A</strong> is:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create A</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="sc">-</span><span class="dv">2</span>), </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute eigenvalues and eigenvectors</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">eigen</span>(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>eigen() decomposition
+$values
+[1] -7  2
+
+$vectors
+           [,1]       [,2]
+[1,] -0.7808688 -0.7071068
+[2,]  0.6246950 -0.7071068</code></pre>
+</div>
+</div>
+<p>The eigenvectors for each of the eigenvalues are presented in the columns of the matrix given in the `<span class="math inline">\(vector\)</span> component of the output. For example, the eigenvector associated with the eigenvalue of <span class="math inline">\(-7\)</span> is presented in the first column of the matrix, and that associated with the eigenvalue of 2 is presented in the second column of the matrix.</p>
+<div class="fyi">
+<p><strong>FYI</strong></p>
+<p>Note that the signs for all elements of any particular eigenvector can be switched since the vector would represent the same vector space. Thus the second eigenvector outputted here has negative values.</p>
+</div>
+<p><br></p>
+<p>Together, the eigenvalues and eigenvectors make up the <em>eigenstructure</em> of matrix <strong>A</strong>. In our example, the eigensructure of <strong>A</strong> is:</p>
+<p><span class="math display">\[
+\begin{split}
+\lambda_1 &amp;= -7 \qquad &amp;\mathbf{e}_1 = \begin{bmatrix}\frac{5}{\sqrt{41}} \\ -\frac{4}{\sqrt{41}}\end{bmatrix}\\[2ex]
+\lambda_2 &amp;= 2 \qquad &amp;\mathbf{e}_2 = \begin{bmatrix}\frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}}\end{bmatrix} \\[2ex]
+\end{split}
+\]</span></p>
+<p><br></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

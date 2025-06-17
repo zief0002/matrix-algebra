@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler">
-<meta name="dcterms.date" content="2025-06-17">
 
-<title>Matrix Algebra for Educational Scientists</title>
+<title>26&nbsp; Important Matrices in Regression – Matrix Algebra for Educational Scientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,6 +116,35 @@ function toggle_visibility(id) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/sticky-notes.css">
 <link rel="stylesheet" href="assets/table-styles.css">
@@ -98,7 +160,7 @@ function toggle_visibility(id) {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Matrix Algebra for Educational Scientists</h1>
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Important Matrices in Regression</span></h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -124,7 +186,7 @@ function toggle_visibility(id) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foreword</span></a>
   </div>
 </li>
@@ -361,7 +423,7 @@ function toggle_visibility(id) {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./55-regression-important-matrices.html" class="sidebar-item-text sidebar-link">
+  <a href="./55-regression-important-matrices.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Important Matrices in Regression</span></span></a>
   </div>
 </li>
@@ -396,26 +458,14 @@ function toggle_visibility(id) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Matrix Algebra for Educational Scientists</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Important Matrices in Regression</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael Rodriguez &amp; Andrew Zieffler </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 17, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -425,28 +475,302 @@ function toggle_visibility(id) {
 </header>
 
 
-<section id="foreword" class="level1 unnumbered">
-<h1 class="unnumbered">Foreword</h1>
-<p>Spring 2021.</p>
-<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
+<p>In this chapter, you will learn about important and useful matrices in regression applications. To illustrate these matrices, we will use the following toy data set to fit a regression model using SAT and Self-Esteem to predict variation in GPA.</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-14-01" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-14-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;26.1: Example set of education data.
+</figcaption>
+<div aria-describedby="tbl-14-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">SAT</th>
+<th style="text-align: center;">GPA</th>
+<th style="text-align: center;">Self-Esteem</th>
+<th style="text-align: center;">IQ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">560</td>
+<td style="text-align: center;">3.0</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">112</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">780</td>
+<td style="text-align: center;">3.9</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">143</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">620</td>
+<td style="text-align: center;">2.9</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">124</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">600</td>
+<td style="text-align: center;">2.7</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">129</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">720</td>
+<td style="text-align: center;">3.7</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">130</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">380</td>
+<td style="text-align: center;">2.4</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">82</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
 <p><br></p>
-<p>Andrew Zieffler &amp; Michael Rodriguez</p>
-<p><br> <br></p>
-<section id="acknowledgments" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copy editors.</p>
-<p><br><br></p>
+<p>Recall that the regression model is denoted as</p>
+<p><span class="math display">\[
+\mathbf{y} = \mathbf{Xb} + \mathbf{e}
+\]</span></p>
+<p>where <strong>y</strong> is the outcome vector, <strong>X</strong> is the design matrix, <strong>e</strong> is the vector of residuals, and <strong>b</strong> is the vector of coefficients estimated as,</p>
+<p><span class="math display">\[
+\mathbf{b} = (\mathbf{X}^\intercal\mathbf{X})^{-1}\mathbf{X}^\intercal\mathbf{y}
+\]</span> <br></p>
+<section id="design-matrix" class="level2" data-number="26.1">
+<h2 data-number="26.1" class="anchored" data-anchor-id="design-matrix"><span class="header-section-number">26.1</span> Design Matrix</h2>
+<p>The design matrix, <strong>X</strong> plays a critical role in the regression model and in any estimation computed from the model. There is also a direct link from the model formula inputted in <code>lm()</code> and the design matrix. Namely, that each term “added” in the right-hand side of the formula (after the tilde) indicates a unique column in the design matrix. Below we use the toy data set to show the connection between different <code>lm()</code> formulations and the design matrix used.</p>
+<p><span class="math display">\[
+\begin{split}
+&amp;\mathtt{lm(GPA \sim 1 + SAT)} \\[2ex]
+&amp; \mathbf{X} = \begin{bmatrix}1 &amp; 560 \\ 1 &amp; 780 \\ 1 &amp; 620\\ 1 &amp; 600\\ 1 &amp; 720\\ 1 &amp; 380 \end{bmatrix}
+\end{split}
+\]</span></p>
+<p>In this design matrix we have two columns, indicated by the two terms being added on the right-hand side of the formula. The <code>1</code> in the formula indicates that the design matrix should include a column of 1s. The second term (we added <code>SAT</code>) is comprised of the SAT scores.</p>
+<p><span class="math display">\[
+\begin{split}
+&amp;\mathtt{lm(GPA \sim 1 + SAT + IQ)} \\[2ex]
+&amp; \mathbf{X} = \begin{bmatrix}1 &amp; 560 &amp; 112 \\ 1 &amp; 780 &amp; 143 \\ 1 &amp; 620 &amp; 124\\ 1 &amp; 600 &amp; 129\\ 1 &amp; 720 &amp; 130\\ 1 &amp; 380 &amp; 82 \end{bmatrix}
+\end{split}
+\]</span></p>
+<p>In this design matrix we have three columns, indicated by the three terms being added on the right-hand side of the formula. The first two columns are the same as in the previous design matrix, but now we also include a column of the IQ scores.</p>
+<p><span class="math display">\[
+\begin{split}
+&amp;\mathtt{lm(GPA \sim 1 + SAT + IQ + SAT:IQ)} \\[2ex]
+&amp; \mathbf{X} = \begin{bmatrix}1 &amp; 560 &amp; 112 &amp; 62720 \\ 1 &amp; 780 &amp; 143 &amp; 111540 \\ 1 &amp; 620 &amp; 124 &amp; 76880\\ 1 &amp; 600 &amp; 129 &amp; 77400\\ 1 &amp; 720 &amp; 130 &amp; 93600\\ 1 &amp; 380 &amp; 82 &amp; 31160 \end{bmatrix}
+\end{split}
+\]</span></p>
+<p>In this design matrix we have four columns, indicated by the four terms being added on the right-hand side of the formula. The first three columns are the same as in the previous design matrix. The column of interaction terms is based on the product of the SAT and IQ scores.</p>
+<p><span class="math display">\[
+\begin{split}
+&amp;\mathtt{lm(GPA \sim 1 + SAT + I(SAT\widehat{}2)} \\[2ex]
+&amp; \mathbf{X} = \begin{bmatrix}1 &amp; 560 &amp; 313600 \\ 1 &amp; 780 &amp; 608400 \\ 1 &amp; 620 &amp; 384400\\ 1 &amp; 600 &amp; 360000\\ 1 &amp; 720 &amp; 518400\\ 1 &amp; 380 &amp; 144400 \end{bmatrix}
+\end{split}
+\]</span></p>
+<p>In this design matrix we have three columns, indicated by the three terms being added on the right-hand side of the formula. The first two columns are the same as in the previous design matrix. The quadratic effect of SAT constitutes the elements in the third column.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p><br></p>
 </section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
-<p>The book is typeset using <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible">Atkinson Hyperlegible</a>. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
-<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
-<p>Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). <a href="https://rstudio4edu.github.io/rstudio4edu-book/">A handbook for teaching and learning with R and RStudio</a>.</p>
-<p><br><br></p>
+<section id="vector-of-fitted-values" class="level2" data-number="26.2">
+<h2 data-number="26.2" class="anchored" data-anchor-id="vector-of-fitted-values"><span class="header-section-number">26.2</span> Vector of Fitted Values</h2>
+<p>We can compute the vector of fitted values using</p>
+<p><span class="math display">\[
+\hat{\mathbf{y}} =  \mathbf{Xb}
+\]</span></p>
+<p>Here <strong>X</strong> has dimensions <span class="math inline">\(n \times k\)</span> and <strong>b</strong> has dimensions <span class="math inline">\(k \times 1\)</span>. In both cases <span class="math inline">\(k=p+1\)</span> where <em>p</em> is equal to the number of predictors in the model. This product gives the <span class="math inline">\(n\times 1\)</span> vector of fitted values, <span class="math inline">\(\hat{\mathbf{y}}\)</span>, which is,</p>
+<p><span class="math display">\[
+\begin{bmatrix}\hat{y}_1 \\ \hat{y}_2 \\ \hat{y}_3 \\ \vdots \\ \hat{y}_n\end{bmatrix}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of outcomes</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(<span class="fl">3.0</span>, <span class="fl">3.9</span>, <span class="fl">2.9</span>, <span class="fl">2.7</span>, <span class="fl">3.7</span>, <span class="fl">2.4</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create design matrix</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>), </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">560</span>, <span class="dv">780</span>, <span class="dv">620</span>, <span class="dv">600</span>, <span class="dv">720</span>, <span class="dv">380</span>, </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">11</span>, <span class="dv">10</span>, <span class="dv">19</span>, <span class="dv">7</span>, <span class="dv">18</span>, <span class="dv">13</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">3</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate coefficients</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> y</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain vector of fitted values</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>y_hat <span class="ot">=</span> X <span class="sc">%*%</span> b</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># View y_hat</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>y_hat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 2.891351
+[2,] 3.719374
+[3,] 3.193177
+[4,] 3.006823
+[5,] 3.564540
+[6,] 2.224735</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="the-h-matrix-hat-matrix" class="level2" data-number="26.3">
+<h2 data-number="26.3" class="anchored" data-anchor-id="the-h-matrix-hat-matrix"><span class="header-section-number">26.3</span> The H-Matrix (Hat Matrix)</h2>
+<p>One useful matrix in regression is the <em>hat matrix</em>, or the <strong>H</strong>-matrix. To obtain the <strong>H</strong>-matrix we substitute the matrix formulation of the coefficient vector, <strong>b</strong>, into the equation to compute the fitted values,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{\hat{y}} &amp;= \mathbf{Xb} \\[2ex]
+&amp;= \mathbf{X}(\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}\mathbf{y}
+\end{split}
+\]</span></p>
+<p>The set of products in this expression involving the <strong>X</strong> terms is referred to as <strong>H</strong>-matrix, that is:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{\hat{y}} &amp;= \underbrace{\mathbf{X}(\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}}_\mathbf{H}\mathbf{y} \\[2ex]
+&amp;= \mathbf{Hy}
+\end{split}
+\]</span></p>
+<p>where,</p>
+<p><span class="math display">\[
+\mathbf{H} = \mathbf{X}(\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}
+\]</span></p>
+<p>Note that the <strong>H</strong>-matrix can be created completely from the design matrix and its transpose.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create H</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>H <span class="ot">=</span> X <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X) <span class="sc">%*%</span> <span class="fu">t</span>(X)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View H</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]         [,2]         [,3]       [,4]        [,5]        [,6]
+[1,] 0.22438375  0.137685003  0.059548164  0.2737852  0.02944891  0.27514901
+[2,] 0.13768500  0.575213416 -0.004685053  0.3380184  0.21144618 -0.25767793
+[3,] 0.05954816 -0.004685053  0.494121584 -0.1607883  0.43511643  0.17668712
+[4,] 0.27378517  0.338018387 -0.160788251  0.4941216 -0.10178310  0.15664621
+[5,] 0.02944891  0.211446179  0.435116432 -0.1017831  0.49436783 -0.06859625
+[6,] 0.27514901 -0.257677931  0.176687124  0.1566462 -0.06859625  0.71779184</code></pre>
+</div>
+</div>
+<p>It also has the following properties:</p>
+<ul>
+<li><strong>H</strong> is a square <span class="math inline">\(n \times n\)</span> matrix</li>
+<li><strong>H</strong> is a symmetric matrix.</li>
+<li><strong>H</strong> is an idempotent matrix.</li>
+</ul>
+<p>Idempotency is a mathematical property that implies certain operations can be repeatedly applied to a structure without changing it. An idempotent matrix is a matrix that can be post-multiplied by itself and the result is the originasl matrix. In our example, since <strong>H</strong> is idempotent,</p>
+<p><span class="math display">\[
+\mathbf{HH} = \mathbf{H}
+\]</span></p>
+<p>We can verify this using R</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify H is idempotent</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>H <span class="sc">%*%</span> H</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]         [,2]         [,3]       [,4]        [,5]        [,6]
+[1,] 0.22438375  0.137685003  0.059548164  0.2737852  0.02944891  0.27514901
+[2,] 0.13768500  0.575213416 -0.004685053  0.3380184  0.21144618 -0.25767793
+[3,] 0.05954816 -0.004685053  0.494121584 -0.1607883  0.43511643  0.17668712
+[4,] 0.27378517  0.338018387 -0.160788251  0.4941216 -0.10178310  0.15664621
+[5,] 0.02944891  0.211446179  0.435116432 -0.1017831  0.49436783 -0.06859625
+[6,] 0.27514901 -0.257677931  0.176687124  0.1566462 -0.06859625  0.71779184</code></pre>
+</div>
+</div>
+<p>As shown previously, we can also use the <strong>H</strong>-matrix to compute the fitted values, by post-multiplying <strong>H</strong> by the vector of outcomes:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute fitted values</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>H <span class="sc">%*%</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]
+[1,] 2.891351
+[2,] 3.719374
+[3,] 3.193177
+[4,] 3.006823
+[5,] 3.564540
+[6,] 2.224735</code></pre>
+</div>
+</div>
+<p>In this computation, we can see that the fitted values can be expressed as linear combinations of the response vector <strong>Y</strong> using coefficients found in <strong>H</strong>. (This is why <strong>H</strong> is often referred to as the <em>hat matrix</em>.) For example, the first fitted value is computed as:</p>
+<p><span class="math display">\[
+\begin{split}
+\hat{y}_1 &amp;= 0.2244(3.0) +  0.1377(3.9) +  0.0595(2.9) +  0.2738(2.7) +  0.0294(3.7) + 0.2751(2.4) \\[2ex]
+&amp;= 2.891
+\end{split}
+\]</span></p>
+<p>The <strong>H</strong>-matrix has many uses in regression. Aside from using it to compute the vectors of fitted values and residuals, it is also used to obtain leverage measures for each of the observations. Additionally, the trace of the <strong>H</strong>-matrix indicates the number of parameters (including the intercept) that are being estimated in the regression model. For example, in our regression model, we are estimating three parameters: <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_{\mathrm{SAT}}\)</span>, and <span class="math inline">\(\beta_{\mathrm{Self\mbox{-}Esteem}}\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute trace of H</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">diag</span>(H))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="vector-of-residuals" class="level2" data-number="26.4">
+<h2 data-number="26.4" class="anchored" data-anchor-id="vector-of-residuals"><span class="header-section-number">26.4</span> Vector of Residuals</h2>
+<p>The <span class="math inline">\(n\times 1\)</span> vector of <em>residuals</em>, <strong>e</strong>, can be computed as,</p>
+<p><span class="math display">\[
+\mathbf{e} = \begin{bmatrix}\epsilon_1 \\ \epsilon_2 \\ \epsilon_3 \\ \vdots \\ \epsilon_n\end{bmatrix} = \mathbf{y} - \mathbf{\hat{y}}
+\]</span></p>
+<p>Doing a little substitution,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{e} &amp;= \mathbf{y} - \mathbf{\hat{y}} \\
+&amp;= \mathbf{y} - \mathbf{Hy} \\
+&amp;= (\mathbf{I} - \mathbf{H}) \mathbf{y}
+\end{split}
+\]</span></p>
+<p>Thus the residuals can also be expressed as linear combinations of the response vector <strong>y</strong>. The matrix <span class="math inline">\((\mathbf{I}-\mathbf{H})\)</span> has some of the same properties as <strong>H</strong>, namely, it is</p>
+<ul>
+<li>Square,</li>
+<li>Symmetric, and</li>
+<li>Idempotent</li>
+</ul>
+<p>We can compute the residual vector using R</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create 6x6 identity matrix</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>I <span class="ot">=</span> <span class="fu">diag</span>(<span class="dv">6</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the vector of residuals</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">=</span> (I <span class="sc">-</span> H) <span class="sc">%*%</span> y</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View vector of residuals</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>residuals</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]
+[1,]  0.1086490
+[2,]  0.1806259
+[3,] -0.2931770
+[4,] -0.3068230
+[5,]  0.1354599
+[6,]  0.1752652</code></pre>
+</div>
+</div>
+<p><br></p>
 
 
 </section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>The <code>I()</code> function makes the quadratic a specific column in the design matrix. You need the <code>I()</code> function because <code>^</code> is a special character in formula syntax that indicates crossing. Without the <code>I()</code> term the design matrix would only have two columns; a column of 1s and a column of SAT scores. You can read more by accesing the help page for <code>formula</code>, namely <code>help(formula)</code>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

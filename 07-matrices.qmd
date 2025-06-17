@@ -1,0 +1,263 @@
+# Matrices
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+source("scripts/_common.R")
+```
+
+
+A matrix is a rectangular array of elements arranged in rows and columns. We typically denote matrices using a bold-faced, upper-case letter. For example, consider the matrix **B** which has 3 rows and 2 columns:
+
+
+$$
+\mathbf{B} = \begin{bmatrix}
+5 & 1 \\
+7 & 3 \\
+-2 & -1
+\end{bmatrix}
+$$
+
+In psychometric and statistical applications, the data we work with typically have this type of rectangular arrangement. For example, the data in @tbl-01, which includes measures of 5 variables for 100 students, is arranged into the familiar case-by-variable rectangular 'data matrix'.^[In computation, a *matrix* is a very particular type of data structure in which every column has the same type of data (e.g., every column is numeric, or every column is a character variable). A *data frame* is a more generalized computational structure that accommodates multiple types of columns. In some computational languages this structure is referred to as a data matrix.]
+
+```{r}
+#| label: tbl-01
+#| tbl-cap: "Example set of education data. The data are rectangular, having rows (cases) and columns (variables)."
+#| echo: false
+
+d = data.frame(
+  ID = c("1", "2", "3", "$\\vdots$", "100"),
+  SAT = c("560", "780", "620", "&#8942;", "600"),
+  GPA = c("3.0", "3.9", "2.9", "$\\vdots$", "2.7"),
+  IQ = c("112", "143", "124", "$\\vdots$", "129"),
+  School = c("Public", "Public", "Private", "$\\vdots$", "Public")
+)
+
+knitr::kable(
+  d, 
+  #col.names = c("ID", "SAT", "GPA", "Self-Esteem", "IQ"),
+  align = "c",
+  table.attr = "style='width:60%;'",
+  escape = FALSE
+  )  
+```
+
+<br />
+
+
+### Dimensions of a Matrix
+
+We define matrices in terms of their *dimensions* or *order*; the number of rows and columns within the matrix. The dimensions of the matrix **B** is $3\times 2$; it has three rows and two columns. Whereas the dimensions of the data matrix is $100\times 5$. We often denote the matrix's dimension by appending it to the bottom of the matrix's name,
+
+$$
+\underset{3\times 2}{\mathbf{B}} = \begin{bmatrix}
+5 & 1 \\
+7 & 3 \\
+-2 & -1
+\end{bmatrix}
+$$ 
+
+<br />
+
+
+### Indexing Individual Elements
+
+The elements within the matrix are indexed by their row number and column number. For example, $\mathbf{B}_{1,2} = 1$ since the element in the first row and second column is 1. The subscripts on each element indicate the row and column positions of the element.
+
+Vectors are a special case of a matrix, where a row vector is a $1\times n$ matrix, and a column vector is a $n \times 1$ matrix. Note that although a vector can always be described as a matrix, a matrix cannot always be described as a vector.
+
+In general, we define matrix **A**, which has *n* rows and *k* columns as:
+
+$$
+\underset{n\times k}{\mathbf{A}} = \begin{bmatrix}
+a_{11} & a_{12} & a_{13} & \ldots & a_{1k} \\ 
+a_{21} & a_{22} & a_{23} & \ldots & a_{2k} \\
+a_{31} & a_{32} & a_{33} & \ldots & a_{3k} \\
+\vdots & \vdots & \vdots & \vdots & \vdots \\
+a_{n1} & a_{n2} & a_{n3} & \ldots & a_{nk}
+\end{bmatrix}
+$$
+
+where element $a_{ij}$ is in the $i^{\mathrm{th}}$ row and $j^{\mathrm{th}}$ column of **A**.
+
+<br />
+
+
+### Geometry of Matrices
+
+A matrix is an *k*-dimensional representation where *k* is the number of columns in the matrix. For example, consider the matrix **M**:
+
+$$
+\mathbf{M} = \begin{bmatrix}
+1 & 3 \\ 2 & -2
+\end{bmatrix}
+$$
+
+Since **M** has two columns, this matrix represents a 2-dimensional structure (i.e., a plane). Each column in the matrix corresponds to a vector in the coordinate system that helps define that structure. **M** is defined by the space encompassed by the vectors $(1, 2)$ and $(3, -2)$. @fig-07-01 shows matrix **M** plotted in the 2-dimensional coordinate space defined by R1 and R2.
+
+```{r}
+#| label: fig-07-01
+#| fig-cap: "Matrix **M** (yellow) in the 2-dimensional coordinate system defined by R1 and R2."
+#| fig-alt: "Matrix **M** (yellow) in the 2-dimensional coordinate system defined by R1 and R2."
+#| fig-width: 6
+#| fig-height: 6
+#| out-width: '70%'
+#| echo: false 
+
+knitr::include_graphics("figs/fig-07-01.png")
+```
+
+Because most matrices have much higher dimensions, we typically do not visualize them geometrically. For additional detail on the geometry of matrices, see YouTube content creator 3Blue1Brown's excellent playlist, [Essence of Linear Algebra](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab).
+
+<br />
+
+
+### Matrices in R
+
+To enter a matrix in R, we use the `matrix()` function, similar to creating a vector. The only difference is that the `nrow=` or `ncol=` argument will include a value other than 1. The elements of the matrix given in the `data=` argument, by default, will be filled-in by columns. For example to create matrix **B** from the earlier example, we can use the following syntax.
+
+```{r}
+# Create B by filling in columns
+B = matrix(
+  data = c(5, 7, -2, 1, 3, -1),
+  nrow = 3,
+  ncol = 2
+  )
+
+# Display B
+B
+```
+
+
+The `byrow=TRUE` argument will fill the elements by rows rather than columns.
+
+```{r}
+# Create B by filling in rows
+B = matrix(
+  data = c(5, 1, 7, 3, -2, -1),
+  byrow = TRUE,
+  nrow = 3
+  )
+
+# Display B
+B
+```
+
+The `dim()` function can be used to return the dimensions of a matrix.
+
+```{r}
+# Get matrix dimensions
+dim(B)
+```
+
+Lastly, we can index elements of a matrix by specifying the row and column number of the matrix object for the element we want in square brackets. These values are separated by a comma. For example, to index the element in **B** that is in the 2nd row and 1st column, we use the following syntax:
+
+```{r}
+# Index the element in the 2nd row, 1st column
+B[2, 1]
+```
+
+
+<br />
+
+## Matrix Equality
+
+Two matrices are said to be equal if they satisfy two conditions:
+
+1. They have the same dimensions, and 
+2. All corresponding elements are equal.
+
+Consider the following matrices:
+
+$$
+\mathbf{A} = \begin{bmatrix}
+112 & 86 & 0 \\ 134 & 94 & 0
+\end{bmatrix} \qquad 
+\mathbf{B} = \begin{bmatrix}
+112 & 134 \\86 & 94 \\ 0 & 0
+\end{bmatrix} \qquad 
+\mathbf{C} = \begin{bmatrix}
+112 & 86 & 0 \\ 134 & 94 & 0
+\end{bmatrix}
+$$
+
+Within this set of matrices,
+
+- $\mathbf{A} \neq \mathbf{B}$, since they do not have the same dimensions. **A** is a $2\times3$ matrix and **B** is a $3\times2$ matrix.
+- Similarly, $\mathbf{A} \neq \mathbf{B}$, they also do not have the same dimensions.
+- $\mathbf{A} = \mathbf{C}$ since both matrices have the same dimensions and all corresponding elements are equal.
+
+<br />
+
+
+## Exercises {-}
+
+**Consider the following matrices:**
+
+$$
+\mathbf{A} = \begin{bmatrix}5 & 6 & 4& 5 & 9 \\21 & 23 & 24 & 22 & 20 \end{bmatrix} \qquad \mathbf{b}^\intercal = \begin{bmatrix}0 & 1 & 0 & 0 \end{bmatrix} \qquad \mathbf{Y} = \begin{bmatrix}2 & 3 & 1 \\5 & 6 & 8\\9 & 4 & 7 \end{bmatrix}
+$$
+
+1. Use notation to describe the dimensions of **A**.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_01');">Show/Hide Solution</button>
+<div id="solution_01" style="display:none; margin: -40px 0 40px 40px;">
+$$
+\underset{2\times5}{\mathbf{A}}
+$$
+</div>
+
+2. Use notation to describe the dimensions of **b**.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_02');">Show/Hide Solution</button>
+<div id="solution_02" style="display:none; margin: -40px 0 40px 40px;">
+$$
+\underset{4\times1}{\mathbf{b}}
+$$
+</div>
+
+3. Use notation to describe the dimensions of **Y**.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_03');">Show/Hide Solution</button>
+<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
+$$
+\underset{3\times3}{\mathbf{Y}}
+$$
+</div>
+
+
+**The matrix X contains data from four students' of four different course exams.**
+
+$$
+\mathbf{X} = \begin{bmatrix}32 & 54 & 56 & 21 \\42 & 23 & 52 & 35 \\ 16 & 41 & 54 & 56 \\ 58 & 52 & 31 & 24 \end{bmatrix}
+$$
+
+4. Which student obtained a 35 and on which test? Report the row and column using subscript notation.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_04');">Show/Hide Solution</button>
+<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
+$$
+X_{2,4}=35
+$$
+
+The 2nd student received a 35 on the 4th exam.
+
+</div>
+
+
+5. Using subscript notation, indicate the 4th student's score on the 1st exam.
+
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_05');">Show/Hide Solution</button>
+<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
+$$
+X_{4,1}=58
+$$
+</div>
+
+
+
+
+
+<br />
+

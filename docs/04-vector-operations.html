@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Vector Operations – Matrix Algebra for Educational Scientists</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-732fb9ccd080a018ca85ca5d15770f52.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8d770ec9e2414948c93ba4710aeffb09.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="text/javascript">
+// Function to toggle the visibility of solutions in exercises
+function toggle_visibility(id) {
+   var e = document.getElementById(id);
+   if(e.style.display == 'block')
+      e.style.display = 'none';
+   else
+      e.style.display = 'block';
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="assets/sticky-notes.css">
+<link rel="stylesheet" href="assets/table-styles.css">
+</head>
+
+<body class="nav-sidebar floating fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vector Operations</span></h1>
+        </a>     
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Matrix Algebra for Educational Scientists</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foreword</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-data-structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Structures</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Vectors and Vector Operations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Vectors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-vector-operations.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vector Operations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Vector Geometry: Angles, Projection, and Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-statistical-application-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Application: Vectors</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrices and Matrix Operations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-matrix-addition-subtraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Matrix Addition and Subtraction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-matrix-multiplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Multiplication</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-matrix-transposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Transposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-matrix-operations-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exercises: Matrix Operations</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Square Matrices and Their Properties</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21-square-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Square Matrices and Friends</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./22-properties-of-square-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Properties of Square Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23-eigenvalues-and-eigenvectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Eigenvalues and Eigenvectors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./24-statistical-application-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrix Transformations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./30-basis-vectors-and-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Basis Vectors and Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./32-quadratic-forms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Quadratic Form of a Matrix</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Systems of Equations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./60-solving-systems-of-equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Systems of Equations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./61-statistical-application-regression-estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Statistical Appplication: Estimating Regression Coefficients</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrix Decomposition</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./40-introduction-to-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Introduction to Matrix Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./41-lu-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">LU Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./42-statistical-application-lu-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Application: Estimating Regression Coefficients with LU Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./43-cholesky-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Cholesky Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./44-qr-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">QR Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./45-spectral-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Spectral Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./46-svd-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Singular Value Decompostion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Regression Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./55-regression-important-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Important Matrices in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./56-regression-sums-of-squares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Sums of Squares in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./57-regression-se-and-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Standard Errors and Variance Estimates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./58-regression-assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Assumptions of the Regression Model</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vector Operations</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In this chapter you will learn about some of the common arithmetic operations (addition, subtraction, and multiplication) that can be performed with vectors. As in the previous chapter, you will also be introduced to the geometry of these vector operations in 2-dimensional space.</p>
+<p><br></p>
+<section id="vector-addition-and-subtraction" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="vector-addition-and-subtraction"><span class="header-section-number">3.1</span> Vector Addition and Subtraction</h2>
+<p>Vectors can be added together if they have the same dimensions (i.e., they have the same number of elements and are both row or column vectors). To add two vectors, each of length <em>n</em>, together, we sum the corresponding elements in the vectors. For example, consider the column vectors <strong>a</strong> and <strong>b</strong>, where,</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}5 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 3\end{bmatrix}
+\]</span></p>
+<p>Since both vectors have dimensions <span class="math inline">\(2 \times 1\)</span>, we can compute the sum of these vectors as:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} + \mathbf{b}  &amp;= \begin{bmatrix}5 \\ 2\end{bmatrix} + \begin{bmatrix}1 \\ 3\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}5 + 1 \\ 2 + 3\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}6 \\ 5\end{bmatrix}
+\end{split}
+\]</span></p>
+<p>Note that the resulting vector is a column vector with two elements, the same as the vectors we summed together. In general, if we sum two <em>n</em>-dimensional column vectors, <strong>x</strong> and <strong>y</strong>, the resulting vector will also be an <em>n</em>-dimensional column vector:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{x} + \mathbf{y}  &amp;= \begin{bmatrix}x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n\end{bmatrix} + \begin{bmatrix}y_1 \\ y_2 \\ y_3 \\ \vdots \\ y_n\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}x_1 + y_1 \\ x_2 + y_2 \\ x_3 + y_3 \\ \vdots \\ x_n + y_n\end{bmatrix}
+\end{split}
+\]</span></p>
+<p>This process is similar for summing two <em>n</em>-dimensional row vectors, except the resulting vector will be an <em>n</em>-dimensional row vector.</p>
+<p><br></p>
+<section id="geometry-of-adding-vectors" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="geometry-of-adding-vectors"><span class="header-section-number">3.1.1</span> Geometry of Adding Vectors</h3>
+<p>Geometrically, adding two vectors, say <strong>a</strong> and <strong>b</strong>, is equivalent to drawing vector <strong>b</strong> so that its tail is placed at the head of vector <strong>a</strong>. Then the sum is the new vector that originates at vector <strong>a</strong>’s tail and terminates at vector <strong>b</strong>’s head. <a href="#fig-fig04-01" class="quarto-xref">Figure&nbsp;<span>3.1</span></a> geometrically shows the sum of the following vectors:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+5 \\ 2
+\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}
+1 \\ 3
+\end{bmatrix} \qquad \mathbf{a}+\mathbf{b} = \begin{bmatrix}
+6 \\ 5
+\end{bmatrix}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig04-01" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing the sum of vector **a** (in red) and vector **b** (in blue) in the R1--R2 dimensional space. For convenience we have located the tail of vector **a** at the origin. The vector that corresponds to the sum of **a** and **b** is shown in purple." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig04-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: Plot showing the sum of vector <strong>a</strong> (in red) and vector <strong>b</strong> (in blue) in the R1–R2 dimensional space. For convenience we have located the tail of vector <strong>a</strong> at the origin. The vector that corresponds to the sum of <strong>a</strong> and <strong>b</strong> is shown in purple.
+</figcaption>
+<div aria-describedby="fig-fig04-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-vector-operations_files/figure-html/fig-fig04-01-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing the sum of vector **a** (in red) and vector **b** (in blue) in the R1--R2 dimensional space. For convenience we have located the tail of vector **a** at the origin. The vector that corresponds to the sum of **a** and **b** is shown in purple.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="vector-subtraction" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="vector-subtraction"><span class="header-section-number">3.1.2</span> Vector Subtraction</h3>
+<p>To subtract vector <strong>b</strong> from vector <strong>a</strong>, we subtract the corresponding elements in vector <strong>b</strong> from those in vector <strong>a</strong>. For example, working with our previously defined vectors,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} - \mathbf{b} &amp; = \begin{bmatrix}
+5 \\ 2
+\end{bmatrix} - \begin{bmatrix}
+1 \\ 3
+\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}
+5-1 \\ 2 - 3
+\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}
+4 \\ -1
+\end{bmatrix}
+\end{split}
+\]</span> Since subtraction is equivalent to adding the inverse, subtracting the elements of <strong>b</strong> from <strong>a</strong> is equivalent to adding the inverted elements of <strong>b</strong> to the elements of <strong>a</strong> (where “inverting the elements” means switching the sign on each element). For example,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} - \mathbf{b} &amp; = \mathbf{a} + -\mathbf{b} \\[2ex]
+&amp;= \begin{bmatrix}
+5 \\ 2
+\end{bmatrix} + \begin{bmatrix}
+-1 \\ -3
+\end{bmatrix}
+\end{split}
+\]</span></p>
+<p><a href="#fig-fig04-02" class="quarto-xref">Figure&nbsp;<span>3.2</span></a> geometrically shows the operation of vector subtraction by adding the inverse of <strong>b</strong> to <strong>a</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig04-02" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing the sum of vector **a** (in red) and the inverted vector **b** (in blue) in the R1--R2 dimensional space. For convenience we have located the tail of vector **a** at the origin. The vector that corresponds to the difference of **a** and **b** is shown in purple." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig04-02-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: Plot showing the sum of vector <strong>a</strong> (in red) and the inverted vector <strong>b</strong> (in blue) in the R1–R2 dimensional space. For convenience we have located the tail of vector <strong>a</strong> at the origin. The vector that corresponds to the difference of <strong>a</strong> and <strong>b</strong> is shown in purple.
+</figcaption>
+<div aria-describedby="fig-fig04-02-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-vector-operations_files/figure-html/fig-fig04-02-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing the sum of vector **a** (in red) and the inverted vector **b** (in blue) in the R1--R2 dimensional space. For convenience we have located the tail of vector **a** at the origin. The vector that corresponds to the difference of **a** and **b** is shown in purple.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="properties-of-vector-addition-and-subtraction" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="properties-of-vector-addition-and-subtraction"><span class="header-section-number">3.1.3</span> Properties of Vector Addition and Subtraction</h3>
+<p>In vector addition, since each corresponding element is added, vector addition satisfies both the commutative and associative properties. That is,</p>
+<p><span class="math display">\[
+\mathbf{a} + \mathbf{b} = \mathbf{b} + \mathbf{a}
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} + (\mathbf{b} + \mathbf{c}) &amp;= (\mathbf{a} + \mathbf{b}) + \mathbf{c} \\[2ex]
+&amp;= \mathbf{a} + \mathbf{b} + \mathbf{c}
+\end{split}
+\]</span></p>
+<p>Convince yourself these two properties are satisfied using the following vectors.</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}5 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 3\end{bmatrix} \qquad \mathbf{c} = \begin{bmatrix}2 \\ 0\end{bmatrix}
+\]</span></p>
+<p>Since we can re-write vector subtraction as vector addition, these same conditions and properties also apply for vector subtraction.</p>
+<p><br></p>
+</section>
+</section>
+<section id="vectorscalar-multiplication" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="vectorscalar-multiplication"><span class="header-section-number">3.2</span> Vector–Scalar Multiplication</h2>
+<p>When a vector is multiplied by a scalar, each element of the vector is multiplied by the value of the scalar. Consider the following vector <strong>a</strong> and scalar <span class="math inline">\(\lambda\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \qquad \lambda=3
+\]</span></p>
+<p>Multiplying <strong>a</strong> by <span class="math inline">\(\lambda\)</span> gives:</p>
+<p><span class="math display">\[
+\begin{split}
+\lambda\mathbf{a} &amp;= 3\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}3 \times 2 \\ 3 \times 3 \\ 3 \times 0 \\ 3 \times -1\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}6 \\ 9 \\ 0 \\ -3\end{bmatrix}
+\end{split}
+\]</span></p>
+<p>This same method applies to row vectors. Scalars may be fractions, negative numbers, or unknowns. For example, if the scalar <span class="math inline">\(\gamma\)</span> is an unknown scalar, then</p>
+<p><span class="math display">\[
+\gamma\mathbf{a} = \begin{bmatrix}2\gamma \\ 3\gamma \\ 0 \\ -1\gamma\end{bmatrix}
+\]</span></p>
+<p><br></p>
+<section id="division-by-a-scalar" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="division-by-a-scalar"><span class="header-section-number">3.2.1</span> Division by a Scalar</h3>
+<p>Technically, division is undefined for vectors. However, if we are dividing by a scalar, we can multiply the vector by the scalar’s reciprocal. For example, using our previously defined vector <strong>a</strong> and scalar <span class="math inline">\(\lambda\)</span>,</p>
+<p><span class="math display">\[
+\mathbf{a} \div \lambda \quad \mathrm{does~not~exist}
+\]</span></p>
+<p>But, we can multiply by the reciprocal of <span class="math inline">\(\lambda\)</span>, namely <span class="math inline">\(\dfrac{1}{\lambda}\)</span>. For example, using the values from our previous example:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} = \begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \quad &amp;\mathrm{and} \quad \lambda = 3 \\[2ex]
+\frac{1}{\lambda}\mathbf{a} &amp;= \frac{1}{3}\begin{bmatrix}2 \\ 3 \\ 0 \\ -1\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix} \frac{2}{3} \\ 1 \\ 0 \\ -\frac{1}{3}\end{bmatrix}
+\end{split}
+\]</span></p>
+<p><br></p>
+</section>
+<section id="geometry-of-vectorscalar-multiplication" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="geometry-of-vectorscalar-multiplication"><span class="header-section-number">3.2.2</span> Geometry of Vector–Scalar Multiplication</h3>
+<p>Consider the product <span class="math inline">\(\lambda \mathbf{a}\)</span> where,</p>
+<p><span class="math display">\[
+\lambda = 2 \quad \mathrm{and} \quad \mathbf{a} = \begin{bmatrix}
+2 \\ 3
+\end{bmatrix}
+\]</span></p>
+<p>The product is</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+4 \\ 6
+\end{bmatrix}
+\]</span></p>
+<p>To show what happens geometrically when we multiply a vector by a scalar, let’s examine a plot of the original vector and the product.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig04-03" class="quarto-float quarto-figure quarto-figure-center anchored" alt="LEFT: Plot showing vector **a** in the R1--R2 dimensional space. RIGHT: Plot showing vector 2(**a**) in the R1--R2 dimensional space. For convenience we have located the tail of both vectors at the origin." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig04-03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.3: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensional space. RIGHT: Plot showing vector 2(<strong>a</strong>) in the R1–R2 dimensional space. For convenience we have located the tail of both vectors at the origin.
+</figcaption>
+<div aria-describedby="fig-fig04-03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-vector-operations_files/figure-html/fig-fig04-03-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="LEFT: Plot showing vector **a** in the R1--R2 dimensional space. RIGHT: Plot showing vector 2(**a**) in the R1--R2 dimensional space. For convenience we have located the tail of both vectors at the origin.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>Multiplying vector <strong>a</strong> by 2 doubled its length. However the direction of the new vector is the same as the original. In general, multiplying a vector by a positive scalar changes the length of a vector but not the direction. If it is multiplied by a negative scalar, not only does the length of the resulting vector change, but its direction is <span class="math inline">\(180^\circ\)</span> from the original. For example, <a href="#fig-fig04-04" class="quarto-xref">Figure&nbsp;<span>3.4</span></a> shows vector <strong>a</strong> and the vector <span class="math inline">\(\lambda \mathbf{a}\)</span> where <span class="math inline">\(\lambda = -0.5\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-fig04-04" class="quarto-float quarto-figure quarto-figure-center anchored" alt="LEFT: Plot showing vector **a** in the R1--R2 dimensional space. RIGHT: Plot showing vector -0.5(**a**) in the R1--R2 dimensional space. For convenience we have located the tail of both vectors at the origin." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-fig04-04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.4: LEFT: Plot showing vector <strong>a</strong> in the R1–R2 dimensional space. RIGHT: Plot showing vector -0.5(<strong>a</strong>) in the R1–R2 dimensional space. For convenience we have located the tail of both vectors at the origin.
+</figcaption>
+<div aria-describedby="fig-fig04-04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-vector-operations_files/figure-html/fig-fig04-04-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%" alt="LEFT: Plot showing vector **a** in the R1--R2 dimensional space. RIGHT: Plot showing vector -0.5(**a**) in the R1--R2 dimensional space. For convenience we have located the tail of both vectors at the origin.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>The product vector is half the length of the original and is pointed in the complete opposite direction.</p>
+<p><br></p>
+</section>
+</section>
+<section id="vectorvector-multiplication-dot-product" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="vectorvector-multiplication-dot-product"><span class="header-section-number">3.3</span> Vector–Vector Multiplication: Dot Product</h2>
+<p>For two column vectors, <strong>a</strong> and <strong>b</strong> each having <em>n</em> elements, the dot product (i.e., scalar product) is defined as:</p>
+<p><span class="math display">\[
+\mathbf{a} \bullet \mathbf{b} = \sum_{i=1}^n a_ib_i
+\]</span></p>
+<p>In other words, the dot product is calculated by multiplying together the corresponding elements of each vector, and summing those products. Consider the vectors,</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}5 \\ 4 \\ 7 \\ 2\end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix}
+\]</span></p>
+<p>The dot product, or <span class="math inline">\(\mathbf{a} \bullet \mathbf{b}\)</span>, is calculated as:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} \bullet \mathbf{b} &amp;= 5(1) + 4(0) + 7(-1) + 2(2) \\[2ex]
+&amp;= 2
+\end{split}
+\]</span></p>
+<p>Remember that the result of a dot product is a scalar.</p>
+<p><br></p>
+<section id="re-visiting-vector-length" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="re-visiting-vector-length"><span class="header-section-number">3.3.1</span> Re-visiting Vector Length</h3>
+<p>Recall that to find the length of a vector <strong>a</strong> with <em>n</em>-dimensions:</p>
+<p><span class="math display">\[
+\lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{a_1^2 + a_2^2 + a_3^2 + \ldots + a_n^2}
+\]</span></p>
+<p>The sum under the square root is equivalent to computing the dot product of <strong>a</strong> with itself (i.e., <span class="math inline">\(\mathbf{a} \bullet \mathbf{a}\)</span>). Therefore, the length of an <em>n</em>-dimensional vector <strong>a</strong> can be found by computing the square root of the dot product between <strong>a</strong> and itself:</p>
+<p><span class="math display">\[
+\lvert\lvert \mathbf{a} \rvert\rvert = \sqrt{\mathbf{a} \bullet \mathbf{a}}
+\]</span></p>
+<p><br></p>
+</section>
+<section id="dot-products-using-the-special-vectors" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="dot-products-using-the-special-vectors"><span class="header-section-number">3.3.2</span> Dot Products Using the Special Vectors</h3>
+<p>In the previous chapter we introduced several special vectors, including zero vectors, ones vectors, and elementary vectors. It is useful to explore what happens when one of these special vectors is used to calculate an dot product.</p>
+<p>Consider finding the dot product between an <em>n</em>-dimensional vector <strong>a</strong> and an <em>n</em>-dimensional zero vector <strong>0</strong>:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} \bullet \mathbf{0} &amp;= \begin{bmatrix} a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n \end{bmatrix} \bullet \begin{bmatrix} 0 \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}\\[2ex]
+&amp;= a_1(0) + a_2(0) + a_3(0) + \ldots + a_n(0) \\[2ex]
+&amp;= 0
+\end{split}
+\]</span></p>
+<p>The dot product is 0. Now, consider finding the dot product between an <em>n</em>-dimensional vector <strong>a</strong> and an <em>n</em>-dimensional ones vector <strong>1</strong>:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} \bullet \mathbf{1} &amp;= \begin{bmatrix} a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix}\\[2ex]
+&amp;= a_1(1) + a_2(1) + a_3(1) + \ldots + a_n(1) \\[2ex]
+&amp;= \sum_{i=1}^n a_i
+\end{split}
+\]</span></p>
+<p>Notice that the dot product here is simply the sum of the elements in <strong>a</strong>. Because of this property, ones vectors are also sometimes referred to as <em>sum vectors</em>.</p>
+<p>Next, consider finding the dot product between an <em>n</em>-dimensional vector <strong>a</strong> and an <em>n</em>-dimensional elementary vector, say <span class="math inline">\(\mathbf{e}_1\)</span> in which the first element is 1 and the rest are 0:</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{a} \bullet \mathbf{e}_1 &amp;= \begin{bmatrix} a_1 \\ a_2 \\ a_3 \\ \vdots \\ a_n \end{bmatrix} \bullet \begin{bmatrix} 1 \\ 0 \\ 0 \\ \vdots \\ 0 \end{bmatrix}\\[2ex]
+&amp;= a_1(1) + a_2(0) + a_3(0) + \ldots + a_n(0) \\[2ex]
+&amp;= a_1
+\end{split}
+\]</span></p>
+<p>Notice that the dot product here is simply the same as the first element in <strong>a</strong>. In general, the dot product between an <em>n</em>-element column vector, <strong>a</strong>, and an <em>n</em>-element elementary vector, <span class="math inline">\(\mathbf{e}_i\)</span> with element <span class="math inline">\(i=1\)</span>, is:</p>
+<p><span class="math display">\[
+\mathbf{a} \bullet \mathbf{e}_i = a_i
+\]</span></p>
+<!-- Technically, the dot product is the product of a row vector and column vector. In our example this is: -->
+<!-- $$ -->
+<!-- \mathbf{a} \bullet \mathbf{b} = \mathbf{a}^{\prime}\mathbf{b} -->
+<!-- $$ -->
+<!-- The product of a row vector and a column vector is defined as: -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \mathbf{a}^{\prime}\mathbf{b} &= \begin{bmatrix}a_1 & a_2 & a_3 & \dots & a_n\end{bmatrix} \begin{bmatrix}b_1 \\ b_2 \\ b_3 \\ \vdots \\ b_n\end{bmatrix} \\[2ex] -->
+<!-- &= a_1(b_1) + a_2(b_2) + a_3(b_3) + \ldots + a_n(b_n) \\[2ex] -->
+<!-- &= \sum_{i=1}^n a_ib_i -->
+<!-- \end{split} -->
+<!-- $$ -->
+<!-- For example, consider our previous example: -->
+<!-- $$ -->
+<!-- \begin{split} -->
+<!-- \mathbf{a} \bullet \mathbf{b} &= \mathbf{a}^{\prime}\mathbf{b} \\[2ex] -->
+<!-- &= \begin{bmatrix}5 & 4 & 7 & 2\end{bmatrix} \begin{bmatrix}1 \\ 0 \\ -1 \\ 2\end{bmatrix} \\[2ex] -->
+<!-- &= 5(1) + 4(0) + 7(-1) + 2(2) \\[2ex] -->
+<!-- &= 2 -->
+<!-- \end{split} -->
+<!-- $$ -->
+<!-- Some caveats: -->
+<!-- - The dot product $\mathbf{a}\bullet\mathbf{b}$ is always the product of $\mathbf{a}^{\prime}\mathbf{b}$. (The row vector is always first in the product;  $\mathbf{a}\mathbf{b}^{\prime} \neq \mathbf{a}^{\prime}\mathbf{b}$.) -->
+<!-- - It is not possible to find the dot product of more than two vectors.  -->
+<p><br></p>
+</section>
+</section>
+<section id="vector-operations-using-r" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="vector-operations-using-r"><span class="header-section-number">3.4</span> Vector Operations Using R</h2>
+<p>We can also carry out these vector operations using R. Below we show how to carry out the operations of vector addition and vector subtraction.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    5
+[2,]    2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    1
+[2,]    3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector addition</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">+</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    6
+[2,]    5</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Vector subtraction</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">-</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    4
+[2,]   -1</code></pre>
+</div>
+</div>
+<p>Multiplication of a vector by a scalar is carried out using the <code>*</code> operator. This operator carries out element-wise multiplication; in this case it multiplies each element in the vector by the given scalar.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    2
+[2,]    3
+[3,]    0
+[4,]   -1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiplication by 3</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">*</span> a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    6
+[2,]    9
+[3,]    0
+[4,]   -3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Division by 3 (this multiplies each element by the reciprical)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">/</span> <span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]
+[1,]  0.6666667
+[2,]  1.0000000
+[3,]  0.0000000
+[4,] -0.3333333</code></pre>
+</div>
+</div>
+<p>Lastly, although there is no dot product operator, we can mimic this function by using the elemement-wise multiplication operator to find the product of the corresponding elements of two vectors, and then use the <code>sum()</code> function to add those products together.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    5
+[2,]    4
+[3,]    7
+[4,]    2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    1
+[2,]    0
+[3,]   -1
+[4,]    2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Element-wise multiplication</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>a <span class="sc">*</span> b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]
+[1,]    5
+[2,]    0
+[3,]   -7
+[4,]    4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute dot product</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(a <span class="sc">*</span> b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of a using dot product</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(a <span class="sc">*</span> a))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.69536</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="exercises" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
+<p><strong>Consider the following vectors:</strong></p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}1 \\ 2 \\ 4 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix}2 \\ 1 \\ -1\end{bmatrix} \qquad \mathbf{c} = \begin{bmatrix}5 \\ 2 \\ 3 \end{bmatrix} \qquad \mathbf{d} = \begin{bmatrix}2 \\ 1 \\ 0 \end{bmatrix} \qquad \mathbf{e} = \begin{bmatrix}1 \\ 3 \\ 2 \end{bmatrix}
+\]</span></p>
+<ol type="1">
+<li>Find <span class="math inline">\(\mathbf{a}\bullet\mathbf{b}\)</span>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_01');">
+Show/Hide Solution
+</button>
+<div id="solution_01" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+1(2) + 2(1) + 4(-1) = 0
+\]</span></p>
+</div>
+<ol start="2" type="1">
+<li>Find <span class="math inline">\(\mathbf{c}\bullet\mathbf{c}\)</span>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_02');">
+Show/Hide Solution
+</button>
+<div id="solution_02" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+5(5) + 2(2) + 3(3) = 38
+\]</span></p>
+</div>
+<ol start="3" type="1">
+<li>Find <span class="math inline">\(\mathbf{d}^{\intercal}\mathbf{e}\)</span> and <span class="math inline">\(\mathbf{e}^{\prime}\mathbf{d}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_10');">
+Show/Hide Solution
+</button>
+<div id="solution_10" style="display:none; margin: -40px 0 40px 40px;">
+<span class="math inline">\(5(5) + 2(2) + 3(3) = 38\)</span>
+</div>
+<p><strong>Create a 2-dimensional orthogonal reference system. Show the following vector operations on that system.</strong></p>
+<ol start="3" type="1">
+<li><span class="math inline">\(\mathbf{x}+\mathbf{y}\)</span> where <span class="math inline">\(\mathbf{x} = \begin{bmatrix}2 \\ -1 \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{y} = \begin{bmatrix}-3 \\ 2 \end{bmatrix}\)</span></li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_03');">
+Show/Hide Solution
+</button>
+<div id="solution_03" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\begin{split}
+\mathbf{x} + \mathbf{y} &amp;= \begin{bmatrix} 2 \\ -1\end{bmatrix} + \begin{bmatrix} -3 \\ 2\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix} -1 \\ 1\end{bmatrix}
+\end{split}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-ex04-01" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing the sum of vector **a** (in red) and vector **b** (in blue) in the R1--R2 dimensional space. For convenience we have located the tail of vector **a** at the origin. The vector that corresponds to the sum of **a** and **b** is shown in purple." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-ex04-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.5: Plot showing the sum of vector <strong>a</strong> (in red) and vector <strong>b</strong> (in blue) in the R1–R2 dimensional space. For convenience we have located the tail of vector <strong>a</strong> at the origin. The vector that corresponds to the sum of <strong>a</strong> and <strong>b</strong> is shown in purple.
+</figcaption>
+<div aria-describedby="fig-ex04-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-vector-operations_files/figure-html/fig-ex04-01-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing the sum of vector **a** (in red) and vector **b** (in blue) in the R1--R2 dimensional space. For convenience we have located the tail of vector **a** at the origin. The vector that corresponds to the sum of **a** and **b** is shown in purple.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li><span class="math inline">\(3\mathbf{z}\)</span> where <strong>z</strong> is a unit vector in which all the elements are equal.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_04');">
+Show/Hide Solution
+</button>
+<div id="solution_04" style="display:none; margin: -40px 0 40px 40px;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="04-vector-operations_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Students’ scores on two exams ranged from 32 to 98 out of a possible 100 points on both exams. The scores for six students are shown below for Exam 1 (x) and Exam 2 (y).</strong></p>
+<p><span class="math display">\[
+\mathbf{x} = \begin{bmatrix}56 \\ 64 \\ 32 \\ 88 \\ 90 \\ 79\end{bmatrix} \qquad \mathbf{y} = \begin{bmatrix}50 \\ 69 \\ 51 \\ 98 \\ 87 \\ 70\end{bmatrix}
+\]</span></p>
+<ol start="5" type="1">
+<li>Determine the total score for each student by finding <span class="math inline">\(\mathbf{z} = \mathbf{x} + \mathbf{y}\)</span>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_05');">
+Show/Hide Solution
+</button>
+<div id="solution_05" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\mathbf{z} = \begin{bmatrix}56 + 50 \\ 64 + 69 \\ 32 + 51 \\ 88 + 98 \\ 90 + 87 \\ 79 + 70\end{bmatrix} = \begin{bmatrix}106 \\ 133 \\ 83 \\ 186 \\ 177 \\ 149\end{bmatrix}
+\]</span></p>
+</div>
+<ol start="6" type="1">
+<li>Determine the mean score for each student by finding <span class="math inline">\(\frac{1}{2} \mathbf{z}\)</span>.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_06');">
+Show/Hide Solution
+</button>
+<div id="solution_06" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\frac{1}{2}\mathbf{z} = \frac{1}{2}\begin{bmatrix}106 \\ 133 \\ 83 \\ 186 \\ 177 \\ 149\end{bmatrix}= \begin{bmatrix}53.0 \\ 66.5 \\ 41.5 \\ 93.0 \\ 88.5 \\ 74.5\end{bmatrix}
+\]</span></p>
+</div>
+<ol start="7" type="1">
+<li>If the students took a third exam, and the scores for the same six students were presented in vector <strong>w</strong>, how would you write the algebraic expression (using vector notation) to obtain the students’ mean scores for all three exams?</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_07');">
+Show/Hide Solution
+</button>
+<div id="solution_07" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\frac{1}{3}(\mathbf{x} + \mathbf{y} + \mathbf{w})
+\]</span></p>
+</div>
+<ol start="8" type="1">
+<li>If the mean score on Exam 3 was 60, write the algebraic expression (using vector notation) to find the six students’ mean deviation scores on Exam 3.</li>
+</ol>
+<button class="solution-btn solution-btn-default" onclick="toggle_visibility('solution_08');">
+Show/Hide Solution
+</button>
+<div id="solution_08" style="display:none; margin: -40px 0 40px 40px;">
+<p><span class="math display">\[
+\mathbf{w} - \begin{bmatrix}60 \\ 60 \\ 60 \\ 60 \\ 60 \\ 60\end{bmatrix}
+\]</span></p>
+</div>
+<p><br></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

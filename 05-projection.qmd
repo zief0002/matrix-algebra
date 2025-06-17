@@ -1,0 +1,452 @@
+# Vector Geometry: Angles, Projection, and Decomposition
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+source("scripts/_common.R")
+```
+
+
+In this chapter you will learn some about some additional ideas in the geometry of vectors. Again, while the illustration of these concepts is restricted to 2-dimensional space, all of these ideas can be extended to *n*-dimensions.
+
+<br />
+
+
+## Angle Between Vectors
+
+It can be quite useful to determine the angle between two vectors. For example, what is the angle between vector **a** and **b** where,
+
+$$
+\mathbf{a} = \begin{bmatrix}
+2 \\ 3
+\end{bmatrix} \quad \mathrm{and} \quad \mathbf{b}= \begin{bmatrix}
+-4 \\ 1
+\end{bmatrix}
+$$
+
+@fig-05-01 shows both vectors displayed in the same two-dimensional reference coordinate system.
+
+```{r}
+#| label: fig-05-01
+#| fig-cap: "Plot showing two vector **a** (in red) and **b** (in blue) in the R1--R2 dimensional space. The angle between them is denoted as $\\theta$. For convenience we have located the tail of both vectors at the origin."
+#| fig-alt: "Plot showing two vector **a** (in red) and **b** (in blue) in the R1--R2 dimensional space. The angle between them is denoted as $\\theta$. For convenience we have located the tail of both vectors at the origin."
+#| fig-width: 6
+#| fig-height: 6
+#| out-width: '70%'
+#| echo: false 
+
+graph_paper +
+  geom_segment(x = 0, y = 0, xend = 2, yend = 3, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = -4, yend = 1, color = "#1A5C71",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  annotate("text", x = 13.5, y = -0.5, label = "R1", size = 4) +
+  annotate("text", x = 0.65, y = 13.5, label = "R2", size = 4)   +
+  annotate("text", x = 3, y = 2, label = "(2, 3)", size = 4, color = "#FF2D21") +
+  annotate("text", x = -4.1, y = 1, label = "(-4, 1)", vjust = 0, hjust = 1, size = 4, color = "#1A5C71") +
+  geom_curve(aes(x = 0.3, y = 0.45, xend = -0.6, yend = 0.15), curvature = 0.7, color = "#48556C", size = 0.7) +
+  annotate("text", x = -0.5, y = 1, label = "theta", size = 4, color = "#48556C", parse = TRUE)
+  
+```
+
+
+The angle between these vectors is denoted as $\theta$, and can be found using the following:
+
+$$
+\cos (\theta) = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
+$$
+
+That is, the cosine of the angle between the two vectors is equal to the dot product of the vectors divided by the product of their lengths. To find the angle ($\theta$), we can compute the arc-cosine of this ratio. In our example,
+
+$$
+\begin{split}
+\cos (\theta) &= \frac{-5}{\sqrt{13}\times\sqrt{17}} \\[2ex]
+&= -0.336 \\[4ex]
+\arccos(1.914) &= 1.914
+\end{split}
+$$
+
+and $\theta=109.65^{\circ}$. Below is the R syntax to compute this angle.
+
+```{r}
+# Create vectors
+a = matrix(data = c(2, 3), ncol = 1)
+b = matrix(data = c(-4, 1), ncol = 1)
+
+# Compute dot product between a and b
+a_dot_b = sum(a * b)
+
+# Compute vector lengths
+l_a = sqrt(sum(a * a))
+l_b = sqrt(sum(b * b))
+
+# Compute theta (in radians)
+acos(a_dot_b / (l_a * l_b))
+
+# Compute theta (in degrees)
+acos(a_dot_b / (l_a * l_b)) * 180 / pi
+```
+
+<br />
+
+:::fyi
+**MATH NOTE**
+
+Manipulating the formula to compute the angle between two vectors provides a common formula to determine the dot product between two vectors.
+
+$$
+\begin{split}
+\cos (\theta) &= \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert} \\[2ex]
+\mathbf{a}\bullet\mathbf{b} &= \lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert \cos(\theta)
+\end{split}
+$$
+
+That is the dot product between vectors **a** and **b** is equal to the product of their magnitudes and the cosine of the angle between them.
+:::
+
+
+<br />
+
+
+### Orthogonal Vectors
+
+Two vectors **a** and **b** are *orthogonal* when the angle between them is $90^\circ$. Since the cosine of a $90^\circ$ angle is 0, if **a** and **b** are orthogonal, then
+
+$$
+0 = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
+$$
+
+For example, consider the following two elementary vectors
+
+$$
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \qquad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1  \end{bmatrix}
+$$
+
+The dot product between these two vectors is 0, which implies that the cosine of the angle between them must also be 0, indicating that $\mathbf{e}_1$ and $\mathbf{e}_2$ are orthogonal.
+
+<!-- This indicates that one vector contains no information about another vector.   -->
+
+<br />
+
+
+### Collinear Vectors
+
+Two vectors **a** and **b** are *collinear* when the angle between them is $0^\circ$. Since the cosine of a $0^\circ$ angle is 1, if **a** and **b** are collinear, then
+
+$$
+1 = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
+$$
+
+For example, consider the following two vectors
+
+$$
+\mathbf{a} = \begin{bmatrix} 2 \\ 1 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix} 6 \\ 3  \end{bmatrix}
+$$
+
+$$
+\begin{split}
+\frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert} &= \frac{14}{\sqrt{5}\times\sqrt{45}} \\[2ex]
+&= \frac{14}{\sqrt{225}} \\[2ex]
+&= \frac{14}{14} \\[2ex]
+&= 1
+\end{split}
+$$
+
+This implies that **a** and **b** are collinear. Two vectors are collinear when one can be written as a linear combination of the other. In our example,
+
+$$
+\mathbf{b} = 3\mathbf{a}
+$$
+
+Geometrically, collinear vectors are parallel to one another (remember location in the reference space is a convenience).
+
+<br />
+
+
+## Orthogonal Projection
+
+Orthogonal projection of vector **a** on vector **b** occurs by dropping a *perpendicular line* from the terminus of **a** to intersect with x2. 
+
+```{r}
+#| label: fig-05-02
+#| fig-cap: "Orthogonal projection of vector **a** (vermillion) onto vector **b** (black). Note that the projection creates a 90-degree angle with vector **b**. The result of the projection is the vector **p** (blue)."
+#| fig-alt: "Orthogonal projection of vector **a** (vermillion) onto vector **b** (black). Note that the projection creates a 90-degree angle with vector **b**. The result of the projection is the vector **p** (blue)."
+#| fig-width: 6
+#| fig-height: 6
+#| out-width: '70%'
+#| echo: false
+
+knitr::include_graphics("figs/fig-05-02.png")
+```
+
+
+<!-- ```{r fig05-02, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap=""} -->
+<!-- ggplot(data = fake_graph, aes(x = x, y = y)) + -->
+<!--   geom_segment(x = 0, y = 0, xend = 4, yend = 3, color = "#FF2D21", -->
+<!--     arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed") -->
+<!--   ) + -->
+<!--   geom_segment(x = 0, y = 0, xend = 7, yend = 0, color = "#1A5C71", -->
+<!--     arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed") -->
+<!--   ) + -->
+<!--   geom_segment(x = 4, y = 3, xend = 4, yend = 0, color = "#cdcdcd", linetype = "dashed", -->
+<!--     arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed") -->
+<!--   ) + -->
+<!--   geom_segment(x = -0, y = -0.2, xend = 4, yend = -0.2, color = "black", -->
+<!--     arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed") -->
+<!--   ) + -->
+<!--   annotate("text", x = 2, y = 2, label = "a", size = 4, color = "#FF2D21", fontface = "bold") + -->
+<!--   annotate("text", x = 6, y = -0.1, label = "b", vjust = 1, size = 4, color = "#1A5C71", fontface = "bold") + -->
+<!--   annotate("text", x = 2, y = -0.3, label = "p", size = 4, color = "black", fontface = "bold") + -->
+<!--   annotate("text", x = 0.3, y = 0.1, label = 'theta', size = 4, color = "#48556C", parse = TRUE) + -->
+<!--   scale_x_continuous(name ="", limits = c(-1, 8), labels = NULL, expand = c(0, 0)) + -->
+<!--   scale_y_continuous(name = "", limits = c(-1, 5), labels = NULL, expand = c(0, 0)) + -->
+<!--   theme_void() -->
+<!-- ``` -->
+
+The result is a vector **p** which is collinear with **b** but has a different length. To compute the length of **p**, we make use of the fact that the projection creates a right triangle having a hypotenuse of **a** and an adjacent leg of **p** to the angle $\theta$. Then,
+
+$$
+\begin{split}
+\cos(\theta) &= \frac{\lvert\lvert\mathbf{p}\rvert\rvert}{\lvert\lvert\mathbf{a}\rvert\rvert} \\[2em]
+\lvert\lvert\mathbf{p}\rvert\rvert &= \lvert\lvert\mathbf{a}\rvert\rvert \times \cos(\theta)
+\end{split}
+$$
+
+Since $\theta$ is the angle between **a** and **b**,
+
+$$
+\begin{split}
+\lvert\lvert\mathbf{p}\rvert\rvert &= \lvert\lvert\mathbf{a}\rvert\rvert \times \cos(\theta) \\[2em]
+&= \lvert\lvert\mathbf{a}\rvert\rvert \times \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}\\[2em]
+&= \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{b}\rvert\rvert}
+\end{split}
+$$
+
+That is, the magnitude of the projection **p**, is the ratio of the dot product between vectors **a** and **b** to the magnitude of **b**. Consider the following two vectors:
+
+$$
+\mathbf{a} = \begin{bmatrix} 2 \\ 3 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix} 2 \\ -1  \end{bmatrix}
+$$
+
+Projecting **a** onto **b**, geometrically,
+
+```{r}
+#| label: fig-05-03
+#| fig-cap: "Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector **p** (in black)."
+#| fig-alt: "Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector **p** (in black)."
+#| fig-width: 6
+#| fig-height: 6
+#| out-width: '70%'
+#| echo: false
+
+graph_paper +
+  geom_segment(x = 0, y = 0, xend = 2, yend = 3, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = 2, yend = -1, color = "#1A5C71",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 2, y = 3, xend = 0.8944272, yend = -0.4472136, color = "#cdcdcd", linetype = "dashed",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = 0.8944272, yend = -0.4472136, color = "black", size = 2,
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.25, label = "R1", size = 4) +
+  annotate("text", x = 0.25, y = 4.5, label = "R2", size = 4) +
+  annotate("text", x = 1, y = 2, label = "a", size = 4, color = "#FF2D21", fontface = "bold") +
+  annotate("text", x = 2.1, y = -1, label = "b", hjust = 0, vjust = 1, size = 4, color = "#1A5C71", fontface = "bold") +
+  annotate("text", x = 0.35, y = -0.35, label = "p", hjust = 0, vjust = 1, size = 4, color = "black", fontface = "bold") +
+  annotate("text", x = 0.3, y = 0.1, label = "theta", size = 4, color = "#48556C", parse = TRUE)
+  
+```
+
+We can find the magnitude of **p** using our formula:
+
+$$
+\begin{split}
+\lvert\lvert\mathbf{p}\rvert\rvert &= \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{b}\rvert\rvert} \\[2ex]
+&= \frac{1}{\sqrt{5}} \\[2ex]
+&= 0.447
+\end{split}
+$$
+
+```{r}
+# Create vectors
+a = c(2, 3)
+b = c(2, -1)
+
+# Compute dot product of a and b
+a_dot_b = sum(a * b)
+
+# Compute length of b
+l_b = sqrt(sum(b * b))
+
+# Compute length of p
+l_p = a_dot_b / l_b
+l_p
+```
+
+
+<br />
+
+:::fyi
+**NOTATION**
+
+Henceforth, we will denote the projection of vector **a** onto vector **b** as: 
+
+$$
+\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}
+$$
+:::
+
+<br />
+
+
+## Orthogonal Decomposition
+
+Orthogonal projection of a vector results in a geometric decomposition of the vector into two additive components. @fig-05-04 illustrates the decomposition of vector **a** into two additive components, $\mathbf{p}_1$ and $\mathbf{p}_2$. That is,
+
+$$
+\mathbf{a} = \mathbf{p}_1 + \mathbf{p}_2
+$$
+
+```{r}
+#| label: fig-05-04
+#| fig-cap: "Two orthogonal projections of vector **a** (vermillion). The first orthogonal projection is from vector **a** onto vector **b** (horizontal black) and the secondorthogonal projection is from vector **a** is onto vector **o** (vertical black). The result of the projections are the vectors $\\mathbf{p}_1$ (blue horizontal) and $\\mathbf{p}_2$ (blue vertical)."
+#| fig-alt: "Two orthogonal projections of vector **a** (vermillion). The first orthogonal projection is from vector **a** onto vector **b** (horizontal black) and the secondorthogonal projection is from vector **a** is onto vector **o** (vertical black). The result of the projections are the vectors $\\mathbf{p}_1$ (blue horizontal) and $\\mathbf{p}_2$ (blue vertical)."
+#| fig-width: 6
+#| fig-height: 6
+#| out-width: '70%'
+#| echo: false
+
+knitr::include_graphics("figs/fig-05-04.png")
+```
+
+
+The vector $\mathbf{p}_1$ is the same orthogonal projection from the earlier example, namely $\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}$. The vector $\mathbf{p}_1$ is a second projection, of **a** onto a vector **o** ($\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}$). The vector **o** is, by definition, orthogonal to **b**. 
+
+The lengths of the two projections correspond to the lengths of the sides of the right triangle where the hypotenuse is **a**. Namely^[There are other ways to compute the length of $\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}$. For example, since **o** is orthogonal to **b**, the angle between **o** and **a** is $\phi=90-\theta$. Then $\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\rvert\rvert=\lvert\lvert\mathbf{a}\rvert\rvert \times \cos(\phi)$.],
+
+$$
+\begin{split}
+\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}\rvert\rvert &= \lvert\lvert\mathbf{a}\rvert\rvert \times \cos(\theta) \\[2em]
+\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\rvert\rvert &= \lvert\lvert\mathbf{a}\rvert\rvert \times \sin(\theta)
+\end{split}
+$$
+
+As an example, we can decompose **a** Using our two previous example vectors: 
+
+$$
+\mathbf{a} = \begin{bmatrix} 2 \\ 3 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix} 2 \\ -1  \end{bmatrix}
+$$
+
+We previously determined that $\lvert\lvert\mathbf{a}\rvert\rvert=\sqrt{13}$, $\lvert\lvert\mathbf{b}\rvert\rvert=\sqrt{5}$, and $\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}\rvert\rvert = 0.447$. Recall,
+
+$$
+\cos(\theta) = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert \times \lvert\lvert\mathbf{b}\rvert\rvert}
+$$
+
+This implies that $\cos(\theta)=\frac{1}{\sqrt{65}}$ and, taking the arc-cosine, that $\theta = 82.87^\circ$ (or 1.45 radians). Using this value, we can compute the magnitude of the second projection as:
+
+$$
+\begin{split}
+\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\rvert\rvert &= \lvert\lvert\mathbf{a}\rvert\rvert \times \sin(\theta) \\[2em]
+&= \sqrt{13} \times \sin(82.87^\circ) \\[2em]
+&= 3.58
+\end{split}
+$$
+
+
+```{r}
+# Compute length of a
+l_a = sqrt(sum(a * a))
+
+# Compute theta (in radians)
+theta = acos(a_dot_b / (l_a * l_b))
+theta
+
+# Compute length of projection of a onto o
+l_p2 = l_a * sin(theta)
+l_p2
+```
+
+
+We can use the Pythagorean theorem to verify the computation of the two projections' lengths. Since the square of the hypotenuse of a right triangle is the sum of the squares of the sides,
+
+$$
+\begin{split}
+\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}\rvert\rvert^2 +\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\rvert\rvert^2 &= \lvert\lvert\mathbf{a}\rvert\rvert^2 \\[2em]
+3.58^2 + 0.447^2 &= (\sqrt{13})^2 \\[2em]
+13 &= 13
+\end{split}
+$$
+
+```{r}
+# Compute sum of the squared projection lengths  
+l_p^2 + l_p2^2
+
+# Compute length of a squared
+l_a^2
+
+# Check values using Pythagorean Theorem
+l_a^2 == l_p^2 + l_p2^2
+```
+
+
+
+The final system is shown in @fig-05-05.
+
+```{r}
+#| label: fig-05-05
+#| fig-cap: "Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector $\\mathbf{p}_1$ (in black). A second projection is the vector $\\mathbf{p}_2$ (in black) on to the vector **o**, which is orthogonal to **b**."
+#| fig-alt: "Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector $\\mathbf{p}_1$ (in black). A second projection is the vector $\\mathbf{p}_2$ (in black) on to the vector **o**, which is orthogonal to **b**."
+#| fig-width: 6
+#| fig-height: 6
+#| out-width: '70%'
+#| echo: false
+
+graph_paper +
+  geom_segment(x = 0, y = 0, xend = (sqrt(20)/2), yend = sqrt(20), color = "#cdcdcd",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 2, y = 3, xend = 0.8944272, yend = -0.4472136, color = "#cdcdcd", linetype = "dashed",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 2, y = 3, xend = 1.601025, yend = 3.202049, color = "#cdcdcd", linetype = "dashed",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = 2, yend = 3, color = "#FF2D21",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = 2, yend = -1, color = "#1A5C71",
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = 0.8944272, yend = -0.4472136, color = "black", size = 2,
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  geom_segment(x = 0, y = 0, xend = 1.601025, yend = 3.202049, color = "black", size = 2,
+    arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed")
+  ) +
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5)) +
+  annotate("text", x = 4.5, y = -0.25, label = "R1", size = 4) +
+  annotate("text", x = 0.25, y = 4.5, label = "R2", size = 4) +
+  annotate("text", x = 2.4, y = 4.6, label = "o", size = 4, fontface = "bold", color = "#cdcdcd") +
+  annotate("text", x = 1.3, y = 1.7, label = "abs(abs(bold(a)))==sqrt(13)", size = 4, color = "#FF2D21", hjust = 0, parse = TRUE) +
+  annotate("text", x = 2.1, y = -1, label = "b", hjust = 0, vjust = 1, size = 4, color = "#1A5C71", fontface = "bold") +
+    annotate("text", x = 0.5, y = -0.15, label = "abs(abs(bold(p)[1]))==0.447", size = 4, color = "black", parse = TRUE, hjust = 0, vjust = 0) +
+  annotate("text", x = 0.7, y = 1.8, label =  "abs(abs(bold(p)[2]))==3.58", size = 4, color = "black", parse = TRUE, hjust = 1, vjust = 1) +
+  annotate("text", x = 0.3, y = 0.1, label = "theta", size = 4, color = "#48556C", parse = TRUE)
+
+
+```
+
+<br />
+
+
+
+

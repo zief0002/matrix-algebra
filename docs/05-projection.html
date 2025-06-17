@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler">
-<meta name="dcterms.date" content="2025-06-17">
 
-<title>Matrix Algebra for Educational Scientists</title>
+<title>4&nbsp; Vector Geometry: Angles, Projection, and Decomposition – Matrix Algebra for Educational Scientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,6 +116,35 @@ function toggle_visibility(id) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/sticky-notes.css">
 <link rel="stylesheet" href="assets/table-styles.css">
@@ -98,7 +160,7 @@ function toggle_visibility(id) {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Matrix Algebra for Educational Scientists</h1>
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Vector Geometry: Angles, Projection, and Decomposition</span></h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -124,7 +186,7 @@ function toggle_visibility(id) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foreword</span></a>
   </div>
 </li>
@@ -163,7 +225,7 @@ function toggle_visibility(id) {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05-projection.html" class="sidebar-item-text sidebar-link">
+  <a href="./05-projection.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Vector Geometry: Angles, Projection, and Decomposition</span></span></a>
   </div>
 </li>
@@ -396,26 +458,14 @@ function toggle_visibility(id) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Matrix Algebra for Educational Scientists</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Vector Geometry: Angles, Projection, and Decomposition</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael Rodriguez &amp; Andrew Zieffler </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 17, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -425,28 +475,341 @@ function toggle_visibility(id) {
 </header>
 
 
-<section id="foreword" class="level1 unnumbered">
-<h1 class="unnumbered">Foreword</h1>
-<p>Spring 2021.</p>
-<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
+<p>In this chapter you will learn some about some additional ideas in the geometry of vectors. Again, while the illustration of these concepts is restricted to 2-dimensional space, all of these ideas can be extended to <em>n</em>-dimensions.</p>
 <p><br></p>
-<p>Andrew Zieffler &amp; Michael Rodriguez</p>
-<p><br> <br></p>
-<section id="acknowledgments" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copy editors.</p>
-<p><br><br></p>
+<section id="angle-between-vectors" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="angle-between-vectors"><span class="header-section-number">4.1</span> Angle Between Vectors</h2>
+<p>It can be quite useful to determine the angle between two vectors. For example, what is the angle between vector <strong>a</strong> and <strong>b</strong> where,</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix}
+2 \\ 3
+\end{bmatrix} \quad \mathrm{and} \quad \mathbf{b}= \begin{bmatrix}
+-4 \\ 1
+\end{bmatrix}
+\]</span></p>
+<p><a href="#fig-05-01" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> shows both vectors displayed in the same two-dimensional reference coordinate system.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-05-01" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Plot showing two vector **a** (in red) and **b** (in blue) in the R1--R2 dimensional space. The angle between them is denoted as $\theta$. For convenience we have located the tail of both vectors at the origin." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-05-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: Plot showing two vector <strong>a</strong> (in red) and <strong>b</strong> (in blue) in the R1–R2 dimensional space. The angle between them is denoted as <span class="math inline">\(\theta\)</span>. For convenience we have located the tail of both vectors at the origin.
+</figcaption>
+<div aria-describedby="fig-05-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-projection_files/figure-html/fig-05-01-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Plot showing two vector **a** (in red) and **b** (in blue) in the R1--R2 dimensional space. The angle between them is denoted as $\theta$. For convenience we have located the tail of both vectors at the origin.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>The angle between these vectors is denoted as <span class="math inline">\(\theta\)</span>, and can be found using the following:</p>
+<p><span class="math display">\[
+\cos (\theta) = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
+\]</span></p>
+<p>That is, the cosine of the angle between the two vectors is equal to the dot product of the vectors divided by the product of their lengths. To find the angle (<span class="math inline">\(\theta\)</span>), we can compute the arc-cosine of this ratio. In our example,</p>
+<p><span class="math display">\[
+\begin{split}
+\cos (\theta) &amp;= \frac{-5}{\sqrt{13}\times\sqrt{17}} \\[2ex]
+&amp;= -0.336 \\[4ex]
+\arccos(1.914) &amp;= 1.914
+\end{split}
+\]</span></p>
+<p>and <span class="math inline">\(\theta=109.65^{\circ}\)</span>. Below is the R syntax to compute this angle.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">1</span>), <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute dot product between a and b</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>a_dot_b <span class="ot">=</span> <span class="fu">sum</span>(a <span class="sc">*</span> b)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute vector lengths</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>l_a <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(a <span class="sc">*</span> a))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>l_b <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(b <span class="sc">*</span> b))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta (in radians)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(a_dot_b <span class="sc">/</span> (l_a <span class="sc">*</span> l_b))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.91382</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta (in degrees)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">acos</span>(a_dot_b <span class="sc">/</span> (l_a <span class="sc">*</span> l_b)) <span class="sc">*</span> <span class="dv">180</span> <span class="sc">/</span> pi</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 109.6538</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="fyi">
+<p><strong>MATH NOTE</strong></p>
+<p>Manipulating the formula to compute the angle between two vectors provides a common formula to determine the dot product between two vectors.</p>
+<p><span class="math display">\[
+\begin{split}
+\cos (\theta) &amp;= \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert} \\[2ex]
+\mathbf{a}\bullet\mathbf{b} &amp;= \lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert \cos(\theta)
+\end{split}
+\]</span></p>
+<p>That is the dot product between vectors <strong>a</strong> and <strong>b</strong> is equal to the product of their magnitudes and the cosine of the angle between them.</p>
+</div>
+<p><br></p>
+<section id="orthogonal-vectors" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="orthogonal-vectors"><span class="header-section-number">4.1.1</span> Orthogonal Vectors</h3>
+<p>Two vectors <strong>a</strong> and <strong>b</strong> are <em>orthogonal</em> when the angle between them is <span class="math inline">\(90^\circ\)</span>. Since the cosine of a <span class="math inline">\(90^\circ\)</span> angle is 0, if <strong>a</strong> and <strong>b</strong> are orthogonal, then</p>
+<p><span class="math display">\[
+0 = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
+\]</span></p>
+<p>For example, consider the following two elementary vectors</p>
+<p><span class="math display">\[
+\mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \qquad \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1  \end{bmatrix}
+\]</span></p>
+<p>The dot product between these two vectors is 0, which implies that the cosine of the angle between them must also be 0, indicating that <span class="math inline">\(\mathbf{e}_1\)</span> and <span class="math inline">\(\mathbf{e}_2\)</span> are orthogonal.</p>
+<!-- This indicates that one vector contains no information about another vector.   -->
+<p><br></p>
 </section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
-<p>The book is typeset using <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible">Atkinson Hyperlegible</a>. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
-<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
-<p>Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). <a href="https://rstudio4edu.github.io/rstudio4edu-book/">A handbook for teaching and learning with R and RStudio</a>.</p>
-<p><br><br></p>
+<section id="collinear-vectors" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="collinear-vectors"><span class="header-section-number">4.1.2</span> Collinear Vectors</h3>
+<p>Two vectors <strong>a</strong> and <strong>b</strong> are <em>collinear</em> when the angle between them is <span class="math inline">\(0^\circ\)</span>. Since the cosine of a <span class="math inline">\(0^\circ\)</span> angle is 1, if <strong>a</strong> and <strong>b</strong> are collinear, then</p>
+<p><span class="math display">\[
+1 = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}
+\]</span></p>
+<p>For example, consider the following two vectors</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix} 2 \\ 1 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix} 6 \\ 3  \end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[
+\begin{split}
+\frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert} &amp;= \frac{14}{\sqrt{5}\times\sqrt{45}} \\[2ex]
+&amp;= \frac{14}{\sqrt{225}} \\[2ex]
+&amp;= \frac{14}{14} \\[2ex]
+&amp;= 1
+\end{split}
+\]</span></p>
+<p>This implies that <strong>a</strong> and <strong>b</strong> are collinear. Two vectors are collinear when one can be written as a linear combination of the other. In our example,</p>
+<p><span class="math display">\[
+\mathbf{b} = 3\mathbf{a}
+\]</span></p>
+<p>Geometrically, collinear vectors are parallel to one another (remember location in the reference space is a convenience).</p>
+<p><br></p>
+</section>
+</section>
+<section id="orthogonal-projection" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="orthogonal-projection"><span class="header-section-number">4.2</span> Orthogonal Projection</h2>
+<p>Orthogonal projection of vector <strong>a</strong> on vector <strong>b</strong> occurs by dropping a <em>perpendicular line</em> from the terminus of <strong>a</strong> to intersect with x2.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-05-02" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Orthogonal projection of vector **a** (vermillion) onto vector **b** (black). Note that the projection creates a 90-degree angle with vector **b**. The result of the projection is the vector **p** (blue)." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-05-02-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: Orthogonal projection of vector <strong>a</strong> (vermillion) onto vector <strong>b</strong> (black). Note that the projection creates a 90-degree angle with vector <strong>b</strong>. The result of the projection is the vector <strong>p</strong> (blue).
+</figcaption>
+<div aria-describedby="fig-05-02-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/fig-05-02.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Orthogonal projection of vector **a** (vermillion) onto vector **b** (black). Note that the projection creates a 90-degree angle with vector **b**. The result of the projection is the vector **p** (blue).">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<!-- ```{r fig05-02, echo=FALSE, fig.width=6, fig.height = 6, out.width='60%', fig.cap=""} -->
+<!-- ggplot(data = fake_graph, aes(x = x, y = y)) + -->
+<!--   geom_segment(x = 0, y = 0, xend = 4, yend = 3, color = "#FF2D21", -->
+<!--     arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed") -->
+<!--   ) + -->
+<!--   geom_segment(x = 0, y = 0, xend = 7, yend = 0, color = "#1A5C71", -->
+<!--     arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed") -->
+<!--   ) + -->
+<!--   geom_segment(x = 4, y = 3, xend = 4, yend = 0, color = "#cdcdcd", linetype = "dashed", -->
+<!--     arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed") -->
+<!--   ) + -->
+<!--   geom_segment(x = -0, y = -0.2, xend = 4, yend = -0.2, color = "black", -->
+<!--     arrow = arrow(length = unit(0.02, "npc"), end = "last", type = "closed") -->
+<!--   ) + -->
+<!--   annotate("text", x = 2, y = 2, label = "a", size = 4, color = "#FF2D21", fontface = "bold") + -->
+<!--   annotate("text", x = 6, y = -0.1, label = "b", vjust = 1, size = 4, color = "#1A5C71", fontface = "bold") + -->
+<!--   annotate("text", x = 2, y = -0.3, label = "p", size = 4, color = "black", fontface = "bold") + -->
+<!--   annotate("text", x = 0.3, y = 0.1, label = 'theta', size = 4, color = "#48556C", parse = TRUE) + -->
+<!--   scale_x_continuous(name ="", limits = c(-1, 8), labels = NULL, expand = c(0, 0)) + -->
+<!--   scale_y_continuous(name = "", limits = c(-1, 5), labels = NULL, expand = c(0, 0)) + -->
+<!--   theme_void() -->
+<!-- ``` -->
+<p>The result is a vector <strong>p</strong> which is collinear with <strong>b</strong> but has a different length. To compute the length of <strong>p</strong>, we make use of the fact that the projection creates a right triangle having a hypotenuse of <strong>a</strong> and an adjacent leg of <strong>p</strong> to the angle <span class="math inline">\(\theta\)</span>. Then,</p>
+<p><span class="math display">\[
+\begin{split}
+\cos(\theta) &amp;= \frac{\lvert\lvert\mathbf{p}\rvert\rvert}{\lvert\lvert\mathbf{a}\rvert\rvert} \\[2em]
+\lvert\lvert\mathbf{p}\rvert\rvert &amp;= \lvert\lvert\mathbf{a}\rvert\rvert \times \cos(\theta)
+\end{split}
+\]</span></p>
+<p>Since <span class="math inline">\(\theta\)</span> is the angle between <strong>a</strong> and <strong>b</strong>,</p>
+<p><span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{p}\rvert\rvert &amp;= \lvert\lvert\mathbf{a}\rvert\rvert \times \cos(\theta) \\[2em]
+&amp;= \lvert\lvert\mathbf{a}\rvert\rvert \times \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert\times\lvert\lvert\mathbf{b}\rvert\rvert}\\[2em]
+&amp;= \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{b}\rvert\rvert}
+\end{split}
+\]</span></p>
+<p>That is, the magnitude of the projection <strong>p</strong>, is the ratio of the dot product between vectors <strong>a</strong> and <strong>b</strong> to the magnitude of <strong>b</strong>. Consider the following two vectors:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix} 2 \\ 3 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix} 2 \\ -1  \end{bmatrix}
+\]</span></p>
+<p>Projecting <strong>a</strong> onto <strong>b</strong>, geometrically,</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-05-03" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector **p** (in black)." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-05-03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3: Orthogonal projection of vector <strong>a</strong> (in red) onto vector <strong>b</strong> (in blue). The result of the projection is the vector <strong>p</strong> (in black).
+</figcaption>
+<div aria-describedby="fig-05-03-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-projection_files/figure-html/fig-05-03-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector **p** (in black).">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>We can find the magnitude of <strong>p</strong> using our formula:</p>
+<p><span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{p}\rvert\rvert &amp;= \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{b}\rvert\rvert} \\[2ex]
+&amp;= \frac{1}{\sqrt{5}} \\[2ex]
+&amp;= 0.447
+\end{split}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vectors</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute dot product of a and b</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>a_dot_b <span class="ot">=</span> <span class="fu">sum</span>(a <span class="sc">*</span> b)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of b</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>l_b <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(b <span class="sc">*</span> b))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of p</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>l_p <span class="ot">=</span> a_dot_b <span class="sc">/</span> l_b</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>l_p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4472136</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="fyi">
+<p><strong>NOTATION</strong></p>
+<p>Henceforth, we will denote the projection of vector <strong>a</strong> onto vector <strong>b</strong> as:</p>
+<p><span class="math display">\[
+\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}
+\]</span></p>
+</div>
+<p><br></p>
+</section>
+<section id="orthogonal-decomposition" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="orthogonal-decomposition"><span class="header-section-number">4.3</span> Orthogonal Decomposition</h2>
+<p>Orthogonal projection of a vector results in a geometric decomposition of the vector into two additive components. <a href="#fig-05-04" class="quarto-xref">Figure&nbsp;<span>4.4</span></a> illustrates the decomposition of vector <strong>a</strong> into two additive components, <span class="math inline">\(\mathbf{p}_1\)</span> and <span class="math inline">\(\mathbf{p}_2\)</span>. That is,</p>
+<p><span class="math display">\[
+\mathbf{a} = \mathbf{p}_1 + \mathbf{p}_2
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-05-04" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Two orthogonal projections of vector **a** (vermillion). The first orthogonal projection is from vector **a** onto vector **b** (horizontal black) and the secondorthogonal projection is from vector **a** is onto vector **o** (vertical black). The result of the projections are the vectors $\mathbf{p}_1$ (blue horizontal) and $\mathbf{p}_2$ (blue vertical)." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-05-04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.4: Two orthogonal projections of vector <strong>a</strong> (vermillion). The first orthogonal projection is from vector <strong>a</strong> onto vector <strong>b</strong> (horizontal black) and the secondorthogonal projection is from vector <strong>a</strong> is onto vector <strong>o</strong> (vertical black). The result of the projections are the vectors <span class="math inline">\(\mathbf{p}_1\)</span> (blue horizontal) and <span class="math inline">\(\mathbf{p}_2\)</span> (blue vertical).
+</figcaption>
+<div aria-describedby="fig-05-04-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figs/fig-05-04.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Two orthogonal projections of vector **a** (vermillion). The first orthogonal projection is from vector **a** onto vector **b** (horizontal black) and the secondorthogonal projection is from vector **a** is onto vector **o** (vertical black). The result of the projections are the vectors $\mathbf{p}_1$ (blue horizontal) and $\mathbf{p}_2$ (blue vertical).">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>The vector <span class="math inline">\(\mathbf{p}_1\)</span> is the same orthogonal projection from the earlier example, namely <span class="math inline">\(\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}\)</span>. The vector <span class="math inline">\(\mathbf{p}_1\)</span> is a second projection, of <strong>a</strong> onto a vector <strong>o</strong> (<span class="math inline">\(\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\)</span>). The vector <strong>o</strong> is, by definition, orthogonal to <strong>b</strong>.</p>
+<p>The lengths of the two projections correspond to the lengths of the sides of the right triangle where the hypotenuse is <strong>a</strong>. Namely<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>,</p>
+<p><span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}\rvert\rvert &amp;= \lvert\lvert\mathbf{a}\rvert\rvert \times \cos(\theta) \\[2em]
+\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\rvert\rvert &amp;= \lvert\lvert\mathbf{a}\rvert\rvert \times \sin(\theta)
+\end{split}
+\]</span></p>
+<p>As an example, we can decompose <strong>a</strong> Using our two previous example vectors:</p>
+<p><span class="math display">\[
+\mathbf{a} = \begin{bmatrix} 2 \\ 3 \end{bmatrix} \qquad \mathbf{b} = \begin{bmatrix} 2 \\ -1  \end{bmatrix}
+\]</span></p>
+<p>We previously determined that <span class="math inline">\(\lvert\lvert\mathbf{a}\rvert\rvert=\sqrt{13}\)</span>, <span class="math inline">\(\lvert\lvert\mathbf{b}\rvert\rvert=\sqrt{5}\)</span>, and <span class="math inline">\(\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}\rvert\rvert = 0.447\)</span>. Recall,</p>
+<p><span class="math display">\[
+\cos(\theta) = \frac{\mathbf{a}\bullet\mathbf{b}}{\lvert\lvert\mathbf{a}\rvert\rvert \times \lvert\lvert\mathbf{b}\rvert\rvert}
+\]</span></p>
+<p>This implies that <span class="math inline">\(\cos(\theta)=\frac{1}{\sqrt{65}}\)</span> and, taking the arc-cosine, that <span class="math inline">\(\theta = 82.87^\circ\)</span> (or 1.45 radians). Using this value, we can compute the magnitude of the second projection as:</p>
+<p><span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\rvert\rvert &amp;= \lvert\lvert\mathbf{a}\rvert\rvert \times \sin(\theta) \\[2em]
+&amp;= \sqrt{13} \times \sin(82.87^\circ) \\[2em]
+&amp;= 3.58
+\end{split}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of a</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>l_a <span class="ot">=</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(a <span class="sc">*</span> a))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute theta (in radians)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">=</span> <span class="fu">acos</span>(a_dot_b <span class="sc">/</span> (l_a <span class="sc">*</span> l_b))</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>theta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.446441</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of projection of a onto o</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>l_p2 <span class="ot">=</span> l_a <span class="sc">*</span> <span class="fu">sin</span>(theta)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>l_p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.577709</code></pre>
+</div>
+</div>
+<p>We can use the Pythagorean theorem to verify the computation of the two projections’ lengths. Since the square of the hypotenuse of a right triangle is the sum of the squares of the sides,</p>
+<p><span class="math display">\[
+\begin{split}
+\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{b}}\rvert\rvert^2 +\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\rvert\rvert^2 &amp;= \lvert\lvert\mathbf{a}\rvert\rvert^2 \\[2em]
+3.58^2 + 0.447^2 &amp;= (\sqrt{13})^2 \\[2em]
+13 &amp;= 13
+\end{split}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute sum of the squared projection lengths  </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>l_p<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> l_p2<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute length of a squared</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>l_a<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check values using Pythagorean Theorem</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>l_a<span class="sc">^</span><span class="dv">2</span> <span class="sc">==</span> l_p<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> l_p2<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+<p>The final system is shown in <a href="#fig-05-05" class="quarto-xref">Figure&nbsp;<span>4.5</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-05-05" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector $\mathbf{p}_1$ (in black). A second projection is the vector $\mathbf{p}_2$ (in black) on to the vector **o**, which is orthogonal to **b**." data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-05-05-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.5: Orthogonal projection of vector <strong>a</strong> (in red) onto vector <strong>b</strong> (in blue). The result of the projection is the vector <span class="math inline">\(\mathbf{p}_1\)</span> (in black). A second projection is the vector <span class="math inline">\(\mathbf{p}_2\)</span> (in black) on to the vector <strong>o</strong>, which is orthogonal to <strong>b</strong>.
+</figcaption>
+<div aria-describedby="fig-05-05-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="05-projection_files/figure-html/fig-05-05-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%" alt="Orthogonal projection of vector **a** (in red) onto vector **b** (in blue). The result of the projection is the vector $\mathbf{p}_1$ (in black). A second projection is the vector $\mathbf{p}_2$ (in black) on to the vector **o**, which is orthogonal to **b**.">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p><br></p>
 
 
 </section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>There are other ways to compute the length of <span class="math inline">\(\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\)</span>. For example, since <strong>o</strong> is orthogonal to <strong>b</strong>, the angle between <strong>o</strong> and <strong>a</strong> is <span class="math inline">\(\phi=90-\theta\)</span>. Then <span class="math inline">\(\lvert\lvert\mathbf{p}_{\mathbf{a}\perp\mathbf{o}}\rvert\rvert=\lvert\lvert\mathbf{a}\rvert\rvert \times \cos(\phi)\)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

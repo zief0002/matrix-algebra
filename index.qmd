@@ -1,0 +1,36 @@
+# Foreword {-}
+
+Spring 2021. 
+
+The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either [open an issue](https://github.com/zief0002/matrix-algebra/issues) on the book's github page or [send us an email](mailto: zief0002@umn.edu) directly.
+
+<br />
+
+Andrew Zieffler & Michael Rodriguez
+
+
+<br /> <br />
+
+
+## Acknowledgments {-}
+
+Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world's greatest copy editors. 
+
+<br /><br />
+
+
+## Colophon {-}
+
+<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
+
+The book is typeset using [Atkinson Hyperlegible](https://fonts.google.com/specimen/Atkinson+Hyperlegible). The color palette was generated using [coolors.co](https://coolors.co/).
+
+Icon and note ideas and prototypes by [Desirée De Leon](http://desiree.rbind.io/).
+
+Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). [A handbook for teaching and learning with R and RStudio](https://rstudio4edu.github.io/rstudio4edu-book/).
+
+<br /><br />
+
+
+
+

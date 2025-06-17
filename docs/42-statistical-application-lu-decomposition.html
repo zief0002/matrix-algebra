@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler">
-<meta name="dcterms.date" content="2025-06-17">
 
-<title>Matrix Algebra for Educational Scientists</title>
+<title>21&nbsp; Statistical Application: Estimating Regression Coefficients with LU Decomposition – Matrix Algebra for Educational Scientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,6 +116,35 @@ function toggle_visibility(id) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/sticky-notes.css">
 <link rel="stylesheet" href="assets/table-styles.css">
@@ -98,7 +160,7 @@ function toggle_visibility(id) {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Matrix Algebra for Educational Scientists</h1>
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Application: Estimating Regression Coefficients with LU Decomposition</span></h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -124,7 +186,7 @@ function toggle_visibility(id) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foreword</span></a>
   </div>
 </li>
@@ -320,7 +382,7 @@ function toggle_visibility(id) {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./42-statistical-application-lu-decomposition.html" class="sidebar-item-text sidebar-link">
+  <a href="./42-statistical-application-lu-decomposition.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Application: Estimating Regression Coefficients with LU Decomposition</span></span></a>
   </div>
 </li>
@@ -396,26 +458,14 @@ function toggle_visibility(id) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Matrix Algebra for Educational Scientists</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Application: Estimating Regression Coefficients with LU Decomposition</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael Rodriguez &amp; Andrew Zieffler </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 17, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -425,28 +475,175 @@ function toggle_visibility(id) {
 </header>
 
 
-<section id="foreword" class="level1 unnumbered">
-<h1 class="unnumbered">Foreword</h1>
-<p>Spring 2021.</p>
-<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
+<p>In OLS regression our goal is to estimate regression coefficients (<strong>b</strong>) from a data matrix (<strong>X</strong>) and vector of outcomes (<strong>y</strong>). To do this we want to solve the following equation for <strong>b</strong>:</p>
+<p><span class="math display">\[
+(\mathbf{X}^{\intercal}\mathbf{X})\mathbf{b} = \mathbf{X}^{\intercal}\mathbf{y}
+\]</span></p>
+<p>Pre-multiplying both sides by <span class="math inline">\((\mathbf{X}^{\intercal}\mathbf{X})^{-1}\)</span> gives us our conventional solution for <strong>b</strong>, namely <span class="math inline">\(\mathbf{b}=(\mathbf{X}^{\intercal}\mathbf{X})^{-1}\mathbf{X}^{\intercal}\mathbf{y}\)</span>. However, this requires us to find the inverse of <span class="math inline">\(\mathbf{X}^{\intercal}\mathbf{X}\)</span>. Unfortunately, the computational functions that are used to compute inverses of matrices sometimes end up being numerically unstable. For example, consider the following simulated data set of <span class="math inline">\(n=50\)</span> cases:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of cases</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create 50 x-values evenly spread b/w 1 and 500 </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">500</span>, <span class="at">len =</span> n)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X matrix</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x, x<span class="sc">^</span><span class="dv">2</span>, x<span class="sc">^</span><span class="dv">3</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create b matrix</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="dv">4</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vector of y-values</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> X <span class="sc">%*%</span> b <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Find determinant of (X^T)X</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">det</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.113748e+32</code></pre>
+</div>
+</div>
+<p>Here we have simulated data using the following statistical model:</p>
+<p><span class="math display">\[
+y_i = 1 + 1(x_i) + 1(x_i^2) + 1(x_i^3) + e_i \qquad \mathrm{where~} e_i\overset{i.i.d.}{\sim}\mathcal{N}(0,1)
+\]</span></p>
+<p>The determinant of <span class="math inline">\(\mathbf{X}^{\intercal}\mathbf{X}\)</span> is not zero (although it is close to zero), so we should be able to find an inverse. What happens if we try to use <code>solve()</code> to find the inverse of the <span class="math inline">\(\mathbf{X}^{\intercal}\mathbf{X}\)</span> matrix to obtain the regression coefficient estimates? Here <code>crossprod(X)</code> is equivalent to <code>t(X) %*% X</code>, and <code>crossprod(X, y)</code> is equivalent to <code>t(X) %*% y</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Try to compute b</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">solve</span>(<span class="fu">crossprod</span>(X)) <span class="sc">%*%</span> <span class="fu">crossprod</span>(X, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in solve.default(crossprod(X)): system is computationally singular: reciprocal condition number = 2.93617e-17</code></pre>
+</div>
+</div>
+<p>The standard R function for inverse is computationally singular. To see why this happens, we can take a closer look at the <span class="math inline">\(\mathbf{X}^{\intercal}\mathbf{X}\)</span> matrix. Here we will examine these values:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the number of digits</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">digits =</span> <span class="dv">4</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute X^T(X) matrix</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">crossprod</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        x                    
+          50        12525 4.217e+06 1.597e+09
+x      12525      4217364 1.597e+09 6.454e+11
+     4217364   1597455115 6.454e+11 2.716e+14
+  1597455115 645401757068 2.716e+14 1.176e+17</code></pre>
+</div>
+</div>
+<p>Note the difference of several orders of magnitude. On a computer, we have a limited range of numbers. This makes some numbers behave like 0, when we also have to consider very large numbers. This in turn leads to what is essentially division by 0, which produces errors.</p>
 <p><br></p>
-<p>Andrew Zieffler &amp; Michael Rodriguez</p>
-<p><br> <br></p>
-<section id="acknowledgments" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copy editors.</p>
-<p><br><br></p>
-</section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
-<p>The book is typeset using <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible">Atkinson Hyperlegible</a>. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
-<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
-<p>Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). <a href="https://rstudio4edu.github.io/rstudio4edu-book/">A handbook for teaching and learning with R and RStudio</a>.</p>
-<p><br><br></p>
+<section id="estimating-regression-coefficients-using-lu-decomposition" class="level3" data-number="21.0.1">
+<h3 data-number="21.0.1" class="anchored" data-anchor-id="estimating-regression-coefficients-using-lu-decomposition"><span class="header-section-number">21.0.1</span> Estimating Regression Coefficients Using LU Decomposition</h3>
+<p>Remember, our goal is to solve the following for <strong>b</strong>.</p>
+<p><span class="math display">\[
+(\mathbf{X}^{\intercal}\mathbf{X})\mathbf{b} = \mathbf{X}^{\intercal}\mathbf{y}
+\]</span></p>
+<p>This is exactly the type of problem that LU decomposition can help solve. Note that the first “term”, <span class="math inline">\((\mathbf{X}^{\intercal}\mathbf{X})\)</span>, is a square matrix. The right-hand side of the equation is known from the data, and we want to solve for the elements of <strong>b</strong>. This is the exact format of <span class="math inline">\(\mathbf{AX}=\mathbf{Y}\)</span>. So rather than trying to find the inverse of <span class="math inline">\((\mathbf{X}^{\intercal}\mathbf{X})\)</span>, we can carry out the decomposition on the <span class="math inline">\(\mathbf{X}^{\intercal}\mathbf{X}\)</span> matrix to produce an <strong>L</strong> and <strong>U</strong> matrix that we can then use to solve for <strong>b</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LU decomposition</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(matrixcalc)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>lu_decomp <span class="ot">=</span> <span class="fu">lu.decomposition</span>(<span class="fu">crossprod</span>(X))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># View results</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>lu_decomp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$L
+           [,1]   [,2]  [,3] [,4]
+[1,]        1.0      0   0.0    0
+[2,]      250.5      1   0.0    0
+[3,]    84347.3    501   1.0    0
+[4,] 31949102.3 227105 751.5    1
+
+$U
+     [,1]    [,2]      [,3]      [,4]
+[1,]   50   12525 4.217e+06 1.597e+09
+[2,]    0 1079851 5.410e+08 2.452e+11
+[3,]    0       0 1.863e+10 1.400e+13
+[4,]    0       0 1.953e-03 3.095e+14</code></pre>
+</div>
+</div>
+<p>Now we can solve for <strong>Z</strong> in the equation <span class="math inline">\(\mathbf{LZ}=\mathbf{Y}\)</span>, but remembering that here, the right-hand side of this equation is <span class="math inline">\(\mathbf{X}^{\intercal}\mathbf{y}\)</span>, so we are solving for <strong>Z</strong> in:</p>
+<p><span class="math display">\[
+\mathbf{LZ}=\mathbf{X}^{\intercal}\mathbf{y}
+\]</span></p>
+<p>In our example,</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; 0\\
+2.640052 \times 10^{-3} &amp; 1  &amp; 0 &amp; 0\\
+7.840596  \times 10^{-6} &amp; 7.919771  \times 10^{-3} &amp; 1 &amp; 0\\
+3.129978  \times 10^{-8} &amp; 7.211598  \times 10^{-5} &amp; 2.495756  \times 10^{-2} &amp; 1
+\end{bmatrix}\begin{bmatrix}
+z_{11}  \\
+z_{21}  \\
+z_{31}  \\
+z_{41}  \\
+\end{bmatrix} = \begin{bmatrix}
+1.601685  \times 10^{9}\\
+6.470034  \times 10^{11}\\
+2.722570  \times 10^{14}\\
+1.178380  \times 10^{17}\\
+\end{bmatrix}
+\]</span></p>
+<p>Then we can solve the equation:</p>
+<p><span class="math display">\[
+\mathbf{Ub}=\mathbf{Z}
+\]</span></p>
+<p>which in our example is:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+1.597455 \times 10^{9} &amp; 6.454018 \times 10^{11} &amp; 2.7161 \times 10^{14} &amp; 1.175658 \times 10^{17}\\
+1 &amp; -1.064388 \times 10^{8} &amp; -7.166250 \times 10^{10} &amp; -3.876978 \times 10^{13}\\
+1 &amp;             1 &amp;  3.542182 \times 10^{7} &amp; 3.066370 \times 10^{10}\\
+1 &amp;             1 &amp;             1 &amp; -5.169923 \times 10^{7}
+\end{bmatrix}\begin{bmatrix}
+b_{11}  \\
+b_{21}  \\
+b_{31}  \\
+b_{41}  \\
+\end{bmatrix} = \begin{bmatrix}
+1.601685 \times 10^{9}\\
+6.469992 \times 10^{11}\\
+2.722518 \times 10^{14}\\
+1.178312 \times 10^{17}
+\end{bmatrix}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for Z</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">=</span> <span class="fu">forwardsolve</span>(lu_decomp<span class="sc">$</span>L,  <span class="fu">crossprod</span>(X,y))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Solve for b</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">backsolve</span>(lu_decomp<span class="sc">$</span>U, Z)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View b</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       [,1]
+[1,] 0.9038
+[2,] 1.0066
+[3,] 1.0000
+[4,] 1.0000</code></pre>
+</div>
+</div>
+<p>We have successfully estimated the coefficients, which are all near 1. Note that fitting the model using <code>lm()</code> we obtain the same coefficients.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit model using columns of the X matrix</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">=</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> X[ , <span class="dv">2</span>] <span class="sc">+</span> X[ , <span class="dv">3</span>] <span class="sc">+</span> X[ , <span class="dv">4</span>])</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View coefficientw</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(lm<span class="fl">.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(Intercept)      X[, 2]      X[, 3]      X[, 4] 
+     0.9038      1.0066      1.0000      1.0000 </code></pre>
+</div>
+</div>
+<p>The <code>lm()</code> function (and most other statistical software) uses decomposition to solve for coefficients rather than inverting the <span class="math inline">\(\mathbf{X}^\intercal\mathbf{X}\)</span> matrix. Although the estimates here are the same as those from LU decomposition, the <code>lm()</code> function actually uses QR decomposition. We will examine this method in the next chapter.</p>
+<p><br></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

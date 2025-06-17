@@ -1,0 +1,189 @@
+# Quadratic Form of a Matrix
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+source("scripts/_common.R")
+```
+
+<br />
+<br />
+
+
+:::protip
+&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;
+**UNDER CONSTRUCTION**
+&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;&nbsp;&nbsp;&#128679;
+:::
+
+
+
+
+<br />
+<br />
+<br />
+
+In this chapter, you will learn about the quadratic forms of a matrix. The quadratic forms of a matrix comes up often in statistical applications. For example the sum of squares can be expressed in quadratic form. Similarly the SSCP, covariance matrix, and correlation matrix are also examples of the quadratic form of a matrix. Before we introduce the quadratic form of a matrix, we first examine the linear and bilinear forms of a matrix.
+
+<br />
+
+
+## Linear Forms
+
+You are already quite familiar with the linear form of a matrix. The *linear form of a matrix* is simply a linear mapping of that matrix. In scalar algebraic notation, we might write:
+
+$$
+f(x) = a_1x_1 + a_2x_2 + a_3x_3 + \ldots + a_nx_n
+$$
+
+It is linear since the *x*-values are all to the first degree. We can, equivalently use matrix notation to express this as:
+
+$$
+f(\mathbf{x}) = \mathbf{a}^\intercal\mathbf{x}
+$$
+
+where, 
+
+$$
+\mathbf{a}^\intercal = \begin{bmatrix}
+a_1 & a_2 & a_3 & \ldots & a_n
+\end{bmatrix} \qquad \mathrm{and}  \qquad \mathbf{x}=\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n
+\end{bmatrix}
+$$
+
+<br />
+
+
+## Bilinear Form
+
+Bilinear form of a matrix extends the linear form by including two variables, **x** and **y**. For example, if we had:
+
+$$
+\mathbf{x}=\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 
+\end{bmatrix}  \qquad \mathbf{y}=\begin{bmatrix}
+y_1 \\ y_2
+\end{bmatrix}
+$$
+Then the bilinear form written in scalar algebra is:
+
+$$
+f(x,y) = a_{11}x_1y_1 + a_{21}x_2y_1 + a_{31}x_3y_1 + a_{12}x_1y_2 + a_{22}x_2y_2 + a_{32}x_3y_2
+$$
+
+The linear part of *bilinear* implies that both variables are to the first power. And, only one *x* and one *y* appear in each term. Using matrix notation, we can write:
+
+$$
+f(\mathbf{x},\mathbf{y}) = \mathbf{x}^\intercal\mathbf{A}\mathbf{y}
+$$
+
+where
+
+$$
+\mathbf{A} = \begin{bmatrix}
+a_{11} & a_{12} \\ a_{21} & a_{22} \\ a_{31} & a_{32}
+\end{bmatrix}
+$$
+
+We refer to the bilinear form of matrix **A**. Note that there is more than one bilinear form for **A**; by changing the values in the **x** and **y** vectors, we can obtain many different bilinear mappings. 
+
+<br />
+
+
+## Quadratic Form
+
+The quadratic form is a special case of the bilinear form in which $\mathbf{x}=\mathbf{y}$. In this case we replace **y** with **x** so that we create terms with the different combinations of **x**:
+
+
+$$
+f(x,x) = a_{11}x_1y_1 + a_{21}x_2y_1 + a_{31}x_3y_1 + a_{12}x_1y_2 + a_{22}x_2y_2 + a_{32}x_3y_2
+$$
+
+
+
+**A**, simply means a linear function of a set of variables given in a vector **x**.
+
+Consider the following transformation of a square matrix **A**:
+
+$$
+\mathbf{x}^\intercal\mathbf{Ax}
+$$
+
+where **A** is a $k \times k$ matrix and **x** is a $k \times 1$ vector. This transformations is referred to as the quadratic transformation or the *quadratic form* of **A**.
+
+<br />
+
+
+## Example: Quadratic Form
+
+Consider the following square matrix **A**:
+
+$$
+\mathbf{A} = \begin{bmatrix}
+-3 & 5  \\ 
+4 & -2  \\
+\end{bmatrix}
+$$
+
+We can compute the quadratic form by using the vector 
+
+$$
+\mathbf{x} = \begin{bmatrix}
+x_1 \\ x_2\end{bmatrix}
+$$
+
+Then,
+
+$$
+\begin{split}
+\mathbf{x}^\intercal\mathbf{Ax} &= \begin{bmatrix}
+x_1 & x_2\end{bmatrix}\begin{bmatrix}
+-3 & 5  \\ 
+4 & -2  \\
+\end{bmatrix}\begin{bmatrix}
+x_1 \\ x_2\end{bmatrix} \\[2ex]
+&= \begin{bmatrix}
+x_1 & x_2\end{bmatrix}\begin{bmatrix}
+-3x_1 + 5x_2  \\ 
+4x_1 -2x_2
+\end{bmatrix} \\[2ex]
+&= x_1(-3x_1 + 5x_2) + x_2(4x_1 -2x_2) \\[2ex]
+&= -3x_1^2 + 5x_1x_2 + 4x_1x_2 -2x_2^2 \\[2ex]
+&= -3x_1^2 + 9x_1x_2 -2x_2^2
+\end{split}
+$$
+
+By looking at the exponents in the final expression, you can see why this is called a quadratic form or transformation of **A**.
+
+
+<br />
+
+
+
+<br />
+
+<!-- Decomposition of Matrix Transformations: Eigenstructures and Quadratic Forms -->
+<!-- J. Douglas Carroll, Paul E. Green, in Mathematical Tools for Applied Multivariate Analysis, 1997 -->
+
+<!-- 5.8.6 Types of Quadratic Forms -->
+<!-- Quadratic forms can be classified according to the nature of the eigenvalues of the matrix of the quadratic form: -->
+
+<!-- 1.If all λi are positive, the form is said to be positive definite. -->
+<!-- 2. If all λi are negative, the form is said to be negative definite. -->
+<!-- 3. If all λi are nonnegative (positive or zero), the form is said to be positive semidefinite. -->
+<!-- 4. If all λi are nonpositive (zero or negative), the form is said to be negative semidefinite. -->
+<!-- 5. If the λi represent a mixture of positive, zero, and negative values, the form is said to be indefinite -->
+
+
+## Positive Definite Matrices
+
+Positive definite matrices come up a lot in statistical applications. For example, nonsingular correlation matrices and covariance matrices are positive definite matrices. A symmetric matrix is said to be *positive definite* if all of its eigenvalues are positive. An alternative definition is that a symmetric matrix is positive definite if pre-multiplying and post-multiplying it by the same vector always gives a positive number as a result, independently of how we choose the vector. Mathematically, **A** is positive definite if:
+
+$$
+\mathbf{v}^\intercal \mathbf{Av} > 0
+$$
+These two definitions are equivalent.
+
+<br />

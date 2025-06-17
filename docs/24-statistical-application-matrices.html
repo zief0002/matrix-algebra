@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.31">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>14&nbsp; Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices – Matrix Algebra for Educational Scientists</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-732fb9ccd080a018ca85ca5d15770f52.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8d770ec9e2414948c93ba4710aeffb09.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="text/javascript">
+// Function to toggle the visibility of solutions in exercises
+function toggle_visibility(id) {
+   var e = document.getElementById(id);
+   if(e.style.display == 'block')
+      e.style.display = 'none';
+   else
+      e.style.display = 'block';
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="assets/sticky-notes.css">
+<link rel="stylesheet" href="assets/table-styles.css">
+</head>
+
+<body class="nav-sidebar floating fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</span></h1>
+        </a>     
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Matrix Algebra for Educational Scientists</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foreword</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-data-structures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data Structures</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Vectors and Vector Operations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Vectors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-vector-operations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Vector Operations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-projection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Vector Geometry: Angles, Projection, and Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-statistical-application-vectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistical Application: Vectors</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrices and Matrix Operations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-matrix-addition-subtraction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Matrix Addition and Subtraction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-matrix-multiplication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Matrix Multiplication</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-matrix-transposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Matrix Transposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-matrix-operations-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Exercises: Matrix Operations</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Square Matrices and Their Properties</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21-square-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Square Matrices and Friends</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./22-properties-of-square-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Properties of Square Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23-eigenvalues-and-eigenvectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Eigenvalues and Eigenvectors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./24-statistical-application-matrices.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrix Transformations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./30-basis-vectors-and-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Basis Vectors and Matrices</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./32-quadratic-forms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Quadratic Form of a Matrix</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Systems of Equations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./60-solving-systems-of-equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Systems of Equations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./61-statistical-application-regression-estimates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Statistical Appplication: Estimating Regression Coefficients</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Matrix Decomposition</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./40-introduction-to-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Introduction to Matrix Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./41-lu-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">LU Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./42-statistical-application-lu-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Statistical Application: Estimating Regression Coefficients with LU Decomposition</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./43-cholesky-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Cholesky Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./44-qr-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">QR Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./45-spectral-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Spectral Decompostion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./46-svd-decomposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Singular Value Decompostion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Regression Applications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./55-regression-important-matrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Important Matrices in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./56-regression-sums-of-squares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Sums of Squares in Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./57-regression-se-and-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Standard Errors and Variance Estimates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./58-regression-assumptions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Assumptions of the Regression Model</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Statistical Application: SSCP, Variance–Covariance, and Correlation Matrices</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In this chapter, we will provide an example of how matrix operations are used in statistics to compute a sum of squares and cross-product (SSCP) matrix. To do this we will consider the following data set:</p>
+<div class="cell" data-layout-align="center">
+<div id="tbl-24-01" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-layout-align="center">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-24-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;14.1: Example set of education data.
+</figcaption>
+<div aria-describedby="tbl-24-01-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;">SAT</th>
+<th style="text-align: center;">GPA</th>
+<th style="text-align: center;">Self-Esteem</th>
+<th style="text-align: center;">IQ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">560</td>
+<td style="text-align: center;">3.0</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">112</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">780</td>
+<td style="text-align: center;">3.9</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">143</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">620</td>
+<td style="text-align: center;">2.9</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">124</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">600</td>
+<td style="text-align: center;">2.7</td>
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">129</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">720</td>
+<td style="text-align: center;">3.7</td>
+<td style="text-align: center;">18</td>
+<td style="text-align: center;">130</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">380</td>
+<td style="text-align: center;">2.4</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">82</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The data matrix (omitting ID values) could be conceived of as a <span class="math inline">\(6 \times 4\)</span> matrix:</p>
+<p><span class="math display">\[
+\mathbf{X} = \begin{bmatrix}
+  560 &amp; 3.0 &amp; 11 &amp; 112 \\
+  780 &amp; 3.9 &amp; 10 &amp; 143 \\
+  620 &amp; 2.9 &amp; 19 &amp; 124 \\
+  600 &amp; 2.7 &amp; 7 &amp; 129 \\
+  720 &amp; 3.7 &amp; 18 &amp; 130 \\
+  380 &amp; 2.4 &amp; 13 &amp; 82
+  \end{bmatrix}
+\]</span></p>
+<p><br></p>
+<section id="deviation-scores" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="deviation-scores"><span class="header-section-number">14.1</span> Deviation Scores</h2>
+<p>Since so much of statistics is dependent on the use of deviation scores, we will compute a matrix of means, where each column corresponds to the mean of the corresponding column mean of <strong>X</strong>, and subtract that from the original matrix <strong>X</strong>.</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{D} &amp;= \mathbf{X} - \mathbf{M} \\[2ex]
+&amp;= \begin{bmatrix}
+  560 &amp; 3.0 &amp; 11 &amp; 112 \\
+  780 &amp; 3.9 &amp; 10 &amp; 143 \\
+  620 &amp; 2.9 &amp; 19 &amp; 124 \\
+  600 &amp; 2.7 &amp; 7 &amp; 129 \\
+  720 &amp; 3.7 &amp; 18 &amp; 130 \\
+  380 &amp; 2.4 &amp; 13 &amp; 82
+  \end{bmatrix} - \begin{bmatrix}
+  610 &amp; 3.1 &amp; 13 &amp; 120 \\
+  610 &amp; 3.1 &amp; 13 &amp; 120 \\
+  610 &amp; 3.1 &amp; 13 &amp; 120 \\
+  610 &amp; 3.1 &amp; 13 &amp; 120 \\
+  610 &amp; 3.1 &amp; 13 &amp; 120 \\
+  610 &amp; 3.1 &amp; 13 &amp; 120
+  \end{bmatrix} \\[2ex]
+  &amp;= \begin{bmatrix}
+  -50  &amp; -0.1 &amp; -2 &amp; -8 \\
+  170  &amp; 0.8  &amp; -3 &amp; 23 \\
+   10  &amp; -0.2 &amp;  6 &amp; 4 \\
+  -10  &amp; -0.4 &amp; -6 &amp; 9 \\
+  110  &amp; 0.6  &amp;  5 &amp; 10 \\
+  -230 &amp; -0.7 &amp;  0 &amp; -38
+  \end{bmatrix}
+\end{split}  
+\]</span></p>
+<p>Using R, the following commands produce the deviation matrix.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create X</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">c</span>(<span class="dv">560</span>, <span class="fl">3.0</span>, <span class="dv">11</span>, <span class="dv">112</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>           <span class="dv">780</span>, <span class="fl">3.9</span>, <span class="dv">10</span>, <span class="dv">143</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>           <span class="dv">620</span>, <span class="fl">2.9</span>, <span class="dv">19</span>, <span class="dv">124</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>           <span class="dv">600</span>, <span class="fl">2.7</span>,  <span class="dv">7</span>, <span class="dv">129</span>, </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>           <span class="dv">720</span>, <span class="fl">3.7</span>, <span class="dv">18</span>, <span class="dv">130</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>           <span class="dv">380</span>, <span class="fl">2.4</span>, <span class="dv">13</span>, <span class="dv">82</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">4</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a ones column vector with six elements</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>ones <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute M (mean matrix)</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>M <span class="ot">=</span> ones <span class="sc">%*%</span> <span class="fu">t</span>(ones) <span class="sc">%*%</span> X <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]  610  3.1   13  120
+[2,]  610  3.1   13  120
+[3,]  610  3.1   13  120
+[4,]  610  3.1   13  120
+[5,]  610  3.1   13  120
+[6,]  610  3.1   13  120</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute deviation matrix (D)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>D <span class="ot">=</span> X <span class="sc">-</span> M</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>D</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]  -50 -0.1   -2   -8
+[2,]  170  0.8   -3   23
+[3,]   10 -0.2    6    4
+[4,]  -10 -0.4   -6    9
+[5,]  110  0.6    5   10
+[6,] -230 -0.7    0  -38</code></pre>
+</div>
+</div>
+<p><br></p>
+<section id="creating-the-mean-matrix" class="level3" data-number="14.1.1">
+<h3 data-number="14.1.1" class="anchored" data-anchor-id="creating-the-mean-matrix"><span class="header-section-number">14.1.1</span> Creating the Mean Matrix</h3>
+<p>Here we used matrix operations to compute the mean matrix rather than built-in R functions. Taking a ones column vector of <em>n</em> elements and post-multiplying by its transpose produces a <span class="math inline">\(n \times n\)</span> matrix where all the elements are one; in our case we get a <span class="math inline">\(6 \times 6\)</span> ones matrix.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ones <span class="sc">%*%</span> <span class="fu">t</span>(ones)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]    1    1    1    1    1    1
+[2,]    1    1    1    1    1    1
+[3,]    1    1    1    1    1    1
+[4,]    1    1    1    1    1    1
+[5,]    1    1    1    1    1    1
+[6,]    1    1    1    1    1    1</code></pre>
+</div>
+</div>
+<p>This ones matrix is then post-multiplied by <strong>X</strong>. Since we are post-multiplyinga ones matrix, the resultin matrix will have the same elements in every row. Moreover these elements will be the column sums of <strong>X</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ones <span class="sc">%*%</span> <span class="fu">t</span>(ones) <span class="sc">%*%</span> X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,] 3660 18.6   78  720
+[2,] 3660 18.6   78  720
+[3,] 3660 18.6   78  720
+[4,] 3660 18.6   78  720
+[5,] 3660 18.6   78  720
+[6,] 3660 18.6   78  720</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute column sums</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3660.0   18.6   78.0  720.0</code></pre>
+</div>
+</div>
+<p>Finally, since we want the means, we multiply by the scalar <span class="math inline">\(\frac{1}{n}\)</span>, where <em>n</em> is the number of rows. This gets us the mean matrix, all via matrix operations.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ones <span class="sc">%*%</span> <span class="fu">t</span>(ones) <span class="sc">%*%</span> X <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]  610  3.1   13  120
+[2,]  610  3.1   13  120
+[3,]  610  3.1   13  120
+[4,]  610  3.1   13  120
+[5,]  610  3.1   13  120
+[6,]  610  3.1   13  120</code></pre>
+</div>
+</div>
+<p>Using mathematical notation, the deviation matrix can be expressed as:</p>
+<p><span class="math display">\[
+\begin{split}
+\underset{6 \times 4}{\mathbf{D}} &amp;= \underset{6 \times 4}{\mathbf{X}} - \underset{6 \times 4}{\mathbf{M}} \\[2ex]
+&amp;= \begin{bmatrix}
+  X_{1_{1}} &amp; X_{2_{1}} &amp; X_{3_{1}} &amp; X_{4_{1}} \\
+  X_{1_{2}} &amp; X_{2_{2}} &amp; X_{3_{2}} &amp; X_{4_{2}} \\
+  X_{1_{3}} &amp; X_{2_{3}} &amp; X_{3_{3}} &amp; X_{4_{3}} \\
+  X_{1_{4}} &amp; X_{2_{4}} &amp; X_{3_{4}} &amp; X_{4_{4}} \\
+  X_{1_{5}} &amp; X_{2_{5}} &amp; X_{3_{5}} &amp; X_{4_{5}} \\
+  X_{1_{6}} &amp; X_{2_{6}} &amp; X_{3_{6}} &amp; X_{4_{6}}
+  \end{bmatrix} - \begin{bmatrix}
+  \bar{X}_1 &amp; \bar{X}_2 &amp; \bar{X}_3 &amp; \bar{X}_4 \\
+  \bar{X}_1 &amp; \bar{X}_2 &amp; \bar{X}_3 &amp; \bar{X}_4 \\
+  \bar{X}_1 &amp; \bar{X}_2 &amp; \bar{X}_3 &amp; \bar{X}_4 \\
+  \bar{X}_1 &amp; \bar{X}_2 &amp; \bar{X}_3 &amp; \bar{X}_4 \\
+  \bar{X}_1 &amp; \bar{X}_2 &amp; \bar{X}_3 &amp; \bar{X}_4 \\
+  \bar{X}_1 &amp; \bar{X}_2 &amp; \bar{X}_3 &amp; \bar{X}_4
+  \end{bmatrix} \\[2ex]
+  &amp;= \begin{bmatrix}
+  (X_{1_{1}} - \bar{X}_1) &amp; (X_{2_{1}} - \bar{X}_2) &amp; (X_{3_{1}} - \bar{X}_3) &amp; (X_{4_{1}} - \bar{X}_4) \\
+  (X_{1_{2}} - \bar{X}_1) &amp; (X_{2_{2}} - \bar{X}_2) &amp; (X_{3_{2}} - \bar{X}_3) &amp; (X_{4_{2}} - \bar{X}_4) \\
+  (X_{1_{3}} - \bar{X}_1) &amp; (X_{2_{3}} - \bar{X}_2) &amp; (X_{3_{3}} - \bar{X}_3) &amp; (X_{4_{3}} - \bar{X}_4) \\
+  (X_{1_{4}} - \bar{X}_1) &amp; (X_{2_{4}} - \bar{X}_2) &amp; (X_{3_{4}} - \bar{X}_3) &amp; (X_{4_{4}} - \bar{X}_4) \\
+  (X_{1_{5}} - \bar{X}_1) &amp; (X_{2_{5}} - \bar{X}_2) &amp; (X_{3_{5}} - \bar{X}_3) &amp; (X_{4_{5}} - \bar{X}_4) \\
+  (X_{1_{6}} - \bar{X}_1) &amp; (X_{2_{6}} - \bar{X}_2) &amp; (X_{3_{6}} - \bar{X}_3) &amp; (X_{4_{6}} - \bar{X}_4)
+  \end{bmatrix}
+\end{split}  
+\]</span></p>
+<p><br></p>
+</section>
+</section>
+<section id="sscp-matrix" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="sscp-matrix"><span class="header-section-number">14.2</span> SSCP Matrix</h2>
+<p>To obtain the sums of squares and cross products (SSCP) matrix, we can pre-multiply <strong>D</strong> by its transpose.</p>
+<p><span class="math display">\[
+\scriptscriptstyle
+\begin{split}
+\underset{4 \times 4}{\mathbf{SSCP}} &amp;= \underset{4 \times 6}{\mathbf{D}}^\intercal\underset{6 \times 4}{\mathbf{D}} \\[2ex]
+&amp;= \begin{bmatrix}
+  (X_{1_{1}} - \bar{X}_1) &amp; (X_{1_{2}} - \bar{X}_1) &amp; (X_{1_{3}} - \bar{X}_1) &amp; (X_{1_{4}} - \bar{X}_1) &amp; (X_{1_{5}} - \bar{X}_1) &amp; (X_{1_{6}} - \bar{X}_1) \\
+  (X_{2_{1}} - \bar{X}_2) &amp; (X_{2_{2}} - \bar{X}_2) &amp; (X_{2_{3}} - \bar{X}_2) &amp; (X_{2_{4}} - \bar{X}_2) &amp; (X_{2_{5}} - \bar{X}_2) &amp; (X_{2_{6}} - \bar{X}_2) \\
+  (X_{3_{1}} - \bar{X}_3) &amp; (X_{3_{2}} - \bar{X}_3) &amp; (X_{3_{3}} - \bar{X}_3) &amp; (X_{3_{4}} - \bar{X}_3) &amp; (X_{3_{5}} - \bar{X}_3) &amp; (X_{3_{6}} - \bar{X}_3) \\
+  (X_{4_{1}} - \bar{X}_4) &amp; (X_{4_{2}} - \bar{X}_4) &amp; (X_{4_{3}} - \bar{X}_4) &amp; (X_{4_{4}} - \bar{X}_4) &amp; (X_{4_{5}} - \bar{X}_4) &amp; (X_{4_{6}} - \bar{X}_4)
+\end{bmatrix}
+\begin{bmatrix}
+  (X_{1_{1}} - \bar{X}_1) &amp; (X_{2_{1}} - \bar{X}_2) &amp; (X_{3_{1}} - \bar{X}_3) &amp; (X_{4_{1}} - \bar{X}_4) \\
+  (X_{1_{2}} - \bar{X}_1) &amp; (X_{2_{2}} - \bar{X}_2) &amp; (X_{3_{2}} - \bar{X}_3) &amp; (X_{4_{2}} - \bar{X}_4) \\
+  (X_{1_{3}} - \bar{X}_1) &amp; (X_{2_{3}} - \bar{X}_2) &amp; (X_{3_{3}} - \bar{X}_3) &amp; (X_{4_{3}} - \bar{X}_4) \\
+  (X_{1_{4}} - \bar{X}_1) &amp; (X_{2_{4}} - \bar{X}_2) &amp; (X_{3_{4}} - \bar{X}_3) &amp; (X_{4_{4}} - \bar{X}_4) \\
+  (X_{1_{5}} - \bar{X}_1) &amp; (X_{2_{5}} - \bar{X}_2) &amp; (X_{3_{5}} - \bar{X}_3) &amp; (X_{4_{5}} - \bar{X}_4) \\
+  (X_{1_{6}} - \bar{X}_1) &amp; (X_{2_{6}} - \bar{X}_2) &amp; (X_{3_{6}} - \bar{X}_3) &amp; (X_{4_{6}} - \bar{X}_4)
+  \end{bmatrix} \\[2ex]
+  &amp;= \begin{bmatrix}
+  \sum (X_{1_{i}} - \bar{X}_1)^2 &amp; \sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2) &amp; \sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3) &amp; \sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2) &amp; \sum (X_{2_{i}} - \bar{X}_2)^2 &amp; \sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3) &amp; \sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3) &amp; \sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3) &amp; \sum (X_{3_{i}} - \bar{X}_3)^2 &amp; \sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4) &amp; \sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4) &amp; \sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4) &amp; \sum (X_{4_{i}} - \bar{X}_4)^2
+  \end{bmatrix}
+\end{split}  
+\]</span></p>
+<p>The diagonal of the <strong>SSCP</strong> matrix contains the sums of squared deviations for each of the variables (columns) represented in <strong>X</strong>. For example, the element in the first row and first column of the SSCP matrix (<span class="math inline">\(\mathbf{SSCP}_{11}\)</span>) is the sum of squared deviations for the SAT variable. The off-diagonal elements in the SSCP matrix are the cross-products of the deviation scores between the different variables. That is:</p>
+<p><span class="math display">\[
+\mathbf{SSCP} = \begin{bmatrix}
+  \mathrm{SS}_1 &amp; \mathrm{CP}_{12} &amp; \mathrm{CP}_{13} &amp; \mathrm{CP}_{14} \\
+  \mathrm{CP}_{21} &amp; \mathrm{SS}_2 &amp; \mathrm{CP}_{23} &amp; \mathrm{CP}_{24} \\
+  \mathrm{CP}_{21} &amp; \mathrm{CP}_{32} &amp; \mathrm{SS}_3 &amp; \mathrm{CP}_{34} \\
+  \mathrm{CP}_{41} &amp; \mathrm{CP}_{42} &amp; \mathrm{CP}_{43} &amp; \mathrm{SS}_4
+  \end{bmatrix}
+\]</span> Also note that the <strong>SSCP</strong> matrix is square and symmetric.</p>
+<p>Using R:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SSCP matrix</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>SSCP <span class="ot">=</span> <span class="fu">t</span>(D) <span class="sc">%*%</span> D</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View SSCP matrix</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>SSCP</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]  [,2] [,3]    [,4]
+[1,] 96600 370.0  260 14100.0
+[2,]   370   1.7    2    47.4
+[3,]   260   2.0  110   -33.0
+[4,] 14100  47.4  -33  2234.0</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>The <strong>SSCP</strong> matrix is a scalar multiple of the variance–covariance matrix (<span class="math inline">\(\boldsymbol{\Sigma}\)</span>). Namely,</p>
+<p><span class="math display">\[
+\mathbf{SSCP} = n (\boldsymbol{\Sigma})
+\]</span></p>
+<p>That is if me multiply the <strong>SSCP</strong> matrix by <span class="math inline">\(\frac{1}{n}\)</span> we obtain the variance–covariance matrix. Mathematically,</p>
+<p><span class="math display">\[
+\scriptstyle
+\begin{split}
+\underset{4 \times 4}{\boldsymbol{\Sigma}} &amp;= \frac{1}{n}(\underset{4 \times 4}{\mathbf{SSCP}}) \\[2ex]
+&amp;= \frac{1}{n} \begin{bmatrix}
+  \sum (X_{1_{i}} - \bar{X}_1)^2 &amp; \sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2) &amp; \sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3) &amp; \sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2) &amp; \sum (X_{2_{i}} - \bar{X}_2)^2 &amp; \sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3) &amp; \sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3) &amp; \sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3) &amp; \sum (X_{3_{i}} - \bar{X}_3)^2 &amp; \sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4) \\
+  \sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4) &amp; \sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4) &amp; \sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4) &amp; \sum (X_{4_{i}} - \bar{X}_4)^2
+  \end{bmatrix} \\[2ex]
+  &amp;= \begin{bmatrix}
+  \frac{\sum (X_{1_{i}} - \bar{X}_1)^2}{n} &amp; \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2)}{n} &amp; \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3)}{n} &amp; \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4)}{n} \\
+  \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{2_{i}} - \bar{X}_2)}{n} &amp; \frac{\sum (X_{2_{i}} - \bar{X}_2)^2}{n} &amp; \frac{\sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3)}{n} &amp; \frac{\sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4)}{n} \\
+  \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{3_{i}} - \bar{X}_3)}{n} &amp; \frac{\sum (X_{2_{i}} - \bar{X}_2)(X_{3_{i}} - \bar{X}_3)}{n} &amp; \frac{\sum (X_{3_{i}} - \bar{X}_3)^2}{n} &amp; \frac{\sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4)}{n} \\
+  \frac{\sum (X_{1_{i}} - \bar{X}_1)(X_{4_{i}} - \bar{X}_4)}{n} &amp; \frac{\sum (X_{2_{i}} - \bar{X}_2)(X_{4_{i}} - \bar{X}_4)}{n} &amp; \frac{\sum (X_{3_{i}} - \bar{X}_3)(X_{4_{i}} - \bar{X}_4)}{n} &amp; \frac{\sum (X_{4_{i}} - \bar{X}_4)^2}{n}
+  \end{bmatrix}
+\end{split}  
+\]</span></p>
+<p>The diagonal of the <span class="math inline">\(\boldsymbol{\Sigma}\)</span> matrix contains the variances for each of the variables (columns) represented in <strong>X</strong>. For example, the element in the first row and first column of <span class="math inline">\(\boldsymbol{\Sigma}\)</span> (<span class="math inline">\(\boldsymbol{\Sigma}_{11}\)</span>) is the variance for the SAT variable. The off-diagonal elements in <span class="math inline">\(\boldsymbol{\Sigma}\)</span> are the covariances between the different variables. That is:</p>
+<p><span class="math display">\[
+\boldsymbol{\Sigma} = \begin{bmatrix}
+  \mathrm{Var}(X_1) &amp; \mathrm{Cov}(X_1,X_2) &amp; \mathrm{Cov}(X_1,X_3) &amp; \mathrm{Cov}(X_1,X_4) \\
+  \mathrm{Cov}(X_2,X_1) &amp; \mathrm{Var}(X_2) &amp; \mathrm{Cov}(X_2,X_3) &amp; \mathrm{Cov}(X_2,X_4) \\
+  \mathrm{Cov}(X_3,X_1) &amp; \mathrm{Cov}(X_3,X_2) &amp; \mathrm{Var}(X_3) &amp; \mathrm{Cov}(X_3,X_4) \\
+  \mathrm{Cov}(X_4,X_1) &amp; \mathrm{Cov}(X_4,X_2) &amp; \mathrm{Cov}(X_4,X_3) &amp; \mathrm{Var}(X_4)
+  \end{bmatrix}
+\]</span></p>
+<p>Similar to the <strong>SSCP</strong> matrix, <span class="math inline">\(\boldsymbol{\Sigma}\)</span> is also a square, symmetric matrix.</p>
+<p>Using R:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute SIGMA matrix</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>SIGMA <span class="ot">=</span> SSCP <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># View SIGMA matrix</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>SIGMA</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            [,1]       [,2]       [,3]      [,4]
+[1,] 16100.00000 61.6666667 43.3333333 2350.0000
+[2,]    61.66667  0.2833333  0.3333333    7.9000
+[3,]    43.33333  0.3333333 18.3333333   -5.5000
+[4,]  2350.00000  7.9000000 -5.5000000  372.3333</code></pre>
+</div>
+</div>
+<p>The <code>var()</code> function can also be applied to <strong>X</strong> directly to obtain the <span class="math inline">\(\boldsymbol{\Sigma}\)</span> matrix. Note that the <code>var()</code> function uses <span class="math inline">\(\frac{1}{n-1}\)</span> rather than <span class="math inline">\(\frac{1}{n}\)</span> as the scalar multiple to obtain the variance–covariance matrix.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain SIGMA directly</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(X)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]  [,2] [,3]    [,4]
+[1,] 19320 74.00 52.0 2820.00
+[2,]    74  0.34  0.4    9.48
+[3,]    52  0.40 22.0   -6.60
+[4,]  2820  9.48 -6.6  446.80</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>SSCP <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1]  [,2] [,3]    [,4]
+[1,] 19320 74.00 52.0 2820.00
+[2,]    74  0.34  0.4    9.48
+[3,]    52  0.40 22.0   -6.60
+[4,]  2820  9.48 -6.6  446.80</code></pre>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="correlation-matrix" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="correlation-matrix"><span class="header-section-number">14.3</span> Correlation Matrix</h2>
+<p>We can convert <span class="math inline">\(\boldsymbol{\Sigma}\)</span> to a correlation matrix by standardizing it; that is dividing each element by its corresponding standard deviation. This is equivalent to pre- <em>and</em> post-multiplying <span class="math inline">\(\boldsymbol{\Sigma}\)</span> by a scaling matrix, <strong>S</strong>, a diagonal matrix with elements equal to the reciprocal of the standard deviations of each of the variables:</p>
+<p><span class="math display">\[
+\mathbf{S} = \begin{bmatrix}
+  \frac{1}{\mathrm{SD}(X_1)} &amp; 0 &amp; 0 &amp; 0 \\
+  0 &amp; \frac{1}{\mathrm{SD}(X_2)} &amp; 0 &amp; 0 \\
+  0 &amp; 0 &amp; \frac{1}{\mathrm{SD}(X_3)} &amp; 0 \\
+  0 &amp; 0 &amp; 0 &amp; \frac{1}{\mathrm{SD}(X_4)}
+\end{bmatrix}
+\]</span></p>
+<p>Employing R, we can obtain the scaling matrix by first pulling out the diagonal elements of <span class="math inline">\(\boldsymbol{\Sigma}\)</span> (the variances) and then using those to create <strong>S</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get variances</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>V <span class="ot">=</span> <span class="fu">diag</span>(SIGMA)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>V</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 16100.0000000     0.2833333    18.3333333   372.3333333</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create S</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>S <span class="ot">=</span> <span class="fu">diag</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(V))</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>S</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            [,1]     [,2]      [,3]       [,4]
+[1,] 0.007881104 0.000000 0.0000000 0.00000000
+[2,] 0.000000000 1.878673 0.0000000 0.00000000
+[3,] 0.000000000 0.000000 0.2335497 0.00000000
+[4,] 0.000000000 0.000000 0.0000000 0.05182437</code></pre>
+</div>
+</div>
+<p>We can now pre- and post-multiply <span class="math inline">\(\boldsymbol{\Sigma}\)</span> by <strong>S</strong> to obtain the correlation matrix, <strong>R</strong>. That is,</p>
+<p><span class="math display">\[
+\mathbf{R} = \mathbf{S}\boldsymbol{\Sigma}\mathbf{S}
+\]</span> Since both <strong>S</strong> and <span class="math inline">\(\boldsymbol{\Sigma}\)</span> are <span class="math inline">\(4 \times 4\)</span> matrices, <strong>R</strong> will also be a <span class="math inline">\(4 \times 4\)</span> matrix. Moreover, <strong>R</strong> will also be both square and symmetric.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>R <span class="ot">=</span> S <span class="sc">%*%</span> SIGMA <span class="sc">%*%</span> S</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]      [,2]        [,3]        [,4]
+[1,] 1.00000000 0.9130377  0.07976061  0.95981817
+[2,] 0.91303768 1.0000000  0.14625448  0.76915222
+[3,] 0.07976061 0.1462545  1.00000000 -0.06656961
+[4,] 0.95981817 0.7691522 -0.06656961  1.00000000</code></pre>
+</div>
+</div>
+<p>Again, the <code>cor()</code> function could be applied directly to <strong>X</strong>, noting that the <strong>SSCP</strong> matrix would be scaled by <span class="math inline">\(\frac{1}{n-1}\)</span>.</p>
+<p><br></p>
+</section>
+<section id="standardized-scores" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="standardized-scores"><span class="header-section-number">14.4</span> Standardized Scores</h2>
+<p>Standardized scores (<em>z</em>-scores) can be computed for the original values in <strong>X</strong> by post-multiplying the deviation matrix (<strong>D</strong>) by the same scaling matrix, <strong>S</strong>.</p>
+<p><span class="math display">\[
+\mathbf{Z} = \mathbf{DS}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute standardized scores</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>Z <span class="ot">=</span> D <span class="sc">%*%</span> S</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>Z</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            [,1]       [,2]       [,3]       [,4]
+[1,] -0.39405520 -0.1878673 -0.4670994 -0.4145950
+[2,]  1.33978769  1.5029383 -0.7006490  1.1919605
+[3,]  0.07881104 -0.3757346  1.4012981  0.2072975
+[4,] -0.07881104 -0.7514691 -1.4012981  0.4664193
+[5,]  0.86692145  1.1272037  1.1677484  0.5182437
+[6,] -1.81265393 -1.3150710  0.0000000 -1.9693261</code></pre>
+</div>
+</div>
+<p>We can also use <strong>Z</strong> to compute the correlation matrix,</p>
+<p><span class="math display">\[
+\mathbf{R} = \frac{\mathbf{Z}^\intercal\mathbf{Z}}{n}
+\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute R</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(Z) <span class="sc">%*%</span> Z <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           [,1]      [,2]        [,3]        [,4]
+[1,] 1.00000000 0.9130377  0.07976061  0.95981817
+[2,] 0.91303768 1.0000000  0.14625448  0.76915222
+[3,] 0.07976061 0.1462545  1.00000000 -0.06656961
+[4,] 0.95981817 0.7691522 -0.06656961  1.00000000</code></pre>
+</div>
+</div>
+<p><br></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

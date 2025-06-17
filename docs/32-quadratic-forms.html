@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael Rodriguez &amp; Andrew Zieffler">
-<meta name="dcterms.date" content="2025-06-17">
 
-<title>Matrix Algebra for Educational Scientists</title>
+<title>16&nbsp; Quadratic Form of a Matrix – Matrix Algebra for Educational Scientists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,6 +81,35 @@ function toggle_visibility(id) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/sticky-notes.css">
 <link rel="stylesheet" href="assets/table-styles.css">
@@ -98,7 +125,7 @@ function toggle_visibility(id) {
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <a class="flex-grow-1 no-decor" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-          <h1 class="quarto-secondary-nav-title">Matrix Algebra for Educational Scientists</h1>
+          <h1 class="quarto-secondary-nav-title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Quadratic Form of a Matrix</span></h1>
         </a>     
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
@@ -124,7 +151,7 @@ function toggle_visibility(id) {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Foreword</span></a>
   </div>
 </li>
@@ -268,7 +295,7 @@ function toggle_visibility(id) {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./32-quadratic-forms.html" class="sidebar-item-text sidebar-link">
+  <a href="./32-quadratic-forms.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Quadratic Form of a Matrix</span></span></a>
   </div>
 </li>
@@ -396,26 +423,14 @@ function toggle_visibility(id) {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Matrix Algebra for Educational Scientists</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Quadratic Form of a Matrix</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael Rodriguez &amp; Andrew Zieffler </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 17, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -425,28 +440,128 @@ function toggle_visibility(id) {
 </header>
 
 
-<section id="foreword" class="level1 unnumbered">
-<h1 class="unnumbered">Foreword</h1>
-<p>Spring 2021.</p>
-<p>The contents of this book constitute information from several set of notes from a variety of QME courses, including from an old course called EPSY 8269. We are making this book available as a resource for anyone who wants to use it. We will be adding and revising the content for awhile. Feel free to offer criticism, suggestion, and feedback. You can either <a href="https://github.com/zief0002/matrix-algebra/issues">open an issue</a> on the book’s github page or <a href="mailto:%20zief0002@umn.edu">send us an email</a> directly.</p>
-<p><br></p>
-<p>Andrew Zieffler &amp; Michael Rodriguez</p>
 <p><br> <br></p>
-<section id="acknowledgments" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>Many thanks to James Terwilliger, whose initial notes gave rise to some of this material. Also, thank you to all the students in our courses who have been through previous iterations of this material. Your feedback has been invaluable, and you are the world’s greatest copy editors.</p>
-<p><br><br></p>
+<div class="protip">
+<p>🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧 <strong>UNDER CONSTRUCTION</strong> 🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧&nbsp;&nbsp;🚧</p>
+</div>
+<p><br> <br> <br></p>
+<p>In this chapter, you will learn about the quadratic forms of a matrix. The quadratic forms of a matrix comes up often in statistical applications. For example the sum of squares can be expressed in quadratic form. Similarly the SSCP, covariance matrix, and correlation matrix are also examples of the quadratic form of a matrix. Before we introduce the quadratic form of a matrix, we first examine the linear and bilinear forms of a matrix.</p>
+<p><br></p>
+<section id="linear-forms" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="linear-forms"><span class="header-section-number">16.1</span> Linear Forms</h2>
+<p>You are already quite familiar with the linear form of a matrix. The <em>linear form of a matrix</em> is simply a linear mapping of that matrix. In scalar algebraic notation, we might write:</p>
+<p><span class="math display">\[
+f(x) = a_1x_1 + a_2x_2 + a_3x_3 + \ldots + a_nx_n
+\]</span></p>
+<p>It is linear since the <em>x</em>-values are all to the first degree. We can, equivalently use matrix notation to express this as:</p>
+<p><span class="math display">\[
+f(\mathbf{x}) = \mathbf{a}^\intercal\mathbf{x}
+\]</span></p>
+<p>where,</p>
+<p><span class="math display">\[
+\mathbf{a}^\intercal = \begin{bmatrix}
+a_1 &amp; a_2 &amp; a_3 &amp; \ldots &amp; a_n
+\end{bmatrix} \qquad \mathrm{and}  \qquad \mathbf{x}=\begin{bmatrix}
+x_1 \\ x_2 \\ x_3 \\ \vdots \\ x_n
+\end{bmatrix}
+\]</span></p>
+<p><br></p>
 </section>
-<section id="colophon" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="colophon">Colophon</h2>
-<!-- Artwork by [&commat;allison_horst](https://twitter.com/allison_horst) -->
-<p>The book is typeset using <a href="https://fonts.google.com/specimen/Atkinson+Hyperlegible">Atkinson Hyperlegible</a>. The color palette was generated using <a href="https://coolors.co/">coolors.co</a>.</p>
-<p>Icon and note ideas and prototypes by <a href="http://desiree.rbind.io/">Desirée De Leon</a>.</p>
-<p>Some of the book style and CSS code were inspired by: De Leon, D., &amp; Hill, A. (2019). <a href="https://rstudio4edu.github.io/rstudio4edu-book/">A handbook for teaching and learning with R and RStudio</a>.</p>
-<p><br><br></p>
+<section id="bilinear-form" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="bilinear-form"><span class="header-section-number">16.2</span> Bilinear Form</h2>
+<p>Bilinear form of a matrix extends the linear form by including two variables, <strong>x</strong> and <strong>y</strong>. For example, if we had:</p>
+<p><span class="math display">\[
+\mathbf{x}=\begin{bmatrix}
+x_1 \\ x_2 \\ x_3
+\end{bmatrix}  \qquad \mathbf{y}=\begin{bmatrix}
+y_1 \\ y_2
+\end{bmatrix}
+\]</span> Then the bilinear form written in scalar algebra is:</p>
+<p><span class="math display">\[
+f(x,y) = a_{11}x_1y_1 + a_{21}x_2y_1 + a_{31}x_3y_1 + a_{12}x_1y_2 + a_{22}x_2y_2 + a_{32}x_3y_2
+\]</span></p>
+<p>The linear part of <em>bilinear</em> implies that both variables are to the first power. And, only one <em>x</em> and one <em>y</em> appear in each term. Using matrix notation, we can write:</p>
+<p><span class="math display">\[
+f(\mathbf{x},\mathbf{y}) = \mathbf{x}^\intercal\mathbf{A}\mathbf{y}
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}
+a_{11} &amp; a_{12} \\ a_{21} &amp; a_{22} \\ a_{31} &amp; a_{32}
+\end{bmatrix}
+\]</span></p>
+<p>We refer to the bilinear form of matrix <strong>A</strong>. Note that there is more than one bilinear form for <strong>A</strong>; by changing the values in the <strong>x</strong> and <strong>y</strong> vectors, we can obtain many different bilinear mappings.</p>
+<p><br></p>
+</section>
+<section id="quadratic-form" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="quadratic-form"><span class="header-section-number">16.3</span> Quadratic Form</h2>
+<p>The quadratic form is a special case of the bilinear form in which <span class="math inline">\(\mathbf{x}=\mathbf{y}\)</span>. In this case we replace <strong>y</strong> with <strong>x</strong> so that we create terms with the different combinations of <strong>x</strong>:</p>
+<p><span class="math display">\[
+f(x,x) = a_{11}x_1y_1 + a_{21}x_2y_1 + a_{31}x_3y_1 + a_{12}x_1y_2 + a_{22}x_2y_2 + a_{32}x_3y_2
+\]</span></p>
+<p><strong>A</strong>, simply means a linear function of a set of variables given in a vector <strong>x</strong>.</p>
+<p>Consider the following transformation of a square matrix <strong>A</strong>:</p>
+<p><span class="math display">\[
+\mathbf{x}^\intercal\mathbf{Ax}
+\]</span></p>
+<p>where <strong>A</strong> is a <span class="math inline">\(k \times k\)</span> matrix and <strong>x</strong> is a <span class="math inline">\(k \times 1\)</span> vector. This transformations is referred to as the quadratic transformation or the <em>quadratic form</em> of <strong>A</strong>.</p>
+<p><br></p>
+</section>
+<section id="example-quadratic-form" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="example-quadratic-form"><span class="header-section-number">16.4</span> Example: Quadratic Form</h2>
+<p>Consider the following square matrix <strong>A</strong>:</p>
+<p><span class="math display">\[
+\mathbf{A} = \begin{bmatrix}
+-3 &amp; 5  \\
+4 &amp; -2  \\
+\end{bmatrix}
+\]</span></p>
+<p>We can compute the quadratic form by using the vector</p>
+<p><span class="math display">\[
+\mathbf{x} = \begin{bmatrix}
+x_1 \\ x_2\end{bmatrix}
+\]</span></p>
+<p>Then,</p>
+<p><span class="math display">\[
+\begin{split}
+\mathbf{x}^\intercal\mathbf{Ax} &amp;= \begin{bmatrix}
+x_1 &amp; x_2\end{bmatrix}\begin{bmatrix}
+-3 &amp; 5  \\
+4 &amp; -2  \\
+\end{bmatrix}\begin{bmatrix}
+x_1 \\ x_2\end{bmatrix} \\[2ex]
+&amp;= \begin{bmatrix}
+x_1 &amp; x_2\end{bmatrix}\begin{bmatrix}
+-3x_1 + 5x_2  \\
+4x_1 -2x_2
+\end{bmatrix} \\[2ex]
+&amp;= x_1(-3x_1 + 5x_2) + x_2(4x_1 -2x_2) \\[2ex]
+&amp;= -3x_1^2 + 5x_1x_2 + 4x_1x_2 -2x_2^2 \\[2ex]
+&amp;= -3x_1^2 + 9x_1x_2 -2x_2^2
+\end{split}
+\]</span></p>
+<p>By looking at the exponents in the final expression, you can see why this is called a quadratic form or transformation of <strong>A</strong>.</p>
+<p><br></p>
+<p><br></p>
+<!-- Decomposition of Matrix Transformations: Eigenstructures and Quadratic Forms -->
+<!-- J. Douglas Carroll, Paul E. Green, in Mathematical Tools for Applied Multivariate Analysis, 1997 -->
+<!-- 5.8.6 Types of Quadratic Forms -->
+<!-- Quadratic forms can be classified according to the nature of the eigenvalues of the matrix of the quadratic form: -->
+<!-- 1.If all λi are positive, the form is said to be positive definite. -->
+<!-- 2. If all λi are negative, the form is said to be negative definite. -->
+<!-- 3. If all λi are nonnegative (positive or zero), the form is said to be positive semidefinite. -->
+<!-- 4. If all λi are nonpositive (zero or negative), the form is said to be negative semidefinite. -->
+<!-- 5. If the λi represent a mixture of positive, zero, and negative values, the form is said to be indefinite -->
+</section>
+<section id="positive-definite-matrices" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="positive-definite-matrices"><span class="header-section-number">16.5</span> Positive Definite Matrices</h2>
+<p>Positive definite matrices come up a lot in statistical applications. For example, nonsingular correlation matrices and covariance matrices are positive definite matrices. A symmetric matrix is said to be <em>positive definite</em> if all of its eigenvalues are positive. An alternative definition is that a symmetric matrix is positive definite if pre-multiplying and post-multiplying it by the same vector always gives a positive number as a result, independently of how we choose the vector. Mathematically, <strong>A</strong> is positive definite if:</p>
+<p><span class="math display">\[
+\mathbf{v}^\intercal \mathbf{Av} &gt; 0
+\]</span> These two definitions are equivalent.</p>
+<p><br></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
